@@ -1,0 +1,7 @@
+live_voting_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: LiveVotingBundle:Default:index }
+
+presentations:
+    path:   /presentations
+    defaults: {_controller: LiveVotingBundle:Presentation:presentations}

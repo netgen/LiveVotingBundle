@@ -1,0 +1,7 @@
+parameters:
+#    live_voting.example.class: Netgen\LiveVotingBundle\Example
+
+services:
+#    live_voting.example:
+#        class: %live_voting.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
