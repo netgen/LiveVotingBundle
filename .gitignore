@@ -1,1 +1,34 @@
+<<<<<<< HEAD
 /LiveVotingBundle/nbproject/private/
+=======
+<<<<<<< HEAD
+/web/bundles/
+/app/bootstrap.php.cache
+/app/cache/*
+/app/config/parameters.yml
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/build/
+/vendor/
+/bin/
+/composer.phar
+=======
+# Bootstrap
+app/bootstrap*
+
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+web/uploads/*
+web/bundles/*
+
+# Configuration files
+app/config/parameters.ini
+app/config/parameters.yml
+
+# Composer
+composer.phar
+>>>>>>> ed38902fe404f0f6acdb4c4e329f30be4cffbdcb
+>>>>>>> 3761978991e27e17ebf360007e3aca4bff01c854
