@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
     <h1>Presentation creation</h1>
@@ -7,7 +7,7 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('admin_presentation') }}">
+        <a href="{{ path('admin_presentation', {'event_id':event_id}) }}">
             Back to the list
         </a>
     </li>

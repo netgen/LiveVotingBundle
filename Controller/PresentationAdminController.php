@@ -26,6 +26,7 @@ class PresentationAdminController extends Controller
         $entities = $em->getRepository('LiveVotingBundle:Presentation')->findBy(array('event'=>$event));
         return $this->render('LiveVotingBundle:Presentation:index.html.twig', array(
             'entities' => $entities,
+            'event_id' => $event_id
         ));
     }
     /**
@@ -75,7 +76,7 @@ class PresentationAdminController extends Controller
      * Displays a form to create a new Presentation entity.
      *
      */
-    public function newAction()
+    public function newAction($event_id)
     {
         $entity = new Presentation();
         $form   = $this->createCreateForm($entity);
@@ -83,6 +84,7 @@ class PresentationAdminController extends Controller
         return $this->render('LiveVotingBundle:Presentation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'event_id' => $event_id
         ));
     }
 

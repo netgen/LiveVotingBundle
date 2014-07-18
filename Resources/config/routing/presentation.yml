@@ -7,7 +7,7 @@ admin_presentation_show:
     defaults: { _controller: "LiveVotingBundle:PresentationAdmin:show" }
 
 admin_presentation_new:
-    path:     /new
+    path:     /{event_id}/new
     defaults: { _controller: "LiveVotingBundle:PresentationAdmin:new" }
 
 admin_presentation_create:

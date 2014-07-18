@@ -108,4 +108,9 @@ class Event
     {
         return $this->stateValue;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
