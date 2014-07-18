@@ -29,6 +29,8 @@ class EventAdminController extends Controller
             'entities' => $entities,
         ));
     }
+
+
     /**
      * Creates a new Event entity.
      *
@@ -87,27 +89,6 @@ class EventAdminController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a Event entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('LiveVotingBundle:Event')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('LiveVotingBundle:Event:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Displays a form to edit an existing Event entity.
@@ -124,12 +105,10 @@ class EventAdminController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('LiveVotingBundle:Event:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -165,7 +144,6 @@ class EventAdminController extends Controller
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -177,48 +155,9 @@ class EventAdminController extends Controller
 
         return $this->render('LiveVotingBundle:Event:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
-    /**
-     * Deletes a Event entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('LiveVotingBundle:Event')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Event entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('admin_event'));
-    }
-
-    /**
-     * Creates a form to delete a Event entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_event_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
 }

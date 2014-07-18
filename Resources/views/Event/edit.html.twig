@@ -3,7 +3,7 @@
 {% block body -%}
     <h1>Event edit</h1>
 
-    {{ form(edit_form) }}
+    {{ form(edit_form, {'attr':{'class':'form-horizontal'}}) }}
 
         <ul class="record_actions">
     <li>
@@ -11,6 +11,5 @@
             Back to the list
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

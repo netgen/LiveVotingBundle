@@ -16,9 +16,15 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('stateName')
+            ->add('stateName', 'choice', array(
+                'choices' =>array(
+                    'PRE'=>'Welcome screen!',
+                    'ACTIVE'=>'Start!',
+                    'POST'=>'End!'
+                )))
             ->add('stateValue')
         ;
+
     }
     
     /**
