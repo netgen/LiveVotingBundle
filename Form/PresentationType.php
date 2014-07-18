@@ -19,7 +19,7 @@ class PresentationType extends AbstractType
             ->add('presenterSurname')
             ->add('presentationName')
             ->add('votingEnabled')
-            ->add('event')
+            ->add('event', 'entity', array('class'=>'Netgen\LiveVotingBundle\Entity\Event'))
         ;
     }
     

@@ -33,9 +33,11 @@ class PresentationAdminController extends Controller
      * Creates a new Presentation entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $event_id)
     {
         $entity = new Presentation();
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        $entity->setEvent($event);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -63,7 +65,7 @@ class PresentationAdminController extends Controller
     private function createCreateForm(Presentation $entity)
     {
         $form = $this->createForm(new PresentationType(), $entity, array(
-            'action' => $this->generateUrl('admin_presentation_create'),
+            'action' => $this->generateUrl('admin_presentation_create', array('event_id'=>$entity->getEvent()->getId())),
             'method' => 'POST',
         ));
 
@@ -79,8 +81,10 @@ class PresentationAdminController extends Controller
     public function newAction($event_id)
     {
         $entity = new Presentation();
-        $form   = $this->createCreateForm($entity);
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        $entity->setEvent($event);
 
+        $form   = $this->createCreateForm($entity);
         return $this->render('LiveVotingBundle:Presentation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -102,11 +106,9 @@ class PresentationAdminController extends Controller
             throw $this->createNotFoundException('Unable to find Presentation entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('LiveVotingBundle:Presentation:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity
         ));
     }
 
@@ -125,12 +127,10 @@ class PresentationAdminController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -167,7 +167,6 @@ class PresentationAdminController extends Controller
             throw $this->createNotFoundException('Unable to find Presentation entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -179,48 +178,8 @@ class PresentationAdminController extends Controller
 
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
-    /**
-     * Deletes a Presentation entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Presentation entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('admin_presentation'));
-    }
-
-    /**
-     * Creates a form to delete a Presentation entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_presentation_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
 }
