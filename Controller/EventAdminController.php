@@ -125,7 +125,7 @@ class EventAdminController extends Controller
             'action' => $this->generateUrl('admin_event_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('numberOfSeconds', 'number', array('mapped'=> false));
+        $form->add('numberOfSeconds', 'number', array('mapped'=> false, 'required'=>false));
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
