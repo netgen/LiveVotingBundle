@@ -1,18 +1,13 @@
 $(document).ready(function(){
-	$(".welcomeScreen").show();
-	$("#presentationId0").hide();
-	$(".activeScreen").hide();
-	$(".endScreen").hide();
 	$("#footer").hide();
 	$("#timer").hide();
-
-
-
+	$("#presentationId0").hide();
 
     /**
      *  Gets event id from url which looks like:
      *  /event/{id}
      */
+     
     function getEventId(ret){
         var struct = window.location.pathname.split('/');
 
@@ -42,10 +37,8 @@ $(document).ready(function(){
 	    	    setTimeout(checkPresentationStart, 1000);
 	    	}
 	    	else if (state == "ACTIVE"){
-	    		$(".welcomeScreen").hide();
-	    		$(".activeScreen").show();
 
-	    		//add presentations
+	    		$("#presentationId0").show();
 				$.each(data, function(mainKey,mainValue){
 					if ($.isArray(mainValue)){
 						//iterate through array
@@ -54,7 +47,7 @@ $(document).ready(function(){
 						});
 					}
 				});
-
+				$("#presentationId0").hide();
 	    		active ();
 	    	}
 	    	else if (state == "POST"){
@@ -62,9 +55,7 @@ $(document).ready(function(){
 	    	}
 	    });
 	}
-	checkPresentationStart ();
-
-
+	
 	var active = function() {
 		$.getJSON(urlPath, function(data){
 			if (data["eventStatus"] == "POST"){
@@ -96,18 +87,13 @@ $(document).ready(function(){
 	};
 
 	var end = function() {
-		$(".welcomeScreen").hide();
-		$(".activeScreen").hide();
-		$(".endScreen").show();
+		console.log("end");
 	}
 
-	var sendVote = function(presId, myRate){
-		$.post("/dest.php", {id:presId, rate: myRate  }, function(status){
-			if(status["error"]){
-				console.log(status["error"]);
-			}
-		});
-	}
+
+
+
+
 	var res;
 	var changeTime = function (time1){
 		var timerId = setInterval(function() {
@@ -129,7 +115,7 @@ $(document).ready(function(){
 		//determine who called footer
 		if (event == "timer"){
 			var timeRemaining = param;
-			$("#timer").hide();
+			$("#timer").show();
 			changeTime(timeRemaining);
 			
 		}
@@ -137,6 +123,8 @@ $(document).ready(function(){
 			var error = param;
 		}
 	}
+
+	checkPresentationStart ();
 });
 
 
