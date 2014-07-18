@@ -79,7 +79,6 @@ class PresentationAdminController extends Controller
 
     /**
      * Displays a form to create a new Presentation entity.
-     *
      */
     public function newAction($event_id)
     {
@@ -131,7 +130,10 @@ class PresentationAdminController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
+
+        // Not needed in edit page
         $editForm->remove('votingEnabled');
+
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
@@ -166,7 +168,6 @@ class PresentationAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Presentation entity.');
         }
@@ -186,9 +187,11 @@ class PresentationAdminController extends Controller
         ));
     }
 
-
-    private function createEnableDisableForm(Presentation $entity)
-    {
+    /**
+     * Creates form to create enable/disable form for presentation
+     * so users can vote on it.
+     */
+    private function createEnableDisableForm(Presentation $entity){
         $form = $this->createFormBuilder();
         $form->setMethod('PUT');
         $form->setAction($this->generateUrl('admin_presentation_vote_enable', array('id'=>$entity->getId())));
@@ -200,12 +203,13 @@ class PresentationAdminController extends Controller
         return $form->getForm();
     }
 
-
+    /**
+     * Action that enabled and disables presentation.
+     */
     public function enableDisableAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Presentation entity.');
         }
