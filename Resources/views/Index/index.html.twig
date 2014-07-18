@@ -2,15 +2,20 @@
 <html lang="en">
 <head>
     <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="css/bootstrap-theme.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
+<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
+<link href= "{{ asset('bundles/livevoting/css/main.css') }}" rel="stylesheet" />
 
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery.timer.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title></title>
@@ -18,32 +23,33 @@
 <body>
 
 <div class="container">
-<div id="wellcome">
-<img src="logo.png" alt="logo" class="img-rounded">
+<div id="welcome">
+<img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-rounded">
 <hr size=50 color="red">
       <div id="load1">
         <p> Be patient It`s loading </p> </div>
         <div id="load2">
          <p> ... </p> </div>
 
-         <img src="baltazar.jpg" alt="..." class="img-circle">
       </div>
 </div>
 
+<div id="presentationId0">
+	hello
+	<img id="presenterImg"></img>
+	<p id="presentationInfo"></p>
+	<button id="button1" type="button">Click Me1!</button> 
+	<button id="button2" type="button">Click Me2!</button> 
+	<button id="button3" type="button">Click Me3!</button> 
+	<button id="button4" type="button">Click Me4!</button> 
+	<button id="button5" type="button">Click Me5!</button> 
 
+</div>
 
-
-
-<div id="animation"></div>
-<div id="vote">
-
-  </a>
-</div></div>
-<div id="thanks"></div>
-
-<p></p>
-
-
+		<div id="footer">
+		    Sticky Footer
+		</div>
+	    <span id="timer">60</span>
 
 
 </body>

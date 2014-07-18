@@ -1,8 +1,13 @@
 $(document).ready(function(){
 	$(".welcomeScreen").show();
+	$("#presentationId0").hide();
 	$(".activeScreen").hide();
 	$(".endScreen").hide();
 	$("#footer").hide();
+	$("#timer").hide();
+
+
+
 
     /**
      *  Gets event id from url which looks like:
@@ -19,6 +24,13 @@ $(document).ready(function(){
 
     var urlPath = '/event_status/'+getEventId(1);
 
+    var addPresentation = function (newId) {
+		var div = document.getElementById('presentationId0'),
+	    clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
+		clone.id = "presentationId"+newId;
+		document.body.appendChild(clone);
+	}
+
 	var checkPresentationStart = function() {
 	    $.getJSON(urlPath, function(data){
 	    	if (data["error"]){
@@ -32,6 +44,17 @@ $(document).ready(function(){
 	    	else if (state == "ACTIVE"){
 	    		$(".welcomeScreen").hide();
 	    		$(".activeScreen").show();
+
+	    		//add presentations
+				$.each(data, function(mainKey,mainValue){
+					if ($.isArray(mainValue)){
+						//iterate through array
+						$.each(mainValue, function(k,v){
+							addPresentation(v["presentationId"]);
+						});
+					}
+				});
+
 	    		active ();
 	    	}
 	    	else if (state == "POST"){
@@ -45,6 +68,9 @@ $(document).ready(function(){
 	var active = function() {
 		$.getJSON(urlPath, function(data){
 			if (data["eventStatus"] == "POST"){
+				//temp
+				end();
+				//temp
 				footer("timer",data["seconds"]*1000);
 			}
 			else {
@@ -98,17 +124,16 @@ $(document).ready(function(){
 	}
 
 	var footer = function (event,param){
-
+		$("#footer").show();
 		//first disable the rest of the screen
 		//determine who called footer
 		if (event == "timer"){
 			var timeRemaining = param;
-			console.log(event);
+			$("#timer").hide();
 			changeTime(timeRemaining);
-			$("#footer").show();
-
+			
 		}
-		else { //odredi error
+		else { //determine error
 			var error = param;
 		}
 	}
