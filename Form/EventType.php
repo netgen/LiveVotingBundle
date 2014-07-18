@@ -24,7 +24,7 @@ class EventType extends AbstractType
                 ),
                 'label'=>'Current state'
             ))
-            ->add('stateValue', 'text', array('label'=>'Seconds until voting ends'))
+            //->add('stateValue', 'text', array('label'=>'Seconds until voting ends'))
         ;
 
     }

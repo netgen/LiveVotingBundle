@@ -43,7 +43,7 @@ class PresentationAdminController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_presentation_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_event'));
         }
 
         return $this->render('LiveVotingBundle:Presentation:new.html.twig', array(

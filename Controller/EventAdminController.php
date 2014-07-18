@@ -46,7 +46,7 @@ class EventAdminController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_event_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_event'));
         }
 
         return $this->render('LiveVotingBundle:Event:new.html.twig', array(
@@ -125,7 +125,7 @@ class EventAdminController extends Controller
             'action' => $this->generateUrl('admin_event_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
+        $form->add('numberOfSeconds', 'number', array('mapped'=> false));
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
@@ -148,9 +148,9 @@ class EventAdminController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
             $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_event_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_event'));
         }
 
         return $this->render('LiveVotingBundle:Event:edit.html.twig', array(
@@ -160,7 +160,7 @@ class EventAdminController extends Controller
     }
 
     public function enableDisableAction(){
-
+        // DELETE ME (MEJBI)
     }
 
     private function createEnableDisableForm(Event $event){

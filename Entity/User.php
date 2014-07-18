@@ -17,12 +17,12 @@ class User
     /**
      * @var string
      */
-    private $email;
+    private $email = null;
 
     /**
      * @var string
      */
-    private $password;
+    private $password = null;
 
 
     /**

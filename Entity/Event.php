@@ -27,7 +27,7 @@ class Event
     /**
      * @var string
      */
-    private $stateValue;
+    private $stateValue = null;
 
 
     /**
