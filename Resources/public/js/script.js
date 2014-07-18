@@ -2,7 +2,7 @@ $(document).ready(function(){
 	$(".welcomeScreen").show();
 	$(".activeScreen").hide();
 	$(".endScreen").hide();
-
+	$("#footer").hide();
 
     /**
      *  Gets event id from url which looks like:
@@ -21,7 +21,6 @@ $(document).ready(function(){
 
 	var checkPresentationStart = function() {
 	    $.getJSON(urlPath, function(data){
-
 	    	if (data["error"]){
 	    		console.log(data["errorMessage"]);
 	    	}
@@ -36,17 +35,17 @@ $(document).ready(function(){
 	    		active ();
 	    	}
 	    	else if (state == "POST"){
-                console.log('usao u post');
 	    		end();
 	    	}
 	    });
 	}
 	checkPresentationStart ();
 
+
 	var active = function() {
 		$.getJSON(urlPath, function(data){
 			if (data["eventStatus"] == "POST"){
-				setTimeout(end,(1)*1000);
+				footer("timer",data["seconds"]*1000);
 			}
 			else {
 				//check votingStatus, iterate through JSON
@@ -70,6 +69,12 @@ $(document).ready(function(){
 		});
 	};
 
+	var end = function() {
+		$(".welcomeScreen").hide();
+		$(".activeScreen").hide();
+		$(".endScreen").show();
+	}
+
 	var sendVote = function(presId, myRate){
 		$.post("/dest.php", {id:presId, rate: myRate  }, function(status){
 			if(status["error"]){
@@ -77,12 +82,42 @@ $(document).ready(function(){
 			}
 		});
 	}
-
-	var end = function() {
-		$(".welcomeScreen").hide();
-		$(".activeScreen").hide();
-		$(".endScreen").show();
-		console.log("end");
+	var res;
+	var changeTime = function (time1){
+		var timerId = setInterval(function() {
+			time1 = time1 - 1000;
+			res = time1 / 1000;
+			res =String(res);
+			document.getElementById("timer").innerHTML = res;
+			if (time1 == 0) {
+				clearInterval(timerId);
+				end();
+			}
+		    console.log(time1);
+		}, 1000);
 	}
 
+	var footer = function (event,param){
+
+		//first disable the rest of the screen
+		//determine who called footer
+		if (event == "timer"){
+			var timeRemaining = param;
+			console.log(event);
+			changeTime(timeRemaining);
+			$("#footer").show();
+
+		}
+		else { //odredi error
+			var error = param;
+		}
+	}
 });
+
+
+
+/*
+1) footer u slucaju greske
+2) footer za timer
+u oba slucaja glasanje onemoguceno
+*/
