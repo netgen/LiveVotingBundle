@@ -18,6 +18,7 @@ Netgen\LiveVotingBundle\Entity\Presentation:
             length: 256
         votingEnabled:
             type: boolean
+            default: false
 #    oneToMany:
 #        vote:
 #            targetEntity: Netgen\LiveVotingBundle\Entity\Vote

@@ -111,6 +111,6 @@ class Event
 
     public function __toString()
     {
-        return strval($this->getId());
+        return $this->getName();
     }
 }

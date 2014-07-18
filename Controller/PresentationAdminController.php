@@ -25,7 +25,10 @@ class PresentationAdminController extends Controller
         $event = $em->getRepository('LiveVotingBundle:Event')->find($event_id);
         $entities = $em->getRepository('LiveVotingBundle:Presentation')->findBy(array('event'=>$event));
         return $this->render('LiveVotingBundle:Presentation:index.html.twig', array(
-            'entities' => $entities,
+            'entities' => array_map(
+                function($ent){
+                   return array($ent, $this->createEnableDisableForm($ent)->createView());
+                }, $entities),
             'event_id' => $event_id
         ));
     }
@@ -46,7 +49,7 @@ class PresentationAdminController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_event'));
+            return $this->redirect($this->generateUrl('admin_presentation', array('event_id'=>$event_id)));
         }
 
         return $this->render('LiveVotingBundle:Presentation:new.html.twig', array(
@@ -85,6 +88,7 @@ class PresentationAdminController extends Controller
         $entity->setEvent($event);
 
         $form   = $this->createCreateForm($entity);
+        $form->remove('votingEnabled');
         return $this->render('LiveVotingBundle:Presentation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -127,7 +131,7 @@ class PresentationAdminController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-
+        $editForm->remove('votingEnabled');
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
@@ -173,13 +177,52 @@ class PresentationAdminController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_presentation_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $entity->getEvent()->getId())));
         }
 
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
         ));
+    }
+
+
+    private function createEnableDisableForm(Presentation $entity)
+    {
+        $form = $this->createFormBuilder();
+        $form->setMethod('PUT');
+        $form->setAction($this->generateUrl('admin_presentation_vote_enable', array('id'=>$entity->getId())));
+        if($entity->getVotingEnabled())
+            $form->add('disable', 'submit',  array('label'=>'Disable', 'attr'=>array('class'=>'btn btn-danger')));
+        else
+            $form->add('enable', 'submit',  array('label'=>'Enable', 'attr'=>array('class'=>'btn btn-success')));
+
+        return $form->getForm();
+    }
+
+
+    public function enableDisableAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Presentation entity.');
+        }
+
+        $form = $this->createEnableDisableForm($entity, 'enabled', array());
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            if($form->getClickedButton()->getName()=='enable'){
+                $entity->setVotingEnabled(true);
+            }else{
+                $entity->setVotingEnabled(false);
+            }
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $entity->getEvent()->getId())));
+
     }
 
 }

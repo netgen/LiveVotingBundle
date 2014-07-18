@@ -24,4 +24,7 @@ admin_presentation_update:
     defaults: { _controller: "LiveVotingBundle:PresentationAdmin:update" }
     requirements: { _method: post|put }
 
-
+admin_presentation_vote_enable:
+    path:     /{id}/voting_status
+    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:enableDisable" }
+    requirements: { _method: put }
