@@ -192,10 +192,10 @@ class PresentationAdminController extends Controller
         $form = $this->createFormBuilder();
         $form->setMethod('PUT');
         $form->setAction($this->generateUrl('admin_presentation_vote_enable', array('id'=>$entity->getId())));
-        if($entity->getVotingEnabled())
-            $form->add('disable', 'submit',  array('label'=>'Disable', 'attr'=>array('class'=>'btn btn-danger')));
+        if($entity->getVotingEnabled()==False)
+            $form->add('disable', 'submit',  array('label'=>'Disabled', 'attr'=>array('class'=>'btn btn-danger')));
         else
-            $form->add('enable', 'submit',  array('label'=>'Enable', 'attr'=>array('class'=>'btn btn-success')));
+            $form->add('enable', 'submit',  array('label'=>'Enabled', 'attr'=>array('class'=>'btn btn-success')));
 
         return $form->getForm();
     }
@@ -213,7 +213,7 @@ class PresentationAdminController extends Controller
         $form = $this->createEnableDisableForm($entity, 'enabled', array());
         $form->handleRequest($request);
         if ($form->isValid()) {
-            if($form->getClickedButton()->getName()=='enable'){
+            if($form->getClickedButton()->getName()=='disable'){
                 $entity->setVotingEnabled(true);
             }else{
                 $entity->setVotingEnabled(false);
