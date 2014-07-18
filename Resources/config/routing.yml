@@ -1,22 +1,10 @@
-live_voting_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: LiveVotingBundle:Default:index }
-
-presentations:
-    path:   /presentations
-    defaults: {_controller: LiveVotingBundle:Presentation:presentations}
-
-status:
-    path:   /status
-    defaults: {_controller: LiveVotingBundle:Brain:status}
-
 index:
     path:    /
     defaults: {_controller: LiveVotingBundle:Index:index}
 
-index2:
-    path:    /index2/{event_id}
-    defaults: {_controller: LiveVotingBundle:Index:index2, event_id: -1}
+event:
+    path:    /event/{event_id}
+    defaults: {_controller: LiveVotingBundle:Event:event, event_id: -1}
     requirements:
         event_id: -?\d+
         #negative numbers

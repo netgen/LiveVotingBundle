@@ -17,7 +17,7 @@ class EventController extends Controller {
             return new JsonResponse( array('error'=>1, 'errorMessage'=>'Non existing event.') );
 
         $response = array(
-            'error'=>0,
+            'error' => 0,
             'eventName' => $event->getName(),
             'eventId '=> $event->getId(),
             'eventStatus' => $event->getStateName()
@@ -30,7 +30,6 @@ class EventController extends Controller {
                 $response['error']='1';
                 $response['errorMessage'] = 'Voting is closed.';
                 return new JsonResponse($response);
-
             }else{
                 $response['seconds'] = $date_when_voting_ends - time();
             }
@@ -46,8 +45,8 @@ class EventController extends Controller {
             ->getRepository('LiveVotingBundle:Presentation')
             ->findBy(array('event'=>$event));
 
-        $response['presentations']=array();
 
+        $response['presentations']=array();
         // adding presentations to response array
         foreach($presentations as $presentation){
             $tmp = array(

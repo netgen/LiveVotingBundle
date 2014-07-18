@@ -2,10 +2,6 @@ admin_event:
     path:     /
     defaults: { _controller: "LiveVotingBundle:EventAdmin:index" }
 
-admin_event_show:
-    path:     /{id}/show
-    defaults: { _controller: "LiveVotingBundle:EventAdmin:show" }
-
 admin_event_new:
     path:     /new
     defaults: { _controller: "LiveVotingBundle:EventAdmin:new" }
@@ -23,8 +19,3 @@ admin_event_update:
     path:     /{id}/update
     defaults: { _controller: "LiveVotingBundle:EventAdmin:update" }
     requirements: { _method: post|put }
-
-admin_event_delete:
-    path:     /{id}/delete
-    defaults: { _controller: "LiveVotingBundle:EventAdmin:delete" }
-    requirements: { _method: post|delete }

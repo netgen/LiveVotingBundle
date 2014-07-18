@@ -2,9 +2,6 @@ admin_presentation:
     path:     /event_id/{event_id}
     defaults: { _controller: "LiveVotingBundle:PresentationAdmin:index" }
 
-admin_presentation_show:
-    path:     /{id}/show
-    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:show" }
 
 admin_presentation_new:
     path:     /new
@@ -23,8 +20,3 @@ admin_presentation_update:
     path:     /{id}/update
     defaults: { _controller: "LiveVotingBundle:PresentationAdmin:update" }
     requirements: { _method: post|put }
-
-admin_presentation_delete:
-    path:     /{id}/delete
-    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:delete" }
-    requirements: { _method: post|delete }
