@@ -1,0 +1,52 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Event list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>State</th>
+                <!-- <th>Value</th> -->
+                <th>Edit</th>
+                <th>Enable</th>
+                <th>End</th>
+                <th>View presentations</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('admin_event_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.stateName }}</td>
+                <!-- <td>{{ entity.stateValue }}</td> SVEJEDNO JE OVDJE -->
+                <td>
+                    <a class='btn btn-primary' href="{{ path('admin_event_edit', { 'id': entity.id }) }}">Edit</a>
+                </td>
+                <td>
+                    <a class='btn btn-primary' href="{{ path('admin_event_edit', { 'id': entity.id }) }}">Enable</a>
+                </td>
+
+                <td>
+                    <a class='btn btn-primary' href="{{ path('admin_event_edit', { 'id': entity.id }) }}">End</a>
+                </td>
+
+                <td>
+                    <a class='btn btn-primary' href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">View</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('admin_event_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

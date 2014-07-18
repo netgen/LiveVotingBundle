@@ -1,0 +1,11 @@
+{"error":0,
+"eventName":"Ljetni NetGenovci",
+"eventId ":1,
+"eventStatus":"PRE",
+"presentations":[{"presenterName":"miki","presenterSurname":"stol",
+"presentationName":"javascript","votingEnabled":false,"presentationId":1},
+{"presenterName":"galaksi","presenterSurname":"tab","presentationName":"pe ha pe",
+"votingEnabled":true,"presentationId":2},
+{"presenterName":"adi","presenterSurname":"das","presentationName":"tor ba","votingEnabled":false,"presentationId":3},
+{"presenterName":"slika","presenterSurname":"nazidu","presentationName":"creative control",
+"votingEnabled":false,"presentationId":4}]}

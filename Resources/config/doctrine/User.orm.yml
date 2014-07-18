@@ -1,0 +1,19 @@
+Netgen\LiveVotingBundle\Entity\User:
+    type: entity
+    table: user
+    id:
+        id:
+            type: string
+            length: 128
+    fields:
+        email:
+            type: string
+            length: 128
+        password:
+            type: string
+            length: 128
+#    oneToMany:
+#        vote:
+#            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
+#            mappedBy: user_id
+
