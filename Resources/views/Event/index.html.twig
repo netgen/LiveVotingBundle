@@ -10,8 +10,6 @@
                 <th>State</th>
                 <!-- <th>Value</th> -->
                 <th>Edit</th>
-                <th>Enable</th>
-                <th>End</th>
                 <th>View presentations</th>
             </tr>
         </thead>
@@ -20,16 +18,8 @@
             <tr>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.stateName }}</td>
-                <!-- <td>{{ entity.stateValue }}</td> SVEJEDNO JE OVDJE -->
                 <td>
                     <a class='btn btn-primary' href="{{ path('admin_event_edit', { 'id': entity.id }) }}">Edit</a>
-                </td>
-                <td>
-                    <a class='btn btn-primary' href="{{ path('admin_event_edit', { 'id': entity.id }) }}">Enable</a>
-                </td>
-
-                <td>
-                    <a class='btn btn-primary' href="{{ path('admin_event_edit', { 'id': entity.id }) }}">End</a>
                 </td>
 
                 <td>

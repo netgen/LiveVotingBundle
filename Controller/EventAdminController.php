@@ -159,5 +159,16 @@ class EventAdminController extends Controller
         ));
     }
 
+    public function enableDisableAction(){
 
+    }
+
+    private function createEnableDisableForm(Event $event){
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin_event_enabledisable', array('event_id' => $event->getId())))
+            ->setMethod('PUT')
+            ->add('enabledisable', 'submit')
+            ->getForm()
+        ;
+    }
 }

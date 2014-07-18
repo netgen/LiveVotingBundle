@@ -19,3 +19,9 @@ admin_event_update:
     path:     /{id}/update
     defaults: { _controller: "LiveVotingBundle:EventAdmin:update" }
     requirements: { _method: post|put }
+
+
+admin_event_enabledisable:
+    path:     /enableDisable
+    defaults: { _controller: "LiveVotingBundle:EventAdmin:enableDisable" }
+    requirements: { _method: post }
