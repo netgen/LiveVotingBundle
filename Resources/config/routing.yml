@@ -16,7 +16,7 @@ event_status:
 vote:
     path: /vote/{presentation_id}
     defaults: {_controller: LiveVotingBundle:Vote:vote, presentation_id: -1}
-
+    requirements: { _method: post }
 
 # ADMIN ROUTING #
 LiveVotingBundle_admin_event:

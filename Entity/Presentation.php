@@ -32,7 +32,7 @@ class Presentation
     /**
      * @var boolean
      */
-    private $votingEnabled;
+    private $votingEnabled = false;
 
     /**
      * @var \Doctrine\Common\Collections\Collection

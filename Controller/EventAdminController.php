@@ -125,7 +125,7 @@ class EventAdminController extends Controller
             'action' => $this->generateUrl('admin_event_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('numberOfSeconds', 'number', array('mapped'=> false));
+        $form->add('numberOfSeconds', 'number', array('mapped'=> false, 'required'=>false));
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
@@ -163,6 +163,7 @@ class EventAdminController extends Controller
         // DELETE ME (MEJBI)
     }
 
+    // TODO: Implement later if needed
     private function createEnableDisableForm(Event $event){
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_event_enabledisable', array('event_id' => $event->getId())))
