@@ -2,10 +2,16 @@
 
 namespace Netgen\LiveVotingBundle\Features\Result;
 
-use Doctrine\ORM\
+use Doctrine\ORM\EntityManager;
 
 class Result {
-    public function getResults($event_id){
+    protected $em;
 
+    public function __construct(EntityManager $em){
+        $this->em = $em;
+    }
+
+    public function getResults($event_id){
+        return $this->em->getRepository('LiveVotingBundle:Event')->find($event_id);
     }
 } 

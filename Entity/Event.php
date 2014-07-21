@@ -113,4 +113,49 @@ class Event
     {
         return $this->getName();
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $presentations;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->presentations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add presentations
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Presentation $presentations
+     * @return Event
+     */
+    public function addPresentation(\Netgen\LiveVotingBundle\Entity\Presentation $presentations)
+    {
+        $this->presentations[] = $presentations;
+
+        return $this;
+    }
+
+    /**
+     * Remove presentations
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Presentation $presentations
+     */
+    public function removePresentation(\Netgen\LiveVotingBundle\Entity\Presentation $presentations)
+    {
+        $this->presentations->removeElement($presentations);
+    }
+
+    /**
+     * Get presentations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPresentations()
+    {
+        return $this->presentations;
+    }
 }

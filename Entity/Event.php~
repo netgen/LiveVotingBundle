@@ -17,25 +17,18 @@ class Event
     /**
      * @var string
      */
+    private $name;
+
+    /**
+     * @var string
+     */
     private $stateName;
 
     /**
      * @var string
      */
-    private $stateValue;
+    private $stateValue = null;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $vote;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->vote = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -45,6 +38,29 @@ class Event
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Event
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -93,36 +109,8 @@ class Event
         return $this->stateValue;
     }
 
-    /**
-     * Add vote
-     *
-     * @param \Netgen\LiveVotingBundle\Entity\Presentation $vote
-     * @return Event
-     */
-    public function addVote(\Netgen\LiveVotingBundle\Entity\Presentation $vote)
+    public function __toString()
     {
-        $this->vote[] = $vote;
-
-        return $this;
-    }
-
-    /**
-     * Remove vote
-     *
-     * @param \Netgen\LiveVotingBundle\Entity\Presentation $vote
-     */
-    public function removeVote(\Netgen\LiveVotingBundle\Entity\Presentation $vote)
-    {
-        $this->vote->removeElement($vote);
-    }
-
-    /**
-     * Get vote
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getVote()
-    {
-        return $this->vote;
+        return $this->getName();
     }
 }
