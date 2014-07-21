@@ -24,6 +24,7 @@ class VoteController extends Controller{
                 'errorMessage'=>'Vote must be a number:'.$rate
             ));
         }
+        $rate = intval($rate);
 
         $presentation = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->find($presentation_id);
         if( $presentation==null ){
@@ -50,8 +51,8 @@ class VoteController extends Controller{
                 ));
             }
         }
-        $rate = intval($rate);
-        if( $rate<0 or $rate>5){
+
+        if( $rate<=0 or $rate>5){
             return new JsonResponse(array(
                 'error'=>3,
                 'errorMessage'=>'Vote must be between 1 and 5.'
