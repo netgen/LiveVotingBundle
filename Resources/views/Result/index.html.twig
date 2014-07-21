@@ -1,1 +1,92 @@
-hi there
+<html>
+<head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+
+<div id="container" style="width:100%; height:400px;"></div>
+
+</body>
+<script type="text/javascript">
+    var requestData, animation_data, chart;
+    var callMe = function(){
+        setTimeout(setPresentationData, 1000);
+    };
+
+    requestData = function(index){
+        if(index>=animation_data.length)return;
+        console.log(index);
+        var data = [];
+        var avg;
+        for(var i in animation_data[index]){
+            avg = parseFloat(animation_data[index][i]['average']);
+            data.push(avg);
+        }
+
+        chart.series[0].setData(data);
+        setTimeout(function(){requestData(index+1)}, 1000);
+
+    }
+
+
+    function setPresentationData(){
+        if(!animation_data.length)return;
+        var data = [];
+        var categories = [];
+        for(var ii in animation_data[0]){
+            categories.push(animation_data[0][ii]['presentation']);
+            data.push(0);
+        }
+        chart.xAxis[0].update({categories: categories}, true);
+        chart.series[0].setData(data);
+        setTimeout(function(){requestData(0)}, 1000);
+    }
+
+
+    (function(){
+
+        animation_data = jQuery.parseJSON('{{ animation_data|raw }}');
+        var presentationIndex = {};
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                defaultSeriesType: 'column',
+                events: {
+                    load: function(){
+                        setTimeout(setPresentationData, 1000);
+                    }
+                }
+            },
+            plotOptions: {
+                column:{
+                    colorByPoint: true
+                }
+            },
+            //colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
+            //    '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
+            title: {
+                text: 'Results for EVENT NAME HERE'
+            },
+            xAxis: {
+                type: 'String',
+                tickPixelInterval: 5,
+                categories: ['123','444', 'asdasd']
+            },
+            yAxis: {
+                minPadding: 0.1,
+                maxPadding: 0.1,
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Value',
+                    margin: 80
+                }
+            },
+            series: [{showInLegend: false, data:[]}]
+        });
+
+    })();
+</script>
+</html>
