@@ -29,5 +29,6 @@ class Result {
             ));
 
         //print_r($presentations[0]);
+        print_r(count($event->getVote()));
     }
 } 

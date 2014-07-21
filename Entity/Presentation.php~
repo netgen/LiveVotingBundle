@@ -209,19 +209,4 @@ class Presentation
     {
         return $this->event;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $votes;
-
-
-    /**
-     * Get votes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getVotes()
-    {
-        return $this->votes;
-    }
 }

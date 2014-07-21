@@ -173,4 +173,57 @@ class Event
     {
         return $this->presentation;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $vote;
+
+
+    /**
+     * Add vote
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Vote $vote
+     * @return Event
+     */
+    public function addVote(\Netgen\LiveVotingBundle\Entity\Vote $vote)
+    {
+        $this->vote[] = $vote;
+
+        return $this;
+    }
+
+    /**
+     * Remove vote
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Vote $vote
+     */
+    public function removeVote(\Netgen\LiveVotingBundle\Entity\Vote $vote)
+    {
+        $this->vote->removeElement($vote);
+    }
+
+    /**
+     * Get vote
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVote()
+    {
+        return $this->vote;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $votes;
+
+
+    /**
+     * Get votes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVotes()
+    {
+        return $this->votes;
+    }
 }
