@@ -1,0 +1,31 @@
+Netgen\LiveVotingBundle\Entity\Presentation:
+
+    type: entity
+    table: presentation
+    id:
+        id:
+            type: integer
+            generator: {strategy: AUTO}
+    fields:
+        presenterName:
+            type: string
+            length: 64
+        presenterSurname:
+            type: string
+            length: 64
+        presentationName:
+            type: string
+            length: 256
+        votingEnabled:
+            type: boolean
+            default: false
+#    oneToMany:
+#        vote:
+#            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
+#            mappedBy: id
+    manyToOne:
+        event:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Event
+            joinColumn:
+                name: event_id
+                referencedColumnId: event_id

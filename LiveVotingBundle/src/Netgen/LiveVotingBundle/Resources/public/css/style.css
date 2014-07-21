@@ -1,0 +1,20 @@
+/* Moj css */
+
+body
+  {
+    margin: 0px;
+    padding: 0px;
+    background: #fafafa;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 12pt;
+    color: rgba(0,0,0,.6);
+  }
+
+}
+
+#container
+ .header
+  {
+   border-bottom: 3px;
+
+  }

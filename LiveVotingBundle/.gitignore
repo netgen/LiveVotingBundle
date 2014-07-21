@@ -28,3 +28,4 @@ app/config/parameters.yml
 # Composer
 composer.phar
 >>>>>>> ed38902fe404f0f6acdb4c4e329f30be4cffbdcb
+.idea/

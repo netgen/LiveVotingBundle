@@ -1,0 +1,21 @@
+Netgen\LiveVotingBundle\Entity\Vote:
+    type: entity
+    table: vote
+    id:
+        id:
+            type: integer
+            generator: {strategy: AUTO}
+    fields:
+        rate:
+            type: integer
+    manyToOne:
+        user:
+            targetEntity: Netgen\LiveVotingBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnId: user_id
+        presentation:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
+            joinColumn:
+                name: presentation_id
+                referencedColumnId: presentation_id
