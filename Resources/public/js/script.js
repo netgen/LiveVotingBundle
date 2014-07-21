@@ -1,11 +1,12 @@
 
 
 $(document).ready(function(){
-	//$body = $("body");
-	//$body.addClass("loading");
+
+	var source   = $("#presentation").html();
+	var template = Handlebars.compile(source);
+
 	$("#footer").hide();
 	$("#timer").hide();
-	$("#presentationId0").hide();
 
     /**
      *  Gets event id from url which looks like:
@@ -23,17 +24,10 @@ $(document).ready(function(){
 
     var urlPath = '/event_status/'+getEventId(1);
 
-    var addPresentation = function (newPresentation) {
-		var div = document.getElementById('presentationId0'),
-	    clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
-		clone.id = "presentationId"+newPresentation["presentationId"];
-		clone.innerHTML = "name: "+newPresentation["presenterName"]+"</br>";
-		clone.innerHTML += "surname: "+newPresentation["presenterSurname"]+"</br>";
-		clone.innerHTML += "presentation: "+newPresentation["presentationName"]+"</br>";
-		clone.innerHTML += "votingStatus: "+newPresentation["votingEnabled"]+"</br></br>";
-
-		document.body.appendChild(clone);
-	}
+    var addPresentations = function (newPresentations) {
+		var html = template({presentation: newPresentations});
+		document.body.innerHTML += html;
+		}	
 
 	var checkPresentationStart = function() {
 	    $.getJSON(urlPath, function(data){
@@ -46,12 +40,7 @@ $(document).ready(function(){
 	    	    setTimeout(checkPresentationStart, 1000);
 	    	}
 	    	else if (state == "ACTIVE"){
-
-	    		$("#presentationId0").show();
-				var presentations = data["presentations"];
-				for (var i in presentations){
-					addPresentation(presentations[i]);				}
-				$("#presentationId0").hide();
+				addPresentations(data["presentations"]);
 	    		active ();
 	    	}
 	    	else if (state == "POST"){
@@ -67,10 +56,12 @@ $(document).ready(function(){
 			}
 			else {
 				//check votingStatus, iterate through JSON
+				
 				var presentations = data["presentations"];
 				for (var i in presentations){
 					console.log(presentations[i]);
 				}
+				
 				setTimeout(active, 5000);
 			}
 
