@@ -7,7 +7,7 @@
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
-		<link href= "{{ asset('bundles/livevoting/css/main.css') }}" rel="stylesheet" />
+		<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/main.css') }}"  />
 
 
 		<!-- Latest compiled and minified JavaScript -->
@@ -15,26 +15,17 @@
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery.timer.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/spin.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<script id="presentation" type="text/x-handlebars-template">
-			foreach preyentaija in presentations:
-			preyteania.im
-	  		<div>{{ '{{presentationId0}}'}}
-				<img>{{ '{{presenterImg}}'}}</img>
-				<p>{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
-				<form>
-				    <span id="star1"></span>
-				    <span id="star2"></span>
-				    <span id="star3"></span>
-				    <span id="star4"></span>
-				    <span id="star5"></span>
-			 	</form>
-			    <img src="{{ asset('bundles/livevoting/img/man2.png') }}" alt="" class="img-circle" width="55px">
-			    <p></p>
-			</div>
+			{{ '{{#each presentations}}' }} 
+				{{ '{{vote}}' }}
+				{{ '{{presenterName }}' }} {{ '{{presenterSurname}}' }} {{ '{{presentationName}}' }}
+			{{ '{{/each}}' }}
+
 		</script>
 
 	<title></title>
@@ -43,15 +34,22 @@
 
 	<body>
 
-		<div class="container">
-			<div id="welcome">
+		<div id="welcome">
 
 			<img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-rounded">
 
 			<hr size=50 color="red">
 			<div class="modal"><!-- Place at bottom of page --></div>
 			<img src="{{ asset('bundles/livevoting/img/bal.png') }}" alt="" class="img-circle" width="55px">
-			</div>
+
+		</div>
+
+		<div id="voting">
+			<button id="1">1</button>
+			<button id="2">2</button>
+			<button id="3">3</button>
+			<button id="4">4</button>
+			<button id="5">5</button>
 		</div>
 
 		<div id="footer">
