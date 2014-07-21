@@ -1,0 +1,18 @@
+.welcomeScreen {
+	height: 960px;
+    width: 640px;
+    background-color: #FA6900;
+    border-radius: 5px;
+}
+.activeScreen {
+	height: 960px;
+    width: 640px;
+    background-color: #0000FF;
+    border-radius: 5px;
+}
+.endScreen {
+	height: 960px;
+    width: 640px;
+    background-color: #000000;
+    border-radius: 5px;
+}

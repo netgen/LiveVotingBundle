@@ -1,0 +1,49 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Presentation list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Presentation</th>
+                <th>Enable/Disable voting</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('admin_presentation_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.presenterName }}</td>
+                <td>{{ entity.presenterSurname }}</td>
+                <td>{{ entity.presentationName }}</td>
+                <td>
+                    {% if entity.votingEnabled %}
+                        <a class='btn btn-danger' href="{{ path('admin_presentation_show', { 'id': entity.id }) }}">Disable</a>
+                    {% else %}
+                        <a class='btn btn-success' href="{{ path('admin_presentation_show', { 'id': entity.id }) }}">Enable</a>
+
+                    {%  endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('admin_presentation_new') }}">
+                Create a new entry
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ path('admin_event') }}">
+                Back to events
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

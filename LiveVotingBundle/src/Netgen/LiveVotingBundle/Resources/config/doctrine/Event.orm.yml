@@ -1,0 +1,19 @@
+Netgen\LiveVotingBundle\Entity\Event:
+
+    type: entity
+    table: event
+    id:
+        id:
+            type: integer
+            generator: {strategy: AUTO}
+    fields:
+        name:
+            type: string
+            length: 256
+        stateName:
+            type: string
+            length: 64
+        stateValue:
+            type: string
+            length: 64
+            nullable: true

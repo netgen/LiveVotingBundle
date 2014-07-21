@@ -1,0 +1,15 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Presentation edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_presentation', {'event_id':entity.event.id}) }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}
