@@ -163,7 +163,7 @@ class EventAdminController extends Controller
         // DELETE ME (MEJBI)
     }
 
-    // TODO: Implement later if needed
+    // TODO: Implement later if neede1d
     private function createEnableDisableForm(Event $event){
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_event_enabledisable', array('event_id' => $event->getId())))

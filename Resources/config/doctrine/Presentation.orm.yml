@@ -19,13 +19,16 @@ Netgen\LiveVotingBundle\Entity\Presentation:
         votingEnabled:
             type: boolean
             default: false
-#    oneToMany:
-#        vote:
-#            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
-#            mappedBy: id
+
+    oneToMany:
+        votes:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
+            mappedBy: presentation
+
     manyToOne:
         event:
             targetEntity: Netgen\LiveVotingBundle\Entity\Event
+            inversedBy: presentations
             joinColumn:
-                name: event_id
-                referencedColumnId: event_id
+                name: presentation_id
+                referencedColumnId: id

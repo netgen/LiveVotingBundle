@@ -27,3 +27,7 @@ LiveVotingBundle_admin_event:
 LiveVotingBundle_admin_presentation:
     resource: "@LiveVotingBundle/Resources/config/routing/presentation.yml"
     prefix:   /admin/presentation
+
+LiveVotingBundle_admin_result:
+    resource: "@LiveVotingBundle/Resources/config/routing/result.yml"
+    prefix: /admin/result

@@ -1,11 +1,16 @@
 
 
 $(document).ready(function(){
-	//$body = $("body");
-	//$body.addClass("loading");
+
+	var source   = $("#presentation").html();
+	var template = Handlebars.compile(source);
+
 	$("#footer").hide();
 	$("#timer").hide();
-	$("#presentationId0").hide();
+
+	var spinner = new Spinner();
+	spinner.spin();
+	document.getElementById('welcome').appendChild(spinner.el);
 
     /**
      *  Gets event id from url which looks like:
@@ -23,18 +28,6 @@ $(document).ready(function(){
 
     var urlPath = '/event_status/'+getEventId(1);
 
-    var addPresentation = function (newPresentation) {
-		var div = document.getElementById('presentationId0'),
-	    clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
-		clone.id = "presentationId"+newPresentation["presentationId"];
-		clone.innerHTML = "name: "+newPresentation["presenterName"]+"</br>";
-		clone.innerHTML += "surname: "+newPresentation["presenterSurname"]+"</br>";
-		clone.innerHTML += "presentation: "+newPresentation["presentationName"]+"</br>";
-		clone.innerHTML += "votingStatus: "+newPresentation["votingEnabled"]+"</br></br>";
-
-		document.body.appendChild(clone);
-	}
-
 	var checkPresentationStart = function() {
 	    $.getJSON(urlPath, function(data){
 	    	if (data["error"]){
@@ -46,12 +39,11 @@ $(document).ready(function(){
 	    	    setTimeout(checkPresentationStart, 1000);
 	    	}
 	    	else if (state == "ACTIVE"){
+	    		$("#welcome").hide();
+				spinner.stop();
 
-	    		$("#presentationId0").show();
-				var presentations = data["presentations"];
-				for (var i in presentations){
-					addPresentation(presentations[i]);				}
-				$("#presentationId0").hide();
+	    		//add presentations
+	    		$("#voting").append (template (data));
 	    		active ();
 	    	}
 	    	else if (state == "POST"){
@@ -66,11 +58,36 @@ $(document).ready(function(){
 				footer("timer",data["seconds"]);
 			}
 			else {
-				//check votingStatus, iterate through JSON
+				//check voting status
 				var presentations = data["presentations"];
 				for (var i in presentations){
-					console.log(presentations[i]);
+					if (presentations[i]["votingEnabled"]){
+						presentationId = presentations[i]["presentationId"]
+						console.log("true");
+						$( "#1" ).on( "click", function() {
+							url = "/vote/";
+							url += presentationId;
+							console.log(url);
+							$.post( url, { rate: 1})
+								.done(function( data ) {
+								alert( "Data Loaded: " + data );
+							});				
+						});
+						$( "#2" ).on( "click", function() {
+						});
+						$( "#3" ).on( "click", function() {
+						
+						});
+						$( "#4" ).on( "click", function() {
+						
+						});
+						$( "#5" ).on( "click", function() {
+						
+						});						
+					}
+
 				}
+				
 				setTimeout(active, 5000);
 			}
 
@@ -111,11 +128,3 @@ $(document).ready(function(){
 
 	checkPresentationStart ();
 });
-
-
-
-/*
-1) footer u slucaju greske
-2) footer za timer
-u oba slucaja glasanje onemoguceno
-*/

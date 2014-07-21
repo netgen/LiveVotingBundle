@@ -1,4 +1,0 @@
-live_voting:
-    resource: "@LiveVotingBundle/Resources/config/routing.yml"
-    prefix:   /
-

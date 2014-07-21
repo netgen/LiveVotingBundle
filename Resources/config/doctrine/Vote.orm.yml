@@ -8,14 +8,24 @@ Netgen\LiveVotingBundle\Entity\Vote:
     fields:
         rate:
             type: integer
+
     manyToOne:
         user:
             targetEntity: Netgen\LiveVotingBundle\Entity\User
             joinColumn:
                 name: user_id
-                referencedColumnId: user_id
+                referencedColumnId: id
+
         presentation:
             targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
+            inversedBy: votes
             joinColumn:
                 name: presentation_id
-                referencedColumnId: presentation_id
+                referencedColumnId: id
+
+        event:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Event
+            inversedBy: votes
+            joinColumn:
+                name: event_id
+                referencedColumnId: id

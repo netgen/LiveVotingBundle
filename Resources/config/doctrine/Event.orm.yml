@@ -17,3 +17,10 @@ Netgen\LiveVotingBundle\Entity\Event:
             type: string
             length: 64
             nullable: true
+    oneToMany:
+        presentations:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
+            mappedBy: event
+        votes:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
+            mappedBy: event

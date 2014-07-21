@@ -108,4 +108,49 @@ class Vote
     {
         return $this->presentation;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $event;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->event = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add event
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Event $event
+     * @return Vote
+     */
+    public function addEvent(\Netgen\LiveVotingBundle\Entity\Event $event)
+    {
+        $this->event[] = $event;
+
+        return $this;
+    }
+
+    /**
+     * Remove event
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Event $event
+     */
+    public function removeEvent(\Netgen\LiveVotingBundle\Entity\Event $event)
+    {
+        $this->event->removeElement($event);
+    }
+
+    /**
+     * Get event
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
 }
