@@ -31,8 +31,8 @@ class Result {
             }
 
         }
-
-        $result = array(); // array of animation keyframes
+        $result = array('event'=>$event);
+        $animation_data = array(); // array of animation keyframes
         $presentationResult = array();
         foreach($presentations  as $presentation){
             $presentationResult[$presentation->getId()] = array(
@@ -58,10 +58,10 @@ class Result {
                 $tmp1[$vote->getPresentation()->getId()]  = $tmp;
                 $presentationResult[$vote->getPresentation()->getId()] = $tmp;
             }
-            $result[] = $tmp1;
+            $animation_data[] = $tmp1;
 
         }
-
+        $result['animation_data']=$animation_data;
         return $result;
     }
 } 
