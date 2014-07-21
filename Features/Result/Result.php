@@ -4,7 +4,7 @@ namespace Netgen\LiveVotingBundle\Features\Result;
 
 use Doctrine\ORM\EntityManager;
 use Netgen\LiveVotingBundle\Entity\Event;
-
+use Netgen\LiveVotingBundle\Entity\Vote;
 
 class Result {
     protected $em;
@@ -19,16 +19,23 @@ class Result {
             // TODO: Ask Edi how what to return to controller and how to handle exceptions
         }
 
-        // TODO: Fix database so I can fetch using only $event->getPresentations();
-        // TODO: Add ability to get all votes for one event $votes = $vote->getByEvent($event);
         $result = array();
-        $presentations = $this->em->
-            getRepository('LiveVotingBundle:Presentation')->
-            findBy(array(
-                'event'=>$event
-            ));
 
-        //print_r($presentations[0]);
-        print_r(count($event->getVote()));
+        $votes = $this->em->getRepository('LiveVotingBundle:Vote')->findByEvent($event);
+        $groupedUsers = array();
+        foreach($votes as $vote){
+
+            if( isset($groupedUsers[$vote->getUser()->getId()] ){
+
+            }else{
+                $groupedUsers[$vote->getUser()->getId()] = array($vote);
+            }
+
+        }
+
+        foreach($groupedUsers as $user){
+
+        }
+        return $groupedUsers;
     }
 } 

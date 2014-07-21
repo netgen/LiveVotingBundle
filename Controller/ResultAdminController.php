@@ -9,8 +9,8 @@ class ResultAdminController extends Controller{
 
     public function ViewResultsAction(Request $request, $event_id){
         $results = $this->get('live_voting.result')->getResults($event_id);
-        print_r($results);
-        return $this->render('LiveVotingBundle:Result:index.html.twig');
+
+        return $this->render('LiveVotingBundle:Result:index.html.twig', array('users'=>$results));
     }
 
 }
