@@ -71,20 +71,33 @@
             },
             xAxis: {
                 type: 'String',
-                tickPixelInterval: 5,
-                categories: ['123','444', 'asdasd']
+                tickPixelInterval: 5
             },
             yAxis: {
                 minPadding: 0.1,
                 maxPadding: 0.1,
+                tickmarkPlacement: 'on',
                 min: 0,
                 max: 5,
                 title: {
-                    text: 'Value',
-                    margin: 80
+                    text: 'Average number of rating score'
                 }
             },
-            series: [{showInLegend: false, data:[]}]
+            series: [
+                {
+                    showInLegend: false,
+                    data:[],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        formatter: function() {
+                            return this.y;
+                        },
+                        style: {
+                            fontSize: '13px'
+                        }
+                    }
+                }]
         });
 
     })();
