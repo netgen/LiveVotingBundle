@@ -2,6 +2,26 @@
 
 $(document).ready(function(){
 
+    $('body').on('change', '.forma', function(e){
+
+        var rate = $(this).serialize();
+
+        $.post($(this).attr('action'), rate, function(data){
+            console.log(data);
+        });
+
+        e.preventDefault();
+    });
+
+    $( "#1" ).on( "click", function() {
+        url = "/vote/";
+        url += presentationId;
+        console.log(url);
+        $.post( url, { rate: 1})
+            .done(function( data ) {
+                alert( "Data Loaded: " + data );
+            });
+    });
 	var source   = $("#presentation").html();
 	var template = Handlebars.compile(source);
 
@@ -64,15 +84,7 @@ $(document).ready(function(){
 					if (presentations[i]["votingEnabled"]){
 						presentationId = presentations[i]["presentationId"]
 						console.log("true");
-						$( "#1" ).on( "click", function() {
-							url = "/vote/";
-							url += presentationId;
-							console.log(url);
-							$.post( url, { rate: 1})
-								.done(function( data ) {
-								alert( "Data Loaded: " + data );
-							});				
-						});
+
 						$( "#2" ).on( "click", function() {
 						});
 						$( "#3" ).on( "click", function() {

@@ -9,7 +9,6 @@
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
 		<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/main.css') }}"  />
 
-
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
@@ -22,8 +21,16 @@
 
 		<script id="presentation" type="text/x-handlebars-template">
 			{{ '{{#each presentations}}' }} 
-				{{ '{{vote}}' }}
+				<div class='presentation'>
 				{{ '{{presenterName }}' }} {{ '{{presenterSurname}}' }} {{ '{{presentationName}}' }}
+				<form class='forma' action='/vote/{{ '{{ presentationId }}' }}' method='POST'>
+                    <input type='radio' name='rate' value='1'/>
+                    <input type='radio' name='rate' value='2'/>
+                    <input type='radio' name='rate' value='3'/>
+                    <input type='radio' name='rate' value='4'/>
+                    <input type='radio' name='rate' value='5'/>
+                </form>
+				</div>
 			{{ '{{/each}}' }}
 
 		</script>
@@ -43,7 +50,6 @@
 			<img src="{{ asset('bundles/livevoting/img/bal.png') }}" alt="" class="img-circle" width="55px">
 
 		</div>
-
 		<div id="voting">
 			<button id="1">1</button>
 			<button id="2">2</button>

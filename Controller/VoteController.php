@@ -78,6 +78,7 @@ class VoteController extends Controller{
             $vote->setPresentation($presentation);
         }
         $vote->setRate($rate);
+        $vote->setEvent($presentation->getEvent());
         $em = $this->getDoctrine()->getManager();
         $em->persist($vote);
         $em->flush();
