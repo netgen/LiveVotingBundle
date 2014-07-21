@@ -89,10 +89,10 @@ class Vote
     /**
      * Set presentation
      *
-     * @param \Netgen\LiveVotingBundle\Entity\presentation $presentation
+     * @param \Netgen\LiveVotingBundle\Entity\Presentation $presentation
      * @return Vote
      */
-    public function setPresentation(\Netgen\LiveVotingBundle\Entity\presentation $presentation = null)
+    public function setPresentation(\Netgen\LiveVotingBundle\Entity\Presentation $presentation = null)
     {
         $this->presentation = $presentation;
 
@@ -102,7 +102,7 @@ class Vote
     /**
      * Get presentation
      *
-     * @return \Netgen\LiveVotingBundle\Entity\presentation 
+     * @return \Netgen\LiveVotingBundle\Entity\Presentation 
      */
     public function getPresentation()
     {

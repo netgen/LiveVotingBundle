@@ -8,6 +8,8 @@ Netgen\LiveVotingBundle\Entity\Vote:
     fields:
         rate:
             type: integer
+
+
     manyToOne:
         user:
             targetEntity: Netgen\LiveVotingBundle\Entity\User

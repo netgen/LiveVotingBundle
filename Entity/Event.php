@@ -158,4 +158,19 @@ class Event
     {
         return $this->presentations;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $presentation;
+
+
+    /**
+     * Get presentation
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPresentation()
+    {
+        return $this->presentation;
+    }
 }
