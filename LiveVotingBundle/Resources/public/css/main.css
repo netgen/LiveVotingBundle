@@ -1,4 +1,4 @@
-.welcomeScreen {
+ .welcomeScreen {
 	height: 960px;
     width: 640px;
     background-color: #FA6900;
@@ -16,3 +16,17 @@
     background-color: #000000;
     border-radius: 5px;
 }
+
+body
+  {
+    body {
+   background-color : #03a9f4
+
+}
+
+#container
+ .header
+  {
+
+
+  }
