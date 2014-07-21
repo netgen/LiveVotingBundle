@@ -1,0 +1,3 @@
+result_view:
+    path: /{event_id}
+    defaults: {_controller: "LiveVotingBundle:ResultAdmin:ViewResults"}
