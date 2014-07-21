@@ -1,4 +1,8 @@
+
+
 $(document).ready(function(){
+	//$body = $("body");
+	//$body.addClass("loading");
 	$("#footer").hide();
 	$("#timer").hide();
 	$("#presentationId0").hide();
@@ -7,7 +11,7 @@ $(document).ready(function(){
      *  Gets event id from url which looks like:
      *  /event/{id}
      */
-     
+
     function getEventId(ret){
         var struct = window.location.pathname.split('/');
 
@@ -19,10 +23,15 @@ $(document).ready(function(){
 
     var urlPath = '/event_status/'+getEventId(1);
 
-    var addPresentation = function (newId) {
+    var addPresentation = function (newPresentation) {
 		var div = document.getElementById('presentationId0'),
 	    clone = div.cloneNode(true); // true means clone all childNodes and all event handlers
-		clone.id = "presentationId"+newId;
+		clone.id = "presentationId"+newPresentation["presentationId"];
+		clone.innerHTML = "name: "+newPresentation["presenterName"]+"</br>";
+		clone.innerHTML += "surname: "+newPresentation["presenterSurname"]+"</br>";
+		clone.innerHTML += "presentation: "+newPresentation["presentationName"]+"</br>";
+		clone.innerHTML += "votingStatus: "+newPresentation["votingEnabled"]+"</br></br>";
+
 		document.body.appendChild(clone);
 	}
 
@@ -39,14 +48,9 @@ $(document).ready(function(){
 	    	else if (state == "ACTIVE"){
 
 	    		$("#presentationId0").show();
-				$.each(data, function(mainKey,mainValue){
-					if ($.isArray(mainValue)){
-						//iterate through array
-						$.each(mainValue, function(k,v){
-							addPresentation(v["presentationId"]);
-						});
-					}
-				});
+				var presentations = data["presentations"];
+				for (var i in presentations){
+					addPresentation(presentations[i]);				}
 				$("#presentationId0").hide();
 	    		active ();
 	    	}
@@ -59,27 +63,14 @@ $(document).ready(function(){
 	var active = function() {
 		$.getJSON(urlPath, function(data){
 			if (data["eventStatus"] == "POST"){
-				//temp
-				end();
-				//temp
-				footer("timer",data["seconds"]*1000);
+				footer("timer",data["seconds"]);
 			}
 			else {
 				//check votingStatus, iterate through JSON
-				$.each(data, function(mainKey,mainValue){
-					if ($.isArray(mainValue)){
-						//iterate through array
-						$.each(mainValue, function(k,v){
-							if(v["votingEnabled"]){
-								//enable voting for v["presentationId"] (changing screen state)
-								console.log("vote");
-							}
-							else {
-								//disable voting for v["presentationId"] (changing screen state)
-							}
-						});
-					}
-				});
+				var presentations = data["presentations"];
+				for (var i in presentations){
+					console.log(presentations[i]);
+				}
 				setTimeout(active, 5000);
 			}
 
@@ -92,15 +83,9 @@ $(document).ready(function(){
 
 
 
-
-
-	var res;
 	var changeTime = function (time1){
 		var timerId = setInterval(function() {
-			time1 = time1 - 1000;
-			res = time1 / 1000;
-			res =String(res);
-			document.getElementById("timer").innerHTML = res;
+			document.getElementById("timer").innerHTML = String(--time1);
 			if (time1 == 0) {
 				clearInterval(timerId);
 				end();

@@ -31,12 +31,7 @@
 			<img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-rounded">
 
 			<hr size=50 color="red">
-			    <div id="load1">
-			    	<p> Be patient It`s loading </p>
-			    </div>
-			    <div id="load2">
-			    	<p> ... </p> 
-			    </div>
+			<div class="modal"><!-- Place at bottom of page --></div>
 			<img src="{{ asset('bundles/livevoting/img/bal.png') }}" alt="" class="img-circle" width="55px">
 			</div>
 		</div>
@@ -48,11 +43,11 @@
 			<p id="presentationInfo"></p>
 			<p></p>
 			  <form >
-			    <span class="glyphicon glyphicon-star"></span>
-			    <span class="glyphicon glyphicon-star"></span>
-			    <span class="glyphicon glyphicon-star"></span>
-			    <span class="glyphicon glyphicon-star"></span>
-			    <span class="glyphicon glyphicon-star"></span>
+			    <span id="star1"></span>
+			    <span id="star2"></span>
+			    <span id="star3"></span>
+			    <span id="star4"></span>
+			    <span id="star5"></span>
 			  </form>
 			  <img src="{{ asset('bundles/livevoting/img/man2.png') }}" alt="" class="img-circle" width="55px">
 			<p></p>
@@ -61,9 +56,10 @@
 
 		<div id="footer">
 		    Sticky Footer
+		    <span id="timer">60</span>
 		</div>
 
-		<span id="timer">60</span>
+		
 
 	</body>
 </html>
