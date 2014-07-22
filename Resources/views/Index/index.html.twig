@@ -39,11 +39,11 @@
 				<div class='presentation'>
 				{{ '{{presenterName }}' }} {{ '{{presenterSurname}}' }} {{ '{{presentationName}}' }}
 				<form class='forma' action='/vote/{{ '{{ presentationId }}' }}' method='POST'>
-                    <input type='radio' name='rate' value='1' {{ '{{#ifCond presenterRate "1"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
-                    <input type='radio' name='rate' value='2' {{ '{{#ifCond presenterRate "2"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
-                    <input type='radio' name='rate' value='3' {{ '{{#ifCond presenterRate "3"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
-                    <input type='radio' name='rate' value='4' {{ '{{#ifCond presenterRate "4"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
-                    <input type='radio' name='rate' value='5' {{ '{{#ifCond presenterRate "5"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
+                    <input type='radio' name='rate' value='1' {{ '{{#unless votingEnabled}}'}} disabled {{ '{{/unless}}' }} {{ '{{#ifCond presenterRate "1"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
+                    <input type='radio' name='rate' value='2' {{ '{{#unless votingEnabled}}'}} disabled {{ '{{/unless}}' }}  {{ '{{#ifCond presenterRate "2"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
+                    <input type='radio' name='rate' value='3' {{ '{{#unless votingEnabled}}'}} disabled {{ '{{/unless}}' }}  {{ '{{#ifCond presenterRate "3"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
+                    <input type='radio' name='rate' value='4' {{ '{{#unless votingEnabled}}'}} disabled {{ '{{/unless}}' }}  {{ '{{#ifCond presenterRate "4"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
+                    <input type='radio' name='rate' value='5' {{ '{{#unless votingEnabled}}'}} disabled {{ '{{/unless}}' }}  {{ '{{#ifCond presenterRate "5"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
                 </form>
 				</div>
 			{{ '{{/each}}' }}
@@ -66,11 +66,6 @@
 
 		</div>
 		<div id="voting">
-			<button id="1">1</button>
-			<button id="2">2</button>
-			<button id="3">3</button>
-			<button id="4">4</button>
-			<button id="5">5</button>
 		</div>
 
 		<div id="footer">
