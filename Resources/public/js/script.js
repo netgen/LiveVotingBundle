@@ -47,7 +47,6 @@ function brain(options_){
         return struct.pop();
     }
 
-
     var run = function() {
         $.getJSON(urlPath, function(data){
 
@@ -127,3 +126,4 @@ function brain(options_){
 
 
 }
+
