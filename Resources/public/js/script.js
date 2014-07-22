@@ -13,7 +13,6 @@ function brain(options_){
 
 
     $("#footer").hide();
-    $("#timer").hide();
 
     var spinner = new Spinner();
     spinner.spin();
@@ -67,7 +66,7 @@ function brain(options_){
                 case 'POST':
                     var seconds = parseInt(data['seconds']);
                     if(!timer.isRunning && seconds>0){
-                        timer.init(parseInt(data['seconds']), function(s){alert('sek '+ s);}, endVoting);
+                        timer.init(parseInt(data['seconds']), changeFooter, endVoting);
                         timer.runTimer();
 
                     }
@@ -87,21 +86,13 @@ function brain(options_){
     
     function endVoting(){
         canIVote = false;
+        $("#voting").hide();
+        $("#footer").hide();
     }
 
-    var footer = function (event,param){
+    function changeFooter(seconds_) {
         $("#footer").show();
-        //first disable the rest of the screen
-        //determine who called footer
-        if (event == "timer"){
-            var timeRemaining = param;
-            $("#timer").show();
-            changeTime(timeRemaining);
-
-        }
-        else { //determine error
-            var error = param;
-        }
+        $("#timer").html(seconds_);
     }
 
     function timer(){
