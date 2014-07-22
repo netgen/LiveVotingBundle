@@ -8,12 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 class ResultAdminController extends Controller{
 
     public function ViewResultsAction(Request $request, $event_id){
-        $results = $this->get('live_voting.result')->getResults($event_id);
 
+        $results = $this->get('live_voting.result')->getResults($event_id);
         return $this->render('LiveVotingBundle:Result:index.html.twig', array(
-            'animation_data'=>json_encode($results['animation_data']),
-            'event_name'=>$results['event']->getName()
+            'animation_data' => json_encode($results['animation_data']),
+            'event_name' => $results['event']->getName()
         ));
+
     }
 
 }
