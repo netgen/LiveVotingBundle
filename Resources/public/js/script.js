@@ -1,15 +1,14 @@
 function brain(options_){
 
     var options = options_;
-    var rate = $(this).serialize();
     var source   = $("#presentation").html();
     var template = Handlebars.compile(source);
     var urlPath = options['URLS']['EVENT_STATUS']+getEventId(1);
     var globalState = null;
     var timeout = options['STATES']['PRE']['TIMEOUT'];
-    var presentations = [];
     var timer = new timer();
     var canIVote = true;
+    var presentations = new presentationsArray();
 
     Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
         if (v1 == v2) {
@@ -28,18 +27,12 @@ function brain(options_){
     $('body').on('change', '.forma', function(e){
         if(!canIVote)return;
         var presentation_id = $(this).attr('action').split('/').pop();
-        var presentation = null;
+        var presentation = presentations.getById(presentation_id);
 
-        for(var i in presentations){
-            if(presentations[i]['presentationId']==presentation_id){
-                presentation=presentations[i];
-                break;
-            }
-        }
         var rate = $(this).serialize();
-        if(presentation['votingEnabled']==true){
+        if(presentation.getData()['votingEnabled']==true){
             $.post($(this).attr('action'), rate, function(data){
-                console.log(data);
+                presentation.setCheckMark(true);
             });
         }
         e.preventDefault();
@@ -74,17 +67,18 @@ function brain(options_){
                     if(!timer.isRunning && seconds>0){
                         timer.init(parseInt(data['seconds']), changeFooter, endVoting);
                         timer.runTimer();
-
                     }else{
+                        timeout = -1;
                         endVoting();
                     }
                 case 'ACTIVE':
                     $("#welcome").hide();
                     spinner.stop();
                     //add presentations
-                    $("#voting").html(template(data));
-                    presentations = data['presentations'];
+                    handleNewPresentations(data['presentations']);
                     break;
+                default:
+                    timeout = -1;
 
             }
             globalState = state;
@@ -92,11 +86,24 @@ function brain(options_){
         }); 
     }
 
+    function handleNewPresentations(data){
+        var pres; // single presentations
+        for(var i in data){
+            pres = data[i];
+            presentations.add(pres);
+        }
+    }
+
     function endVoting(){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
+<<<<<<< HEAD
+        $("#footer").html("Voting is now closed.");
+        presentations.setEnabledAll(false);
+=======
         $("#footer").html("Thank you for voting.");
+>>>>>>> 8abf4b957fa597908d2ee7700c6f35615c499ac0
     }
 
     function changeFooter(seconds_) {
@@ -105,6 +112,9 @@ function brain(options_){
         $("#timer").html(seconds_);
     }
 
+    /*
+    Class timer
+     */
     function timer(){
         this.isRunning = false;
         this.seconds = 1;
@@ -130,8 +140,92 @@ function brain(options_){
         }
     }
 
-    run();
+    /*
+    Class presentation that holds one presentation and pointer to html element
+     */
+    function presentationClass(data_){
 
+        var data = data_;
+        this.element = $(template(data));
+        $("#voting").append(this.element);
+        this.element.find('.check').hide();
+
+        this.setData = function(data_){
+            data = data_;
+        }
+
+        this.getData = function(){
+            return data;
+        }
+        this.setVote = function(vote_number){
+            this.element.find('input[type=radio]').each(function(){
+                if(this.value == vote_number){
+                    this.setAttribute('checked', 'checked');
+                }
+            });
+        }
+
+
+        this.setEnabled = function(enabled_status){
+            this.element.find('input[type=radio]').each(function(){
+
+                if(!enabled_status || canIVote==false){
+                    this.setAttribute('disabled', 'disabled');
+                }else{
+                    this.removeAttribute('disabled');
+                }
+            });
+        }
+
+        this.setCheckMark = function(check_mark){
+            this.element.find('.check').each(function(){
+                if(check_mark){
+                    $(this).show();
+                }else{
+                    $(this).hide();
+                }
+            })
+        }
+
+        this.handle = function(){
+            var vote = data['presenterRate'];
+            this.setVote(vote);
+            this.setEnabled(data['votingEnabled']);
+            this.setCheckMark(vote>0);
+        }
+    }
+
+    function presentationsArray(){
+        var arr = {};
+
+        /*
+        Adds new presentation if it's not there and change it's view if needs.
+         */
+        this.add = function(presentation){
+            var id = presentation['presentationId'].toString();
+            if(arr[id] === undefined){
+                arr[id] = new presentationClass(presentation);
+            }
+            arr[id].setData(presentation);
+            arr[id].handle();
+        }
+
+        this.get = function(presentation){
+
+        }
+
+        this.getById = function(id){
+            return arr[id];
+        }
+
+        this.setEnabledAll = function(state){
+            for(var i in arr){
+                arr[i].setEnabled(state);
+            }
+        }
+    }
+
+    run();
 
 }
 
