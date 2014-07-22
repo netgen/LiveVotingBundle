@@ -49,8 +49,10 @@
 		                    <input type='radio' name='rate' value='4' {{ '{{#unless votingEnabled}}'}} disabled {{ '{{/unless}}' }}  {{ '{{#ifCond presenterRate "4"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
 		                    <input type='radio' name='rate' value='5' {{ '{{#unless votingEnabled}}'}} disabled {{ '{{/unless}}' }}  {{ '{{#ifCond presenterRate "5"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
 		                </form>
-		            	<img class="check" src="{{ '{{checkUrl}}' }}">
-		    		</div>			   			
+                        {{ '{{#if presenterRate}}' }}
+                            <img class="check" style="width:10px" src="{{ asset('bundles/livevoting/img/check_mark_green.png') }}">
+		    		    {{ '{{/if}}' }}
+		    		</div>
 				</div>
 			{{ '{{/each}}' }}
 
