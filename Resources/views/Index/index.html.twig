@@ -49,7 +49,7 @@
 		                    <input type='radio' name='rate' value='4' {{ '{{#unless votingEnabled}}'}} disabled {{ '{{/unless}}' }}  {{ '{{#ifCond presenterRate "4"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
 		                    <input type='radio' name='rate' value='5' {{ '{{#unless votingEnabled}}'}} disabled {{ '{{/unless}}' }}  {{ '{{#ifCond presenterRate "5"}}' }} checked = 'checked'  {{ '{{/ifCond}}' }} />
 		                </form>
-		                <img class="check" width="10px"></img>
+		            	<img class="check" src="{{ '{{checkUrl}}' }}">
 		    		</div>			   			
 				</div>
 			{{ '{{/each}}' }}
