@@ -104,7 +104,6 @@ function brain(options_){
 
     function changeFooter(seconds_) {
         $("#footer").show();
-        $("#footer").sticky({ bottomSpacing: 0});
         $("#timer").html(seconds_);
     }
 
