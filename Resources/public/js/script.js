@@ -96,12 +96,12 @@ function brain(options_){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
-        $("#footer").html("Voting is now closed.");
+        $("#footer").html("Thank you for voting.");
     }
 
     function changeFooter(seconds_) {
         $("#footer").show();
-        $("#footer").sticky({ topSpacing: 0, center:true, className:"hey" });
+        $("#footer").sticky({ bottomSpacing: 0});
         $("#timer").html(seconds_);
     }
 
