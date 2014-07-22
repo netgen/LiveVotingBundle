@@ -12,18 +12,30 @@
 <script type="text/javascript">
     var requestData, animation_data, chart;
     var event_id = {{ event.getId }};
+    function cmp(v1, v2){
+        if(v1.presentationValue<v2.presentationValue)return -1;
+        if(v1.presentationValue>v2.presentationValue)return 1;
+        return 0;
+    }
     function load(){
         $.getJSON('{{ live_results_url }}', function(data){
             if('presentations' in data){
-                var presentationNames = [], presentationValues = [];
+                var sortMe = [], presentationNames = [], presentationValues = [];
                 for(var i in data['presentations']){
-                    presentationNames.push(data['presentations'][i]['presentation']['name']);
-                    presentationValues.push(data['presentations'][i]['score']['average']);
+                    var pres = {};
+                    pres.presentationName = data['presentations'][i]['presentation']['name'];
+                    pres.presentationValue = data['presentations'][i]['score']['average'];
+                    sortMe.push(pres);
+                }
+                //sortMe.sort(cmp);
+                for(var i in sortMe){
+                    presentationNames.push(sortMe[i].presentationName);
+                    presentationValues.push(sortMe[i].presentationValue);
                 }
                 chart.xAxis[0].update({categories: presentationNames}, true);
                 chart.series[0].setData(presentationValues, true, true, true);
             }
-            setTimeout(load, 1000);
+            setTimeout(load, 5000);
         });
     }
 
