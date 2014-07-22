@@ -65,11 +65,12 @@ function brain(options_){
             }
             console.log(data);
             var state = data["eventStatus"];
-            timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
             switch(state){
                 case 'PRE':
+                   timeout = parseInt(options['STATES']['PRE']['TIMEOUT'])*1000;
                    break;
                 case 'POST':
+                    timeout = parseInt(options['STATES']['POST']['TIMEOUT'])*1000;
                     var seconds = parseInt(data['seconds']);
                     if(!timer.isRunning && seconds>0){
                         timer.init(parseInt(data['seconds']), changeFooter, endVoting);
@@ -79,12 +80,15 @@ function brain(options_){
                         endVoting();
                     }
                 case 'ACTIVE':
+                    timeout = parseInt(options['STATES']['ACTIVE']['TIMEOUT'])*1000;
                     $("#welcome").hide();
                     spinner.stop();
                     //add presentations
                     $("#voting").html(template(data));
                     presentations = data['presentations'];
                     break;
+                default:
+                    timeout = -1;
 
             }
             globalState = state;
