@@ -18,8 +18,16 @@ vote:
     defaults: {_controller: LiveVotingBundle:Vote:vote, presentation_id: -1}
     requirements: { _method: post }
 
-# ADMIN ROUTING #
+result:
+    path: /live_results/{event_id}
+    defaults: {_controller: LiveVotingBundle:Result:index}
 
+result_json:
+    path: /live_results_api/{event_id}
+    defaults: {_controller: LiveVotingBundle:Result:getResults}
+
+
+# ADMIN ROUTING #
 admin_index:
     path:     /admin
     defaults: { _controller: "LiveVotingBundle:EventAdmin:index" }

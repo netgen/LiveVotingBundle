@@ -64,4 +64,33 @@ class Result {
         $result['animation_data']=$animation_data;
         return $result;
     }
+
+    public function getLiveResults($event_id){
+        $event = $this->em->getRepository('LiveVotingBundle:Event')->find($event_id);
+        if( !$event instanceof Event){
+            // TODO: Ask Edi what to return to controller and how to handle exceptions
+        }
+
+        $result = array();
+        $presentations = $this->em->getRepository('LiveVotingBundle:Presentation')->findBy(array(
+            'event'=>$event,
+            // 'votingEnabled'=>true
+        ));
+        foreach($presentations as $presentation){
+            $votes = $presentation->getVotes();
+            $data = array('numOfUsers'=>0, 'score'=>0, 'average'=>0);
+            foreach($votes as $vote){
+                $data['score']+=$vote->getRate();
+                $data['numOfUsers']++;
+            }
+            if($data['numOfUsers']){
+                $data['average'] = $data['score']/$data['numOfUsers'];
+                $result['presentations'][] = array(
+                'presentation'=>array('name'=>$presentation->getPresentationName()),
+                'score'=>$data);
+            }
+        }
+        $result['event'] = $event;
+        return $result;
+    }
 } 
