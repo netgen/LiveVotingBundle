@@ -85,7 +85,7 @@ function brain(options_){
             if(timeout>0) setTimeout(run, timeout);
         });
     }
-    
+
     function endVoting(){
         canIVote = false;
     }
