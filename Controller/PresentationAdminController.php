@@ -29,7 +29,7 @@ class PresentationAdminController extends Controller
                 function($ent){
                    return array($ent, $this->createEnableDisableForm($ent)->createView());
                 }, $entities),
-            'event_id' => $event_id
+            'event' => $event
         ));
     }
     /**
@@ -95,25 +95,6 @@ class PresentationAdminController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a Presentation entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Presentation entity.');
-        }
-
-
-        return $this->render('LiveVotingBundle:Presentation:show.html.twig', array(
-            'entity'      => $entity
-        ));
-    }
 
     /**
      * Displays a form to edit an existing Presentation entity.

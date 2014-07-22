@@ -153,4 +153,17 @@ class Vote
     {
         return $this->event;
     }
+
+    /**
+     * Set event
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Event $event
+     * @return Vote
+     */
+    public function setEvent(\Netgen\LiveVotingBundle\Entity\Event $event = null)
+    {
+        $this->event = $event;
+
+        return $this;
+    }
 }

@@ -1,24 +1,22 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Presentation list</h1>
+    <h1>Presentations for event: {{ event.name }}</h1>
 
     <table class="records_list table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Presentation</th>
-                <th>Voting</th>
-                <th>Edit</th>
+                <th>Presentation name</th>
+                <th>Presenter name</th>
+                <th>Voting status</th>
+                <th>Edit presentation</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
-            <tr>
-                <td>{{ entity[0].presenterName }}</td>
-                <td>{{ entity[0].presenterSurname }}</td>
+            <tr class="{{ entity[0].votingEnabled?'success':'danger' }}">
                 <td>{{ entity[0].presentationName }}</td>
+                <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>
                 <td>
                     {{ form(entity[1]) }}
                 </td>
@@ -33,7 +31,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('admin_presentation_new', {'event_id':event_id}) }}">
+            <a href="{{ path('admin_presentation_new', {'event_id':event.getId}) }}">
                 Create a new entry
             </a>
         </li>

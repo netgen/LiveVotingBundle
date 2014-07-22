@@ -19,10 +19,14 @@ vote:
     requirements: { _method: post }
 
 # ADMIN ROUTING #
+
+admin_index:
+    path:     /admin
+    defaults: { _controller: "LiveVotingBundle:EventAdmin:index" }
+
 LiveVotingBundle_admin_event:
     resource: "@LiveVotingBundle/Resources/config/routing/event.yml"
     prefix:   /admin/event
-
 
 LiveVotingBundle_admin_presentation:
     resource: "@LiveVotingBundle/Resources/config/routing/presentation.yml"
