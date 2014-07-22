@@ -29,7 +29,7 @@ class EventController extends Controller {
             if ( time()>$date_when_voting_ends ){
                 $response['error']='1';
                 $response['errorMessage'] = 'Voting is closed.'.time()." ".$date_when_voting_ends;
-                return new JsonResponse($response);
+                //return new JsonResponse($response);
             }else{
                 $response['seconds'] = $date_when_voting_ends - time();
             }
