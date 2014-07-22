@@ -39,7 +39,9 @@ function brain(options_){
         var rate = $(this).serialize();
         if(presentation['votingEnabled']==true){
             $.post($(this).attr('action'), rate, function(data){
+                
                 console.log(data);
+
             });
         }
         e.preventDefault();
@@ -75,6 +77,8 @@ function brain(options_){
                         timer.init(parseInt(data['seconds']), changeFooter, endVoting);
                         timer.runTimer();
 
+                    }else{
+                        endVoting();
                     }
                 case 'ACTIVE':
                     $("#welcome").hide();
@@ -87,17 +91,19 @@ function brain(options_){
             }
             globalState = state;
             if(timeout>0) setTimeout(run, timeout);
-        });
+        }); 
     }
 
     function endVoting(){
+        //Thank u for voting
         canIVote = false;
-        $("#voting").hide();
-        $("#footer").hide();
+        $(".forma input").prop("disabled", true);
+        $("#footer").html("Voting is now closed.");
     }
 
     function changeFooter(seconds_) {
         $("#footer").show();
+        $("#footer").sticky({ topSpacing: 0, center:true, className:"hey" });
         $("#timer").html(seconds_);
     }
 
