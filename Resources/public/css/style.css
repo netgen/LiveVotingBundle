@@ -1,20 +1,15 @@
 /* Moj css */
 
-body
-  {
-    margin: 0px;
-    padding: 0px;
-    background: #fafafa;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 12pt;
-    color: rgba(0,0,0,.6);
-  }
-
+body {
+    background-color : #03a9f4;
+    font-family: "Helvetica", "Lucida Grande", sans-serif;
+    font-size: 18px;
+    color: #76ff03;
 }
 
 #container
- .header
+ .welcome
   {
-   border-bottom: 3px;
+
 
   }
