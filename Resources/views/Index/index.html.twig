@@ -16,6 +16,21 @@
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery.timer.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/spin.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                new brain({
+                    'STATES':{
+                        'PRE':{'TIMEOUT':1},
+                        'ACTIVE':{'TIMEOUT':5},
+                        'POST':{'TIMEOUT':-1}
+                },
+                    'URLS':{
+                        'EVENT_STATUS':'/event_status/',
+                        'VOTE':'/vote/'
+                    }
+                });
+            });
+        </script>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 

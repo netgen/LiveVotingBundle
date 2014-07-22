@@ -1,142 +1,129 @@
+function brain(options_){
+    var options = options_;
+    var rate = $(this).serialize();
+    var source   = $("#presentation").html();
+    var template = Handlebars.compile(source);
+    var urlPath = options['URLS']['EVENT_STATUS']+getEventId(1);
+    var globalState = null;
+    var timeout = options['STATES']['PRE']['TIMEOUT'];
+    var presentations = [];
+    var timer = new timer();
+    $("#footer").hide();
+    $("#timer").hide();
 
+    var spinner = new Spinner();
+    spinner.spin();
 
-$(document).ready(function(){
+    document.getElementById('welcome').appendChild(spinner.el);
 
     $('body').on('change', '.forma', function(e){
+        var presentation_id = $(this).attr('action').split('/').pop();
+        var presentation = null;
 
-        var rate = $(this).serialize();
+        for(var i in presentations){
+            if(presentations[i]['presentationId']==presentation_id){
+                presentation=presentations[i];
+                break;
+            }
+        }
 
-        $.post($(this).attr('action'), rate, function(data){
-            console.log(data);
-        });
-
+        if(presentation['votingEnabled']==true){
+            $.post($(this).attr('action'), rate, function(data){
+                console.log(data);
+            });
+        }
         e.preventDefault();
     });
 
-    $( "#1" ).on( "click", function() {
-        url = "/vote/";
-        url += presentationId;
-        console.log(url);
-        $.post( url, { rate: 1})
-            .done(function( data ) {
-                alert( "Data Loaded: " + data );
-            });
-    });
-	var source   = $("#presentation").html();
-	var template = Handlebars.compile(source);
-
-	$("#footer").hide();
-	$("#timer").hide();
-
-	var spinner = new Spinner();
-	spinner.spin();
-	document.getElementById('welcome').appendChild(spinner.el);
 
     /**
      *  Gets event id from url which looks like:
      *  /event/{id}
      */
-
     function getEventId(ret){
         var struct = window.location.pathname.split('/');
-
         // 2 because '/'.split('/') returns array len 2
         if(struct.length<=2)return ret.toString();
-
         return struct.pop();
     }
 
-    var urlPath = '/event_status/'+getEventId(1);
 
-	var checkPresentationStart = function() {
-	    $.getJSON(urlPath, function(data){
-	    	if (data["error"]){
-	    		console.log(data["errorMessage"]);
-	    	}
-	    	var state = data["eventStatus"];
+    var run = function() {
+        $.getJSON(urlPath, function(data){
 
-	    	if (state == "PRE"){
-	    	    setTimeout(checkPresentationStart, 1000);
-	    	}
-	    	else if (state == "ACTIVE"){
-	    		$("#welcome").hide();
-				spinner.stop();
+            if(data["error"]){
+                console.log(data["errorMessage"]);
+            }
+            console.log(data);
+            var state = data["eventStatus"];
+            timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
+            switch(state){
+                case 'PRE':
+                   break;
+                case 'POST':
+                    var seconds = parseInt(data['seconds']);
+                    if(!timer.isRunning && seconds>0){
+                        timer.init(parseInt(data['seconds']), function(){alert('sek');}, function(){alert('end');});
+                        timer.run();
 
-	    		//add presentations
-	    		$("#voting").append (template (data));
-	    		active ();
-	    	}
-	    	else if (state == "POST"){
-	    		end();
-	    	}
-	    });
-	}
-	
-	var active = function() {
-		$.getJSON(urlPath, function(data){
-			if (data["eventStatus"] == "POST"){
-				footer("timer",data["seconds"]);
-			}
-			else {
-				//check voting status
-				var presentations = data["presentations"];
-				for (var i in presentations){
-					if (presentations[i]["votingEnabled"]){
-						presentationId = presentations[i]["presentationId"]
-						console.log("true");
+                    }
+                case 'ACTIVE':
+                    $("#welcome").hide();
+                    spinner.stop();
+                    //add presentations
+                    $("#voting").html(template(data));
+                    presentations = data['presentations'];
+                    break;
 
-						$( "#2" ).on( "click", function() {
-						});
-						$( "#3" ).on( "click", function() {
-						
-						});
-						$( "#4" ).on( "click", function() {
-						
-						});
-						$( "#5" ).on( "click", function() {
-						
-						});						
-					}
+            }
+            globalState = state;
+            console.log(timeout);
+            if(timeout>0)
+                setTimeout(run, timeout);
+        });
+    }
 
-				}
-				
-				setTimeout(active, 5000);
-			}
+    var footer = function (event,param){
+        $("#footer").show();
+        //first disable the rest of the screen
+        //determine who called footer
+        if (event == "timer"){
+            var timeRemaining = param;
+            $("#timer").show();
+            changeTime(timeRemaining);
 
-		});
-	};
+        }
+        else { //determine error
+            var error = param;
+        }
+    }
 
-	var end = function() {
-		console.log("end");
-	}
+    function timer(){
+        this.isRunning = false;
+        this.seconds = 1;
+        this.callbackEverySecond;
+        this.callbackEnd;
+
+        this.init = function(seconds_, callbackEverySecond_, callbackEnd_){
+            this.seconds = seconds_;
+            this.callbackEverySecond = callbackEverySecond_;
+            this.callbackEnd = callbackEnd_;
+        }
+
+        this.run = function(){
+            this.isRunning = true;
+            if(this.seconds==0){
+                this.callbackEnd();
+                this.isRunning = false;
+                return;
+            }
+            this.callbackEverySecond();
+            this.seconds--;
+            setTimeout(this.run, 1000);
+        }
+    }
+
+    run();
 
 
-
-	var changeTime = function (time1){
-		var timerId = setInterval(function() {
-			document.getElementById("timer").innerHTML = String(--time1);
-			if (time1 == 0) {
-				clearInterval(timerId);
-				end();
-			}
-		    console.log(time1);
-		}, 1000);
-	}
-
-	var footer = function (event,param){
-		$("#footer").show();
-		//first disable the rest of the screen
-		//determine who called footer
-		if (event == "timer"){
-			var timeRemaining = param;
-			$("#timer").show();
-			changeTime(timeRemaining);
-			
-		}
-		else { //determine error
-			var error = param;
-		}
-	}
-
-	checkPresentationStart ();
-});
+}
