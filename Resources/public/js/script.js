@@ -39,9 +39,7 @@ function brain(options_){
         var rate = $(this).serialize();
         if(presentation['votingEnabled']==true){
             $.post($(this).attr('action'), rate, function(data){
-                
                 console.log(data);
-
             });
         }
         e.preventDefault();
