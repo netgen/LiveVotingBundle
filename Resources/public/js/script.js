@@ -98,13 +98,17 @@ function brain(options_){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
+<<<<<<< HEAD
         $("#footer").html("Voting is now closed.");
         presentations.setEnabledAll(false);
+=======
+        $("#footer").html("Thank you for voting.");
+>>>>>>> 8abf4b957fa597908d2ee7700c6f35615c499ac0
     }
 
     function changeFooter(seconds_) {
         $("#footer").show();
-        $("#footer").sticky({ topSpacing: 0, center:true, className:"hey" });
+        $("#footer").sticky({ bottomSpacing: 0});
         $("#timer").html(seconds_);
     }
 

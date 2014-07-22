@@ -36,10 +36,9 @@
 
 		<script id="presentation" type="text/x-handlebars-template">
 				<div class='presentation'>
-		   			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		      			<img id="presenterImg">
-		        		<img src="{{ asset('bundles/livevoting/img/man1.png') }}" class="img-responsive" alt="Responsive image" width="50px"></img>
-		        		{{ '{{presenterName }}' }} {{ '{{presenterSurname}}' }} {{ '{{presentationName}}' }}
+	   				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+		        		<img src="{{ asset('bundles/livevoting/img/man1.png') }}"class="img-responsive" alt="Responsive image" width="50px" style="float:left;margin:0 10px 10px 0;" />
+		        		<p>{{ '{{presenterName }}' }} {{ '{{presenterSurname}}' }} {{ '{{presentationName}}' }}</p>
 		        		<form class='forma' action='/vote/{{ '{{ presentationId }}' }}' method='POST'>
                             <input type='radio' name='rate' value='1'/>
                             <input type='radio' name='rate' value='2'/>
@@ -58,26 +57,32 @@
 	</head>
 
 	<body>
-		<div class="container">
-			<div id="welcome">
+		<div id="wrap">
+			<div class="container">
+				<div id="welcome">
 
-				<img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-rounded">
+					<img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-rounded">
 
-				<hr size=50 color="red">
-				<div class="modal"><!-- Place at bottom of page --></div>
-				<img src="{{ asset('bundles/livevoting/img/bal.png') }}" alt="" class="img-circle" width="55px">
+					<hr size=50 color="red">
+					<div class="modal"><!-- Place at bottom of page --></div>
+					<img src="{{ asset('bundles/livevoting/img/bal.png') }}" alt="" class="img-circle" width="55px">
 
-			</div>
+				</div>
 
-			<div id="voting"></div>
-
-			<div id="footer">
-				<span class="error"></span>
-			    <span id="timer"></span>
+				<div id="voting"></div>				
 			</div>
 		</div>
+		<div id="footer">
+			<div class="container">
+				<span class="error"></span>
+				<span id="timer"></span>
+      		</div>
+
+		</div>
 	</body>
+
 </html>
+
 
 
 
