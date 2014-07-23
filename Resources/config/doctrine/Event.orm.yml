@@ -17,6 +17,9 @@ Netgen\LiveVotingBundle\Entity\Event:
             type: string
             length: 64
             nullable: true
+        allowViewingResults:
+            type: boolean
+            default: false
     oneToMany:
         presentations:
             targetEntity: Netgen\LiveVotingBundle\Entity\Presentation

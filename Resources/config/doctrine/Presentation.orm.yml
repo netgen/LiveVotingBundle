@@ -19,6 +19,10 @@ Netgen\LiveVotingBundle\Entity\Presentation:
         votingEnabled:
             type: boolean
             default: false
+#        sex: #yes please
+#            type: string
+#            lenght: 10 # m,f, team,...?
+#            default: m
 
     oneToMany:
         votes:

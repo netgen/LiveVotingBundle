@@ -24,11 +24,13 @@ function brain(options_){
 
     showSpinner();
     $('body').on('change', '.forma', function(e){
+
         if(!canIVote)return;
         var presentation_id = $(this).attr('action').split('/').pop();
         var presentation = presentations.getById(presentation_id);
 
         var rate = $(this).serialize();
+        console.log(presentation.getData());
         if(presentation.getData()['votingEnabled']==true){
             showSpinner();
             $.ajax({
@@ -36,7 +38,7 @@ function brain(options_){
                 'url': $(this).attr('action'),
                 'data': rate,
                 success: function(data){
-                    presentation.setCheckMark(true);
+                    presentation.highLightMe();
                     hideSpinner();
                 },
                 error: function(e){
@@ -95,7 +97,6 @@ function brain(options_){
                     if(timeout>0){
                         timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
                     }
-                    $("#welcome").hide();
                     hideSpinner();
                     //add presentations
                     handleNewPresentations(data['presentations']);
@@ -116,6 +117,7 @@ function brain(options_){
             pres = data[i];
             presentations.add(pres);
         }
+        presentations.notifiyAll();
     }
 
     function endVoting(){
@@ -129,8 +131,7 @@ function brain(options_){
 
     function changeFooter(seconds_) {
         $("#footer").show();
-        $("#footer").sticky({ bottomSpacing: 0});
-        $("#footer #timer").html(seconds_);
+        $("#timer").html(seconds_);
     }
 
     /*
@@ -170,15 +171,32 @@ function brain(options_){
     /*
     Class presentation that holds one presentation and pointer to html element
      */
-    function presentationClass(data_){
+    function presentationClass(){
 
-        var data = data_;
-        this.element = $(template(data));
-        $("#voting").append(this.element);
-        this.element.find('.check').hide();
+        var data = null;
+        var that = this;
+        this.element = null;
 
-        this.setData = function(data_){
-            data = data_;
+        this.init = function(newData){
+            this.setData(newData);
+            this.element = $(template(data));
+            this.element.find('.highLight').hide();
+            $("#voteScreen").append(this.element);
+            this.element.find('.check').hide();
+        }
+
+        /*
+        Returns true if user can now vote on it.
+         */
+        this.setData = function(newData){
+            var status = false;
+            if(data==null){
+                status = newData['votingEnabled'];
+            }else if(newData['votingEnabled']==true && data['votingEnabled']==false){
+                status = true;
+            }
+            data = newData;
+            return status;
         }
 
         this.getData = function(){
@@ -214,6 +232,11 @@ function brain(options_){
             })
         }
 
+        this.highLightMe = function(){
+            this.element.find('.highLight').fadeIn(1000);
+            this.element.find('.highLight').fadeOut(1000);
+        }
+
         this.handle = function(){
             var vote = data['presenterRate'];
             this.setVote(vote);
@@ -224,22 +247,23 @@ function brain(options_){
 
     function presentationsArray(){
         var arr = {};
-
+        var notify = [];
         /*
         Adds new presentation if it's not there and change it's view if needs.
          */
         this.add = function(presentation){
             var id = presentation['presentationId'].toString();
             if(arr[id] === undefined){
-                arr[id] = new presentationClass(presentation);
+                arr[id] = new presentationClass();
+                arr[id].init(presentation);
             }
-            arr[id].setData(presentation);
+            var status = arr[id].setData(presentation);
+            if(status){
+                notify.push(id);
+            }
             arr[id].handle();
         }
 
-        this.get = function(presentation){
-
-        }
 
         this.getById = function(id){
             return arr[id];
@@ -249,6 +273,20 @@ function brain(options_){
             for(var i in arr){
                 arr[i].setEnabled(state);
             }
+        }
+
+        this.notifiyAll = function(){
+            var scrolledTo = false;
+            for(var i in notify){
+                if(!scrolledTo){
+                    $('html, body').animate({
+                        scrollTop: arr[notify[i]].element.offset().top
+                    }, 1000);
+                    scrolledTo = true;
+                }
+                arr[notify[i]].highLightMe();
+            }
+            notify = [];
         }
     }
 
