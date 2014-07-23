@@ -30,7 +30,7 @@ body {
 }
 .modal-footer{
     text-align: center;
-
+}
 /* Wrapper for page content to push down footer */
 #content{
     height:100%
@@ -66,10 +66,6 @@ body {
 
     z-index: 10000000;
 }
-<<<<<<< HEAD
-
 *{
     /*outline: 1px solid red;*/
 }
-=======
->>>>>>> 721c4b8a001d30aa21677ca8921c626af86f0952

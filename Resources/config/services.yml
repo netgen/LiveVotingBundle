@@ -1,5 +1,6 @@
 parameters:
     live_voting.result.class: Netgen\LiveVotingBundle\Features\Result\Result
+    live_voting.handlerequest.class: Netgen\LiveVotingBundle\Features\Request\ValidateRequest
 
 services:
 #    live_voting.example:
@@ -8,3 +9,6 @@ services:
     live_voting.result:
           class: %live_voting.result.class%
           arguments: [@doctrine.orm.entity_manager, event_id]
+    live_voting.handlerequest:
+          class: %live_voting.handlerequest.class%
+          arguments: [@request_stack, @doctrine.orm.entity_manager, event_id]

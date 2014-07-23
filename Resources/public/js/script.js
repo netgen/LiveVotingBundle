@@ -62,25 +62,26 @@ function brain(options_){
     var run = function() {
         $.getJSON(urlPath, function(data){
 
-            if(data["error"]!=0){
-                switch(data['error']){
-                    case 1:
-                        // displayMessageInFooter(data['errorMessage']);
-                    break;
-                    case 2:
-                        timeout = -1;
-                        // displayMessageInFooter(data['errorMessage'])
-                        return;
-                    break;
-                }
+            switch(data['error']){
+                case 1:
+                    // displayMessageInFooter(data['errorMessage']);
+                break;
+                case 2:
+                    timeout = -1;
+                    // displayMessageInFooter(data['errorMessage']);
+                    console.log(data['errorMessage']);
+                    return;
+                break;
             }
             var state = data["eventStatus"];
-            timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
+
             switch(state){
                 case 'PRE':
+                   timeout = parseInt(options['STATES']['PRE']['TIMEOUT'])*1000;
                    break;
                 case 'POST':
                     var seconds = parseInt(data['seconds']);
+                    timeout = parseInt(options['STATES']['POST']['TIMEOUT'])*1000;
                     if(!timer.isRunning && seconds>0){
                         timer.init(parseInt(data['seconds']), changeFooter, endVoting);
                         timer.runTimer();
@@ -90,6 +91,9 @@ function brain(options_){
                         endVoting();
                     }
                 case 'ACTIVE':
+                    if(timeout>0){
+                        timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
+                    }
                     $("#welcome").hide();
                     hideSpinner();
                     //add presentations
@@ -100,6 +104,7 @@ function brain(options_){
 
             }
             globalState = state;
+            console.log(timeout);
             if(timeout>0) setTimeout(run, timeout);
         }); 
     }
@@ -128,7 +133,8 @@ function brain(options_){
     }
 
     /*
-    Class timer
+    Class timer which calls callbackEverySecond function each second
+    and function callbackEnd when timer is done.
      */
     function timer(){
         this.isRunning = false;
@@ -203,6 +209,7 @@ function brain(options_){
         }
 
         this.handle = function(){
+            console.log(data);
             var vote = data['presenterRate'];
             this.setVote(vote);
             this.setEnabled(data['votingEnabled']);
