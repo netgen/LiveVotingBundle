@@ -38,7 +38,7 @@
                 <div class='highLight'></div>
                 <div class="col-lg-2 col-md-2 col-xs-4">
                     <img src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}"
-                    class="img-responsive img-circle presenter-img" alt="Responsive image" width>
+                    class="img-responsive presenter-img" alt="Responsive image" width>
                 </div>
                 <div class="col-lg-10 col-md-10 col-xs-8">
                     <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
@@ -87,13 +87,14 @@
                 </div>
                 <div id="circleG_3" class="circleG">
                 </div>
+                <span id="loadingMessage">Loading!</span>
             </div>
         </div>
 
         <div id="wrap">
             <div id="footer" class="container">
+                <span class="timer"></span>
                 <span class="error"></span>
-                <span id="timer"></span>
             </div>
         </div>
 	</body>

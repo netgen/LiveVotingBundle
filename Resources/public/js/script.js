@@ -11,9 +11,9 @@ function brain(options_){
     var presentations = new presentationsArray();
     var shadow = $('<div class="shadow"></div>');
     var loader = $('#circleG');
+    var footer = new footerClass($('#footer'));
 
-    shadow.hide();
-    $("#footer").hide();
+
     $('body').append(shadow);
 
     showSpinner();
@@ -38,6 +38,7 @@ function brain(options_){
                 'data': rate,
                 success: function(data){
                     presentation.highlightMe();
+                    footer.displayMessage(data['errorMessage']);
                     hideSpinner();
                 },
                 error: function(e){
@@ -67,10 +68,12 @@ function brain(options_){
             switch(data['error']){
                 case 1:
                     // displayMessageInFooter(data['errorMessage']);
+                    footer.displayMessage(data['errorMessage']);
                 break;
                 case 2:
                     timeout = -1;
                     // displayMessageInFooter(data['errorMessage']);
+                    footer.displayMessage(data['errorMessage']);
                     timer.stop();
                     return;
                 break;
@@ -122,8 +125,8 @@ function brain(options_){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
-        $("#footer").show();
-        $("#footer .error").html("Voting is now closed.");
+        //footer.displayMessage(data['errorMessage']);
+        //$("#footer .error").html("Voting is now closed.");
         presentations.setEnabledAll(false);
     }
 
@@ -286,6 +289,49 @@ function brain(options_){
             }
             notify = [];
         }
+    }
+
+    function footerClass(el){
+        var element=el;
+        var timerDisplay = false;
+        element.hide();
+
+        this.displayMessage = function(message){
+            var er = element.find('.error');
+            er.html(message);
+            if(!timerDisplay)
+                this.anim(3);
+        }
+
+        this.setTimerValue = function(timer_value){
+            var tmr = element.find('.timer');
+        }
+
+        this.anim = function(seconds){
+            this.animateUp(100);
+            var that=this;
+            setTimeout(
+                function(){
+                    that.animateDown(100);
+                }
+            ,seconds*1000);
+
+        }
+
+        this.animateUp = function(value){
+            element.show();
+            element.animate({
+                bottom: value+'px'
+            }, 500);
+        }
+
+        this.animateDown = function(value){
+            element.animate({
+                bottom: -value+'px'
+            }, 500);
+            element.show();
+        }
+
     }
 
     function showSpinner(){

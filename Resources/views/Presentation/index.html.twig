@@ -16,7 +16,7 @@
         <tbody>
         {% for entity in entities %}
             <tr class="{{ entity[0].votingEnabled?'success':'danger' }}">
-                <td><img width="40px" src='{{ asset('bundles/livevoting/'~entity[0].getWebPath)}}'/></td>
+                <td><img width="40px" src='{{ asset('bundles/livevoting/'~(entity[0].getImage ? entity[0].getWebPath: 'img/man1.png'))}}'/></td>
                 <td>{{ entity[0].presentationName }}</td>
                 <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>
                 <td>
