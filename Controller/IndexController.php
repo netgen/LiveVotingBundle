@@ -15,6 +15,7 @@ class IndexController extends Controller
     /* Created so we don't mess with each other methods */
     public function indexAction(){
         throw new NotFoundHttpException('Haaaai guuurl.');
+        // LISTA SVIH EVENTA
         return $this->render('LiveVotingBundle:Index:index.html.twig');
     }
 }

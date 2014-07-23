@@ -52,6 +52,7 @@ class EventController extends Controller {
             'presentationName' => $presentation->getPresentationName(),
             'votingEnabled' => $presentation->getVotingEnabled(),
             'presentationId' => $presentation->getId(),
+            'image' =>  $presentation->getImage() ? $presentation->getWebPath() : 'img/man1.png',
             'presenterRate' => $rate
         );
     }

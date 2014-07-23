@@ -2,13 +2,10 @@
 
 namespace Netgen\LiveVotingBundle\Features\Request;
 
-use Doctrine\ORM\EntityManager;
 use Netgen\LiveVotingBundle\Entity\Presentation;
 use Netgen\LiveVotingBundle\Entity\User;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Netgen\LiveVotingBundle\Exception\JsonException;
 
-use Netgen\LiveVotingBundle\Entity\Vote;
 use Netgen\LiveVotingBundle\Entity\Event;
 
 class ValidateRequest{
@@ -27,7 +24,6 @@ class ValidateRequest{
         );
 
         if($event->getStateName()=='POST'){
-
             $date_when_voting_ends = intval($event->getStateValue());
             $response['seconds'] = $date_when_voting_ends - time();
             if ( time()>$date_when_voting_ends ){
@@ -35,7 +31,6 @@ class ValidateRequest{
                 $response['errorMessage'] = 'Voting is closed.';
                 // not returning because we still need to send presentations
             }
-
         }elseif($event->getStateName()=='PRE'){
             $response['error']=1;
             $response['errorMessage'] = 'Waiting for voting to start.';

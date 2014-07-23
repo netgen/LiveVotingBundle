@@ -23,6 +23,12 @@ Netgen\LiveVotingBundle\Entity\Presentation:
 #            type: string
 #            lenght: 10 # m,f, team,...?
 #            default: m
+        country:
+            type: string
+            length: 128
+        image:
+            type: string
+            length: 255
 
     oneToMany:
         votes:

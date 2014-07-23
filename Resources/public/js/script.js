@@ -34,7 +34,6 @@ function brain(options_){
         var presentation = presentations.getById(presentation_id);
 
         var rate = $(this).serialize();
-        console.log(presentation.getData());
         if(presentation.getData()['votingEnabled']==true){
             showSpinner();
             $.ajax({
@@ -75,7 +74,6 @@ function brain(options_){
                 case 2:
                     timeout = -1;
                     // displayMessageInFooter(data['errorMessage']);
-                    console.log(data['errorMessage']);
                     timer.stop();
                     return;
                 break;
@@ -110,7 +108,6 @@ function brain(options_){
 
             }
             globalState = state;
-            console.log(timeout);
             if(timeout>0) setTimeout(run, timeout);
         }); 
     }
