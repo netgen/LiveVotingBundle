@@ -84,7 +84,7 @@ class Result {
                 $data['numOfUsers']++;
             }
             if($data['numOfUsers']){
-                $data['average'] = $data['score']/$data['numOfUsers'];
+                $data['average'] = round($data['score']/$data['numOfUsers'], 5);
                 $result['presentations'][] = array(
                 'presentation'=>array('name'=>$presentation->getPresentationName()),
                 'score'=>$data);
