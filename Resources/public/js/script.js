@@ -62,8 +62,17 @@ function brain(options_){
     var run = function() {
         $.getJSON(urlPath, function(data){
 
-            if(data["error"]){
-                console.log(data["errorMessage"]);
+            if(data["error"]!=0){
+                switch(data['error']){
+                    case 1:
+                        // displayMessageInFooter(data['errorMessage']);
+                    break;
+                    case 2:
+                        timeout = -1;
+                        // displayMessageInFooter(data['errorMessage'])
+                        return;
+                    break;
+                }
             }
             var state = data["eventStatus"];
             timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
