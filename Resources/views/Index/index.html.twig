@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-   		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<!-- Optional theme -->
+   		<!-- CSS -->
+		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
-		<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/main.css') }}"  />
         <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />
 
-        <!-- Latest compiled and minified JavaScript -->
+        <!--JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery.sticky.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/spin.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+
         <script type="text/javascript">
             $(document).ready(function(){
                 new brain({
@@ -32,13 +31,10 @@
                 });
             });
         </script>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
 		<script id="presentation" type="text/x-handlebars-template">
 				<div class='presentation'>
 	   				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		        		<img src="{{ asset('bundles/livevoting/img/man1.png') }}"class="img-responsive" alt="Responsive image" width="50px" style="float:left;margin:0 10px 10px 0;" />
+		        		<img src="{{ asset('bundles/livevoting/img/man1.png') }}"class="img-responsive img-circle presenter-img" width="50px" style="float:left;margin:0 10px 10px 0;" />
 		        		<p>{{ '{{presenterName }}' }} {{ '{{presenterSurname}}' }} {{ '{{presentationName}}' }}</p>
 		        		<form class='forma' action='/vote/{{ '{{ presentationId }}' }}' method='POST'>
                             <input type='radio' name='rate' value='1'/>
@@ -60,25 +56,24 @@
 	<body>
 		<div id="content" class="container">
 		    <div id="welcome">
-
-			    <img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-rounded">
-
-					<hr size=50 color="red">
-					<div class="modal"><!-- Place at bottom of page --></div>
-					<img src="{{ asset('bundles/livevoting/img/robot.png') }}" alt="" class="img-circle" width="55px">
+				<div class="navbar navbar-default">
+				    <div class="container">
+				        <div class="navbar-header text-center">
+				            <ul class="list-inline list-unstyled text-center">
+				                <li><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-circle" width="100px">
+				                </li>
+				                <li><img src="{{ asset('bundles/livevoting/img/robot.png') }}" alt="" class="img-circle" width="55px">
+				                </li>
+				            </ul>
+				        </div>
+				    </div>
+				</div>
 
 			</div>
             <div id="voting"></div>
 
         </div>
 
-
-        <div id="wrap">
-            <div id="footer" class="container">
-                <span class="error"></span>
-                <span id="timer"></span>
-            </div>
-        </div>
         <div id="loader">
             <div id="circleG">
                 <div id="circleG_1" class="circleG">
@@ -87,6 +82,13 @@
                 </div>
                 <div id="circleG_3" class="circleG">
                 </div>
+            </div>
+        </div>
+
+        <div id="wrap">
+            <div id="footer" class="container">
+                <span class="error"></span>
+                <span id="timer"></span>
             </div>
         </div>
 	</body>
