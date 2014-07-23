@@ -32,21 +32,24 @@
             });
         </script>
 		<script id="presentation" type="text/x-handlebars-template">
-				<div class='presentation'>
-	   				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		        		<img src="{{ asset('bundles/livevoting/img/man1.png') }}"class="img-responsive img-circle presenter-img" width="50px" style="float:left;margin:0 10px 10px 0;" />
-		        		<p>{{ '{{presenterName }}' }} {{ '{{presenterSurname}}' }} {{ '{{presentationName}}' }}</p>
-		        		<form class='forma' action='/vote/{{ '{{ presentationId }}' }}' method='POST'>
-                            <input type='radio' name='rate' value='1'/>
-                            <input type='radio' name='rate' value='2'/>
-                            <input type='radio' name='rate' value='3'/>
-                            <input type='radio' name='rate' value='4'/>
-                            <input type='radio' name='rate' value='5'/>
-		                </form>
-                        <img class="check" style="width:10px" src="{{ asset('bundles/livevoting/img/check_mark_green.png') }} ">
-		    		</div>
-				</div>
+            <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <div class="col-lg-2 col-md-2 col-xs-4">
+                    <img src="man1.png" class="img-responsive img-circle presenter-img" alt="Responsive image" width>
+                </div>
+                <div class="col-lg-10 col-md-10 col-xs-8">
+                    <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
 
+                    <p class="name text-muted">{{ '{{presentationName}}' }}</p>
+
+                    <form class="forma" action="/vote/1" method="POST">
+                        <input type="radio" name="rate" value="1" disabled="">
+                        <input type="radio" name="rate" value="2" disabled="">
+                        <input type="radio" name="rate" value="3" disabled="">
+                        <input type="radio" name="rate" value="4" disabled="">
+                        <input type="radio" name="rate" value="5" disabled="" checked="checked">
+                    </form>
+                </div>
+            </div>
 		</script>
 
 	<title></title>
@@ -69,7 +72,7 @@
 				    </div>
 				</div>
 			</div>
-            <div id="voting"></div>
+            <div id="voteScreen"></div>
 
         </div>
 

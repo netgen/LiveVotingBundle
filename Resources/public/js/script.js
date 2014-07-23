@@ -172,7 +172,7 @@ function brain(options_){
 
         var data = data_;
         this.element = $(template(data));
-        $("#voting").append(this.element);
+        $("#voteScreen").append(this.element);
         this.element.find('.check').hide();
 
         this.setData = function(data_){
