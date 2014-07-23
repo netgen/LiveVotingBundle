@@ -7,6 +7,8 @@ use Netgen\LiveVotingBundle\Entity\Presentation;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Netgen\LiveVotingBundle\Exception\JsonException;
 
+use Netgen\LiveVotingBundle\Entity\Vote;
+
 class ValidateRequest{
 
     protected $requestStack, $em;
