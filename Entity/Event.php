@@ -9,26 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Event
 {
-    /**
-     * @var integer
-     */
+
     private $id;
-
-    /**
-     * @var string
-     */
     private $name;
-
-    /**
-     * @var string
-     */
     private $stateName;
-
-    /**
-     * @var string
-     */
     private $stateValue = null;
-
+    private $allowViewingResults = false;
 
     /**
      * Get id
@@ -225,5 +211,14 @@ class Event
     public function getVotes()
     {
         return $this->votes;
+    }
+
+
+    public function setallowViewingResults($allowViewingResults){
+        $this->allowViewingResults = $allowViewingResults;
+    }
+
+    public function getallowViewingResults(){
+        return $this->allowViewingResults;
     }
 }
