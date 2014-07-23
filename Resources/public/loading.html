@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
+
+
+    <title></title>
+
+</head>
+
+<body>
+
+<!-- Fixed navbar -->
+<div class="navbar">
+    <div class="container text-center">
+       <img src="img/logo.png" alt="logo" class="img-circle" width="55px">
+    </div>
+</div>
+
+
+<div class="container text-center">
+    <img src="img/robot.png" alt="" class="img-circle" width="300px">
+    <h1 class="text-uppercase">Hold on...it's loading</h1>
+</div>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!--<script type="text/javascript" src="js/jquery-2.1.1.js"></script>-->
+<!--<script type="text/javascript" src="js/handlebars-v1.3.0.js"></script>-->
+<!--<script type="text/javascript" src="js/jquery.timer.js"></script>-->
+<!--<script type="text/javascript" src="js/spin.js"></script>-->
+<!--<style type="text/css"></style>-->
+<!--<script type="text/javascript" src="js/script.js"></script>-->
+<!--<script type="text/javascript">-->
+<!--$(document).ready(function (){-->
+<!--new brain({-->
+<!--'STATES': {-->
+<!--'PRE': {'TIMEOUT': 1},-->
+<!--'ACTIVE': {'TIMEOUT': 5},-->
+<!--'POST': {'TIMEOUT': -1}-->
+<!--},-->
+<!--'URLS': {-->
+<!--'EVENT_STATUS': '/event_status/',-->
+<!--'VOTE': '/vote/'-->
+<!--}-->
+<!--});-->
+<!--});-->
+<!--</script>-->
+
+
+<!--<script id="presentation" type="text/x-handlebars-template">-->
+
+<!--{{#each presentations}}-->
+<!--<div class='presentation'>-->
+
+<!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">-->
+<!--<img id="presenterImg">-->
+<!--<img src="man1.png" class="img-responsive" alt="Responsive image" width="50px"></img>-->
+<!--{{presenterName }} {{presenterSurname}} {{presentationName}}-->
+<!--<form class='forma' action='/vote/{{ presentationId }}' method='POST'>-->
+<!--<input type='radio' name='rate' value='1' {{#unless votingEnabled}} disabled {{/unless}} {{#ifCond-->
+<!--presenterRate "1"}} checked = 'checked' {{/ifCond}} />-->
+<!--<input type='radio' name='rate' value='2' {{#unless votingEnabled}} disabled {{/unless}} {{#ifCond-->
+<!--presenterRate "2"}} checked = 'checked' {{/ifCond}} />-->
+<!--<input type='radio' name='rate' value='3' {{#unless votingEnabled}} disabled {{/unless}} {{#ifCond-->
+<!--presenterRate "3"}} checked = 'checked' {{/ifCond}} />-->
+<!--<input type='radio' name='rate' value='4' {{#unless votingEnabled}} disabled {{/unless}} {{#ifCond-->
+<!--presenterRate "4"}} checked = 'checked' {{/ifCond}} />-->
+<!--<input type='radio' name='rate' value='5' {{#unless votingEnabled}} disabled {{/unless}} {{#ifCond-->
+<!--presenterRate "5"}} checked = 'checked' {{/ifCond}} />-->
+<!--</form>-->
+<!--</div>-->
+
+<!--</div>-->
+<!--{{/each}}-->
+
+<!--</script>-->
+
+<!-- Bootstrap init js -->
+<script>
+    $(document).ready(function () {
+        $(".modal").modal('close')
+    });
+</script>
+
+</body>
+</html>
