@@ -9,7 +9,9 @@ function brain(options_){
     var timer = new timer();
     var canIVote = true;
     var presentations = new presentationsArray();
-
+    var shadow = $('<div class="shadow"></div>');
+    var loader = $('#circleG');
+    shadow.hide();
     Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
         if (v1 == v2) {
             return options.fn(this);
@@ -18,12 +20,9 @@ function brain(options_){
     });
 
     $("#footer").hide();
+    $('body').append(shadow);
 
-    var spinner = new Spinner();
-    spinner.spin();
-
-    document.getElementById('welcome').appendChild(spinner.el);
-
+    showSpinner();
     $('body').on('change', '.forma', function(e){
         if(!canIVote)return;
         var presentation_id = $(this).attr('action').split('/').pop();
@@ -31,8 +30,18 @@ function brain(options_){
 
         var rate = $(this).serialize();
         if(presentation.getData()['votingEnabled']==true){
-            $.post($(this).attr('action'), rate, function(data){
-                presentation.setCheckMark(true);
+            showSpinner();
+            $.ajax({
+                type: 'post',
+                'url': $(this).attr('action'),
+                'data': rate,
+                success: function(data){
+                    presentation.setCheckMark(true);
+                    hideSpinner();
+                },
+                error: function(e){
+                    hideSpinner();
+                }
             });
         }
         e.preventDefault();
@@ -56,7 +65,6 @@ function brain(options_){
             if(data["error"]){
                 console.log(data["errorMessage"]);
             }
-            console.log(data);
             var state = data["eventStatus"];
             timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
             switch(state){
@@ -67,13 +75,14 @@ function brain(options_){
                     if(!timer.isRunning && seconds>0){
                         timer.init(parseInt(data['seconds']), changeFooter, endVoting);
                         timer.runTimer();
-                    }else{
+                    }
+                    if(seconds<0){
                         timeout = -1;
                         endVoting();
                     }
                 case 'ACTIVE':
                     $("#welcome").hide();
-                    spinner.stop();
+                    hideSpinner();
                     //add presentations
                     handleNewPresentations(data['presentations']);
                     break;
@@ -98,7 +107,8 @@ function brain(options_){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
-        $("#footer").html("Voting is now closed.");
+        $("#footer").show();
+        $("#footer .error").html("Voting is now closed.");
         presentations.setEnabledAll(false);
     }
 
@@ -218,6 +228,15 @@ function brain(options_){
                 arr[i].setEnabled(state);
             }
         }
+    }
+
+    function showSpinner(){
+        shadow.show();
+        loader.show();
+    }
+    function hideSpinner(){
+        shadow.hide();
+        loader.hide();
     }
 
     run();
