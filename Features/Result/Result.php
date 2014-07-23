@@ -67,6 +67,7 @@ class Result {
     }
 
     public function getLiveResults($event_id){
+        //TODO: FIX THIS
         $event = $this->em->getRepository('LiveVotingBundle:Event')->find($event_id);
         if( !$event instanceof Event){
             // TODO: Ask Edi what to return to controller and how to handle exceptions

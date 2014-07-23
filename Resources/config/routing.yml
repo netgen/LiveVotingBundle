@@ -26,6 +26,10 @@ result_json:
     path: /live_results_api/{event_id}
     defaults: {_controller: LiveVotingBundle:Result:getResults}
 
+table_results:
+    path: /table_results/{event_id}
+    defaults: {_controller: LiveVotingBundle:Result:getTable}
+
 
 # ADMIN ROUTING #
 admin_index:

@@ -38,6 +38,20 @@ class ResultController extends Controller{
         }
     }
 
+    public function getTableAction($event_id){
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        $enabled = $event->getallowViewingResults();
+        if($enabled){
+            $results = $this->get('live_voting.result')->getLiveResults($event_id);
+            print_r(count($results));
+            return $this->render('LiveVotingBundle:Result:table.html.twig', array(
+                'presentations'=>$results
+            ));
+        }else{
+            return $this->render('LiveVotingBundle:Result:empty.html.twig');
+        }
+    }
+
 }
 
 ?>
