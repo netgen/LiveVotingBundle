@@ -42,7 +42,7 @@ function brain(options_){
                 'url': $(this).attr('action'),
                 'data': rate,
                 success: function(data){
-                    presentation.highLightMe();
+                    presentation.highlightMe();
                     hideSpinner();
                 },
                 error: function(e){
