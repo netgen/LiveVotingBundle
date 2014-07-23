@@ -4,7 +4,7 @@ index:
 
 event:
     path:    /event/{event_id}
-    defaults: {_controller: LiveVotingBundle:Index:index2, event_id: -1}
+    defaults: {_controller: LiveVotingBundle:Event:index, event_id: -1}
     requirements:
         event_id: -?\d+
         #negative numbers

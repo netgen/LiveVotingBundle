@@ -3,6 +3,7 @@
 namespace Netgen\LiveVotingBundle\Features\Request;
 
 use Doctrine\ORM\EntityManager;
+use Netgen\LiveVotingBundle\Entity\Presentation;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Netgen\LiveVotingBundle\Exception\JsonException;
 
@@ -36,13 +37,11 @@ class ValidateRequest{
         if($event->getStateName()=='POST'){
 
             $date_when_voting_ends = intval($event->getStateValue());
+            $response['seconds'] = $date_when_voting_ends - time();
             if ( time()>$date_when_voting_ends ){
                 $response['error']=1;
                 $response['errorMessage'] = 'Voting is closed.';
-                $response['seconds']=-1;
-                //return new JsonResponse($response);
-            }else{
-                $response['seconds'] = $date_when_voting_ends - time();
+                // not returning because we still need to send presentations
             }
 
         }elseif($event->getStateName()=='PRE'){
@@ -57,23 +56,28 @@ class ValidateRequest{
             ->findBy(array('event'=>$event));
 
         $response['presentations']=array();
+
         // adding presentations to response array
         $em = $this->em->getRepository('LiveVotingBundle:Vote');
         foreach($presentations as $presentation){
             $vote = $em->findOneBy(array('user'=>$user, 'presentation'=>$presentation));
             $rate = 0;
             if($vote)$rate = $vote->getRate();
-            $tmp = array(
-                'presenterName' => $presentation->getPresenterName(),
-                'presenterSurname' => $presentation->getPresenterSurname(),
-                'presentationName' => $presentation->getPresentationName(),
-                'votingEnabled' => $presentation->getVotingEnabled(),
-                'presentationId' => $presentation->getId(),
-                'presenterRate' => $rate
-            );
+            $tmp = $this->getPresentationArray($presentation, $rate);
             array_push($response['presentations'], $tmp);
         }
         return $response;
+    }
+
+    protected function getPresentationArray(Presentation $presentation, $rate){
+        return array(
+            'presenterName' => $presentation->getPresenterName(),
+            'presenterSurname' => $presentation->getPresenterSurname(),
+            'presentationName' => $presentation->getPresentationName(),
+            'votingEnabled' => $presentation->getVotingEnabled(),
+            'presentationId' => $presentation->getId(),
+            'presenterRate' => $rate
+        );
     }
 
     public function validateVote($presentation_id){

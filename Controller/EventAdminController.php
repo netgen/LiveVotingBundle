@@ -125,9 +125,9 @@ class EventAdminController extends Controller
             'action' => $this->generateUrl('admin_event_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
+        $form->add('allowViewingResults', 'checkbox', array('required'=>false, 'label'=>'Results available for public'));
         $form->add('numberOfSeconds', 'number', array('mapped'=> false, 'required'=>false, 'label'=>'Seconds until event ends.'));
         $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
     /**
