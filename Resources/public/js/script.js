@@ -1,17 +1,3 @@
-$(document).ready(function(){
-    new brain({
-        'STATES':{
-            'PRE':{'TIMEOUT':1},
-            'ACTIVE':{'TIMEOUT':5},
-            'POST':{'TIMEOUT':5}
-    },
-        'URLS':{
-            'EVENT_STATUS':'/event_status/',
-            'VOTE':'/vote/'
-        }
-    });
-});
-
 function brain(options_){
 
     var options = options_;
