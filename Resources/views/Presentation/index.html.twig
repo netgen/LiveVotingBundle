@@ -1,7 +1,7 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Presentations for event: {{ event.name }}</h1>
+    <h1>Presentations for event: {{ event.name }} [{{ event.stateName }}]</h1>
 
     <table class="records_list table">
         <thead>
