@@ -95,7 +95,6 @@ function brain(options_){
                     if(timeout>0){
                         timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
                     }
-                    $("#welcome").hide();
                     hideSpinner();
                     //add presentations
                     handleNewPresentations(data['presentations']);
@@ -129,8 +128,7 @@ function brain(options_){
 
     function changeFooter(seconds_) {
         $("#footer").show();
-        $("#footer").sticky({ bottomSpacing: 0});
-        $("#footer #timer").html(seconds_);
+        $("#timer").html(seconds_);
     }
 
     /*
@@ -174,7 +172,7 @@ function brain(options_){
 
         var data = data_;
         this.element = $(template(data));
-        $("#voting").append(this.element);
+        $("#voteScreen").append(this.element);
         this.element.find('.check').hide();
 
         this.setData = function(data_){

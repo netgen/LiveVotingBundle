@@ -43,6 +43,7 @@ body {
     width: 100%;
 }
 
+
 /* Set the fixed height of the footer here */
 #footer {
     height: 100px;
@@ -66,6 +67,4 @@ body {
 
     z-index: 10000000;
 }
-*{
-    /*outline: 1px solid red;*/
-}
+
