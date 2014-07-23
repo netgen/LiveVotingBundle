@@ -54,7 +54,7 @@ class Result {
                 $tmp = $presentationResult[$vote->getPresentation()->getId()];
                 $tmp['numOfUsers']++;
                 $tmp['score'] += $vote->getRate();
-                $tmp['average'] = $tmp['score']/$tmp['numOfUsers'];
+                $tmp['average'] = round($tmp['score']/$tmp['numOfUsers'], 5);
                 $tmp1[$vote->getPresentation()->getId()]  = $tmp;
                 $presentationResult[$vote->getPresentation()->getId()] = $tmp;
             }

@@ -15,7 +15,7 @@ class VoteController extends Controller{
     public function voteAction(Request $request, $presentation_id){
 
         try{
-            $result = $this->get('live_voting.handlerequest')->validateVote($presentation_id);
+            $result = $this->get('live_voting.handleRequest')->validateVote($presentation_id);
             return new JsonResponse($result);
         }catch(JsonException $e){
             return new JsonResponse(unserialize($e->getMessage()));

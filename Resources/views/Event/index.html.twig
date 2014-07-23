@@ -11,6 +11,7 @@
                 <!-- <th>Value</th> -->
                 <th>Edit event</th>
                 <th>View presentations</th>
+                <th>View results</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,11 @@
 
                 <td>
                     <a class='btn btn-primary' href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">View</a>
+                </td>
+
+                <td>
+                    <a class='btn btn-primary' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">Live</a>
+                    <a class='btn btn-primary' target="_blank" href="{{ path('result_view', { 'event_id': entity.id }) }}">Final</a>
                 </td>
             </tr>
         {% endfor %}
