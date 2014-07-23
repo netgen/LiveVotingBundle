@@ -1,0 +1,23 @@
+<div id="presentation">
+    <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class='highLight'></div>
+        <div class="col-lg-2 col-md-2 col-xs-4">
+            <img src="{{ asset('bundles/livevoting/img/man1.png') }}" class="img-responsive img-circle presenter-img" alt="Responsive image" width>
+        </div>
+        <div class="col-lg-10 col-md-10 col-xs-8">
+            <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
+
+            <p class="name text-muted">{{ '{{presentationName}}' }}</p>
+
+            <form class="forma" action="/vote/{{ '{{ presentationId }}'}}"method="POST">
+
+                <input type="radio" name="rate" value="1" disabled="">
+                <input type="radio" name="rate" value="2" disabled="">
+                <input type="radio" name="rate" value="3" disabled="">
+                <input type="radio" name="rate" value="4" disabled="">
+                <input type="radio" name="rate" value="5" disabled="">
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
