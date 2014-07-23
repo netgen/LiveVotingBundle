@@ -70,6 +70,7 @@ function brain(options_){
                     timeout = -1;
                     // displayMessageInFooter(data['errorMessage']);
                     console.log(data['errorMessage']);
+                    timer.stop();
                     return;
                 break;
             }
@@ -141,17 +142,22 @@ function brain(options_){
         this.seconds = 1;
         this.callbackEverySecond;
         this.callbackEnd;
+        var killMe = false;
 
+        function stop(){
+            killMe = true;
+        }
         this.init = function(seconds_, callbackEverySecond_, callbackEnd_){
             this.seconds = seconds_;
             this.callbackEverySecond = callbackEverySecond_;
             this.callbackEnd = callbackEnd_;
+            killme = false;
         }
 
         this.runTimer = function(){
             var that = this;
             this.isRunning = true;
-            if(this.seconds==0){
+            if(this.seconds==0 || killMe){
                 this.callbackEnd();
                 this.isRunning = false;
                 return;
@@ -209,7 +215,6 @@ function brain(options_){
         }
 
         this.handle = function(){
-            console.log(data);
             var vote = data['presenterRate'];
             this.setVote(vote);
             this.setEnabled(data['votingEnabled']);
