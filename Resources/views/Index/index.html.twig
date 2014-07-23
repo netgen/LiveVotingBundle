@@ -34,7 +34,7 @@
 		<script id="presentation" type="text/x-handlebars-template">
             <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <div class="col-lg-2 col-md-2 col-xs-4">
-                    <img src="man1.png" class="img-responsive img-circle presenter-img" alt="Responsive image" width>
+                    <img src="{{ asset('bundles/livevoting/img/man1.png') }}" class="img-responsive img-circle presenter-img" alt="Responsive image" width>
                 </div>
                 <div class="col-lg-10 col-md-10 col-xs-8">
                     <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
@@ -48,6 +48,7 @@
                         <input type="radio" name="rate" value="4" disabled="">
                         <input type="radio" name="rate" value="5" disabled="" checked="checked">
                     </form>
+                    <br>
                 </div>
             </div>
 		</script>
