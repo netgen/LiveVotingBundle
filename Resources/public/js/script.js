@@ -95,7 +95,6 @@ function brain(options_){
                     if(timeout>0){
                         timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
                     }
-                    $("#welcome").hide();
                     hideSpinner();
                     //add presentations
                     handleNewPresentations(data['presentations']);
