@@ -5,6 +5,7 @@ namespace Netgen\LiveVotingBundle\Controller;
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\User;
 use Netgen\LiveVotingBundle\Entity\Vote;
+use Netgen\LiveVotingBundle\Exception\JsonException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +16,7 @@ class EventController extends Controller {
     public function eventStatusAction(Request $request, $event_id){
         $session = $request->getSession();
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
-
+        //throw new JsonException('error');
         if(!$event instanceof Event)
             return new JsonResponse( array('error'=>1, 'errorMessage'=>'Non existing event.') );
 
