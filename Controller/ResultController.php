@@ -28,7 +28,8 @@ class ResultController extends Controller{
      * Returns json for all presentations so javascript can draw it
      */
     public function getResultsAction(Request $request, $event_id){
-        $enabled = true;
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        $enabled = $event->getallowViewingResults();
         if($enabled){
             $results = $this->get('live_voting.result')->getLiveResults($event_id);
             return new JsonResponse($results);

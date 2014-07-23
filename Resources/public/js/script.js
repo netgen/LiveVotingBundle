@@ -23,6 +23,10 @@ function brain(options_){
     $('body').append(shadow);
 
     showSpinner();
+
+    if('vibrate' in window.navigator){
+        window.navigator.vibrate(1000);
+    }
     $('body').on('change', '.forma', function(e){
 
         if(!canIVote)return;
@@ -232,7 +236,7 @@ function brain(options_){
             })
         }
 
-        this.highLightMe = function(){
+        this.highlightMe = function(){
             this.element.find('.highLight').fadeIn(1000);
             this.element.find('.highLight').fadeOut(1000);
         }
@@ -284,7 +288,7 @@ function brain(options_){
                     }, 1000);
                     scrolledTo = true;
                 }
-                arr[notify[i]].highLightMe();
+                arr[notify[i]].highlightMe();
             }
             notify = [];
         }

@@ -15,7 +15,34 @@ class VoteController extends Controller{
     public function voteAction(Request $request, $presentation_id){
 
         try{
-            $result = $this->get('live_voting.handleRequest')->validateVote($presentation_id);
+            $rate = $request->request->get('rate');
+            $presentation = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->find($presentation_id);
+            $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')
+                ->find($request->getSession()->getId());
+            $event = $presentation->getEvent();
+
+            $this->get('live_voting.handleRequest')->validateVote($presentation, $event, $user, $rate);
+            $vote = $this->getDoctrine()->getRepository('LiveVotingBundle:Vote')->findOneBy(array(
+                'user'=>$user,
+                'presentation'=>$presentation
+            ));
+
+            // new vote
+            if(!$vote){
+                $vote = new Vote();
+                $vote->setUser($user);
+                $vote->setPresentation($presentation);
+                $vote->setEvent($presentation->getEvent());
+            }
+            // saving vote
+            $vote->setRate($rate);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($vote);
+            $em->flush();
+            $result = array(
+                'error'=>0,
+                'errorMessage'=>'Thanks for voting!'
+            );
             return new JsonResponse($result);
         }catch(JsonException $e){
             return new JsonResponse(unserialize($e->getMessage()));
