@@ -58,29 +58,27 @@
 	</head>
 
 	<body>
-		<div id="wrap">
-			<div class="container">
-				<div id="welcome">
+		<div id="content" class="container">
+		    <div id="welcome">
 
-					<img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-rounded">
+			    <img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-rounded">
 
 					<hr size=50 color="red">
 					<div class="modal"><!-- Place at bottom of page --></div>
 					<img src="{{ asset('bundles/livevoting/img/robot.png') }}" alt="" class="img-circle" width="55px">
 
-				</div>
+			</div>
+            <div id="voting"></div>
 
-				<div id="voting"></div>
-                <div id="footer">
-
-                        <span class="error"></span>
-                        <span id="timer"></span>
-
-			    </div>
-		    </div>
+        </div>
 
 
-		</div>
+        <div id="wrap"">
+            <div id="footer" class="container">
+                <span class="error"></span>
+                <span id="timer"></span>
+            </div>
+        </div>
         <div id="loader">
             <div id="circleG">
                 <div id="circleG_1" class="circleG">
