@@ -28,7 +28,10 @@
                 </td>
 
                 <td>
-                    <a class='btn btn-primary' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">Live</a>
+                    <a class='btn {{ entity.allowViewingResults ? 'btn-success':'btn-warning'  }}' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">
+                        <span class='glyphicon glyphicon-eye-{{ entity.allowViewingResults ? 'open':'close'  }}'></span>
+                        Live
+                    </a>
                     <a class='btn btn-primary' target="_blank" href="{{ path('result_view', { 'event_id': entity.id }) }}">Final</a>
                 </td>
             </tr>
