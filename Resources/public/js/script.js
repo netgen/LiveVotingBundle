@@ -11,18 +11,14 @@ function brain(options_){
     var presentations = new presentationsArray();
     var shadow = $('<div class="shadow"></div>');
     var loader = $('#circleG');
-    shadow.hide();
-    Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
-        if (v1 == v2) {
-            return options.fn(this);
-        }
-        return options.inverse(this);
-    });
 
+    shadow.hide();
     $("#footer").hide();
     $('body').append(shadow);
 
     showSpinner();
+    //add message for waiting
+
     $('body').on('change', '.forma', function(e){
 
         if(!canIVote)return;
@@ -42,6 +38,7 @@ function brain(options_){
                     hideSpinner();
                 },
                 error: function(e){
+                    //fly out erro on footer
                     hideSpinner();
                 }
             });

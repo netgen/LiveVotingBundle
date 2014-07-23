@@ -15,6 +15,8 @@
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+		<script type="text/x-handlebars-template" src="{{ asset('bundles/livevoting/templates/handlebars-templates.html.twig') }}">
+		</script>
 
         <script type="text/javascript">
             $(document).ready(function(){
@@ -31,27 +33,31 @@
                 });
             });
         </script>
+
+
+
 		<script id="presentation" type="text/x-handlebars-template">
-            <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <div class='highLight'></div>
-                <div class="col-lg-2 col-md-2 col-xs-4">
-                    <img src="{{ asset('bundles/livevoting/img/man1.png') }}" class="img-responsive img-circle presenter-img" alt="Responsive image" width>
-                </div>
-                <div class="col-lg-10 col-md-10 col-xs-8">
-                    <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
+		    <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12">
+		        <div class='highLight'></div>
+		        <div class="col-lg-2 col-md-2 col-xs-4">
+		            <img src="{{ asset('bundles/livevoting/img/man1.png') }}" class="img-responsive img-circle presenter-img" alt="Responsive image" width>
+		        </div>
+		        <div class="col-lg-10 col-md-10 col-xs-8">
+		            <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
 
-                    <p class="name text-muted">{{ '{{presentationName}}' }}</p>
-                    <form class="forma" action="/vote/{{ '{{ presentationId }}' }}" method="POST">
+		            <p class="name text-muted">{{ '{{presentationName}}' }}</p>
 
-                        <input type="radio" name="rate" value="1" disabled="">
-                        <input type="radio" name="rate" value="2" disabled="">
-                        <input type="radio" name="rate" value="3" disabled="">
-                        <input type="radio" name="rate" value="4" disabled="">
-                        <input type="radio" name="rate" value="5" disabled="" checked="checked">
-                    </form>
-                    <br>
-                </div>
-            </div>
+		            <form class="forma" action="/vote/{{ '{{ presentationId }}'}}"method="POST">
+
+		                <input type="radio" name="rate" value="1" disabled="">
+		                <input type="radio" name="rate" value="2" disabled="">
+		                <input type="radio" name="rate" value="3" disabled="">
+		                <input type="radio" name="rate" value="4" disabled="">
+		                <input type="radio" name="rate" value="5" disabled="">
+		            </form>
+		            <br>
+		        </div>
+		    </div>
 		</script>
 
 	<title></title>
@@ -66,8 +72,6 @@
 				        <div class="navbar-header text-center">
 				            <ul class="list-inline list-unstyled text-center">
 				                <li><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-circle" width="100px">
-				                </li>
-				                <li><img src="{{ asset('bundles/livevoting/img/robot.png') }}" alt="" class="img-circle" width="55px">
 				                </li>
 				            </ul>
 				        </div>
