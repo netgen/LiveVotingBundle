@@ -6,16 +6,16 @@
 
    		<!-- CSS -->
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
-		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
+
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
         <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />
+        <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
 
         <!--JavaScript -->
-		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
 
         <script type="text/javascript">
             $(document).ready(function(){
@@ -41,18 +41,20 @@
                     class="img-responsive presenter-img" alt="Responsive image" width>
                 </div>
                 <div class="col-lg-10 col-md-10 col-xs-10">
-                    <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
-                    <p class="name text-info">{{ '{{presentationName}}' }}</p>
+                    <h4 class="text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</h4>
+                    <h4 class="text-info">{{ '{{presentationName}}' }}</h4>
                     <form class="forma" action="/vote/{{ '{{ presentationId }}' }}" method="POST">
-                        <ul class="pagination">
-                            <li><i class="glyphicon glyphicon-thumbs-down"></i></li>
-                              		<li><input type="radio" name="rate" value="1" disabled=""></li>
-                              		<li><input type="radio" name="rate" value="2" disabled=""></li>
-                              		<li><input type="radio" name="rate" value="3" disabled=""></li>
-                              		<li><input type="radio" name="rate" value="4" disabled=""></li>
-                              		<li><input type="radio" name="rate" value="5" disabled=""></li>
-                            <li><i class="glyphicon glyphicon-thumbs-up"></i></li>
-                        </ul>
+                        <div class="btn-group" role="toolbar">
+                            <span class='glyphicon glyphicon-thumbs-down ciganejedan'></span>
+                            <input type="submit" name='lalala' class='btn btn-default btn-sm' value='1'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='2'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='3'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='4'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='5'/>
+
+                            <span class='glyphicon glyphicon-thumbs-up ciganejedan'></span>
+
+                        </div>
                     </form>
                     <br>
                 </div>

@@ -21,22 +21,27 @@ function brain(options_){
         window.navigator.vibrate(1000);
     }
 
-    $('body').on('change', '.forma', function(e){
+    $('body').on('change', '.forma', function(e){e.preventDefault();});
 
+
+    $('body').on('click', '.forma input', function(e){
+        e.preventDefault();
         if(!canIVote)return;
-        var presentation_id = $(this).attr('action').split('/').pop();
+        var action = $(this).parent().parent().attr('action');
+        var presentation_id = action.split('/').pop();
         var presentation = presentations.getById(presentation_id);
-
-        var rate = $(this).serialize();
+        var vote = $(this).attr('value');
+        var rate = 'rate='+vote;
         if(presentation.getData()['votingEnabled']==true){
             showSpinner();
             $.ajax({
                 type: 'post',
-                'url': $(this).attr('action'),
+                'url': action,
                 'data': rate,
                 success: function(data){
                     presentation.highlightMe();
                     footer.displayMessage(data['errorMessage']);
+                    presentation.setVote(vote);
                     hideSpinner();
                 },
                 error: function(e){
@@ -45,7 +50,7 @@ function brain(options_){
                 }
             });
         }
-        e.preventDefault();
+
     });
 
 
@@ -209,16 +214,18 @@ function brain(options_){
             return data;
         }
         this.setVote = function(vote_number){
-            this.element.find('input[type=radio]').each(function(){
+            this.element.find('input[type=submit]').each(function(){
                 if(this.value == vote_number){
-                    this.setAttribute('checked', 'checked');
+                    $(this).addClass('active');
+                }else{
+                    $(this).removeClass('active');
                 }
             });
         }
 
 
         this.setEnabled = function(enabled_status){
-            this.element.find('input[type=radio]').each(function(){
+            this.element.find('input[type=submit]').each(function(){
 
                 if(!enabled_status || canIVote==false){
                     this.setAttribute('disabled', 'disabled');
