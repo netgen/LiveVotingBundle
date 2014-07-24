@@ -43,7 +43,15 @@ class ResultController extends Controller{
         $enabled = $event->getallowViewingResults();
         if($enabled){
             $results = $this->get('live_voting.result')->getLiveResults($event_id);
-            print_r(count($results));
+
+            usort($results['presentations'], function($v1, $v2){
+                $v1score = floatval($v1['score']['average']);
+                $v2score = floatval($v2['score']['average']);
+                if($v1score>$v1score)return -1;
+                if($v1score<$v2score)return 1;
+                return 0;
+            });
+
             return $this->render('LiveVotingBundle:Result:table.html.twig', array(
                 'presentations'=>$results
             ));
