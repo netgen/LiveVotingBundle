@@ -9,9 +9,10 @@ function brain(options_){
     var timer = new timer();
     var canIVote = true;
     var presentations = new presentationsArray();
-    var shadow = $('<div class="shadow"></div>');
+    var shadow = $('<div id="shadow"></div>');
     var loader = $('#circleG');
     var footer = new footerClass($('#footer'));
+<<<<<<< HEAD
     shadow.hide();
     Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
         if (v1 == v2) {
@@ -19,6 +20,8 @@ function brain(options_){
         }
         return options.inverse(this);
     });
+=======
+>>>>>>> 12e804e8688bca58a22ff8f8be7e8f3695c975d5
 
     $('body').append(shadow);
 
@@ -42,10 +45,12 @@ function brain(options_){
                 'url': $(this).attr('action'),
                 'data': rate,
                 success: function(data){
-                    presentation.highLightMe();
+                    presentation.highlightMe();
+                    footer.displayMessage(data['errorMessage']);
                     hideSpinner();
                 },
                 error: function(e){
+                    //fly out erro on footer
                     hideSpinner();
                 }
             });
@@ -71,11 +76,15 @@ function brain(options_){
             switch(data['error']){
                 case 1:
                     // displayMessageInFooter(data['errorMessage']);
+                    footer.displayMessage(data['errorMessage']);
                 break;
                 case 2:
                     timeout = -1;
                     // displayMessageInFooter(data['errorMessage']);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 12e804e8688bca58a22ff8f8be7e8f3695c975d5
                     footer.staticMessage(data['errorMessage']);
                     timer.stop();
                     return;
@@ -133,6 +142,11 @@ function brain(options_){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
+<<<<<<< HEAD
+=======
+        //footer.displayMessage(data['errorMessage']);
+        //$("#footer .error").html("Voting is now closed.");
+>>>>>>> 12e804e8688bca58a22ff8f8be7e8f3695c975d5
         presentations.setEnabledAll(false);
         footer.setStaticTimer('');
         footer.staticMessage(message);
@@ -241,7 +255,7 @@ function brain(options_){
             })
         }
 
-        this.highLightMe = function(){
+        this.highlightMe = function(){
             this.element.find('.highLight').fadeIn(1000);
             this.element.find('.highLight').fadeOut(1000);
         }
@@ -293,7 +307,7 @@ function brain(options_){
                     }, 1000);
                     scrolledTo = true;
                 }
-                arr[notify[i]].highLightMe();
+                arr[notify[i]].highlightMe();
             }
             delete notify;
             notify = [];
@@ -310,8 +324,7 @@ function brain(options_){
 
         this.displayMessage = function(message){
             setMessage(message);
-            if(!holdingUp)
-                this.anim(3);
+            this.anim(3);
 
         }
 
@@ -325,17 +338,16 @@ function brain(options_){
             tmr.html(tmrMsg);
         }
         this.anim = function(seconds){
-            if(!holdingUp){
+            if(!holdingUp)
                 this.animateUp(100);
-                clearTimeout(timeoutVariable);
-                timeoutVariable = setTimeout(
-                    function(){
+            clearTimeout(timeoutVariable);
+            timeoutVariable = setTimeout(
+                function(){
+                    if(!holdingUp)
                         that.animateDown(100);
-                    }
-                ,seconds*1000);
-            }
-
-
+                    setMessage('');
+                }
+            ,seconds*1000);
         }
 
         function endFooter(){
