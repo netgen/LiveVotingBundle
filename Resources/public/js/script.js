@@ -11,18 +11,18 @@ function brain(options_){
     var presentations = new presentationsArray();
     var shadow = $('<div class="shadow"></div>');
     var loader = $('#circleG');
-    var footer = new footerClass($('#footer'));
+    shadow.hide();
+    Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
+        if (v1 == v2) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
 
-    footer.displayMessage('cao mala');
+    $("#footer").hide();
     $('body').append(shadow);
 
     showSpinner();
-
-
-    if('vibrate' in window.navigator){
-        window.navigator.vibrate(1000);
-    }
-
     $('body').on('change', '.forma', function(e){
 
         if(!canIVote)return;
@@ -30,6 +30,7 @@ function brain(options_){
         var presentation = presentations.getById(presentation_id);
 
         var rate = $(this).serialize();
+        console.log(presentation.getData());
         if(presentation.getData()['votingEnabled']==true){
             showSpinner();
             $.ajax({
@@ -37,12 +38,10 @@ function brain(options_){
                 'url': $(this).attr('action'),
                 'data': rate,
                 success: function(data){
-                    presentation.highlightMe();
-                    footer.displayMessage(data['errorMessage']);
+                    presentation.highLightMe();
                     hideSpinner();
                 },
                 error: function(e){
-                    //fly out erro on footer
                     hideSpinner();
                 }
             });
@@ -68,12 +67,11 @@ function brain(options_){
             switch(data['error']){
                 case 1:
                     // displayMessageInFooter(data['errorMessage']);
-                    footer.displayMessage(data['errorMessage']);
                 break;
                 case 2:
                     timeout = -1;
                     // displayMessageInFooter(data['errorMessage']);
-                    footer.displayMessage(data['errorMessage']);
+                    console.log(data['errorMessage']);
                     timer.stop();
                     return;
                 break;
@@ -108,6 +106,7 @@ function brain(options_){
 
             }
             globalState = state;
+            console.log(timeout);
             if(timeout>0) setTimeout(run, timeout);
         }); 
     }
@@ -125,8 +124,8 @@ function brain(options_){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
-        //footer.displayMessage(data['errorMessage']);
-        //$("#footer .error").html("Voting is now closed.");
+        $("#footer").show();
+        $("#footer .error").html("Voting is now closed.");
         presentations.setEnabledAll(false);
     }
 
@@ -233,7 +232,7 @@ function brain(options_){
             })
         }
 
-        this.highlightMe = function(){
+        this.highLightMe = function(){
             this.element.find('.highLight').fadeIn(1000);
             this.element.find('.highLight').fadeOut(1000);
         }
@@ -285,53 +284,10 @@ function brain(options_){
                     }, 1000);
                     scrolledTo = true;
                 }
-                arr[notify[i]].highlightMe();
+                arr[notify[i]].highLightMe();
             }
             notify = [];
         }
-    }
-
-    function footerClass(el){
-        var element=el;
-        var timerDisplay = false;
-        element.hide();
-
-        this.displayMessage = function(message){
-            var er = element.find('.error');
-            er.html(message);
-            if(!timerDisplay)
-                this.anim(3);
-        }
-
-        this.setTimerValue = function(timer_value){
-            var tmr = element.find('.timer');
-        }
-
-        this.anim = function(seconds){
-            this.animateUp(100);
-            var that=this;
-            setTimeout(
-                function(){
-                    that.animateDown(100);
-                }
-            ,seconds*1000);
-
-        }
-
-        this.animateUp = function(value){
-            element.show();
-            element.animate({
-                bottom: value+'px'
-            }, 500);
-        }
-
-        this.animateDown = function(value){
-            element.animate({
-                bottom: -value+'px'
-            }, 500);
-            element.show();
-        }
-
     }
 
     function showSpinner(){
