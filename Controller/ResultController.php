@@ -51,7 +51,7 @@ class ResultController extends Controller{
                 if($v1score<$v2score)return 1;
                 return 0;
             });
-            
+
             return $this->render('LiveVotingBundle:Result:table.html.twig', array(
                 'presentations'=>$results
             ));

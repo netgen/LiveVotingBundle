@@ -11,7 +11,6 @@ use Netgen\LiveVotingBundle\Entity\Vote;
 
 class VoteController extends Controller{
 
-    // TODO: This is too big. Need to make it smaller or make it like a service.
     public function voteAction(Request $request, $presentation_id){
 
         try{

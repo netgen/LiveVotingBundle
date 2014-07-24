@@ -200,6 +200,7 @@ function brain(options_){
             }else if(newData['votingEnabled']==true && data['votingEnabled']==false){
                 status = true;
             }
+            delete data;
             data = newData;
             return status;
         }
@@ -291,6 +292,7 @@ function brain(options_){
                 }
                 arr[notify[i]].highlightMe();
             }
+            delete notify;
             notify = [];
 
         }
@@ -320,7 +322,6 @@ function brain(options_){
             tmr.html(tmrMsg);
         }
         this.anim = function(seconds){
-            console.log('animacija');
             if(!holdingUp){
                 this.animateUp(100);
                 clearTimeout(timeoutVariable);
