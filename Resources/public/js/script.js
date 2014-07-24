@@ -13,11 +13,9 @@ function brain(options_){
     var loader = $('#circleG');
     var footer = new footerClass($('#footer'));
 
-    footer.displayMessage('cao mala');
     $('body').append(shadow);
 
     showSpinner();
-
 
     if('vibrate' in window.navigator){
         window.navigator.vibrate(1000);
@@ -73,7 +71,7 @@ function brain(options_){
                 case 2:
                     timeout = -1;
                     // displayMessageInFooter(data['errorMessage']);
-                    footer.displayMessage(data['errorMessage']);
+                    footer.staticMessage(data['errorMessage']);
                     timer.stop();
                     return;
                 break;
@@ -82,9 +80,11 @@ function brain(options_){
 
             switch(state){
                 case 'PRE':
+                   footer.staticMessage(data['errorMessage']);
                    timeout = parseInt(options['STATES']['PRE']['TIMEOUT'])*1000;
                    break;
                 case 'POST':
+
                     var seconds = parseInt(data['seconds']);
                     timeout = parseInt(options['STATES']['POST']['TIMEOUT'])*1000;
                     if(!timer.isRunning && seconds>0){
@@ -93,11 +93,14 @@ function brain(options_){
                     }
                     if(seconds<0){
                         timeout = -1;
-                        endVoting();
+                        endVoting(data['errorMessage']);
                     }
                 case 'ACTIVE':
                     if(timeout>0){
                         timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
+                    }
+                    if(state!='POST'){
+                        footer.removeStatic();
                     }
                     hideSpinner();
                     //add presentations
@@ -121,18 +124,19 @@ function brain(options_){
         presentations.notifiyAll();
     }
 
-    function endVoting(){
+    function endVoting(message){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
         //footer.displayMessage(data['errorMessage']);
         //$("#footer .error").html("Voting is now closed.");
         presentations.setEnabledAll(false);
+        footer.setStaticTimer('');
+        footer.staticMessage(message);
     }
 
     function changeFooter(seconds_) {
-        $("#footer").show();
-        $("#timer").html(seconds_);
+        footer.setStaticTimer(seconds_.toString()+' seconds left until voting ends.');
     }
 
     /*
@@ -288,34 +292,51 @@ function brain(options_){
                 arr[notify[i]].highlightMe();
             }
             notify = [];
+
         }
     }
 
     function footerClass(el){
         var element=el;
-        var timerDisplay = false;
+        var holdingUp = false;
+        var that = this;
+        var timeoutVariable = null;
         element.hide();
 
         this.displayMessage = function(message){
+            setMessage(message);
+            if(!holdingUp)
+                this.anim(3);
+
+        }
+
+        function setMessage(message){
             var er = element.find('.error');
             er.html(message);
-            if(!timerDisplay)
-                this.anim(3);
         }
 
-        this.setTimerValue = function(timer_value){
+        function setTimer(tmrMsg){
             var tmr = element.find('.timer');
+            tmr.html(tmrMsg);
+        }
+        this.anim = function(seconds){
+            console.log('animacija');
+            if(!holdingUp){
+                this.animateUp(100);
+                clearTimeout(timeoutVariable);
+                timeoutVariable = setTimeout(
+                    function(){
+                        that.animateDown(100);
+                    }
+                ,seconds*1000);
+            }
+
+
         }
 
-        this.anim = function(seconds){
-            this.animateUp(100);
-            var that=this;
-            setTimeout(
-                function(){
-                    that.animateDown(100);
-                }
-            ,seconds*1000);
-
+        function endFooter(){
+            setMessage('');
+            setTimer('');
         }
 
         this.animateUp = function(value){
@@ -328,8 +349,32 @@ function brain(options_){
         this.animateDown = function(value){
             element.animate({
                 bottom: -value+'px'
-            }, 500);
+            }, 500, function(){endFooter();});
             element.show();
+        }
+
+        this.staticMessage = function(msg){
+            setMessage(msg);
+            holdOn();
+        }
+
+        this.setStaticTimer = function(timerMsg){
+            setTimer(timerMsg);
+            holdOn();
+        }
+
+        function holdOn(){
+            if(holdingUp)return;
+            holdingUp = true;
+            that.animateUp(100);
+
+        }
+
+        this.removeStatic = function(){
+            if(!holdingUp)return;
+            holdingUp = false;
+            this.animateDown(100);
+            endFooter();
         }
 
     }
