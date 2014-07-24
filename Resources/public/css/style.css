@@ -37,7 +37,6 @@ body {
 
 }
 
-
 .modal-body i{
     font-size: 120px;
     color: #5cb85c;
@@ -54,10 +53,11 @@ body {
 }
 #wrap {
      /*padding: 0 0 60px;*/
-    bottom:0;
+    bottom:-100px;
     left:0;
     position: fixed;
     width: 100%;
+    z-index: 999999;
 }
 
 .glyphicon-thumbs-down, .glyphicon-thumbs-up{
@@ -75,12 +75,7 @@ body {
 
 
 /* Set the fixed height of the footer here */
-#footer {
-    height: 80px;
-    background-color: #f5f5f5;
-    position:relative;
-    z-index:999;
-}
+
 .voting-list-single{
     margin-bottom: 10px;
 }
@@ -97,7 +92,7 @@ body {
     padding-right: 10px;
 }
 
-.shadow{
+#shadow{
     position: absolute;
     top:0;
     left:0;
@@ -105,12 +100,28 @@ body {
     width:100%;
     height:100%;
     z-index: 100000;
+
+}
+
+#footer {
+    height: 70px;
+    background-color: #add2f5;
+    position:relative;
+    z-index:99999;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 1.5em;
+    text-align: center;
+    padding-top: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+    color: #2c2f3c !important;
 }
 
 #loader{
-    position:absolute;
+    position:fixed;
     top:50%;
-    left: 36%;
+    left: 50%;
+    margin-top: -75px;
+    margin-left: -75px;
     z-index: 10000000;
 }
 
@@ -124,3 +135,6 @@ body {
     z-index: 99;
 }
 
+.ermsg{
+    display: block;
+}
