@@ -3,6 +3,7 @@
 namespace Netgen\LiveVotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Presentation
@@ -44,9 +45,14 @@ class Presentation
      */
     private $event;
 
+
+    private $country = '';
+    private $image = '';
+
     /**
      * Constructor
      */
+
     public function __construct()
     {
         $this->vote = new \Doctrine\Common\Collections\ArrayCollection();
@@ -224,4 +230,88 @@ class Presentation
     {
         return $this->votes;
     }
+
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    public function setImage(UploadedFile $image = null)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+
+    public function getAbsolutePath()
+    {
+        return null === $this->image
+            ? null
+            : $this->getUploadRootDir().'/'.$this->getImageName();
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->image
+            ? null
+            : $this->getUploadDir().'/'.$this->getImage();
+    }
+
+    public function getHashedImageName(){
+        return md5(
+            $this->getPresenterName().
+            $this->getPresenterSurname().
+            $this->getId().
+            $this->getPresentationName()
+        );
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../Resources/public/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'img/faces';
+    }
+
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getImage()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $new_name = $this->getHashedImageName().'.'.$this->getImage()->guessExtension();
+        $this->getImage()->move(
+            $this->getUploadRootDir(),
+            $new_name
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->image = $new_name;
+    }
+
+
 }

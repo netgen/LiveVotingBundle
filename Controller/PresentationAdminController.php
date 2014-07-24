@@ -46,6 +46,7 @@ class PresentationAdminController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->upload();
             $em->persist($entity);
             $em->flush();
 
@@ -157,6 +158,7 @@ class PresentationAdminController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->upload();
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $entity->getEvent()->getId())));

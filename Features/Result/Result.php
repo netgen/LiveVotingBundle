@@ -5,6 +5,7 @@ namespace Netgen\LiveVotingBundle\Features\Result;
 use Doctrine\ORM\EntityManager;
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Vote;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Result {
     protected $em;
@@ -15,8 +16,8 @@ class Result {
 
     public function getResults($event_id){
         $event = $this->em->getRepository('LiveVotingBundle:Event')->find($event_id);
-        if( !$event instanceof Event){
-            // TODO: Ask Edi what to return to controller and how to handle exceptions
+        if( !$event ){
+            throw new NotFoundHttpException('Non existing event.');
         }
 
         $votes = $this->em->getRepository('LiveVotingBundle:Vote')->findByEvent($event);
@@ -66,6 +67,7 @@ class Result {
     }
 
     public function getLiveResults($event_id){
+        //TODO: FIX THIS
         $event = $this->em->getRepository('LiveVotingBundle:Event')->find($event_id);
         if( !$event instanceof Event){
             // TODO: Ask Edi what to return to controller and how to handle exceptions

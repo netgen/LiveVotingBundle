@@ -31,17 +31,18 @@
                 });
             });
         </script>
+
 		<script id="presentation" type="text/x-handlebars-template">
+
             <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <div class='highLight'></div>
                 <div class="col-lg-2 col-md-2 col-xs-4">
-                    <img src="{{ asset('bundles/livevoting/img/man1.png') }}" class="img-responsive img-circle presenter-img" alt="Responsive image" width>
+                    <img src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}"
+                    class="img-responsive presenter-img" alt="Responsive image" width>
                 </div>
                 <div class="col-lg-10 col-md-10 col-xs-8">
                     <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
-
                     <p class="name text-muted">{{ '{{presentationName}}' }}</p>
-
                     <form class="forma" action="/vote/{{ '{{ presentationId }}' }}" method="POST">
                         <input type="radio" name="rate" value="1" disabled="">
                         <input type="radio" name="rate" value="2" disabled="">
@@ -67,8 +68,6 @@
 				            <ul class="list-inline list-unstyled text-center">
 				                <li><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-circle" width="100px">
 				                </li>
-				                <li><img src="{{ asset('bundles/livevoting/img/robot.png') }}" alt="" class="img-circle" width="55px">
-				                </li>
 				            </ul>
 				        </div>
 				    </div>
@@ -86,13 +85,14 @@
                 </div>
                 <div id="circleG_3" class="circleG">
                 </div>
+                <span id="loadingMessage">Loading!</span>
             </div>
         </div>
 
         <div id="wrap">
             <div id="footer" class="container">
-                <span class="error"></span>
-                <span id="timer"></span>
+                <span class="timer ermsg"></span>
+                <span class="error ermsg"></span>
             </div>
         </div>
 	</body>

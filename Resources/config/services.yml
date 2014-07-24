@@ -11,4 +11,3 @@ services:
           arguments: [@doctrine.orm.entity_manager, event_id]
     live_voting.handleRequest:
           class: %live_voting.handleRequest.class%
-          arguments: [@request_stack, @doctrine.orm.entity_manager, event_id]

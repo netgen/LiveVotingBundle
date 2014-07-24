@@ -37,6 +37,7 @@ body {
 
 }
 
+
 .modal-body i{
     font-size: 120px;
     color: #5cb85c;
@@ -53,14 +54,12 @@ body {
 }
 #wrap {
      /*padding: 0 0 60px;*/
-    bottom:-100px;
+    bottom:0;
     left:0;
     position: fixed;
     width: 100%;
-    z-index: 999999;
 }
 
-<<<<<<< HEAD
 .glyphicon-thumbs-down, .glyphicon-thumbs-up{
 	font-size: 20px;
 }
@@ -81,22 +80,6 @@ body {
     background-color: #f5f5f5;
     position:relative;
     z-index:999;
-=======
-.voting-list-single{
-    margin-bottom: 10px;
-}
-
-#loadingMessage{
-    display:block;
-    clear:both;
-    text-align: center;
-    font-family: "Helvetica", "Arial", sans-serif;
-    font-size: 1em;
-    color: #ffffff;
-    text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-    padding-top: 4px;
-    padding-right: 10px;
->>>>>>> 3156f49d8503b0b20816924c794066111cbf517d
 }
 
 .shadow{
@@ -107,28 +90,12 @@ body {
     width:100%;
     height:100%;
     z-index: 100000;
-
-}
-
-#footer {
-    height: 60px;
-    background-color: #add2f5;
-    position:relative;
-    z-index:99999;
-    font-family: "Helvetica", "Arial", sans-serif;
-    font-size: 1.5em;
-    text-align: center;
-    padding-top: 10px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
-    color: #2c2f3c !important;
 }
 
 #loader{
-    position:fixed;
+    position:absolute;
     top:50%;
-    left: 50%;
-    margin-top: -75px;
-    margin-left: -75px;
+    left: 36%;
     z-index: 10000000;
 }
 
