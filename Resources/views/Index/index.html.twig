@@ -34,22 +34,25 @@
         </script>
 
 		<script id="presentation" type="text/x-handlebars-template">
-
             <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <div class='highLight'></div>
-                <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="col-lg-2 col-md-2 col-xs-2">
                     <img src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}"
                     class="img-responsive presenter-img" alt="Responsive image" width>
                 </div>
-                <div class="col-lg-10 col-md-10 col-xs-8">
+                <div class="col-lg-10 col-md-10 col-xs-10">
                     <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
-                    <p class="name text-muted">{{ '{{presentationName}}' }}</p>
+                    <p class="name text-info">{{ '{{presentationName}}' }}</p>
                     <form class="forma" action="/vote/{{ '{{ presentationId }}' }}" method="POST">
-                        <input type="radio" name="rate" value="1" disabled="">
-                        <input type="radio" name="rate" value="2" disabled="">
-                        <input type="radio" name="rate" value="3" disabled="">
-                        <input type="radio" name="rate" value="4" disabled="">
-                        <input type="radio" name="rate" value="5" disabled="" checked="checked">
+                        <ul class="pagination">
+                            <li><i class="glyphicon glyphicon-thumbs-down"></i></li>
+                              		<li><input type="button" form="forma" name="rate" value="1" disabled=""></li>
+                              		<li><input type="button" form="forma" name="rate" value="2" disabled=""></li>
+                              		<li><input type="button" form="forma" name="rate" value="3" disabled=""></li>
+                              		<li><input type="button" form="forma" name="rate" value="4" disabled=""></li>
+                              		<li><input type="button" form="forma" name="rate" value="5" disabled=""></li>
+                            <li><i class="glyphicon glyphicon-thumbs-up"></i></li>
+                        </ul>
                     </form>
                     <br>
                 </div>
@@ -75,8 +78,10 @@
 		        </div>
     		</div>
 		</div>
-    	<div id="voteScreen"></div>
 
+		<div class="container">
+    		<div id="voteScreen"></div>
+    	</div>
        
         <div id="loader">
             <div id="circleG">
