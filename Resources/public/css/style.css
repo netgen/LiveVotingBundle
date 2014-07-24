@@ -60,10 +60,6 @@ body {
     width: 100%;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 9df0466451f495f9adab943f39d225313a83161f
 .glyphicon-thumbs-down, .glyphicon-thumbs-up{
 	font-size: 20px;
 }
@@ -84,8 +80,6 @@ body {
     background-color: #f5f5f5;
     position:relative;
     z-index:999;
-<<<<<<< HEAD
-=======
 }
 .voting-list-single{
     margin-bottom: 10px;
@@ -101,7 +95,6 @@ body {
     text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
     padding-top: 4px;
     padding-right: 10px;
->>>>>>> 9df0466451f495f9adab943f39d225313a83161f
 }
 
 .shadow{
