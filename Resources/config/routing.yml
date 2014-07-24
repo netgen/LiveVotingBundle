@@ -1,6 +1,6 @@
 index:
     path:    /
-    defaults: {_controller: LiveVotingBundle:Index:index}
+    defaults: {_controller: LiveVotingBundle:Index:landing}
 
 event:
     path:    /event/{event_id}
