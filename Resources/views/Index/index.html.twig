@@ -15,6 +15,7 @@
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.js') }}"></script>
 
         <script type="text/javascript">
             $(document).ready(function(){
@@ -33,22 +34,25 @@
         </script>
 
 		<script id="presentation" type="text/x-handlebars-template">
-
             <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <div class='highLight'></div>
-                <div class="col-lg-2 col-md-2 col-xs-4">
+                <div class="col-lg-2 col-md-2 col-xs-2">
                     <img src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}"
                     class="img-responsive presenter-img" alt="Responsive image" width>
                 </div>
-                <div class="col-lg-10 col-md-10 col-xs-8">
+                <div class="col-lg-10 col-md-10 col-xs-10">
                     <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
-                    <p class="name text-muted">{{ '{{presentationName}}' }}</p>
+                    <p class="name text-info">{{ '{{presentationName}}' }}</p>
                     <form class="forma" action="/vote/{{ '{{ presentationId }}' }}" method="POST">
-                        <input type="radio" name="rate" value="1" disabled="">
-                        <input type="radio" name="rate" value="2" disabled="">
-                        <input type="radio" name="rate" value="3" disabled="">
-                        <input type="radio" name="rate" value="4" disabled="">
-                        <input type="radio" name="rate" value="5" disabled="" checked="checked">
+                        <ul class="pagination">
+                            <li><i class="glyphicon glyphicon-thumbs-down"></i></li>
+                              		<li><input type="radio" name="rate" value="1" disabled=""></li>
+                              		<li><input type="radio" name="rate" value="2" disabled=""></li>
+                              		<li><input type="radio" name="rate" value="3" disabled=""></li>
+                              		<li><input type="radio" name="rate" value="4" disabled=""></li>
+                              		<li><input type="radio" name="rate" value="5" disabled=""></li>
+                            <li><i class="glyphicon glyphicon-thumbs-up"></i></li>
+                        </ul>
                     </form>
                     <br>
                 </div>
@@ -60,23 +64,25 @@
 	</head>
 
 	<body>
-		<div id="content" class="container">
-		    <div id="welcome">
-				<div class="navbar navbar-default">
-				    <div class="container">
-				        <div class="navbar-header text-center">
-				            <ul class="list-inline list-unstyled text-center">
-				                <li><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" class="img-circle" width="100px">
-				                </li>
-				            </ul>
-				        </div>
-				    </div>
-				</div>
-			</div>
-            <div id="voteScreen"></div>
+		<div class="headerimg visible-lg">
+	    	<img src="{{ asset('bundles/livevoting/img/header.png') }}" alt="logo" width="100%" >
+	    </div>
 
-        </div>
+		<div class="navbar navbar-default ">
+		    <div class="container">
+		        <div class="navbar-header text-center">
+		            <ul class="list-inline list-unstyled text-center">
+		                <li><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" width="60px">
+		                </li>
+		            </ul>
+		        </div>
+    		</div>
+		</div>
 
+		<div class="container">
+    		<div id="voteScreen"></div>
+    	</div>
+       
         <div id="loader">
             <div id="circleG">
                 <div id="circleG_1" class="circleG">
@@ -85,7 +91,7 @@
                 </div>
                 <div id="circleG_3" class="circleG">
                 </div>
-                <span id="loadingMessage">Loading!</span>
+                <span id="loadingMessage">Please wait for voting to begin</span>
             </div>
         </div>
 

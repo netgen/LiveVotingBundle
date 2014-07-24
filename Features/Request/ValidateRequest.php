@@ -27,12 +27,12 @@ class ValidateRequest{
             $date_when_voting_ends = intval($event->getStateValue());
             $response['seconds'] = $date_when_voting_ends - time();
             if ( time()>$date_when_voting_ends ){
-                $response['error']=1;
+                $response['error']=0;
                 $response['errorMessage'] = 'Voting is closed.';
                 // not returning because we still need to send presentations
             }
         }elseif($event->getStateName()=='PRE'){
-            $response['error']=1;
+            $response['error']=0;
             $response['errorMessage'] = 'Waiting for voting to start.';
             throw new JsonException($response);
         }

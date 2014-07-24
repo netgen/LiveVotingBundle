@@ -60,6 +60,10 @@ body {
     width: 100%;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9df0466451f495f9adab943f39d225313a83161f
 .glyphicon-thumbs-down, .glyphicon-thumbs-up{
 	font-size: 20px;
 }
@@ -80,6 +84,24 @@ body {
     background-color: #f5f5f5;
     position:relative;
     z-index:999;
+<<<<<<< HEAD
+=======
+}
+.voting-list-single{
+    margin-bottom: 10px;
+}
+
+#loadingMessage{
+    display:block;
+    clear:both;
+    text-align: center;
+    font-family: "Helvetica", "Arial", sans-serif;
+    font-size: 1em;
+    color: #ffffff;
+    text-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+    padding-top: 4px;
+    padding-right: 10px;
+>>>>>>> 9df0466451f495f9adab943f39d225313a83161f
 }
 
 .shadow{
@@ -108,23 +130,4 @@ body {
     background-color: rgba(255, 255, 255, 0.7);
     z-index: 99;
 }
-@media (min-width: 1200px) {
 
-}
-
-@media (max-width: 1200px) {
-
-}
-
-@media (max-width: 991px) {
-
-}
-
-@media (max-width: 767px) {
-
-
-}
-
-@media (max-width: 479px) {
-
-}
