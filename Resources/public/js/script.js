@@ -13,7 +13,7 @@ function brain(options_){
     var loader = $('#circleG');
     var footer = new footerClass($('#footer'));
 
-
+    footer.displayMessage('cao mala');
     $('body').append(shadow);
 
     showSpinner();

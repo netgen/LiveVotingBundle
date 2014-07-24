@@ -242,7 +242,7 @@ class Presentation
         return $this->country;
     }
 
-    public function setImage(UploadedFile $image)
+    public function setImage(UploadedFile $image = null)
     {
         $this->image = $image;
     }

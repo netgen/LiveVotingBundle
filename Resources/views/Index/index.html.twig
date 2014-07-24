@@ -42,9 +42,7 @@
                 </div>
                 <div class="col-lg-10 col-md-10 col-xs-8">
                     <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
-
                     <p class="name text-muted">{{ '{{presentationName}}' }}</p>
-
                     <form class="forma" action="/vote/{{ '{{ presentationId }}' }}" method="POST">
                         <input type="radio" name="rate" value="1" disabled="">
                         <input type="radio" name="rate" value="2" disabled="">
@@ -93,8 +91,8 @@
 
         <div id="wrap">
             <div id="footer" class="container">
-                <span class="timer"></span>
-                <span class="error"></span>
+                <span class="timer ermsg"></span>
+                <span class="error ermsg"></span>
             </div>
         </div>
 	</body>
