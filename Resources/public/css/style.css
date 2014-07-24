@@ -15,7 +15,6 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
     height: 200px;
     background-color: #f5f5f5;
 }
@@ -137,4 +136,11 @@ body {
 
 .ermsg{
     display: block;
+}
+
+
+#events{
+    width:350px;
+    margin: 0 auto;
+    text-align: center;
 }
