@@ -11,6 +11,7 @@ function brain(options_){
     var presentations = new presentationsArray();
     var shadow = $('<div class="shadow"></div>');
     var loader = $('#circleG');
+    var footer = new footerClass($('#footer'));
     shadow.hide();
     Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
         if (v1 == v2) {
@@ -19,12 +20,6 @@ function brain(options_){
         return options.inverse(this);
     });
 
-<<<<<<< HEAD
-    $("#footer").hide();
-    $('body').append(shadow);
-
-    showSpinner();
-=======
     $('body').append(shadow);
 
     showSpinner();
@@ -33,7 +28,6 @@ function brain(options_){
         window.navigator.vibrate(1000);
     }
 
->>>>>>> 9df0466451f495f9adab943f39d225313a83161f
     $('body').on('change', '.forma', function(e){
 
         if(!canIVote)return;
@@ -41,7 +35,6 @@ function brain(options_){
         var presentation = presentations.getById(presentation_id);
 
         var rate = $(this).serialize();
-        console.log(presentation.getData());
         if(presentation.getData()['votingEnabled']==true){
             showSpinner();
             $.ajax({
@@ -82,11 +75,8 @@ function brain(options_){
                 case 2:
                     timeout = -1;
                     // displayMessageInFooter(data['errorMessage']);
-<<<<<<< HEAD
-                    console.log(data['errorMessage']);
-=======
+
                     footer.staticMessage(data['errorMessage']);
->>>>>>> 9df0466451f495f9adab943f39d225313a83161f
                     timer.stop();
                     return;
                 break;
@@ -126,7 +116,6 @@ function brain(options_){
 
             }
             globalState = state;
-            console.log(timeout);
             if(timeout>0) setTimeout(run, timeout);
         }); 
     }
@@ -144,8 +133,6 @@ function brain(options_){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
-        $("#footer").show();
-        $("#footer .error").html("Voting is now closed.");
         presentations.setEnabledAll(false);
         footer.setStaticTimer('');
         footer.staticMessage(message);
@@ -314,8 +301,6 @@ function brain(options_){
         }
     }
 
-<<<<<<< HEAD
-=======
     function footerClass(el){
         var element=el;
         var holdingUp = false;
@@ -398,7 +383,6 @@ function brain(options_){
 
     }
 
->>>>>>> 9df0466451f495f9adab943f39d225313a83161f
     function showSpinner(){
         shadow.show();
         loader.show();

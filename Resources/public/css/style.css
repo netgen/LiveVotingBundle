@@ -10,6 +10,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 100px;
+    font-family: "Helvetica Neue";
 }
 .footer {
     position: fixed;
