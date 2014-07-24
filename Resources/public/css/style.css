@@ -10,6 +10,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 100px;
+    padding-bottom: 100px;
 }
 .footer {
     position: fixed;
@@ -77,6 +78,7 @@ body {
 
 .voting-list-single{
     margin-bottom: 10px;
+    padding-left:0px !important;
 }
 
 #loadingMessage{
@@ -92,7 +94,7 @@ body {
 }
 
 #shadow{
-    position: absolute;
+    position: fixed;
     top:0;
     left:0;
     background-color: rgba(160,160,160,0.8);
@@ -119,7 +121,7 @@ body {
     position:fixed;
     top:50%;
     left: 50%;
-    margin-top: -75px;
+    margin-top: -44px;
     margin-left: -75px;
     z-index: 10000000;
 }
@@ -140,11 +142,47 @@ body {
 
 
 #events{
-    width:350px;
+    width:300px;
     margin: 0 auto;
     text-align: center;
 }
 .ciganejedan{
     float:left;
     padding:3px;
+}
+
+.unutra{
+    padding:0px !important;
+}
+
+.imeprezentera{
+    margin: 0px;
+}
+
+.naslovprezentacije{
+    margin-top:0px;
+    margin-bottom: 10px;
+}
+.slikaa{
+    padding:0px !important;
+    margin-right: 0px !important;
+    clear:both;
+}
+
+.dot{
+    right:0;
+    top:0;
+    position: absolute;
+    color: orangered;
+}
+
+
+.flash{
+    position:absolute;
+    top:0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 165, 0, 0.3);
+    z-index: 99;
 }

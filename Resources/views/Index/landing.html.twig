@@ -42,7 +42,7 @@
                         {% for event in events %}
                         <li class="list-group-item"><a href="{{ path('event', {'event_id':event.getId}) }}"><h3>{{ event.getName }}</h3></a>
                             {% if event.getAllowViewingResults %}
-                                <a target="_blank" href="{{ path('table_results', {'event_id':event.getId}) }}">Results</a>
+                                <a target="_blank" href="{{ path('result', {'event_id':event.getId}) }}">Results</a>
                             {% endif %}
                         </li>
                         {% endfor %}
