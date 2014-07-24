@@ -3,7 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="css/bootstrap-theme.css">
@@ -19,17 +19,19 @@
         <table class="table table-condensed">
 
             <tr>
-                <td class="active">Winners</td>
-                <td class="warning">Presentations</td>
-                <td class="success">Country</td>
+                <th>Place</th>
+                <th>Presentation</th>
+                <th>Presenter</th>
+                <th>Score</th>
 
 
             </tr>
-            {% for presentation in presentations %}
+            {% for p in presentations['presentations'] %}
             <tr>
-                <td>1</td>
-                <td>{{ presentation.getPresenterName }}</td>
-                <td>albania</td>
+                <td>{{ loop.index }}</td>
+                <td>{{ p['presentation']['name'] }}</td>
+                <td>{{ p['presentation']['entity'].getPresenterName~' '~p['presentation']['entity'].getPresenterSurname }}</td>
+                <td>{{ p['score']['average'] }}</td>
 
             </tr>
             {% endfor %}
