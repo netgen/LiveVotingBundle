@@ -142,9 +142,13 @@ body {
 
 
 #events{
-    width:300px;
+
     margin: 0 auto;
     text-align: center;
+}
+
+#welcomeSign{
+    margin: 0 auto;
 }
 .ciganejedan{
     float:left;

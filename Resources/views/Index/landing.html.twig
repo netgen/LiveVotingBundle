@@ -28,14 +28,17 @@
 
 		<div class="navbar navbar-default ">
 		    <div class="container">
-		        <div class="navbar-header text-center">
-		           <a href="/"><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" width="60px"></a>	           
+		        <div class="navbar-header img-left">		        	
+		           <a href="/"><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" width="60px"></a>                
 		        </div>
+		        <div class="headerimg visible-lg visible-md">
+		        	<div class="text-center"><h2 id="welcomeSign">Summer Camp Voting</h2></div>
+		    	</div>
             </div>
         </div>
-        <div class="container">
-                <div id="events">
 
+        <div class="container">
+        	<div id="events">        	
                     <ul class="list-group">
                         {% for event in events %}
                         <li class="list-group-item"><a href="{{ path('event', {'event_id':event.getId}) }}"><h3>{{ event.getName }}</h3></a>
@@ -45,9 +48,7 @@
                         </li>
                         {% endfor %}
                     </ul>
-
-                </div>
-
+                </div>          
     		</div>
 		</div>
 	</body>
