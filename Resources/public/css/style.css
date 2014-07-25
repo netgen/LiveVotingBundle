@@ -61,7 +61,7 @@ body {
 }
 
 .glyphicon-thumbs-down, .glyphicon-thumbs-up{
-	font-size: 20px;
+	font-size: 42px;
 }
 
 @media (max-width: 768px){
@@ -78,7 +78,9 @@ body {
 
 .voting-list-single{
     margin-bottom: 10px;
+    padding-bottom: 10px;
     padding-left:0px !important;
+    border-bottom: 1px solid #dce6ec;
 }
 
 #loadingMessage{
@@ -142,39 +144,12 @@ body {
 
 
 #events{
-    width:300px;
+    width:290px;
     margin: 0 auto;
     text-align: center;
 }
-.ciganejedan{
-    float:left;
-    padding:3px;
-}
 
-.unutra{
-    padding:0px !important;
-}
 
-.imeprezentera{
-    margin: 0px;
-}
-
-.naslovprezentacije{
-    margin-top:0px;
-    margin-bottom: 10px;
-}
-.slikaa{
-    padding:0px !important;
-    margin-right: 0px !important;
-    clear:both;
-}
-
-.dot{
-    right:0;
-    top:0;
-    position: absolute;
-    color: orangered;
-}
 
 
 .flash{
@@ -185,4 +160,15 @@ body {
     height: 100%;
     background-color: rgba(255, 165, 0, 0.3);
     z-index: 99;
+}
+
+
+.imeprezentera{
+    margin-top: 0px;
+    margin-bottom:0px
+}
+
+.naslovprezentacije{
+    margin-top:0px;
+    margin-bottom: 10px;
 }

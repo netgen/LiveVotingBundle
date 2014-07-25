@@ -3,21 +3,40 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <style type="text/css">
+        #winner{
+            width:290px;
+            margin: 0px auto;
+        }
+        .winner{
+
+        }
+    </style>
 </head>
 <body>
 
-<div id="container" style="width:100%; height:400px;"></div>
+<div id="high" style="width:100%; height:400px;">
 
+</div>
+
+<div id="winner">
+    <span>And the winner is:</span> <h2 class="winner">fsdfsd</h2>
+</div>
 </body>
 <script type="text/javascript">
-    var requestData, animation_data, chart;
+    var requestData, animation_data, chart, data;
     var callMe = function(){
         setTimeout(setPresentationData, 1000);
     };
 
     requestData = function(index){
-        if(index>=animation_data.length)return;
-        console.log(index);
+        if(index>=animation_data.length){
+            endEverything();
+            return;
+        }
         var data = [];
         var avg;
         for(var i in animation_data[index]){
@@ -30,13 +49,26 @@
 
     }
 
+    function endEverything(){
+        $('#winner .winner').html(data['winner']['presenter']['name']+' '+data['winner']['presenter']['surname']);
+        setTimeout(function(){
+            $('#winner').fadeIn(2000,
+                function(){
+                    setTimeout(function(){
+                        $('#winner .winner').fadeIn(1000);
+                    },100);
+                }
+            );
+
+        },1000);
+    }
 
     function setPresentationData(){
         if(!animation_data.length)return;
         var data = [];
         var categories = [];
         for(var ii in animation_data[0]){
-            categories.push(animation_data[0][ii]['presentation']);
+            categories.push(animation_data[0][ii]['presenter']['name']+' '+animation_data[0][ii]['presenter']['surname']);
             data.push(0);
         }
         chart.xAxis[0].update({categories: categories}, true);
@@ -47,11 +79,15 @@
 
     (function(){
 
-        animation_data = jQuery.parseJSON('{{ animation_data|raw }}');
+        data = jQuery.parseJSON('{{ animation_data|raw }}');
+        animation_data = data['animation_data'];
+        $('#winner').hide();
+        $('#winner .winner').hide();
+
         var presentationIndex = {};
         chart = new Highcharts.Chart({
             chart: {
-                renderTo: 'container',
+                renderTo: 'high',
                 defaultSeriesType: 'column',
                 events: {
                     load: function(){
