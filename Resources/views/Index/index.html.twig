@@ -35,14 +35,13 @@
                 });
             });
         </script>
-
 		<script id="presentation" type="text/x-handlebars-template">
             <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12 media">
                 <div class='highLight'></div>
                 <div class='row'>
-                <div class="slikaa col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
                     <img src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}"
-                     class='thumbnail slikaa' style='width:65px'>
+                     class='thumbnail slikaa'>
                 </div>
                 <div class="unutra col-lg-10 col-md-10 col-sm-8 col-xs-8">
                     <h4 class="text-info imeprezentera">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</h4>
@@ -63,8 +62,9 @@
 
                         </div><br>
                         <div class=''>
+                            <span style="width:5px; display:inline-block"></span>
                             <span class='glyphicon glyphicon-thumbs-down'></span>
-                            <span style="width:124px; display:inline-block"></span>
+                            <span style="width:138px; display:inline-block"></span>
                             <span class='glyphicon glyphicon-thumbs-up'></span>
                         </div>
                     </form>
@@ -78,14 +78,14 @@
 
 	<body>
 		<div class="headerimg visible-lg">
-	    	<img src="{{ asset('bundles/livevoting/img/header.png') }}" alt="logo" width="100%" >
+	    	<img src="{{ asset('bundles/livevoting/img/header.png') }}" alt="logo" width="100%">
 	    </div>
 
 		<div class="navbar navbar-default ">
 		    <div class="container">
 		        <div class="navbar-header text-center">
 		            <ul class="list-inline list-unstyled text-center">
-		                <li><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" width="60px">
+		                <li><a href="{{ path('index') }}"><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" width="60px"></a>
 		                </li>
 		            </ul>
 		        </div>

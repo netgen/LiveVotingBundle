@@ -13,6 +13,15 @@ function brain(options_){
     var loader = $('#circleG');
     var footer = new footerClass($('#footer'));
 
+    shadow.hide();
+    Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
+        if (v1 == v2) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
+
+
     $('body').append(shadow);
 
     showSpinner();
@@ -71,6 +80,7 @@ function brain(options_){
                 case 2:
                     timeout = -1;
                     // displayMessageInFooter(data['errorMessage']);
+
                     footer.staticMessage(data['errorMessage']);
                     timer.stop();
                     return;
@@ -126,8 +136,10 @@ function brain(options_){
     function endVoting(message){
         //Thank u for voting
         canIVote = false;
+
         //footer.displayMessage(data['errorMessage']);
         //$("#footer .error").html("Voting is now closed.");
+
         presentations.setEnabledAll(false);
         footer.setStaticTimer('');
         footer.staticMessage(message);

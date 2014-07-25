@@ -61,18 +61,8 @@ body {
 }
 
 .glyphicon-thumbs-down, .glyphicon-thumbs-up{
-	font-size: 42px;
+	font-size: 27px;
 }
-
-@media (max-width: 768px){
-	.pagination > li > a, {
-	font-size: 14px;
-	}
-	.pagination > li i a{
-	font-size: 16px;
-	}
-}
-
 
 /* Set the fixed height of the footer here */
 
@@ -80,7 +70,12 @@ body {
     margin-bottom: 10px;
     padding-bottom: 10px;
     padding-left:0px !important;
+    padding-right: 0px !important;
     border-bottom: 1px solid #dce6ec;
+}
+
+.voting-list-single:nth-child(odd){
+    clear:left;
 }
 
 #loadingMessage{
@@ -142,22 +137,18 @@ body {
     display: block;
 }
 
-
+.slikaa{
+    width: 80px;
+}
 #events{
+
     width:290px;
     margin: 0 auto;
     text-align: center;
 }
 
-
-.flash{
-    position:absolute;
-    top:0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 165, 0, 0.3);
-    z-index: 99;
+#welcomeSign{
+    margin-right: 150px;
 }
 
 

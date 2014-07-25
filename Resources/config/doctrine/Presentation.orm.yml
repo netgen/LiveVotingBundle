@@ -29,6 +29,7 @@ Netgen\LiveVotingBundle\Entity\Presentation:
         image:
             type: string
             length: 255
+            nullable: true
 
     oneToMany:
         votes:
