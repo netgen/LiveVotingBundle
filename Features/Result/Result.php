@@ -62,6 +62,15 @@ class Result {
             $animation_data[] = $tmp1;
 
         }
+        $result['winner'] = $presentationResult;
+        $isset = false;
+        foreach($presentationResult as $pr){
+            if(!$isset){$result['winner']=$pr; $isset = true; }
+            if($pr['average']>$result['winner']['average']){
+                $result['winner'] = $pr;
+            }
+        }
+
         $result['animation_data']=$animation_data;
         return $result;
     }
