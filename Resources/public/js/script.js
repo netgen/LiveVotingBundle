@@ -84,7 +84,6 @@ function brain(options_){
                    timeout = parseInt(options['STATES']['PRE']['TIMEOUT'])*1000;
                    break;
                 case 'POST':
-
                     var seconds = parseInt(data['seconds']);
                     timeout = parseInt(options['STATES']['POST']['TIMEOUT'])*1000;
                     if(!timer.isRunning && seconds>0){
@@ -220,7 +219,8 @@ function brain(options_){
 
 
         this.setEnabled = function(enabled_status){
-            if(!enabled_status)
+            console.log(enabled_status);
+            if(!enabled_status) // enabled_status == false
                 this.element.find('.highLight').fadeIn(1000);
             else
                 this.element.find('.highLight').fadeOut(1000);
@@ -228,17 +228,13 @@ function brain(options_){
 
         this.highlightMe = function(){
             this.setEnabled(true);
-            var argh = this.element.find('.flash');
-            var color1 = argh.css('backgroundColor');
-            argh.fadeIn(1000);
-            argh.fadeOut(1000);
-
+            console.log('boom flash');
         }
 
         this.handle = function(){
             var vote = data['presenterRate'];
             this.setVote(vote);
-            this.setEnabled(data['votingEnabled']);
+            this.setEnabled(data['votingEnabled'] && canIVote);
         }
     }
 
@@ -268,7 +264,7 @@ function brain(options_){
 
         this.setEnabledAll = function(state){
             for(var i in arr){
-                arr[i].setEnabled(state);
+                arr[i].setEnabled(false);
                 arr[i].setVote(arr[i].getData()['presenterRate']);
             }
         }
@@ -378,6 +374,8 @@ function brain(options_){
         shadow.hide();
         loader.hide();
     }
+
+
 
     run();
 
