@@ -8,9 +8,13 @@
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
+<<<<<<< HEAD
         <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />
         
         <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/orange.css') }}"  />
+=======
+        <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/loader.css') }}"  />
+>>>>>>> 3e5bcf735adc05db3b76b5c8e9ba5f1485d1c7dd
 
         <!--JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
@@ -44,11 +48,25 @@
 		<div class="navbar navbar-default ">
 		    <div class="container">
 		        <div class="navbar-header text-center">
-		            <ul class="list-inline list-unstyled text-center">
-		                <li><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" width="60px">
-		                </li>
-		            </ul>
+		           <img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" width="60px">
 		        </div>
+            </div>
+        </div>
+        <div class="container">
+                <div id="events">
+
+                    <ul class="list-group">
+                        {% for event in events %}
+                        <li class="list-group-item"><a href="{{ path('event', {'event_id':event.getId}) }}"><h3>{{ event.getName }}</h3></a>
+                            {% if event.getAllowViewingResults %}
+                                <a target="_blank" href="{{ path('result', {'event_id':event.getId}) }}">Results</a>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+
     		</div>
 		</div>
 

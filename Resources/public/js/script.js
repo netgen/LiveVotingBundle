@@ -25,27 +25,27 @@ function brain(options_){
     $('body').append(shadow);
 
     showSpinner();
+    $('body').on('change', '.forma', function(e){e.preventDefault();});
 
-    if('vibrate' in window.navigator){
-        window.navigator.vibrate(1000);
-    }
 
-    $('body').on('change', '.forma', function(e){
-
+    $('body').on('click', '.forma input', function(e){
+        e.preventDefault();
         if(!canIVote)return;
-        var presentation_id = $(this).attr('action').split('/').pop();
+        var action = $(this).parent().parent().attr('action');
+        var presentation_id = action.split('/').pop();
         var presentation = presentations.getById(presentation_id);
-
-        var rate = $(this).serialize();
+        var vote = $(this).attr('value');
+        var rate = 'rate='+vote;
         if(presentation.getData()['votingEnabled']==true){
             showSpinner();
             $.ajax({
                 type: 'post',
-                'url': $(this).attr('action'),
+                'url': action,
                 'data': rate,
                 success: function(data){
                     presentation.highlightMe();
                     footer.displayMessage(data['errorMessage']);
+                    presentation.setVote(vote);
                     hideSpinner();
                 },
                 error: function(e){
@@ -54,7 +54,7 @@ function brain(options_){
                 }
             });
         }
-        e.preventDefault();
+
     });
 
 
@@ -137,7 +137,9 @@ function brain(options_){
     function endVoting(message){
         //Thank u for voting
         canIVote = false;
-        $(".forma input").prop("disabled", true);
+
+        //footer.displayMessage(data['errorMessage']);
+        //$("#footer .error").html("Voting is now closed.");
 
         presentations.setEnabledAll(false);
         footer.setStaticTimer('');
@@ -195,6 +197,7 @@ function brain(options_){
             this.setData(newData);
             this.element = $(template(data));
             this.element.find('.highLight').hide();
+            this.element.find('.flash').hide();
             $("#voteScreen").append(this.element);
             this.element.find('.check').hide();
         }
@@ -218,45 +221,36 @@ function brain(options_){
             return data;
         }
         this.setVote = function(vote_number){
-            this.element.find('input[type=radio]').each(function(){
+            this.element.find('input[type=submit]').each(function(){
                 if(this.value == vote_number){
-                    this.setAttribute('checked', 'checked');
+                    $(this).addClass('active');
+                }else{
+                    $(this).removeClass('active');
                 }
             });
         }
 
 
         this.setEnabled = function(enabled_status){
-            this.element.find('input[type=radio]').each(function(){
-
-                if(!enabled_status || canIVote==false){
-                    this.setAttribute('disabled', 'disabled');
-                }else{
-                    this.removeAttribute('disabled');
-                }
-            });
-        }
-
-        this.setCheckMark = function(check_mark){
-            this.element.find('.check').each(function(){
-                if(check_mark){
-                    $(this).show();
-                }else{
-                    $(this).hide();
-                }
-            })
+            if(!enabled_status)
+                this.element.find('.highLight').fadeIn(1000);
+            else
+                this.element.find('.highLight').fadeOut(1000);
         }
 
         this.highlightMe = function(){
-            this.element.find('.highLight').fadeIn(1000);
-            this.element.find('.highLight').fadeOut(1000);
+            this.setEnabled(true);
+            var argh = this.element.find('.flash');
+            var color1 = argh.css('backgroundColor');
+            argh.fadeIn(1000);
+            argh.fadeOut(1000);
+
         }
 
         this.handle = function(){
             var vote = data['presenterRate'];
             this.setVote(vote);
             this.setEnabled(data['votingEnabled']);
-            this.setCheckMark(vote>0);
         }
     }
 
@@ -287,6 +281,7 @@ function brain(options_){
         this.setEnabledAll = function(state){
             for(var i in arr){
                 arr[i].setEnabled(state);
+                arr[i].setVote(arr[i].getData()['presenterRate']);
             }
         }
 

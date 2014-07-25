@@ -14,6 +14,9 @@ class IndexController extends Controller
 {
     /* Created so we don't mess with each other methods */
     public function landingAction(){
-        return $this->render('LiveVotingBundle:Index:landing.html.twig');
+        $events = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->findAll();
+        return $this->render('LiveVotingBundle:Index:landing.html.twig',
+            array('events'=>$events)
+        );
     }
 }

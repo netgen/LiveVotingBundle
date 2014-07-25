@@ -2,22 +2,31 @@
 <html lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 
-   		<!-- CSS -->
+
+        <!-- CSS -->
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
-		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
+
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
         <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />
+<<<<<<< HEAD
         <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/orange.css') }}"  />
+=======
+        <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
+>>>>>>> 3e5bcf735adc05db3b76b5c8e9ba5f1485d1c7dd
 
         <!--JavaScript -->
-		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+<<<<<<< HEAD
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/icheck.js') }}"></script>
+=======
+		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
+        <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+>>>>>>> 3e5bcf735adc05db3b76b5c8e9ba5f1485d1c7dd
 
         <script type="text/javascript">
             $(document).ready(function(){
@@ -42,25 +51,28 @@
         </script>
 
 		<script id="presentation" type="text/x-handlebars-template">
-            <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12 media">
                 <div class='highLight'></div>
-                <div class="col-lg-2 col-md-2 col-xs-2">
+                <div class='flash'></div>
+                <div class="slikaa col-lg-2 col-md-2 col-sm-4 col-xs-3">
                     <img src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}"
-                    class="img-responsive presenter-img" alt="Responsive image" width>
+                     class='thumbnail slikaa' style='width:65px'>
                 </div>
-                <div class="col-lg-10 col-md-10 col-xs-10">
-                    <p class="name text-info">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</p>
-                    <p class="name text-info">{{ '{{presentationName}}' }}</p>
+                <div class="unutra col-lg-10 col-md-10 col-sm-8 col-xs-9">
+                    <h4 class="text-info imeprezentera">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</h4>
+                    <h3 class="text-info naslovprezentacije"><small>{{ '{{presentationName}}' }}</small></h3>
                     <form class="forma" action="/vote/{{ '{{ presentationId }}' }}" method="POST">
-                        <ul class="pagination">
-                            <li><i class="glyphicon glyphicon-thumbs-down"></i></li>
-                              		<li><input type="radio" name="rate" value="1" disabled=""></li>
-                              		<li><input type="radio" name="rate" value="2" disabled=""></li>
-                              		<li><input type="radio" name="rate" value="3" disabled=""></li>
-                              		<li><input type="radio" name="rate" value="4" disabled=""></li>
-                              		<li><input type="radio" name="rate" value="5" disabled=""></li>
-                            <li><i class="glyphicon glyphicon-thumbs-up"></i></li>
-                        </ul>
+                        <div class="btn-group" role="toolbar">
+                            <span class='glyphicon glyphicon-thumbs-down ciganejedan'></span>
+                            <input type="submit" class='btn btn-default btn-sm' value='1'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='2'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='3'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='4'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='5'/>
+
+                            <span class='glyphicon glyphicon-thumbs-up ciganejedan'></span>
+
+                        </div>
                     </form>
                     <br>
                 </div>
