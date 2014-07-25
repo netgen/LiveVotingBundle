@@ -221,7 +221,7 @@ function brain(options_){
         this.setEnabled = function(enabled_status){
             console.log(enabled_status);
             if(!enabled_status) // enabled_status == false
-                this.element.find('.highLight').fadeIn(1000);
+                this.element.find('.highLight').fadeIn(2000);
             else
                 this.element.find('.highLight').fadeOut(1000);
         }
@@ -280,6 +280,8 @@ function brain(options_){
                 }
                 arr[notify[i]].highlightMe();
             }
+            if(scrolledTo)
+                footer.displayMessage('Please vote.');
             delete notify;
             notify = [];
 

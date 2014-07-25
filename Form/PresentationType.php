@@ -33,7 +33,8 @@ class PresentationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Netgen\LiveVotingBundle\Entity\Presentation'
+            'data_class' => 'Netgen\LiveVotingBundle\Entity\Presentation',
+            'attr' => array('class'=>'form-horizontal', 'role'=>'form')
         ));
     }
 

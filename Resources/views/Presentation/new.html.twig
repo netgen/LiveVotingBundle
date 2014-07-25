@@ -3,7 +3,30 @@
 {% block body -%}
     <h1>Presentation creation</h1>
 
-    {{ form(form) }}
+
+    {{ form_start(form) }}
+
+    <div class="form-group">
+        {{ form_label(form.presentationName) }}
+        {{ form_widget(form.presentationName) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.presenterName) }}
+        {{ form_widget(form.presenterName) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.presenterSurname) }}
+        {{ form_widget(form.presenterSurname) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.image) }}
+        {{ form_widget(form.image) }}
+    </div>
+
+    {{ form_end(form) }}
 
         <ul class="record_actions">
     <li>
