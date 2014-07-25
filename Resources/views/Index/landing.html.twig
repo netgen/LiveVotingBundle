@@ -9,6 +9,8 @@
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
         <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />
+        
+        <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/orange.css') }}"  />
 
         <!--JavaScript -->
 		<script src="js/bootstrap.min.js"></script>
@@ -16,8 +18,19 @@
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('bundles/livevoting/js/icheck.js') }}"></script>
 
-      
+              <script type="text/javascript">
+            $(document).ready(function(){
+
+             $('input').iCheck({
+			    checkboxClass: 'icheckbox_square-orange',
+			    radioClass: 'iradio_square-orange',
+			    increaseArea: '20%' // optional
+			  });
+            });
+        </script>
+
 
 	<title></title>
 
@@ -39,15 +52,8 @@
     		</div>
 		</div>
 
-		<div class="container">
-			<h3>Event list</h3>
-			<ul>
-				<li>1</li>
-				<li>1</li>
-				<li>1</li>
-				<li>1</li>
-			</ul>
-		</div>
+		    	<input type="radio" name="iCheck">
+<input type="radio" name="iCheck" checked>
 	</body>
 </html>
 

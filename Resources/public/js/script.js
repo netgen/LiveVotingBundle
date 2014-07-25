@@ -12,7 +12,7 @@ function brain(options_){
     var shadow = $('<div id="shadow"></div>');
     var loader = $('#circleG');
     var footer = new footerClass($('#footer'));
-<<<<<<< HEAD
+
     shadow.hide();
     Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
         if (v1 == v2) {
@@ -20,8 +20,7 @@ function brain(options_){
         }
         return options.inverse(this);
     });
-=======
->>>>>>> 12e804e8688bca58a22ff8f8be7e8f3695c975d5
+
 
     $('body').append(shadow);
 
@@ -81,10 +80,7 @@ function brain(options_){
                 case 2:
                     timeout = -1;
                     // displayMessageInFooter(data['errorMessage']);
-<<<<<<< HEAD
 
-=======
->>>>>>> 12e804e8688bca58a22ff8f8be7e8f3695c975d5
                     footer.staticMessage(data['errorMessage']);
                     timer.stop();
                     return;
@@ -142,11 +138,7 @@ function brain(options_){
         //Thank u for voting
         canIVote = false;
         $(".forma input").prop("disabled", true);
-<<<<<<< HEAD
-=======
-        //footer.displayMessage(data['errorMessage']);
-        //$("#footer .error").html("Voting is now closed.");
->>>>>>> 12e804e8688bca58a22ff8f8be7e8f3695c975d5
+
         presentations.setEnabledAll(false);
         footer.setStaticTimer('');
         footer.staticMessage(message);
