@@ -3,6 +3,7 @@
 namespace Netgen\LiveVotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Event
@@ -15,6 +16,7 @@ class Event
     private $stateName;
     private $stateValue = null;
     private $allowViewingResults = false;
+    private $image = '';
 
     /**
      * Get id
@@ -70,6 +72,26 @@ class Event
     public function getStateName()
     {
         return $this->stateName;
+    }
+
+    /**
+     * Set image
+     *
+     * @param image
+     */    
+    public function setImage(UploadedFile $image = null)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * Get image
+     *
+     * @return image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**
