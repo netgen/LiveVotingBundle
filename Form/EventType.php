@@ -24,6 +24,10 @@ class EventType extends AbstractType
                 ),
                 'label'=>'Current state'
             ))
+            ->add('image', 'file', array(
+                'data_class' => null,
+                'required' => false
+            ))
             //->add('stateValue', 'text', array('label'=>'Seconds until voting ends'))
         ;
 
