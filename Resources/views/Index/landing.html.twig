@@ -10,33 +10,29 @@
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/loader.css') }}"  />
 
-        <!--JavaScript -->
-		<script src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.js') }}"></script>
-			<script type="text/javascript" src="{{ asset('bundles/livevoting/js/icheck.js') }}"></script>
 	<title></title>
 
 	</head>
 
 	<body>
+		<!--
 		<div class="headerimg visible-lg">
 	    	<img src="{{ asset('bundles/livevoting/img/header.png') }}" alt="logo" width="100%" >
 	    </div>
+		-->
 
-		<div class="navbar navbar-default ">
+		<div class="navbar navbar-collapse">
 		    <div class="container">
-		        <div class="navbar-header img-left">		        	
-		           <a href="#"><img src="{{ asset('bundles/livevoting/img/logo.png') }}" alt="logo" width="60px"></a>
+		        <div class="navbar-header">	    	
+		           <a href="#">
+	           			<img src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" class="img-responsive" alt="kruzici">
+		           </a>
+		         </div>
+		         <div class="text-center strong">
+		        	<h2 id="welcomeSign">Netgen LiveVoting</h2>
 		        </div>
-		        <div class="headerimg visible-lg visible-md">
-		        	<div class="text-center"><h2 id="welcomeSign">Summer Camp Voting</h2></div>
-		    	</div>
             </div>
         </div>
-
         <div class="container">
         	<div id="events">        	
                     <ul class="list-group">
@@ -51,6 +47,15 @@
                 </div>          
     		</div>
 		</div>
+
+		<!--JavaScript -->
+		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/icheck.js') }}"></script>
+
 	</body>
 </html>
 
