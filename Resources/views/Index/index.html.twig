@@ -13,13 +13,6 @@
         <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
 
 
-        <!--JavaScript -->
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
-        <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-
         <script type="text/javascript">
             $(document).ready(function(){
                 new brain({
@@ -77,10 +70,6 @@
 	</head>
 
 	<body>
-		<div class="headerimg visible-lg">
-	    	<img src="{{ asset('bundles/livevoting/img/header.png') }}" alt="logo" width="100%">
-	    </div>
-
 		<div class="navbar navbar-default ">
 		    <div class="container">
 		        <div class="navbar-header text-center">
@@ -114,6 +103,13 @@
                 <span class="error ermsg"></span>
             </div>
         </div>
+
+        <!--JavaScript -->
+        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
+        <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 	</body>
 
 </html>
