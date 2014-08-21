@@ -24,6 +24,11 @@ class User
      */
     private $password = null;
 
+    /**
+     * @var enabled
+     */
+    private $enabled = false;
+
 
     /**
      * Set id
@@ -92,5 +97,15 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+
+    public function enableUser() 
+    {
+        $this->enabled = true;
+    }
+
+    public function isEnabled() 
+    {
+        return $this->enabled;
     }
 }
