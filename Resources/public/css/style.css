@@ -107,7 +107,7 @@ body {
     background-color: #add2f5;
     position:relative;
     z-index:99999;
-    font-family: "Helvetica", "Arial", sans-serif;
+    /*font-family: "Helvetica", "Arial", sans-serif; */
     font-size: 1.5em;
     text-align: center;
     padding-top: 10px;
@@ -166,9 +166,24 @@ body {
 }
 
 .list-group-item {
-    background-color: #8BC53F;
+    background-color: #206CA8;
 }
 
 li.list-group-item > a {
     color:whitesmoke;
 }
+
+#footer-index {
+    left:0;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+
+#footer > a > img {
+    vertical-align: text-top;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+    
+    
