@@ -24,7 +24,7 @@
                     <h3>Netgen Event Voting:</h3>
                 </li>
                 <li>
-                    <h3>{{ event.getName }}</h3>
+                    <h3><a href="{{ path('event', {'event_id':event.getId}) }}">{{ event.getName }}</a></h3>
                 </li>
             </ul>
         </div>

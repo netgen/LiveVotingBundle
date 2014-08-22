@@ -8,17 +8,9 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
     <style type="text/css">
-        #winner{
-            width:290px;
-            margin: 0px auto;
-        }
-        .winner{
-
-        }
+       
     </style>
 </head>
 <body>
@@ -36,7 +28,7 @@
                     <h3>Final results for:</h3>
                 </li>
                 <li>
-                    <h3>{{ event_name }}</h3>
+                    <h3><a href="{{ path('event', {'event_id':event_id}) }}">{{ event_name }}</a></h3>
                 </li>
             </ul>
         </div>
@@ -65,7 +57,10 @@
 </div>
 
 <div id="winner">
-    <span>And the winner is:</span> <h2 class="winner">fsdfsd</h2>
+    <span>And the winner is:</span> 
+    <div class="alert alert-info" role="alert">
+        <h2 class="winner">fsdfsd</h2>
+    </div> 
 </div>
 </body>
 <script type="text/javascript">

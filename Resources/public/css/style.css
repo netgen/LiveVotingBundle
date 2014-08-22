@@ -210,3 +210,14 @@ div.btn-group-lg {
     margin-left: 5px;
     margin-right: 5px;
 }
+
+#winner{
+    width:40%;
+    margin:auto;
+    color:#333;
+    text-align: center;
+}
+
+.winner{
+    color: #333;
+}
