@@ -11,14 +11,14 @@ admin_user_create:
     defaults: { _controller: "LiveVotingBundle:UserAdmin:create" }
     requirements: { _method: post }
 
-#admin_event_edit:
-#    path:     /{id}/edit
-#   defaults: { _controller: "LiveVotingBundle:EventAdmin:edit" }
+admin_user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:edit" }
 
-#admin_event_update:
-#   path:     /{id}/update
-#   defaults: { _controller: "LiveVotingBundle:EventAdmin:update" }
-#   requirements: { _method: post|put }
+admin_user_update:
+    path:     /{id}/update
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:update" }
+    requirements: { _method: post|put }
 
 
 #admin_event_enabledisable:

@@ -7,14 +7,18 @@
         <thead>
             <tr>
                 <th>User email</th>
-                <th>Event enabled</th>
+                <th>User enabled</th>
+                <th>Edit user</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.getId }}</td>
-                <td></td>
+                <td>{{ entity.getEmail }}</td>
+                <td>
+                    <a class='btn btn-primary' href="{{ path('admin_user_edit', { 'id': entity.id }) }}">Edit</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -22,8 +26,8 @@
 
         <ul>
         <li>
-            <a href="{{ path('admin_event_new') }}">
-                Create a new entry
+            <a href="{{ path('admin_user_new') }}">
+                Create a new user
             </a>
         </li>
     </ul>
