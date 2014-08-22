@@ -65,10 +65,6 @@
 
                         <span class='glyphicon glyphicon-thumbs-up'></span>
                         <br>
-                        <div class=''>
-                            
-                            
-                        </div>
                     </form>
                 </div>
             </div>
@@ -85,11 +81,14 @@
                    <ul class="list-inline list-unstyled text-center">
                         <li>
                             <a href="{{ path('index') }}">
-                                <img width="40" height="40" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
+                                <img width="20" height="20" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
                             </a>
                         </li>
                         <li>
-                            <h2>Event Voting</h2>
+                            <h3>Netgen Event Voting:</h3>
+                        </li>
+                        <li>
+                            <h3>{{ event.getName }}</h3>
                         </li>
                     </ul>
                  </div>
