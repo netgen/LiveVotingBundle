@@ -243,4 +243,48 @@ class Event
     public function getallowViewingResults(){
         return $this->allowViewingResults;
     }
+
+    public function getWebPath()
+    {
+        return null === $this->image
+            ? null
+            : $this->getUploadDir().'/'.$this->getImage();
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../Resources/public/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'img/events';
+    }
+
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getImage()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and then the
+        // target filename to move to
+        $new_name = $this->getName().'.'.$this->getImage()->guessExtension();
+        $this->getImage()->move(
+            $this->getUploadRootDir(),
+            $new_name
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->image = $new_name;
+    }
 }

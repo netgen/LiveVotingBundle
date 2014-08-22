@@ -43,6 +43,7 @@ class EventAdminController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->upload();
             $em->persist($entity);
             $em->flush();
 
@@ -149,6 +150,7 @@ class EventAdminController extends Controller
 
         if ($editForm->isValid()) {
             $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
+            $entity->upload();
             $em->flush();
             return $this->redirect($this->generateUrl('admin_event'));
         }
