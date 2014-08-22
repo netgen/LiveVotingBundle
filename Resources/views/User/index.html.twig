@@ -1,0 +1,30 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>User list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>User email</th>
+                <th>Event enabled</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.getId }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('admin_event_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

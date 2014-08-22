@@ -48,6 +48,11 @@ LiveVotingBundle_admin_result:
     resource: "@LiveVotingBundle/Resources/config/routing/result.yml"
     prefix: /admin/result
 
+#Novi page koji može viditi admin na kojem se unose novi Useri#
+LiveVotingBundle_admin_user:
+    resource: "@LiveVotingBundle/Resources/config/routing/user.yml"
+    prefix: /admin/user
+
 #USER LOGIN ROUTING#
 
 userlogin:

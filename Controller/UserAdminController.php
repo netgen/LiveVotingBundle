@@ -12,7 +12,7 @@ use Netgen\LiveVotingBundle\Form\EventType;
  * Event controller.
  *
  */
-class EventAdminController extends Controller
+class UserAdminController extends Controller
 {
 
     /**
