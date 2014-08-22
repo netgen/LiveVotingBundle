@@ -75,7 +75,11 @@ class EventController extends Controller {
             $em->persist($user);
             $em->flush();
         }
-        return $this->render('LiveVotingBundle:Index:index.html.twig');
+
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        return $this->render('LiveVotingBundle:Index:index.html.twig', 
+                array('event' => $event)
+            );
     }
 
 } 

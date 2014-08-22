@@ -37,7 +37,7 @@
 	            	<ul class="list-inline list-unstyled text-center">
 	                    <li>
 	                        <a href="{{ path('index') }}">
-	                          <img width="40" height="40" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
+	                          <img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
 	                        </a>
 	                    </li>
 	                    <li class="text-center">
@@ -51,9 +51,13 @@
         	<div id="events">        	
                     <ul class="list-group">
                         {% for event in events %}
-                        <li class="list-group-item"><a href="{{ path('event', {'event_id':event.getId}) }}"><h3>{{ event.getName }}</h3></a>
+                        <li class="list-group-item clearfix">
+                        	<a href="{{ path('event', {'event_id':event.getId}) }}">
+	                        	<img style="float:left;" src="{{ asset('bundles/livevoting/') }} {{ event.getImage }}" class='thumbnail slikaa'>
+	                     		<h3>{{ event.getName }}</h3>
+                     		</a>
                             {% if event.getAllowViewingResults %}
-                                <a href="{{ path('result', {'event_id':event.getId}) }}">Results</a>
+                                <a href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Results</a>
                             {% endif %}
                         </li>
                         {% endfor %}
