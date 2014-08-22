@@ -1,6 +1,6 @@
 index:
     path:    /
-    defaults: {_controller: LiveVotingBundle:Index:landing}
+    defaults: {_controller: LiveVotingBundle:User:login}
 
 event:
     path:    /event/{event_id}
@@ -47,3 +47,12 @@ LiveVotingBundle_admin_presentation:
 LiveVotingBundle_admin_result:
     resource: "@LiveVotingBundle/Resources/config/routing/result.yml"
     prefix: /admin/result
+
+#USER LOGIN ROUTING#
+
+userlogin:
+    path:    /
+    defaults: { _controller: LiveVotingBundle:User:login}
+
+user_login_check:
+    path:   user_login_check
