@@ -20,6 +20,10 @@ Netgen\LiveVotingBundle\Entity\Event:
         allowViewingResults:
             type: boolean
             default: false
+        image:
+            type: string
+            length: 255
+            nullable: true
     oneToMany:
         presentations:
             targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
