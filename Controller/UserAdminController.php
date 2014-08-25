@@ -127,7 +127,7 @@ class UserAdminController extends Controller
             'action' => $this->generateUrl('admin_user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('enabled', 'checkbox', array('required'=>false, 'label'=>'Disabled'));
+        $form->add('Enabled', 'checkbox', array('required'=>false, 'label'=>'Enabled'));
         $form->add('submit', 'submit', array('label' => 'Update'));
         return $form;
     }
@@ -139,22 +139,23 @@ class UserAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('LiveVotingBundle:Event')->find($id);
+        $entity = $em->getRepository('LiveVotingBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Event entity.');
+            throw $this->createNotFoundException('Unable to find User entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
-            $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
+        if ($editForm->isValid()) 
+        {
+            $entity->setEmail($editForm->get('email')->getData());
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_event'));
+            return $this->redirect($this->generateUrl('admin_user'));
         }
 
-        return $this->render('LiveVotingBundle:Event:edit.html.twig', array(
+        return $this->render('LiveVotingBundle:Event:user.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
         ));

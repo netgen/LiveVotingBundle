@@ -17,25 +17,18 @@ class User
     /**
      * @var string
      */
-    private $email;
+    private $email = null;
 
     /**
      * @var string
      */
-    private $password;
+    private $password = null;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var enabled
      */
-    private $vote;
+    private $enabled = false;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->vote = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set id
@@ -106,36 +99,13 @@ class User
         return $this->password;
     }
 
-    /**
-     * Add vote
-     *
-     * @param \Netgen\LiveVotingBundle\Entity\Vote $vote
-     * @return User
-     */
-    public function addVote(\Netgen\LiveVotingBundle\Entity\Vote $vote)
+    public function setAllowVoting() 
     {
-        $this->vote[] = $vote;
-
-        return $this;
+        $this->enabled = true;
     }
 
-    /**
-     * Remove vote
-     *
-     * @param \Netgen\LiveVotingBundle\Entity\Vote $vote
-     */
-    public function removeVote(\Netgen\LiveVotingBundle\Entity\Vote $vote)
+    public function getAllowVoting() 
     {
-        $this->vote->removeElement($vote);
-    }
-
-    /**
-     * Get vote
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getVote()
-    {
-        return $this->vote;
+        return $this->enabled;
     }
 }
