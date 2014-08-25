@@ -96,11 +96,11 @@
 
     function endEverything(){
         $('#winner .winner').html(data['winner']['presenter']['name']+' '+data['winner']['presenter']['surname']);
-
-        $(window).scrollTop($('#winner').offset().top + 200);
+        //$(".circle-container").scrollTop($(".circle-container")[0].scrollHeight);
         setTimeout(function(){
             $('#winner').fadeIn(2000,
                 function(){
+                    $("body").scrollTop($("#winner").offset().top - 200);
                     setTimeout(function(){
                        $('#winner .winner').fadeIn(1000);
                     },100);

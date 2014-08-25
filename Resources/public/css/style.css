@@ -221,6 +221,7 @@ div.btn-group-lg {
 
 .winner{
     color: #333;
+    z-index: 1;
 }
 
 .event-links{
@@ -237,7 +238,6 @@ div.btn-group-lg {
     display: block;
     position: absolute;
     top:50px; left: 50%;
-
 }
 
 .deg0 { transform: translate(12em); }
