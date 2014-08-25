@@ -57,10 +57,18 @@
 </div>
 
 <div id="winner">
-    <span>And the winner is:</span> 
-    <div class="alert alert-info" role="alert">
-        <h2 class="winner">fsdfsd</h2>
-    </div> 
+    <h4>And the winner is:</h4> 
+    <div class="circle-container">
+        <div class="alert alert-info" role="alert">
+            <span class="glyphicon glyphicon-star deg0"></span>
+            <span class="glyphicon glyphicon-star deg45"></span>
+            <span class="glyphicon glyphicon-star deg135"></span>
+            <span class="glyphicon glyphicon-star deg180"></span>
+            <span class="glyphicon glyphicon-star deg225"></span>
+            <span class="glyphicon glyphicon-star deg315"></span>
+            <h2 class="winner"></h2>
+        </div> 
+    </div>
 </div>
 </body>
 <script type="text/javascript">
@@ -88,11 +96,13 @@
 
     function endEverything(){
         $('#winner .winner').html(data['winner']['presenter']['name']+' '+data['winner']['presenter']['surname']);
+
+        $(window).scrollTop($('#winner').offset().top + 200);
         setTimeout(function(){
             $('#winner').fadeIn(2000,
                 function(){
                     setTimeout(function(){
-                        $('#winner .winner').fadeIn(1000);
+                       $('#winner .winner').fadeIn(1000);
                     },100);
                 }
             );

@@ -212,6 +212,7 @@ div.btn-group-lg {
 }
 
 #winner{
+    padding-top: 50px;
     width:40%;
     margin:auto;
     color:#333;
@@ -221,3 +222,27 @@ div.btn-group-lg {
 .winner{
     color: #333;
 }
+
+.event-links{
+    margin-top: 10px;
+}
+
+.circle-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.alert span {
+    display: block;
+    position: absolute;
+    top:50px; left: 50%;
+
+}
+
+.deg0 { transform: translate(12em); }
+.deg45 { transform: rotate(45deg) translate(12em) rotate(-45deg); }
+.deg135 { transform: rotate(135deg) translate(12em) rotate(-135deg); }
+.deg180 { transform: translate(-12em); }
+.deg225 { transform: rotate(225deg) translate(12em) rotate(-225deg); }
+.deg315 { transform: rotate(315deg) translate(12em) rotate(-315deg); }

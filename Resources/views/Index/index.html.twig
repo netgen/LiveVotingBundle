@@ -112,6 +112,13 @@
             </div>
         </div>
 
+        <div class="container event-links">
+            <a class="btn btn-default" href="{{ path('index') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
+            {% if event.getAllowViewingResults %}
+                <a class="btn btn-default" href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Live results</a>
+            {% endif %}
+        </div>
+
         <div id="wrap">
             <div id="footer" class="container">
                 <span class="timer ermsg"></span>
