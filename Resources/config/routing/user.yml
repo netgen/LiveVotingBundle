@@ -1,0 +1,27 @@
+admin_user:
+    path:     /
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:index" }
+
+admin_user_new:
+    path:     /new
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:new" }
+
+admin_user_create:
+    path:     /create
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:create" }
+    requirements: { _method: post }
+
+admin_user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:edit" }
+
+admin_user_update:
+    path:     /{id}/update
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:update" }
+    requirements: { _method: post|put }
+
+
+#admin_event_enabledisable:
+#   path:     /enableDisable
+#   defaults: { _controller: "LiveVotingBundle:EventAdmin:enableDisable" }
+#   requirements: { _method: post }

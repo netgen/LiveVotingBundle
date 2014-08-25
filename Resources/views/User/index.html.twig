@@ -1,0 +1,39 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>User list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>User email</th>
+                <th>User enabled</th>
+                <th>Edit user</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.getEmail }}</td>
+                <td>{{ entity.getEnabled }}</td>
+                <td>
+                    <a class='btn btn-primary' href="{{ path('admin_user_edit', { 'id': entity.id }) }}">Edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('admin_user_new') }}">
+                Create a new user
+            </a>
+        </li>
+        <li>
+            <a href=" {{ path('admin_event') }}">
+                Event list page
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

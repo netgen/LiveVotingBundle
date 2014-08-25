@@ -1,0 +1,15 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>User edit</h1>
+
+    {{ form(edit_form, {'attr':{'class':'form-horizontal'}}) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_user') }}">
+            Back to the user list
+        </a>
+    </li>
+</ul>
+{% endblock %}

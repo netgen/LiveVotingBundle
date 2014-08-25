@@ -15,8 +15,8 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
-            //->add('event', 'entity', array('class'=>'Netgen\LiveVotingBundle\Entity\Event', 'disabled'=>true))
+            ->add('email', 'email', array('label'=>'User email'))
+            //->add('user', 'entity', array('class'=>'Netgen\LiveVotingBundle\Entity\User', 'enabled'=>true))
         ;
     }
     
