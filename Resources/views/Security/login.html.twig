@@ -2,11 +2,11 @@
     <div>{{ error.message }}</div>
 {% endif %}
 
-<form action="{{ path('login_check') }}" method="post">
+<form action="{{ path('admin_login_check') }}" method="post">
     <label for="username">Username:</label>
     <input type="username" id="username" name="_username" value="{{ last_username }}" />
 
-    <input  type="password" id="password" name="_password" value="morskipas" />
+    <input  type="password" id="password" name="_password" value="" />
 
     {#
         If you want to control the URL the user

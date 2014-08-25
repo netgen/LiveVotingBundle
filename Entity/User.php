@@ -99,6 +99,7 @@ class User
         return $this->password;
     }
 
+/*
     public function setAllowVoting() 
     {
         $this->enabled = true;
@@ -115,6 +116,8 @@ class User
      * @param boolean $enabled
      * @return User
      */
+    
+    
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
