@@ -13,3 +13,4 @@ services:
           class: %live_voting.handleRequest.class%
     webservice_user_provider:
         class: "%webservice_user_provider.class%"
+        arguments: [@doctrine.orm.entity_manager]

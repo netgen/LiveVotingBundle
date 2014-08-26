@@ -8,30 +8,27 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 class WebserviceUserProvider implements UserProviderInterface
+
 {
+    protected $em;
+
+    public function __construct($em){
+        $this->em = $em;
+    }
+
     public function loadUserByUsername($username)
     {
-        // make a call to your webservice here
-        $userData = $this->request->get('webservice_user_provider');
+        
+        $entity = $this->em->getRepository('LiveVotingBundle:User')->find('131309170653fb1f895d6b60.80127849');
 
-        // pretend it returns an array on success, false if there is no user
-
-        if ($userData) {
-            $password = '...';
-
-            // ...
-
-            return new User($username, $password, $salt, $roles);
-        }
-
-        throw new UsernameNotFoundException(
-            sprintf('Username "%s" does not exist.', $username)
-        );
+        var_dump($entity); return new User();
     }
+
+    
 
     public function refreshUser(UserInterface $user)
     {
-        if (!$user instanceof WebserviceUser) {
+        if (!$user instanceof User) {
             throw new UnsupportedUserException(
                 sprintf('Instances of "%s" are not supported.', get_class($user))
             );
@@ -42,7 +39,7 @@ class WebserviceUserProvider implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return $class === 'Acme\WebserviceUserBundle\Security\User\WebserviceUser';
+        return $class === 'Netgen\LiveVotingBundle\Entity\User';
     }
 }
 

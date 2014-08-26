@@ -20,7 +20,7 @@ class User implements UserInterface
     /**
      * @var string
      */
-    private $email = null;
+    public $email = null;
 
     /**
      * @var string
@@ -149,7 +149,7 @@ class User implements UserInterface
 
     public function getUsername()
     {
-        return $this->$email;
+        return $this->email;
     }
 
     public function getSalt()
