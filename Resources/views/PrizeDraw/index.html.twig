@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+   		<!-- CSS -->
+		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
+		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
+		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
+       <!-- <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/loader.css') }}"  />-->
+
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+	<title>Prize draw</title>
+
+	</head>
+
+	<body>
+		<div class="navbar navbar-default navbar-collapse">
+		    <div class="container">
+		        <div class="navbar-header">         
+	            	<ul class="list-inline list-unstyled text-center">
+	                    <li>
+	                        <a href="{{ path('root') }}">
+	                          <img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
+	                        </a>
+	                    </li>
+	                    <li class="text-center">
+	                        <h2>Netgen LiveVoting prize draw</h2>
+	                    </li>
+	                </ul>
+	            </div>
+            </div>
+        </div>
+		
+		<div class="container">
+
+    		<form action ="{{ path('admin_prize_draw_generate') }}" method="POST">
+				<table class="records_list table">
+				    <thead>
+				        <tr>
+				            <th>Event name</th>
+				            <th>Include in draw</th>
+				        </tr>
+				    </thead>
+
+				    <tbody class="prize-draw-table">
+				    {% for event in events %}
+				    	<tr>
+					    	<td>{{ event.getName }}</td>
+					    	<td>
+					    		<div class="checkbox">
+							        <label class="small">
+							        	<input type="checkbox" value="{{ event.getId }}"> Add event in a drawing pool
+							        </label>
+							    </div>
+					    	</td>
+					    </tr>
+				    {% endfor %}
+				    </tbody>
+				</table>
+
+				<button type="submit" class="btn btn-primary pull-right">Generate draw pool</button>
+			</form>
+		</div>
+
+		<ul class="list-unstyled">
+			{% for vote in allVotes %}
+				<li id="lista"> {{ vote.getPresentation.getEvent.getName }} </li>
+			{% endfor %}
+		</ul>
+		
+   	</body>
+</html>

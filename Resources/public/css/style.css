@@ -246,3 +246,7 @@ div.btn-group-lg {
 .deg180 { transform: translate(-12em); }
 .deg225 { transform: rotate(225deg) translate(12em) rotate(-225deg); }
 .deg315 { transform: rotate(315deg) translate(12em) rotate(-315deg); }
+
+.prize-draw-table {
+    color:#333;
+}

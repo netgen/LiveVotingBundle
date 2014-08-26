@@ -1,0 +1,8 @@
+admin_prize_draw:
+    path:     /
+    defaults: { _controller: "LiveVotingBundle:PrizeDraw:index" }
+
+admin_prize_draw_generate:
+    path:    /generatePool
+    defaults: { _controller: "LiveVotingBundle:PrizeDraw:generatePool" }
+    requirements: { _method: post }
