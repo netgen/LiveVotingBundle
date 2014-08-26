@@ -1,0 +1,3 @@
+admin_prize_draw:
+    path:     /
+    defaults: { _controller: "LiveVotingBundle:PrizeDraw:index" }

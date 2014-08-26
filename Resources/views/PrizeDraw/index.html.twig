@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+   		<!-- CSS -->
+		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
+		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
+		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
+       <!-- <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/loader.css') }}"  />-->
+
+	<title>Prize draw</title>
+
+	</head>
+
+	<body>
+		<div class="navbar navbar-default navbar-collapse">
+		    <div class="container">
+		        <div class="navbar-header">         
+	            	<ul class="list-inline list-unstyled text-center">
+	                    <li>
+	                        <a href="{{ path('index') }}">
+	                          <img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
+	                        </a>
+	                    </li>
+	                    <li class="text-center">
+	                        <h2>Netgen LiveVoting prize draw</h2>
+	                    </li>
+	                </ul>
+	            </div>
+            </div>
+        </div>
+		
+		<div class="container">
+			<table class="records_list table">
+			    <thead>
+			        <tr>
+			            <th>Event name</th>
+			            <th>Include in draw</th>
+			        </tr>
+			    </thead>
+
+			    <tbody>
+			    {% for event in events %}
+			    	<tr>
+				    	<td>{{ event.getName }}</td>
+				    	<td></td>
+				    </tr>
+			    {% endfor %}
+			    </tbody>
+			</table>
+		</table>
+   	</body>
+</html>
