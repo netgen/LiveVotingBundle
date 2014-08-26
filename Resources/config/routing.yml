@@ -7,7 +7,7 @@ root:
 
 user_landing:
     path:    /user/
-    defaults: {_controller: LiveVotingBundle:Index:landig}
+    defaults: {_controller: LiveVotingBundle:Index:landing}
 
 
 event:

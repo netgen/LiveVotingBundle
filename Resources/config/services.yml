@@ -1,7 +1,7 @@
 parameters:
     live_voting.result.class: Netgen\LiveVotingBundle\Features\Result\Result
     live_voting.handleRequest.class: Netgen\LiveVotingBundle\Features\Request\ValidateRequest
-
+    webservice_user_provider.class: Netgen\LiveVotingBundle\Entity\WebserviceUserProvider
 services:
 #    live_voting.example:
 #        class: %live_voting.example.class%
@@ -11,3 +11,5 @@ services:
           arguments: [@doctrine.orm.entity_manager, event_id]
     live_voting.handleRequest:
           class: %live_voting.handleRequest.class%
+    webservice_user_provider:
+        class: "%webservice_user_provider.class%"
