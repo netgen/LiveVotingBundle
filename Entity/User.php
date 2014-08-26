@@ -1,13 +1,16 @@
 <?php
 
 namespace Netgen\LiveVotingBundle\Entity;
-
+   
 use Doctrine\ORM\Mapping as ORM;
+
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * User
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var string
@@ -29,6 +32,7 @@ class User
      */
     private $enabled = false;
 
+    private $salt = null;
 
     /**
      * Set id
@@ -134,4 +138,30 @@ class User
     {
         return $this->enabled;
     }
+
+    /**
+    * @inheritDoc
+    */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function getUsername()
+    {
+        return $this->$email;
+    }
+
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+    * @inheritDoc
+    */
+    public function eraseCredentials()
+    {
+    }
+
 }
