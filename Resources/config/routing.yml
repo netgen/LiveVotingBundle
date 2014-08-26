@@ -1,10 +1,14 @@
-index:
-    path:    /
-    defaults: {_controller: LiveVotingBundle:User:login}
+root:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /user/
+        permanent: true
 
-landig:
-    path:    /home
+user_landing:
+    path:    /user/
     defaults: {_controller: LiveVotingBundle:Index:landig}
+
 
 event:
     path:    /event/{event_id}
@@ -37,7 +41,7 @@ table_results:
 
 # ADMIN ROUTING #
 admin_index:
-    path:     /admin
+    path:     /admin/
     defaults: { _controller: "LiveVotingBundle:EventAdmin:index" }
 
 LiveVotingBundle_admin_event:
@@ -62,3 +66,24 @@ LiveVotingBundle_admin_user:
     prefix: /admin/user
 
 #USER LOGIN ROUTING#
+
+
+user_login:
+    path:    /user/login
+    defaults: { _controller: LiveVotingBundle:UserSecurity:login }
+
+user_login_check:
+    path:    /user/login_check
+
+admin_login:
+    path:   /admin/login
+    defaults: {_controller : LiveVotingBundle:Security:login}
+
+admin_login_check:
+   path: /admin/login_check
+
+logout:
+    path:    user/logout
+
+admin_logout:
+    path:    /admin/logout
