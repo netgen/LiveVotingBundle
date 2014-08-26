@@ -7,7 +7,7 @@ root:
 
 user_landing:
     path:    /user/
-    defaults: {_controller: LiveVotingBundle:Index:landig}
+    defaults: {_controller: LiveVotingBundle:Index:landing}
 
 
 event:
@@ -66,8 +66,6 @@ LiveVotingBundle_admin_user:
     prefix: /admin/user
 
 #USER LOGIN ROUTING#
-
-
 user_login:
     path:    /user/login
     defaults: { _controller: LiveVotingBundle:UserSecurity:login }

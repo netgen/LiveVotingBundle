@@ -22,7 +22,7 @@
 		        <div class="navbar-header">         
 	            	<ul class="list-inline list-unstyled text-center">
 	                    <li>
-	                        <a href="{{ path('index') }}">
+	                        <a href="{{ path('root') }}">
 	                          <img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
 	                        </a>
 	                    </li>
@@ -64,7 +64,7 @@
 				<button type="submit" class="btn btn-primary pull-right">Generate draw pool</button>
 			</form>
 		</div>
-		
+
 		<ul class="list-unstyled">
 			{% for vote in allVotes %}
 				<li id="lista"> {{ vote.getPresentation.getEvent.getName }} </li>
