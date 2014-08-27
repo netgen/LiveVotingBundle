@@ -20,7 +20,7 @@ class User implements UserInterface
     /**
      * @var string
      */
-    public $email = null;
+    private $email = null;
 
     /**
      * @var string

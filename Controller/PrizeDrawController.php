@@ -15,24 +15,40 @@ class PrizeDrawController extends Controller {
 	public function indexAction(){
 
 		$events = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->findAll();
-		$allVotes = $this->getDoctrine()->getRepository('LiveVotingBundle:Vote')->findAll();
 
 		return $this->render('LiveVotingBundle:PrizeDraw:index.html.twig',
             array(
-            	'events' => $events,
-            	'allVotes' => $allVotes
+            	'events' => $events
             	)
         );
 	}
 
 	public function generatePoolAction(Request $request){
 
-		
-		return $this->render('LiveVotingBundle:PrizeDraw:generatePool.html.twig');
+		$allVotes = $this->getDoctrine()->getRepository('LiveVotingBundle:Vote')->findAll();
+		$votePool = array();
 
+		if(!empty($_POST['check_list'])){
+
+			foreach($_POST['check_list'] as $voteId) {
+				
+				for($i = 0; $i < count($allVotes); $i++) {
+
+					if ( $allVotes[$i]->getPresentation()->getEvent()->getId() == $voteId ){
+
+						//TODO: Kada budu valjani emailovi u bazi promjeniti u getEmail(). Trenutno su svi string(0)
+						$votePool[] = $allVotes[$i]->getUser()->getId();
+					}
+				}	
+            
+        	}
+		}
+
+		return $this->render('LiveVotingBundle:PrizeDraw:generatePool.html.twig',
+				array('votePool' => $votePool,
+					'voteJson'=>json_encode($votePool))
+			);
 	}
-
-
 }
 
 ?>

@@ -52,7 +52,7 @@
 					    	<td>
 					    		<div class="checkbox">
 							        <label class="small">
-							        	<input type="checkbox" value="{{ event.getId }}"> Add event in a drawing pool
+							        	<input type="checkbox" name="check_list[]" value="{{ event.getId }}"> Add event in a drawing pool
 							        </label>
 							    </div>
 					    	</td>
@@ -64,12 +64,5 @@
 				<button type="submit" class="btn btn-primary pull-right">Generate draw pool</button>
 			</form>
 		</div>
-
-		<ul class="list-unstyled">
-			{% for vote in allVotes %}
-				<li id="lista"> {{ vote.getPresentation.getEvent.getName }} </li>
-			{% endfor %}
-		</ul>
-		
    	</body>
 </html>
