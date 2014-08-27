@@ -7,9 +7,11 @@
    		<!-- CSS -->
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
+		<link rel="stylesheet" href="{{ asset ('bundles/livevoting/css/odometer-theme-plaza.css') }}">
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
 
 	    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	    <script src="//cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.6/odometer.js"></script>
 
 	<title>Draw pool</title>
 
@@ -35,27 +37,42 @@
 
         <div class="container">
         	<div id="prize-pool">
-				<ul class="list-group">
+
+    			<div class="odometer">000</div>
+
+				<ul id='lista-pobjednika' class="list-group">
 					<script type="text/javascript"> var size = 0; var voteEmails = [];</script>
 					{% for voteEmail in votePool %}
 						<script> size++; voteEmails.push('{{voteEmail}}');</script>
-						<li id="lista" class="list-group-item"> {{ voteEmail }} </li>
 					{% endfor %}
 				</ul>
 
-				<button id="start" class="btn btn-success"> Draw </button>
+				<button id="start" class="btn btn-success btn-lg"> Draw </button>
 
 				<h2 id="pobjednik"></h2>
 				<script type="text/javascript">
-					var rand = Math.floor((Math.random() * size + 1)); 
+					var rand = Math.floor((Math.random() * size)); 
 
 					$('#start').click(function (){
-						document.getElementById('pobjednik').innerHTML = 'Lucky winner is: ' + voteEmails[rand-1];
-						rand = Math.floor((Math.random() * size + 1)); 
+
+						$('.odometer').html(rand);
+						if (size > 0){
+							document.getElementById('pobjednik').innerHTML = 'Lucky winner is: ' + voteEmails[rand];
+							$('#lista-pobjednika').append('<li class="list-group-item">' + voteEmails[rand] + '</li>');
+							voteEmails.splice(rand, 1); //izbacuje se samo jedan glas iz poola, moguce da je isti mail vise puta ponovljen u poolu
+							size--;
+						}
+						else {alert('No more available votes in a pool!')}
+
+						var oldCounter = rand; //Change of value triggers odometer
+						while( rand == oldCounter){
+							rand = Math.floor((Math.random() * size)); 
+						}
 					});
+
 				</script>
 				</h2>
-				<div id="counter"></div>
+				<div id="draw-end-line"></div>
 			</div>
 		</div>
 	</body>

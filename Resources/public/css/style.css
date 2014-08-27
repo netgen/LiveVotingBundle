@@ -253,7 +253,7 @@ div.btn-group-lg {
     color:#333;
 }
 
-#counter{
+#draw-end-line{
     position: relative; 
     top: 45%; 
     margin: 0px auto; 
@@ -271,4 +271,15 @@ div.btn-group-lg {
     width: 700px;
     max-width:100%;
     margin: auto;
+}
+
+#lista-pobjednika{
+    margin-top: 20px;
+}
+.odometer.odometer-auto-theme{
+    font-size: 150px;
+    line-height: 150px;
+    font-weight: 600;
+    display: inherit;
+    text-align: center;
 }
