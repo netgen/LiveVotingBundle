@@ -173,6 +173,8 @@ body {
 
 .list-group-item {
     background-color: #206CA8;
+    color: #F5F5F5;
+    text-align: center;
 }
 
 li.list-group-item > a {
@@ -249,4 +251,35 @@ div.btn-group-lg {
 
 .prize-draw-table {
     color:#333;
+}
+
+#draw-end-line{
+    position: relative; 
+    top: 45%; 
+    margin: 0px auto; 
+    background-color: black;
+    border: 7px solid #222222;
+    border-radius: 5px;
+        -moz-border-radius: 5px;
+        -moz-box-shadow: 5px 5px 10px #000000;
+        -webkit-box-shadow: 5px 5px 10px #000000;
+        -khtml-box-shadow: 5px 5px 10px #000000;
+    box-shadow: 5px 5px 10px #000000;
+}
+
+#prize-pool{
+    width: 700px;
+    max-width:100%;
+    margin: auto;
+}
+
+#lista-pobjednika{
+    margin-top: 20px;
+}
+.odometer.odometer-auto-theme{
+    font-size: 150px;
+    line-height: 150px;
+    font-weight: 600;
+    display: inherit;
+    text-align: center;
 }

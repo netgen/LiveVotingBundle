@@ -16,7 +16,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a target="_blank" href="{{ path('event', { 'event_id': entity.id }) }}">{{ entity.name }}</a></td>
+                <td><a target="_blank" href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">{{ entity.name }}</a></td>
                 <td>{{ entity.stateName }}</td>
                 <td>
                     <a class='btn btn-primary' href="{{ path('admin_event_edit', { 'id': entity.id }) }}">Edit</a>
