@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class EventController extends Controller {
-
+    
     // TODO: clean code and add comments.
     public function eventStatusAction(Request $request, $event_id){
         try{
