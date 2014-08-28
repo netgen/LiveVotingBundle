@@ -56,18 +56,26 @@
 					$('#start').click(function (){
 
 						$('.odometer').html(rand);
-						if (size > 0){
-							document.getElementById('pobjednik').innerHTML = 'Lucky winner is: ' + voteEmails[rand];
-							$('#lista-pobjednika').append('<li class="list-group-item">' + voteEmails[rand] + '</li>');
-							voteEmails.splice(rand, 1); //izbacuje se samo jedan glas iz poola, moguce da je isti mail vise puta ponovljen u poolu
-							size--;
-						}
-						else {alert('No more available votes in a pool!')}
 
-						var oldCounter = rand; //Change of value triggers odometer
-						while( rand == oldCounter){
-							rand = Math.floor((Math.random() * size)); 
-						}
+						window.setTimeout(generate(), 2000);
+
+						function generate(){
+							if (size > 0){
+								document.getElementById('pobjednik').innerHTML = 'Lucky winner is: ' + voteEmails[rand];
+								$('#lista-pobjednika').append('<li class="list-group-item">' + voteEmails[rand] + '</li>');
+								voteEmails.splice(rand, 1); //izbacuje se samo jedan glas iz poola, moguce da je isti mail vise puta ponovljen u poolu
+								size--;
+							}
+							else {alert('No more available votes in a pool!')}
+
+							var oldCounter = rand; //Change of value triggers odometer
+							while( rand == oldCounter){
+								rand = Math.floor((Math.random() * size)); 
+							}
+						};
+
+
+
 					});
 
 				</script>
