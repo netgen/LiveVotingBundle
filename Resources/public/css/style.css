@@ -184,7 +184,7 @@ li.list-group-item > a {
 #footer-index {
     left:0;
     bottom: 0;
-    position: fixed;
+    position: absolute;
     width: 100%;
 }
 
@@ -282,4 +282,15 @@ div.btn-group-lg {
     font-weight: 600;
     display: inherit;
     text-align: center;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0px auto;
+}
+
+.form-control{
+    margin-bottom: 20px;
+    height: 45px;
 }

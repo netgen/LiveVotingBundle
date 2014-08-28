@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
 
 	    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	    <script src="//cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.6/odometer.js"></script>
+	    <script src="{{ asset('bundles/livevoting/js/odometer.js')}}"></script>
 
 	<title>Draw pool</title>
 
@@ -55,11 +55,11 @@
 
 					$('#start').click(function (){
 
-						$('.odometer').html(rand);
+						document.getElementById('pobjednik').innerHTML = '';
+						$('.odometer').html(rand+1);
 
-						window.setTimeout(generate(), 2000);
+						setTimeout(function(){
 
-						function generate(){
 							if (size > 0){
 								document.getElementById('pobjednik').innerHTML = 'Lucky winner is: ' + voteEmails[rand];
 								$('#lista-pobjednika').append('<li class="list-group-item">' + voteEmails[rand] + '</li>');
@@ -72,8 +72,7 @@
 							while( rand == oldCounter){
 								rand = Math.floor((Math.random() * size)); 
 							}
-						};
-
+						}, 2100);
 
 
 					});

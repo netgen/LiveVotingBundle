@@ -1,18 +1,41 @@
-{% if error %}
-    <div>{{ error.message }}</div>
-{% endif %}
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<form action="{{ path('user_login_check') }}" method="post">
-    <label for="email">Email:</label>
-    <input type="username" id="username" name="_username" value="{{ last_username }}" />
-    <input hidden="true "type="password" id="password" name="_password" value="1" />
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
 
-    
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
 
-    <button type="submit">login</button>
-</form>
+    </head>
+
+    <body style="margin-top:15%;">
+        <div class="container">
+            <div class="form-signin">
+
+                <form action="{{ path('user_login_check') }}" method="post">
+                    <label for="email"><h2>Enter email:</h2></label>
+                    <input class="form-control" type="username" id="username" name="_username" value="{{ last_username }}" placeholder="Email address" />
+                    <input hidden="true "type="password" id="password" name="_password" value="1" />
+
+                    
+                    {#
+                        If you want to control the URL the user
+                        is redirected to on success (more details below)
+                        <input type="hidden" name="_target_path" value="/account" />
+                    #}
+
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">login</button>
+                </form>
+
+                {% if error %}
+                    <div class="alert alert-danger">
+                        Wrong entry. Please enter valid email.
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </body>
+</html>
