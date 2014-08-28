@@ -50,7 +50,7 @@
                 </div>
 
                 <div class='row'>
-                    <form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="/vote/{{ '{{ presentationId }}' }}" method="POST">
+                    <form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="/user/vote/{{ '{{ presentationId }}' }}" method="POST">
                         
                         <span class='glyphicon glyphicon-thumbs-down'></span>
                         <div class="btn-group btn-group-lg">
@@ -81,7 +81,7 @@
                 <div class="navbar-header text-center">         
                    <ul class="list-inline list-unstyled text-center">
                         <li>
-                            <a href="{{ path('index') }}">
+                            <a href="{{ path('root') }}">
                                 <img width="20" height="20" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
                             </a>
                         </li>
@@ -113,7 +113,7 @@
         </div>
 
         <div class="container event-links">
-            <a class="btn btn-default" href="{{ path('index') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
+            <a class="btn btn-default" href="{{ path('root') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
             {% if event.getAllowViewingResults %}
                 <a class="btn btn-default" href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Live results</a>
             {% endif %}

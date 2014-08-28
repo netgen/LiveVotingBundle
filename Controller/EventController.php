@@ -16,8 +16,10 @@ class EventController extends Controller {
     // TODO: clean code and add comments.
     public function eventStatusAction(Request $request, $event_id){
         try{
-            $sessionId = $request->getSession()->getId();
-            $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($sessionId);
+            //$sessionId = $request->getSession()->getId();
+            $userT = $this->get('security.context')->getToken()->getUser();
+            $userId = $userT->getId();
+            $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
             $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
 
             // !! throws exception
@@ -63,8 +65,11 @@ class EventController extends Controller {
         $session = $request->getSession();
         $session->start();
         $session_id = $session->getId();
-        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($session_id);
-
+        $userT = $this->get('security.context')->getToken()->getUser();
+        $user_id = $userT->getId();
+        //var_dump($user_id); die;
+        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($user_id);
+/*
         // Saving new user to database
         if($user==null){
             $user = new User();
@@ -75,8 +80,9 @@ class EventController extends Controller {
             $em->persist($user);
             $em->flush();
         }
-
+*/
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        //var_dump($user_id); die;
         return $this->render('LiveVotingBundle:Index:index.html.twig', 
                 array('event' => $event)
             );

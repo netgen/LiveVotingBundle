@@ -42,6 +42,8 @@ class UserAdminController extends Controller
         $form->handleRequest($request);
         $idd = uniqid(rand(), true);
         $user->setId($idd);
+        $user->setUsername($idd);
+        $user->setPassword('1');
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

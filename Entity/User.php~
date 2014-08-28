@@ -1,34 +1,51 @@
 <?php
 
 namespace Netgen\LiveVotingBundle\Entity;
-
+   
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
+
 /**
- * User
+ * @ORM\Entity
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="Netgen\LiveVotingBundle\Entity\UserRepository")
  */
-class User
+
+class User implements UserInterface
 {
     /**
+     * @ORM\id
+     * @ORM\Column(type="string")
      * @var string
+     * 
      */
     private $id;
 
     /**
+     * @ORM\email
+     * @ORM\Column(type="string")
      * @var string
      */
+
     private $email = null;
 
     /**
+     * @ORM\password
+     * @ORM\Column(type="string")
      * @var string
      */
     private $password = null;
 
     /**
+     * @ORM\enabled
+     * @ORM\Column(type="boolean")
      * @var enabled
      */
     private $enabled = false;
 
+    private $salt = null;
 
     /**
      * Set id
@@ -62,7 +79,7 @@ class User
     public function setEmail($email)
     {
         $this->email = $email;
-
+        $this->username = $email;
         return $this;
     }
 
@@ -98,14 +115,55 @@ class User
     {
         return $this->password;
     }
-
-    public function setAllowVoting() 
+    
+    public function setEnabled($enabled)
     {
-        $this->enabled = true;
+        $this->enabled = $enabled;
+
+        return $this;
     }
 
-    public function getAllowVoting() 
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
     {
         return $this->enabled;
     }
+
+    /**
+    * @inheritDoc
+    */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+    * @inheritDoc
+    */
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+    * @inheritDoc
+    */
+
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+    * @inheritDoc
+    */
+    public function eraseCredentials()
+    {
+    }
+
 }
