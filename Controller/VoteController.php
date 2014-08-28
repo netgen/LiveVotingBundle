@@ -17,7 +17,7 @@ class VoteController extends Controller{
             $rate = $request->request->get('rate');
             $presentation = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->find($presentation_id);
             $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')
-                ->find($request->getSession()->getId());
+                ->find($this->get('security.context')->getToken()->getUser()->getId());
             $event = $presentation->getEvent();
 
             $this->get('live_voting.handleRequest')->validateVote($presentation, $event, $user, $rate);
