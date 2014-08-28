@@ -52,7 +52,7 @@
                     <ul class="list-group">
                         {% for event in events %}
                         <li class="list-group-item clearfix">
-                        	<a href="{{ path('event', {'event_id':event.getId}) }}">
+                        	<a href="{{ path( 'event' , {'event_id':event.getId}) }}">
 	                        	<img style="float:left;" src="{{ asset('bundles/livevoting/') }}{{ event.getImage ? event.getWebPath : 'img/man1.png' }}" class='thumbnail slikaa'>
 	                     		<h3>{{ event.getName }}</h3>
                      		</a>

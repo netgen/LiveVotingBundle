@@ -5,34 +5,45 @@ namespace Netgen\LiveVotingBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * User
+ * @ORM\Entity
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="Netgen\LiveVotingBundle\Entity\UserRepository")
  */
+
 class User implements UserInterface
 {
-    /**
-     * @var string
-     */
+    /** 
+    * @var string
+    * @ORM\Column(type="string")
+    * @ORM\Id
+    * 
+    */
     private $id;
 
     /**
      * @var string
+     * @ORM\Column(name="'email'", type="string")
      */
-    public $email = null;
+
+    private $email = null;
 
     /**
+     * 
+     * @ORM\Column(type="string")
      * @var string
      */
     private $password = null;
 
     /**
+     * 
+     * @ORM\Column(type="boolean")
      * @var enabled
      */
     private $enabled = false;
-
-    private $salt = null;
 
     /**
      * Set id
@@ -66,7 +77,7 @@ class User implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
-
+        //$this->email = $username;
         return $this;
     }
 
@@ -102,25 +113,6 @@ class User implements UserInterface
     {
         return $this->password;
     }
-
-/*
-    public function setAllowVoting() 
-    {
-        $this->enabled = true;
-    }
-
-    public function getAllowVoting() 
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * Set enabled
-     *
-     * @param boolean $enabled
-     * @return User
-     */
-    
     
     public function setEnabled($enabled)
     {
@@ -147,14 +139,22 @@ class User implements UserInterface
         return array('ROLE_USER');
     }
 
+    /**
+    * @inheritDoc
+    */
+
     public function getUsername()
     {
-        return $this->email;
+        return $this->username;
     }
+
+    /**
+    * @inheritDoc
+    */
 
     public function getSalt()
     {
-        return $this->salt;
+        return '';
     }
 
     /**
@@ -164,4 +164,22 @@ class User implements UserInterface
     {
     }
 
+    /**
+     * @var string
+     */
+    private $username;
+
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
 }
