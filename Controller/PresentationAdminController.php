@@ -29,7 +29,7 @@ class PresentationAdminController extends Controller
         return $this->render('LiveVotingBundle:Presentation:index.html.twig', array(
             'entities' => array_map(
                 function($ent) use ($that) {
-                   return array($ent, $this->createEnableDisableForm($ent)->createView());
+                   return array($ent, $that->createEnableDisableForm($ent)->createView());
                 }, $entities),
             'event' => $event
         ));
@@ -176,7 +176,7 @@ class PresentationAdminController extends Controller
      * Creates form to create enable/disable form for presentation
      * so users can vote on it.
      */
-    private function createEnableDisableForm(Presentation $entity){
+    public function createEnableDisableForm(Presentation $entity){
         $form = $this->createFormBuilder();
         $form->setMethod('PUT');
         $form->setAction($this->generateUrl('admin_presentation_vote_enable', array('id'=>$entity->getId())));
