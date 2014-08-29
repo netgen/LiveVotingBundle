@@ -212,4 +212,20 @@ class PresentationAdminController extends Controller
 
     }
 
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
+        $eventId = $entity->getEvent()->getId();
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Presentation is already removed.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $eventId )));
+    }
+
 }

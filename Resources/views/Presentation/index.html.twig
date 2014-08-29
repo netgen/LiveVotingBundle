@@ -11,6 +11,7 @@
                 <th>Presenter name</th>
                 <th>Voting status</th>
                 <th>Edit presentation</th>
+                <th>Remove presentation</th>
             </tr>
         </thead>
         <tbody>
@@ -26,20 +27,23 @@
 
                     <a class='btn btn-primary' href="{{ path('admin_presentation_edit', { 'id': entity[0].id }) }}">Edit</a>
                 </td>
+                <td>
+                    <a class="btn btn-danger" href="{{ path('admin_presentation_delete', { 'id': entity[0].id }) }}"> <span class="glyphicon glyphicon-remove"></span> Delete</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+        <ul class="list-inline">
         <li>
-            <a href="{{ path('admin_presentation_new', {'event_id':event.getId}) }}">
-                Create a new entry
+            <a class="btn btn-primary" href="{{ path('admin_presentation_new', {'event_id':event.getId}) }}">
+                Create a new presentation
             </a>
         </li>
 
         <li>
-            <a href="{{ path('admin_event') }}">
+            <a class="btn btn-primary" href="{{ path('admin_event') }}">
                 Back to events
             </a>
         </li>
