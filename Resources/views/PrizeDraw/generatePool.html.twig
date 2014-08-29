@@ -60,6 +60,10 @@
 
 						setTimeout(function(){
 
+							if(voteEmails[rand] == ''){
+								voteEmails[rand] = 'No email to display';
+							}
+
 							if (size > 0){
 								document.getElementById('pobjednik').innerHTML = 'Lucky winner is: ' + voteEmails[rand];
 								$('#lista-pobjednika').append('<li class="list-group-item">' + voteEmails[rand] + '</li>');
@@ -69,8 +73,11 @@
 							else {alert('No more available votes in a pool!')}
 
 							var oldCounter = rand; //Change of value triggers odometer
-							while( rand == oldCounter){
+							while( rand == oldCounter ){
 								rand = Math.floor((Math.random() * size)); 
+								if ( (rand == 0) && (oldCounter == 0) ){
+									break;
+								}
 							}
 						}, 2100);
 

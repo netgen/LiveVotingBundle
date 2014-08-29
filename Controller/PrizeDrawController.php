@@ -37,7 +37,7 @@ class PrizeDrawController extends Controller {
 					if ( $allVotes[$i]->getPresentation()->getEvent()->getId() == $voteId ){
 
 						//TODO: Kada budu valjani emailovi u bazi promjeniti u getEmail(). Trenutno su svi string(0)
-						$votePool[] = $allVotes[$i]->getUser()->getId();
+						$votePool[] = $allVotes[$i]->getUser()->getEmail();
 					}
 				}	
             

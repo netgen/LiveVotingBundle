@@ -21,10 +21,7 @@
                     </a>
                 </li>
                 <li>
-                    <h3>Netgen Event Voting:</h3>
-                </li>
-                <li>
-                    <h3><a href="{{ path('event', {'event_id':event.getId}) }}">{{ event.getName }}</a></h3>
+                    <h3>Netgen Event Voting</h3>
                 </li>
             </ul>
         </div>
@@ -32,6 +29,11 @@
 </div>
 
 <div id="container" style="width:100%; height:400px;"></div>
+
+<div class="container event-links">
+    <a class="btn btn-default" href="{{ path('root') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
+    <a class="btn btn-default" href="{{ path('event' , {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Event</a>
+</div>
 
 <div id="footer-index">
     <div id="footer" class="container">
