@@ -174,4 +174,19 @@ class EventAdminController extends Controller
             ->getForm()
         ;
     }
+
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('LiveVotingBundle:Event')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Event is already removed.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('admin_event'));
+    }
 }

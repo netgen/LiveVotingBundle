@@ -25,7 +25,9 @@
                 <td>
                     <a class='btn btn-primary' href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">View</a>
                 </td>
-
+                <td>
+                    <a class="btn btn-danger" href="{{ path('admin_event_delete', { 'id': entity.id }) }}"> <span class="glyphicon glyphicon-remove"></span> Delete</a>
+                </td>
                 <td>
                     <a class='btn {{ entity.allowViewingResults ? 'btn-success':'btn-warning'  }}' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">
                         <span class='glyphicon glyphicon-eye-{{ entity.allowViewingResults ? 'open':'close'  }}'></span>

@@ -30,3 +30,4 @@ Netgen\LiveVotingBundle\Entity\Vote:
             joinColumn:
                 name: event_id
                 referencedColumnId: id
+                onDelete: CASCADE

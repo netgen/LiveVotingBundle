@@ -25,3 +25,7 @@ admin_event_enabledisable:
     path:     /enableDisable
     defaults: { _controller: "LiveVotingBundle:EventAdmin:enableDisable" }
     requirements: { _method: post }
+
+admin_event_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "LiveVotingBundle:EventAdmin:delete" }

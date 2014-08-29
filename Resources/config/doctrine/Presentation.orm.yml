@@ -43,3 +43,4 @@ Netgen\LiveVotingBundle\Entity\Presentation:
             joinColumn:
                 name: presentation_id
                 referencedColumnId: id
+                onDelete: CASCADE
