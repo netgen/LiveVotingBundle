@@ -24,9 +24,11 @@ class PresentationAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('LiveVotingBundle:Event')->find($event_id);
         $entities = $em->getRepository('LiveVotingBundle:Presentation')->findBy(array('event'=>$event));
+
+        $that = $this;
         return $this->render('LiveVotingBundle:Presentation:index.html.twig', array(
             'entities' => array_map(
-                function($ent){
+                function($ent) use ($that) {
                    return array($ent, $this->createEnableDisableForm($ent)->createView());
                 }, $entities),
             'event' => $event

@@ -43,7 +43,7 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      * @var enabled
      */
-    private $enabled = false;
+    private $enabled = true;
 
     /**
      * Set id
