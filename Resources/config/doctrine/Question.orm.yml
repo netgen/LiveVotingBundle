@@ -6,16 +6,14 @@ Netgen\LiveVotingBundle\Entity\Question:
             type: integer
             generator: {strategy: AUTO}
     fields:
-        event_id:
-            type: integer
+        question:
+            type: string
+            length: 255
         votingEnabled:
             type: boolean
             default: false
         question_type:
             type: integer
-        question:
-            type: string
-            length: 255
     oneToMany:
         answers:
             targetEntity: Netgen\LiveVotingBundle\Entity\Answer
