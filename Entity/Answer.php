@@ -26,6 +26,15 @@ class Answer
 	*/
 	private $answer;
 
+	/**
+     * @var \Netgen\LiveVotingBundle\Entity\Presentation
+     */
+    private $question;
+
+    /**
+     * @var \Netgen\LiveVotingBundle\Entity\User
+     */
+    private $user;
 
 	/**
 	* Get id
@@ -115,6 +124,60 @@ class Answer
 		$this->answer= $answer;
 		return $this;
 	}
+
+
+
+
+    /**
+     * Set user
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\User $user
+     * @return Vote
+     */
+    public function setUser(\Netgen\LiveVotingBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Netgen\LiveVotingBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set question
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Quesiton $question
+     * @return Answer
+     */
+	public function setQuestion(\Netgen\LiveVotingBundle\Entity\Presentation $presentation = null)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get presentation
+     *
+     * @return \Netgen\LiveVotingBundle\Entity\Presentation 
+     */
+    public function getPresentation()
+    {
+        return $this->presentation;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+
+
 
 
 }
