@@ -1,0 +1,31 @@
+Netgen\LiveVotingBundle\Entity\Question:
+
+    type: entity
+    table: question
+    id:
+        id:
+            type: integer
+            generator: {strategy: AUTO}
+    fields:
+        event_id:
+            type: integer
+        votingEnabled:
+            type: boolean
+            default: false
+        question_type:
+            type: integer
+        question:
+            type: string
+            length: 255
+    oneToMany:
+        answers:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Answer
+            mappedBy: question
+    manyToOne:
+        event:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Event
+            inversedBy: questions
+            joinColumn:
+                name: question_id
+                referencedColumnId: id
+                onDelete: CASCADE
