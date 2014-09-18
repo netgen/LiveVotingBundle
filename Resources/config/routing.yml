@@ -60,6 +60,10 @@ LiveVotingBundle_admin_prize_draw:
     resource: "@LiveVotingBundle/Resources/config/routing/prizeDraw.yml"
     prefix: /admin/prize_draw
 
+LiveVotingBundle_admin_question:
+    resource: "@LiveVotingBundle/Resources/config/routing/question.yml"
+    prefix: /admin/question
+
 #New page for user manipulation#
 LiveVotingBundle_admin_user:
     resource: "@LiveVotingBundle/Resources/config/routing/user.yml"
