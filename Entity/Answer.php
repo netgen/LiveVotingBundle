@@ -6,10 +6,28 @@ use Doctrine\ORM\Mapping as ORM;
 
 class Answer
 {
-
+	/**
+	* @var integer
+	*/
 	private $id;
+
+	/**
+	* @var integer
+	*/
 	private $question_id;
+
+	/**
+	* @var integer
+	*/
+
+	/**
+	* @var integer
+	*/
 	private $user_id;
+
+	/**
+	* @var integer
+	*/
 	private $answer;
 
 	public function getId()
