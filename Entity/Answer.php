@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\LiveVotingBUndle;
+namespace Netgen\LiveVotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -67,7 +67,7 @@ class Answer
 	*/
 	public function setQuestionId($question_id)
 	{
-		$this->question_id = $question_id
+		$this->question_id = $question_id;
 		return $this;
 	}
 

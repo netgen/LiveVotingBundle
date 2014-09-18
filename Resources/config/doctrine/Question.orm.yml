@@ -1,5 +1,4 @@
 Netgen\LiveVotingBundle\Entity\Question:
-
     type: entity
     table: question
     id:
