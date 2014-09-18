@@ -125,6 +125,7 @@ class Event
      * @var \Doctrine\Common\Collections\Collection
      */
     private $presentations;
+    private $questions;
 
     /**
      * Constructor
@@ -132,6 +133,7 @@ class Event
     public function __construct()
     {
         $this->presentations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -148,6 +150,19 @@ class Event
     }
 
     /**
+     * Add questions
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Question $questions
+     * @return Event
+     */
+    public function addQuestion(\Netgen\LiveVotingBundle\Entity\Question $questions)
+    {
+        $this->questions[] = $questions;
+
+        return $this;
+    }
+
+    /**
      * Remove presentations
      *
      * @param \Netgen\LiveVotingBundle\Entity\Presentation $presentations
@@ -155,6 +170,16 @@ class Event
     public function removePresentation(\Netgen\LiveVotingBundle\Entity\Presentation $presentations)
     {
         $this->presentations->removeElement($presentations);
+    }
+
+    /**
+     * Remove questions
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Question $questions
+     */
+    public function removeQuestion(\Netgen\LiveVotingBundle\Entity\Question $questions)
+    {
+        $this->questions->removeElement($questions);
     }
 
     /**
@@ -167,9 +192,19 @@ class Event
         return $this->presentations;
     }
     /**
+     * Get questions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestions()
+    {
+        return $this->presentations;
+    }
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $presentation;
+    private $question;
 
 
     /**
@@ -180,6 +215,15 @@ class Event
     public function getPresentation()
     {
         return $this->presentation;
+    }
+    /**
+     * Get question
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestion()
+    {
+        return $this->question;
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
