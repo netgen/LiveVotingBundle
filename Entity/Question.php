@@ -184,7 +184,7 @@ class Question
      *
      * @param \Netgen\LiveVotingBundle\Entity\Answer $answer
      */
-    public function removeVote(\Netgen\LiveVotingBundle\Entity\Answer $answer)
+    public function removeAnswer(\Netgen\LiveVotingBundle\Entity\Answer $answer)
     {
         $this->answer->removeElement($answer);
     }
