@@ -1,6 +1,6 @@
 <?php 
 
-namespace Netgen\LiveVotingBundle;
+namespace Netgen\LiveVotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

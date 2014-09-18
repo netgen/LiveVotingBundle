@@ -9,9 +9,9 @@ Netgen\LiveVotingBundle\Entity\Answer:
         question_id:
             type: integer
         user_id:
-        	type: integer
+            type: integer
         answer:
-        	type: integer
+            type: integer
 
     manyToOne:
         user:
