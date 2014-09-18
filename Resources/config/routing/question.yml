@@ -4,31 +4,31 @@ admin_question:
 
 admin_question_show:
     path:     /{id}/show
-    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:show" }
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:show" }
 
 admin_question_new:
     path:     /{event_id}/new
-    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:new" }
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:new" }
 
 admin_question_create:
     path:     /{event_id}/create
-    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:create" }
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:create" }
     requirements: { _method: post }
 
 admin_question_edit:
     path:     /{id}/edit
-    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:edit" }
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:edit" }
 
 admin_question_update:
     path:     /{id}/update
-    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:update" }
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:update" }
     requirements: { _method: post|put }
 
 admin_question_vote_enable:
     path:     /{id}/voting_status
-    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:enableDisable" }
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:enableDisable" }
     requirements: { _method: put }
 
 admin_question_delete:
     path:     /{id}/delete
-    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:delete" }
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:delete" }
