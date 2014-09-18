@@ -14,16 +14,6 @@ class Answer
 	/**
 	* @var integer
 	*/
-	private $question_id;
-
-	/**
-	* @var integer
-	*/
-	private $user_id;
-
-	/**
-	* @var integer
-	*/
 	private $answer;
 
 	/**
@@ -55,51 +45,6 @@ class Answer
 	public function setId($id)
 	{
 		$this->id = $id;
-		return $this;
-	}
-
-	/**
-	* Get Question id
-	*
-	* @return integer
-	*/
-	public function getQuestionId()
-	{
-		return $this->question_id;
-	}
-
-	/**
-	* Set Question id
-	*
-	* @param integer $question_id
-	* @return Answer
-	*/
-	public function setQuestionId($question_id)
-	{
-		$this->question_id = $question_id;
-		return $this;
-	}
-
-	/**
-	* Get User id
-	*
-	* @return integer
-	*/
-
-	public function getUserId()
-	{
-		return $this->user_id;
-	}
-
-	/**
-	* Set User id
-	*
-	* @param integer $user_id
-	* @return Answer
-	*/
-	public function setUserId($user_id)
-	{
-		$this->user_id = $user_id;
 		return $this;
 	}
 

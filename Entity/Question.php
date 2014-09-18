@@ -16,11 +16,6 @@ class Question
 	private $id;
 
     /**
-     * @var integer
-     */
-	private $event_id;
-
-    /**
      * @var boolean
      */
 	private $votingEnabled;
@@ -74,28 +69,6 @@ class Question
 	public function setId($id)
 	{
 		$this->id = $id;
-
-		return $this;
-	}
-
-    /**
-     * Get event_id
-     *
-     * @return integer 
-     */
-	public function getEventId()
-	{
-		return $this->event_id;
-	}
-
-    /**
-     * Set event_id
-     *
-     * @return integer 
-     */
-	public function setEventId($event_id)
-	{
-		$this->event_id = $event_id;
 
 		return $this;
 	}
