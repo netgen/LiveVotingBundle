@@ -28,6 +28,9 @@ Netgen\LiveVotingBundle\Entity\Event:
         presentations:
             targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
             mappedBy: event
+        questions:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Question
+            mappedBy: event
         votes:
             targetEntity: Netgen\LiveVotingBundle\Entity\Vote
             mappedBy: event

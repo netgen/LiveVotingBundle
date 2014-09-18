@@ -73,7 +73,7 @@ class QuestionAdminController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Add questions'));
 
         return $form;
     }

@@ -16,7 +16,12 @@ class QuestionType extends AbstractType
 	{
 		$builder
 			->add('question')
-			->add('question_type')
+			->add('question_type', 'choice', array(
+				    'choices'   => array(
+				        '0'   => 'Voting (1-5)',
+				        '1' => 'Answer (Yes-No)',
+				    )
+			))
 			->add('votingEnabled');
 	}
 
