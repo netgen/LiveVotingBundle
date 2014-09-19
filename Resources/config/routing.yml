@@ -39,6 +39,7 @@ question:
 answer:
     path: /user/answer/{question_id}
     defaults: {_controller: LiveVotingBundle:Answer:answer}
+    requirements: { _method: post }
     requirements:
         question_id: \d+
 

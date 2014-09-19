@@ -17,7 +17,7 @@ class Answer
 	private $answer;
 
 	/**
-     * @var \Netgen\LiveVotingBundle\Entity\Presentation
+     * @var \Netgen\LiveVotingBundle\Entity\Question
      */
     private $question;
 
@@ -99,7 +99,7 @@ class Answer
     /**
      * Set question
      *
-     * @param \Netgen\LiveVotingBundle\Entity\Quesiton $question
+     * @param \Netgen\LiveVotingBundle\Entity\Question $question
      * @return Answer
      */
 	public function setQuestion(\Netgen\LiveVotingBundle\Entity\Presentation $presentation = null)
@@ -112,11 +112,11 @@ class Answer
     /**
      * Get presentation
      *
-     * @return \Netgen\LiveVotingBundle\Entity\Presentation 
+     * @return \Netgen\LiveVotingBundle\Entity\Question 
      */
-    public function getPresentation()
+    public function getQuestion()
     {
-        return $this->presentation;
+        return $this->question;
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
