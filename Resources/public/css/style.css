@@ -171,6 +171,12 @@ body {
     margin-bottom: 10px;
 }
 
+.pitanje{
+    margin-top: 0px;
+    margin-bottom:0px;
+    text-transform: uppercase;
+}
+
 .list-group-item {
     background-color: #206CA8;
     color: #F5F5F5;

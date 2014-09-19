@@ -16,6 +16,12 @@ class QuestionController extends Controller{
 	{
 		$em = $this->getDoctrine()->getManager();
 		$event = $em->getRepository('LiveVotingBundle:Event')->find($event_id);
+
+			//TODO: redirect to 404 page
+		if(!$event)
+		{
+			throw new NotFoundHttpException("404: Page not found");
+		}
 		$questions = $em->getRepository('LiveVotingBundle:Question')->FindBy(array('event' => $event));
 
 		return $this->render('LiveVotingBundle:Answer:index.html.twig');

@@ -20,7 +20,7 @@
                 <td><img width="40px" src='{{ asset('bundles/livevoting/img/question_img.png')}}'/></td>
                 <td>{{ entity[0].question }}</td>
                 <td>{{ entity[0].questionType ? 'Answer (Yes-No)' : 'Voting (1-5)' }}</td>
-                <td>{{ entity[0].answer|length }}</td>
+                <td>{{ entity[0].answers|length }}</td>
                 <td>
                     <a class='btn btn-primary' href="{{ path('admin_question_edit', { 'id': entity[0].id }) }}">Edit</a>
                 </td>                

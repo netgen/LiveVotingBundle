@@ -18,8 +18,106 @@
         <script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
         <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
+        <script type="text/javascript">
+            $(document).ready(function(){
+                new brain({
+                    'STATES':{
+                        'PRE':{'TIMEOUT':1},
+                        'ACTIVE':{'TIMEOUT':5},
+                        'POST':{'TIMEOUT':5}
+                },
+                    'URLS':{
+                        'EVENT_STATUS':'/app_dev.php/user/answer/event_status_question/',
+                        'VOTE':'/app_dev.php/user/answer/'
+                    }
+                });
+            });
+        </script>
+        <script id="presentation" type="text/x-handlebars-template">
+            <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12 media">
+                <div class='highLight'></div>
+                <div class='row'>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+                    <img src="{{ asset('bundles/livevoting/img/question_img.png') }}"
+                     class='thumbnail slikaa'>
+                </div>
+                <div class="unutra col-lg-10 col-md-10 col-sm-8 col-xs-8">
+                    <h4 class="text-info pitanje">{{ '{{question}}' }}</h4>
+                    <br>
+                </div>
+                </div>
+
+                <div class='row'>
+                    <form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="/user/answer/{{ '{{ questionId }}' }}" method="POST">
+                        
+                        <span class='glyphicon glyphicon-thumbs-down'></span>
+                        <div class="btn-group btn-group-lg">
+
+                            <input type="submit" class='btn btn-default btn-sm' value='1'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='2'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='3'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='4'/>
+                            <input type="submit" class='btn btn-default btn-sm' value='5'/>
+
+                        </div>
+
+                        <span class='glyphicon glyphicon-thumbs-up'></span>
+                        <br>
+                        
+                    </form>
+                </div>
+            </div>
+        </script>
+
+    <title></title>
+
     </head>
 <body>
-    Hello World!
+        <div class="navbar navbar-default navbar-collapse">
+            <div class="container">
+                <div class="navbar-header text-center">         
+                   <ul class="list-inline list-unstyled text-center">
+                        <li>
+                            <a href="{{ path('root') }}">
+                                <img width="20" height="20" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
+                            </a>
+                        </li>
+                        <li>
+                            <h3>Netgen Questions:</h3>
+                        </li>
+                        <li>
+                            
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="voteScreen"></div>
+        </div>
+       
+        <div id="loader">
+            <div id="circleG">
+                <div id="circleG_1" class="circleG">
+                </div>
+                <div id="circleG_2" class="circleG">
+                </div>
+                <div id="circleG_3" class="circleG">
+                </div>
+                <span id="loadingMessage">Loading!</span>
+            </div>
+        </div>
+
+        <div class="container event-links">
+            <a class="btn btn-default" href="{{ path('root') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+
+        <div id="wrap">
+            <div id="footer" class="container">
+                <span class="timer ermsg"></span>
+                <span class="error ermsg"></span>
+            </div>
+        </div>
 </body>
 </html>

@@ -88,4 +88,38 @@ class EventController extends Controller {
             );
     }
 
+    public function eventStatusQuestionAction(Request $request, $event_id){
+        try{
+            $userT = $this->get('security.context')->getToken()->getUser();
+            $userId = $userT->getId();
+            $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
+            $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+
+            // !! throws exception
+            if(!$event)
+                throw new JsonException(array('error'=>1, 'errorMessage'=>'Non existing event.'));
+            $response = $this->get('live_voting.handleRequest')->validateEventStatus($event, $user);
+
+            $questions = $this->getDoctrine()
+                ->getRepository('LiveVotingBundle:Question')
+                ->findBy(array('event'=>$event));
+
+            $response['questions'] = array();
+
+            $em = $this->getDoctrine()->getRepository('LiveVotingBundle:Answers');
+            foreach($questions as $question){
+                $answer = $em->findOneBy(array('user' => $user, 'question' => $question));
+                $rate = 0;
+                if($answer)
+                    $rate = $answer->getRate();
+                $tmp = $this->getQuestionArray($question, $rate);
+                array_push($response['questions'], $tmp);
+            }
+            return new JsonResponse($response);
+        }catch(JsonException $exception){
+            return new JsonResponse(unserialize($exception->getMessage()));
+        }
+
+    }
+
 } 

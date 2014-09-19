@@ -43,6 +43,10 @@ answer:
     requirements:
         question_id: \d+
 
+event_status_question:
+    path: /user/answer/event_status_question/{event_id}
+    defaults: {_controller: LiveVotingBundle:Event:eventStatusQuestions}
+
 result_json:
     path: /live_results_api/{event_id}
     defaults: {_controller: LiveVotingBundle:Result:getResults}

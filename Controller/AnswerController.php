@@ -10,9 +10,6 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Netgen\LiveVotingBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/* privremeno */
-use Symfony\Component\HttpFoundation\Response;
-
 class AnswerController extends Controller{
 
 public function answerAction(Request $request, $question_id){
@@ -43,7 +40,7 @@ public function answerAction(Request $request, $question_id){
             $em->flush();
             $result = array(
                 'error'=>0,
-                'errorMessage'=>'Thanks for voting!'
+                'errorMessage'=>'Thanks for answering!'
             );
             return new JsonResponse($result);
         }catch(JsonException $e){
