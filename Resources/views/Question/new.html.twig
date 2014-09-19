@@ -1,30 +1,32 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
-    <div class="container">
-        <h1>Add new questions</h1>
-
-
+    <div class="panel panel-default panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add new questions</h3>
+      </div>
+      <div class="panel-body">
         {{ form_start(form) }}
 
-        <div class="form-group">
-            {{ form_label(form.question) }}
-            {{ form_widget(form.question) }}
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group">
+                    {{ form_label(form.question) }}
+                    {{ form_widget(form.question) }}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    {{ form_label(form.question_type) }}
+                    {{ form_widget(form.question_type) }}
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            {{ form_label(form.question) }}
-            {{ form_widget(form.question) }}
-        </div>
-
         {{ form_end(form) }}
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('admin_presentation', {'event_id':event_id}) }}">
-                    Back to the list
-                </a>
-            </li>
-        </ul>
+      </div><br>
+        <a class="btn btn-large btn-primary btn-block" href="{{ path('admin_question', {'event_id':event_id}) }}">
+            Back to the list
+        </a>
     </div>
 {% endblock %}

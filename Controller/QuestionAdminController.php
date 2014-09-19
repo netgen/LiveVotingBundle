@@ -73,7 +73,7 @@ class QuestionAdminController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Add questions'));
+        $form->add('submit', 'submit', array('label' => 'Add questions', 'attr' => array('class' => 'btn btn-large btn-primary')));
 
         return $form;
     }
@@ -137,7 +137,7 @@ class QuestionAdminController extends Controller
 
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-large btn-primary')));
 
         return $form;
     }
@@ -158,7 +158,6 @@ class QuestionAdminController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $entity->upload();
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_question', array('event_id' => $entity->getEvent()->getId())));

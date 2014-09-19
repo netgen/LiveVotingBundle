@@ -294,3 +294,16 @@ div.btn-group-lg {
     margin-bottom: 20px;
     height: 45px;
 }
+
+div.container{
+    color: #000;
+    width: 80%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: none repeat scroll 0 0 #fff;
+    border: 0 none;
+    box-sizing: border-box;
+}
+
+.panel-body{ padding: 25px; }

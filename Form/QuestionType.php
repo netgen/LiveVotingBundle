@@ -15,12 +15,17 @@ class QuestionType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('question')
+			->add('question', 'text', array(
+					'attr' => array(
+						'class' => 'form-control',
+					),
+				))
 			->add('question_type', 'choice', array(
 				    'choices'   => array(
 				        '0'   => 'Voting (1-5)',
 				        '1' => 'Answer (Yes-No)',
-				    )
+				    ),
+				    'attr' => array('class'=> 'form-control')
 			))
 			->add('votingEnabled');
 	}
