@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AnswerController extends Controller{
 
-	public function indexAction()
+	public function indexAction($question_id)
 	{
 		/* TODO */
 		return new Response('Hello!', 200);

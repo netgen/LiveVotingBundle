@@ -3,21 +3,22 @@
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+
 use Netgen\LiveVotingBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/* privremeno */
-use Symfony\Component\HttpFoundation\Response;
-
 class QuestionController extends Controller{
 
-	public function indexAction()
+	public function indexAction($event_id)
 	{
-		/* TODO */
-		return new Response('Hello!', 200);
+		$em = $this->getDoctrine()->getManager();
+		$event = $em->getRepository('LiveVotingBundle:Event')->find($event_id);
+		$questions = $em->getRepository('LiveVotingBundle:Question')->FindBy(array('event' => $event));
+
+		return $this->render('LiveVotingBundle:Answer:index.html.twig');
 	}
 
 }
