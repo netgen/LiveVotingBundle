@@ -1,21 +1,20 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Question edit</h1>
+    <div class="panel panel-default panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit question</h3>
+      </div>
+      <div class="panel-body">
+
+      	{{ form_start(edit_form) }}
 
 
+     	{{ form_end(edit_form) }}
 
-    {{ form_start(edit_form) }}
-
-
-    {{ form_end(edit_form) }}
-
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_question', {'event_id':entity.event.id}) }}">
+      </div><br>
+        <a class="btn btn-large btn-primary btn-block" href="{{ path('admin_question', {'event_id':entity.event.id}) }}">
             Back to the list
         </a>
-    </li>
-</ul>
+    </div>
 {% endblock %}
