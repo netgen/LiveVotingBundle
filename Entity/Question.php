@@ -18,7 +18,7 @@ class Question
     /**
      * @var boolean
      */
-	private $votingEnabled;
+	private $votingEnabled = true;
 
     /**
      * @var integer

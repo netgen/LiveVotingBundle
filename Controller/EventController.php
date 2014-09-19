@@ -4,8 +4,10 @@ namespace Netgen\LiveVotingBundle\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Presentation;
+use Netgen\LiveVotingBundle\Entity\Question;
 use Netgen\LiveVotingBundle\Entity\User;
 use Netgen\LiveVotingBundle\Entity\Vote;
+use Netgen\LiveVotingBundle\Entity\Answer;
 use Netgen\LiveVotingBundle\Exception\JsonException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -106,7 +108,7 @@ class EventController extends Controller {
 
             $response['questions'] = array();
 
-            $em = $this->getDoctrine()->getRepository('LiveVotingBundle:Answers');
+            $em = $this->getDoctrine()->getRepository('LiveVotingBundle:Answer');
             foreach($questions as $question){
                 $answer = $em->findOneBy(array('user' => $user, 'question' => $question));
                 $rate = 0;
@@ -120,6 +122,28 @@ class EventController extends Controller {
             return new JsonResponse(unserialize($exception->getMessage()));
         }
 
+    }
+    protected function getQuestionArray(Question $question, $rate){
+        return array(
+            'question' => $question->getQuestion(),
+            'question_type' => $question->getQuestionType(),
+            'votingEnabled' => $question->getVotingEnabled()            
+        );
+    }
+
+        public function indexAnswerAction(Request $request, $event_id){
+        $session = $request->getSession();
+        $session->start();
+        $session_id = $session->getId();
+        $userT = $this->get('security.context')->getToken()->getUser();
+        $user_id = $userT->getId();
+        //var_dump($user_id); die;
+        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($user_id);
+
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        return $this->render('LiveVotingBundle:Answer:index.html.twig', 
+                array('event' => $event)
+            );
     }
 
 } 

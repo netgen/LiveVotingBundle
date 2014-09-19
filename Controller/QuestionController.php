@@ -24,7 +24,7 @@ class QuestionController extends Controller{
 		}
 		$questions = $em->getRepository('LiveVotingBundle:Question')->FindBy(array('event' => $event));
 
-		return $this->render('LiveVotingBundle:Answer:index.html.twig', array('questions' => $questions));
+		return $this->render('LiveVotingBundle:Answer:index.html.twig');
 	}
 
 }

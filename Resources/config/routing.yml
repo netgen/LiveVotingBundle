@@ -15,6 +15,12 @@ event:
     defaults: {_controller: LiveVotingBundle:Event:index, event_id: -1}
     requirements:
         event_id: -?\d+
+
+event_answer:
+    path:    /user/question/{event_id}
+    defaults: {_controller: LiveVotingBundle:Event:indexAnswer, event_id: -1}
+    requirements:
+        event_id: -?\d+
         #negative numbers
 
 event_status:
@@ -45,7 +51,7 @@ answer:
 
 event_status_question:
     path: /user/answer/event_status_question/{event_id}
-    defaults: {_controller: LiveVotingBundle:Event:eventStatusQuestions}
+    defaults: {_controller: LiveVotingBundle:Event:eventStatusQuestion}
 
 result_json:
     path: /live_results_api/{event_id}
