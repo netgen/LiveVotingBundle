@@ -49,4 +49,5 @@ public function answerAction(Request $request, $question_id){
         }catch(JsonException $e){
             return new JsonResponse(unserialize($e->getMessage()));
         }
+    }
 }
