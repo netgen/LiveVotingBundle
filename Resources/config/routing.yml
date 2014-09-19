@@ -30,9 +30,17 @@ result:
     path: /user/live_results/{event_id}
     defaults: {_controller: LiveVotingBundle:Result:index}
 
+question:
+    path: /user/question/{event_id}
+    defaults: {_controller: LiveVotingBundle:Question:index}
+    requirements:
+        event_id: \d+
+
 answer:
-    path: /user/answer/{event_id}
-    defaults: {_controller: LiveVotingBundle:Answer:index}
+    path: /user/answer/{question_id}
+    defaults: {_controller: LiveVotingBundle:Answer:answer}
+    requirements:
+        question_id: \d+
 
 result_json:
     path: /live_results_api/{event_id}
