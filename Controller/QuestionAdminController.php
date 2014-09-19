@@ -73,7 +73,7 @@ class QuestionAdminController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Add questions', 'attr' => array('class' => 'btn btn-large btn-primary')));
+        $form->add('submit', 'submit', array('label' => 'Save questions', 'attr' => array('class' => 'btn btn-large btn-primary')));
 
         return $form;
     }

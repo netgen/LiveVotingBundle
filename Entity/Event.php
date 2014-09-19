@@ -198,7 +198,7 @@ class Event
      */
     public function getQuestions()
     {
-        return $this->presentations;
+        return $this->questions;
     }
     /**
      * @var \Doctrine\Common\Collections\Collection

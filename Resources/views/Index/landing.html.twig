@@ -59,6 +59,10 @@
                             {% if event.getAllowViewingResults %}
                                 <a href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Results</a>
                             {% endif %}
+                            {% if event.questions|length > 0 %}
+                            	<br><span class="glyphicon glyphicon-question-sign"></span> 
+                            	<a href="{{ path('answer', {'event_id':event.getId}) }}">{{ event.questions|length }} questions</a>
+                            {% endif %}
                         </li>
                         {% endfor %}
                     </ul>
