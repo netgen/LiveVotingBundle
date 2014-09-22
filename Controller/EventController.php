@@ -128,11 +128,11 @@ class EventController extends Controller {
             'question' => $question->getQuestion(),
             'question_type' => $question->getQuestionType(),
             'votingEnabled' => $question->getVotingEnabled(),
-            'questionId' => $question->getId(),            
+            'questionId' => $question->getId()          
         );
     }
 
-    public function indexAnswerAction(Request $request, $event_id){
+        public function indexAnswerAction(Request $request, $event_id){
         $session = $request->getSession();
         $session->start();
         $session_id = $session->getId();
