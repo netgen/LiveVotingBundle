@@ -38,7 +38,7 @@ result:
 
 question:
     path: /user/question/{event_id}
-    defaults: {_controller: LiveVotingBundle:Question:index}
+    defaults: {_controller: LiveVotingBundle:Event:indexAnswer}
     requirements:
         event_id: \d+
 
@@ -50,7 +50,7 @@ answer:
         question_id: \d+
 
 event_status_question:
-    path: /user/answer/event_status_question/{event_id}
+    path: /user/event_status_question/{event_id}
     defaults: {_controller: LiveVotingBundle:Event:eventStatusQuestion}
 
 result_json:

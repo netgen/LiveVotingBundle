@@ -33,7 +33,7 @@ function brain(options_){
         if(!canIVote)return;
         var action = $(this).parent().parent().attr('action');
         var question_id = action.split('/').pop();
-        var question = questions.getById(question_id);
+        var question = question.getById(question_id);
         var vote = $(this).attr('value');
         var rate = 'rate='+vote;
         if(question.getData()['votingEnabled']==true){
