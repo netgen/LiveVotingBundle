@@ -26,8 +26,10 @@ class QuestionType extends AbstractType
 				        '1' => 'Answer (Yes-No)',
 				    ),
 				    'attr' => array('class'=> 'form-control')
-			))
-			->add('votingEnabled');
+			));
+
+		$builder->add('votingEnabled');
+		$builder->add('submit', 'submit', array('label' => 'Save questions', 'attr' => array('class' => 'btn btn-large btn-primary')));
 	}
 
     /**

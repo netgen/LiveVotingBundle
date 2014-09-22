@@ -3,6 +3,7 @@
 namespace Netgen\LiveVotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /*
 * Question
@@ -47,7 +48,7 @@ class Question
 
     public function __construct()
     {
-        $this->answer = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->answer = new ArrayCollection();
     }
 
 

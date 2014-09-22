@@ -73,8 +73,6 @@ class QuestionAdminController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Save questions', 'attr' => array('class' => 'btn btn-large btn-primary')));
-
         return $form;
     }
 
@@ -87,7 +85,7 @@ class QuestionAdminController extends Controller
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
         $entity->setEvent($event);
 
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
         $form->remove('votingEnabled');
         return $this->render('LiveVotingBundle:Question:new.html.twig', array(
             'entity' => $entity,

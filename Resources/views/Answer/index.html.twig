@@ -14,7 +14,7 @@
         <!--JavaScript -->
         <script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/script_question.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
         <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
@@ -28,12 +28,12 @@
                 },
                     'URLS':{
                         'EVENT_STATUS':'/app_dev.php/user/answer/event_status_question/',
-                        'VOTE':'/app_dev.php/user/answer/'
+                        'ANSWER':'/app_dev.php/user/answer/'
                     }
                 });
             });
         </script>
-        <script id="presentation" type="text/x-handlebars-template">
+        <script id="question" type="text/x-handlebars-template">
             <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12 media">
                 <div class='highLight'></div>
                 <div class='row'>
