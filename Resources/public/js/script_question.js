@@ -7,7 +7,7 @@ function brain(options_){
     var globalState = null;
     var timeout = options['STATES']['PRE']['TIMEOUT'];
     var timer = new timer();
-    var canIVote = true;
+    var canIAnswer = true;
     var questions = new questionsArray();
     var shadow = $('<div id="shadow"></div>');
     var loader = $('#circleG');
@@ -30,13 +30,13 @@ function brain(options_){
 
     $('body').on('click', '.forma input', function(e){
         e.preventDefault();
-        if(!canIVote)return;
+        if(!canIAnswer)return;
         var action = $(this).parent().parent().attr('action');
         var question_id = action.split('/').pop();
         var question = questions.getById(question_id);
-        var vote = $(this).attr('value');
-        var rate = 'rate='+vote;
-        if(question.getData()['votingEnabled']==true){
+        var answer = $(this).attr('value');
+        var rate = 'rate='+answer;
+        if(question.getData()['votingEnabled'] == true){
             showSpinner();
             $.ajax({
                 type: 'post',
@@ -45,7 +45,7 @@ function brain(options_){
                 success: function(data){
                     question.highlightMe();
                     footer.displayMessage(data['errorMessage']);
-                    question.setVote(vote);
+                    question.setAnswer(answer);
                     hideSpinner();
                 },
                 error: function(e){
@@ -60,12 +60,13 @@ function brain(options_){
 
     /**
      *  Gets event id from url which looks like:
-     *  /event/{id}
+     *  /question/{id}
      */
     function getEventId(ret){
         var struct = window.location.pathname.split('/');
         // 2 because '/'.split('/') returns array len 2
         if(struct.length<=2)return ret.toString();
+        //console.log(struct); check if pathname is correct
         return struct.pop();
     }
 
@@ -74,19 +75,16 @@ function brain(options_){
 
             switch(data['error']){
                 case 1:
-                    // displayMessageInFooter(data['errorMessage']);
                     footer.displayMessage(data['errorMessage']);
                 break;
                 case 2:
                     timeout = -1;
-                    // displayMessageInFooter(data['errorMessage']);
-
                     footer.staticMessage(data['errorMessage']);
                     timer.stop();
                     return;
                 break;
             }
-            var state = data["eventStatus"];
+            var state = data["eventStatusQuestion"];
 
             switch(state){
                 case 'PRE':
@@ -102,16 +100,17 @@ function brain(options_){
                     }
                     if(seconds<0){
                         timeout = -1;
-                        endVoting(data['errorMessage']);
+                        endAnswering(data['errorMessage']);
                     }
                 case 'ACTIVE':
-                    if(timeout>0){
+                    if(timeout > 0){
                         timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
                     }
-                    if(state!='POST'){
+                    if(state != 'POST'){
                         footer.removeStatic();
                     }
                     hideSpinner();
+                    //add presentations
                     handleNewQuestions(data['questions']);
                     break;
                 default:
@@ -124,28 +123,23 @@ function brain(options_){
     }
 
     function handleNewQuestions(data){
-        var pres;
+        var ques;
         for(var i in data){
-            pres = data[i];
-            questions.add(pres);
+            ques = data[i];
+            questions.add(ques);
         }
         questions.notifiyAll();
     }
 
     function endVoting(message){
-        //Thank u for voting
-        canIVote = false;
-
-        //footer.displayMessage(data['errorMessage']);
-        //$("#footer .error").html("Voting is now closed.");
-
+        canIAnswer = false;
         questions.setEnabledAll(false);
         footer.setStaticTimer('');
         footer.staticMessage(message);
     }
 
     function changeFooter(seconds_) {
-        footer.setStaticTimer(seconds_.toString()+' seconds left until voting ends.');
+        footer.setStaticTimer(seconds_.toString()+' seconds left until answering ends.');
     }
 
     /*
@@ -196,7 +190,7 @@ function brain(options_){
             this.element = $(template(data));
             this.element.find('.highLight').hide();
             this.element.find('.flash').hide();
-            $("#voteScreen").append(this.element);
+            $("#answerScreen").append(this.element);
             this.element.find('.check').hide();
         }
 
@@ -205,9 +199,9 @@ function brain(options_){
          */
         this.setData = function(newData){
             var status = false;
-            if(data==null){
+            if(data == null){
                 status = newData['votingEnabled'];
-            }else if(newData['votingEnabled']==true && data['votingEnabled']==false){
+            }else if(newData['votingEnabled'] == true && data['votingEnabled'] == false){
                 status = true;
             }
             delete data;
@@ -218,9 +212,9 @@ function brain(options_){
         this.getData = function(){
             return data;
         }
-        this.setVote = function(vote_number){
+        this.setAnswer = function(answer_number){
             this.element.find('input[type=submit]').each(function(){
-                if(this.value == vote_number){
+                if(this.value == answer_number){
                     $(this).addClass('active');
                 }else{
                     $(this).removeClass('active');
@@ -243,8 +237,8 @@ function brain(options_){
         }
 
         this.handle = function(){
-            var vote = data['answerRate'];
-            this.setVote(vote);
+            var answer = data['answer']; //presenterRate
+            this.setAnswer(answer);
             this.setEnabled(data['votingEnabled'] && canIVote);
         }
     }
@@ -276,7 +270,7 @@ function brain(options_){
         this.setEnabledAll = function(state){
             for(var i in arr){
                 arr[i].setEnabled(false);
-                arr[i].setVote(arr[i].getData()['answerRate']);
+                arr[i].setAnswer(arr[i].getData()['answer']); //presenterRate
             }
         }
 
@@ -300,7 +294,7 @@ function brain(options_){
     }
 
     function footerClass(el){
-        var element=el;
+        var element = el;
         var holdingUp = false;
         var that = this;
         var timeoutVariable = null;
@@ -331,7 +325,7 @@ function brain(options_){
                         that.animateDown(100);
                     setMessage('');
                 }
-            ,seconds*1000);
+            ,seconds * 1000);
         }
 
         function endFooter(){
