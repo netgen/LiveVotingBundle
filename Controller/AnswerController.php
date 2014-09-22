@@ -21,7 +21,7 @@ public function answerAction(Request $request, $question_id){
                 ->find($this->get('security.context')->getToken()->getUser()->getId());
             $event = $question->getEvent();
 
-            $this->get('live_voting.handleRequest')->validateVote($question, $event, $user, $rate);
+            $this->get('live_voting.handleRequest')->validateAnswer($question, $event, $user, $rate);
             $answer = $this->getDoctrine()->getRepository('LiveVotingBundle:Answer')->findOneBy(array(
                 'user'=>$user,
                 'question'=>$question
@@ -39,7 +39,7 @@ public function answerAction(Request $request, $question_id){
             $em->persist($answer);
             $em->flush();
             $result = array(
-                'error'=>0,
+                'error' => 0,
                 'errorMessage'=>'Thanks for answering!'
             );
             return new JsonResponse($result);

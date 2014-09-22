@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Event;
+use Netgen\LiveVotingBundle\Entity\Question;
 use Netgen\LiveVotingBundle\Form\EventType;
 
 /**
@@ -149,6 +150,27 @@ class EventAdminController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+                /**
+                 * find all questions of the event and set votingEnabled value to current value of event
+                 */
+            $questions = $em->getRepository('LiveVotingBundle:Question')->FindBy(array('event' => $entity));
+            $newValue = true;
+            switch($editForm->get('stateName')){
+                case "PRE":
+                    $newValue = false;
+                    break;
+                case "ACTIVE":
+                    $newValue = true;
+                    break;
+                case "POST":
+                    $newValue = false;
+                    break;
+            }
+            foreach ($questions as $question) {
+                $question->setVotingEnabled($newValue);           
+            }
+
+                //rest of query
             $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
             $entity->upload();
             $em->flush();

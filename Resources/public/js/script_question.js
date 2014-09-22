@@ -136,9 +136,6 @@ function brain(options_){
         //Thank u for answering
         canIAnswer = false;
 
-        //footer.displayMessage(data['errorMessage']);
-        //$("#footer .error").html("Voting is now closed.");
-
         questions.setEnabledAll(false);
         footer.setStaticTimer('');
         footer.staticMessage(message);

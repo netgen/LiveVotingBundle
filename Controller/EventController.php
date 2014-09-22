@@ -100,7 +100,7 @@ class EventController extends Controller {
             // !! throws exception
             if(!$event)
                 throw new JsonException(array('error'=>1, 'errorMessage'=>'Non existing event.'));
-            $response = $this->get('live_voting.handleRequest')->validateEventStatus($event, $user);
+            $response = $this->get('live_voting.handleRequest')->validateEventQuestionStatus($event, $user);
 
             $questions = $this->getDoctrine()
                 ->getRepository('LiveVotingBundle:Question')
