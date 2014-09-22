@@ -86,7 +86,6 @@ class QuestionAdminController extends Controller
         $entity->setEvent($event);
 
         $form = $this->createCreateForm($entity);
-        $form->remove('votingEnabled');
         return $this->render('LiveVotingBundle:Question:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
