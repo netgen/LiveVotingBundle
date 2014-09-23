@@ -309,28 +309,26 @@ div.container{
 
 .panel-body{ padding: 25px; }
 
-.row form{
+.media_question .row form{
     text-align: center;
+    margin: 10px auto;
 }
-.media{
+.media_question{
     width: 80%;
     box-sizing: border-box;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
     margin: 5px auto;
 }
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, 
-.col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, 
-.col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12{
-    float: none;
-}
+.voting-list-single .col-xs-12{ float: left; }
+.voting-list-single_question .col-xs-12 {float: none;}
 
-.col-xs-4{ float: left;}
+.media_question .col-xs-4{ float: left;}
 
-.pitanje{
+.media_question .pitanje{
     margin-top: 25px;
     margin-bottom: 0px;
 }
-.question_img{
+.media_question .question_img{
     width: 80px;
     min-height: 70px;
     border: none;
@@ -338,5 +336,5 @@ div.container{
 }
 
 @media all and (max-width: 768px){
-    .media{ width: 100%;}    
+    .media_question{ width: 100%;}    
 }
