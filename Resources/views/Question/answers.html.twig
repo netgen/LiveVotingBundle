@@ -13,10 +13,15 @@
         <li>{{ answer.answer }}</li>
         {% endfor %}
 
-        Useri:
+        Prosjek:
+
+        {{ prosjek }}
+
         {% for user in users %}
         <li>{{ user }}</li>
         {% endfor %}
+
+
 
       </div><br>
         <a class="btn btn-large btn-primary btn-block" href="{{ path('admin_question', {'event_id':entity.event.id}) }}">

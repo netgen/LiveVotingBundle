@@ -129,9 +129,15 @@ class QuestionAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        $answerS = 0;
         $entity = $em->getRepository('LiveVotingBundle:Question')->find($id);
         $question = $entity->getQuestion();
         $answers = $entity->getAnswers();
+        $answerN = count($answers);
+        foreach ($answers as $answer) {
+            $answerS += $answer->getAnswer();
+        }
+        $prosjek = (double)$answerS/$answerN;
         $users = array();
         foreach($answers as $answer){
             $tmp = $answer->getUser();
@@ -147,7 +153,8 @@ class QuestionAdminController extends Controller
             'entity'      => $entity,
             'question'    => $question,
             'answers'     => $answers,
-            'users'       => $users
+            'users'       => $users,
+            'prosjek'     => $prosjek
         )); 
         //return new Response(print_r($users));
     }
