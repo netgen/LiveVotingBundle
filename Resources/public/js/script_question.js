@@ -38,6 +38,7 @@ function brain(options_){
         var question = questions.getById(question_id);
         var answer = $(this).attr('value');
         var rate = 'rate='+answer;
+        console.log(rate);
         if(question.getData()['votingEnabled']==true){
             showSpinner();
             $.ajax({
@@ -126,10 +127,10 @@ function brain(options_){
     }
 
     function handleNewQuestions(data){
-        var pres;
+        var ques;
         for(var i in data){
-            pres = data[i];
-            questions.add(pres);
+            ques = data[i];
+            questions.add(ques);
         }
         questions.notifiyAll();
     }
@@ -223,7 +224,9 @@ function brain(options_){
                 if(this.value == answer_number){
                     $(this).addClass('active');
                 }else{
-                    $(this).removeClass('active');
+
+                        $(this).removeClass('active');
+                    
                 }
             });
         }
@@ -239,7 +242,6 @@ function brain(options_){
 
         this.highlightMe = function(){
             this.setEnabled(true);
-            console.log('boom flash');
         }
 
         this.handle = function(){

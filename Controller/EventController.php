@@ -128,7 +128,8 @@ class EventController extends Controller {
             'question' => $question->getQuestion(),
             'question_type' => $question->getQuestionType(),
             'votingEnabled' => $question->getVotingEnabled(),
-            'questionId' => $question->getId()          
+            'questionId' => $question->getId(),
+            'answer' => $rate         
         );
     }
 
