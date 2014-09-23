@@ -2,17 +2,40 @@
     <div>{{ error.message }}</div>
 {% endif %}
 
-<form action="{{ path('admin_login_check') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="username" id="username" name="_username" value="{{ last_username }}" />
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <input  type="password" id="password" name="_password" value="" />
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
 
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
+        <title>Admin Login</title>
+    </head>
 
-    <button type="submit">login</button>
-</form>
+    <body style="margin-top:15%;">
+        <div class="container">
+            <div class="form-signin">
+                <form action="{{ path('admin_login_check') }}" method="post" role="form">
+                    <input type="username" id="username" class="form-control" name="_username" value="{{ last_username }}" placeholder="Username" required>
+                    <input  type="password" id="password" class="form-control" name="_password" value="" placeholder="Password" required>
+
+                    {#
+                        If you want to control the URL the user
+                        is redirected to on success (more details below)
+                        <input type="hidden" name="_target_path" value="/account" />
+                    #}
+
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">login</button>
+                </form>
+
+                {% if error %}
+                    <div>{{ error.message }}</div>
+                {% endif %}
+
+            </div>
+        </div>
+    </body>
+</html>
