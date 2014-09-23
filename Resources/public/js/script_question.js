@@ -224,8 +224,7 @@ function brain(options_){
                 if(this.value == answer_number){
                     $(this).addClass('active');
                 }else{
-
-                        $(this).removeClass('active');
+                      $(this).removeClass('active');
                     
                 }
             });

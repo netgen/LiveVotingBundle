@@ -3,6 +3,7 @@
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Question;
@@ -117,6 +118,56 @@ class QuestionAdminController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
         ));
+    }
+
+
+    /**
+     * Displays a form to view all answers from users.
+     *
+     */
+    public function viewAnswersAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('LiveVotingBundle:Question')->find($id);
+        $question = $entity->getQuestion();
+        $answers = $entity->getAnswers();
+        $users = array();
+        foreach($answers as $answer){
+            $tmp = $answer->getUser();
+            $users[] = $tmp->getEmail();
+        }
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Question entity.');
+        }
+
+
+       return $this->render('LiveVotingBundle:Question:answers.html.twig', array(
+            'entity'      => $entity,
+            'question'    => $question,
+            'answers'     => $answers,
+            'users'       => $users
+        )); 
+        //return new Response(print_r($users));
+    }
+
+    /**
+    * Creates a form for answer entity.
+    *
+    * @param Question $entity The entity
+    */
+    private function createAnswerForm(Question $entity)
+    {
+        $form = $this->createForm(new QuestionType(), $entity, array(
+            'action' => $this->generateUrl('admin_question_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+
+        ));
+
+        $form->add('submit','submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-large btn-primary')));
+
+        return $form;
     }
 
     /**

@@ -19,6 +19,10 @@ admin_question_edit:
     path:     /{id}/edit
     defaults: { _controller: "LiveVotingBundle:QuestionAdmin:edit" }
 
+admin_question_view_answers:
+    path:     /{id}/answers
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:viewAnswers" }
+
 admin_question_update:
     path:     /{id}/update
     defaults: { _controller: "LiveVotingBundle:QuestionAdmin:update" }

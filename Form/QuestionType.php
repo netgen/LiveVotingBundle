@@ -27,7 +27,7 @@ class QuestionType extends AbstractType
 				    ),
 				    'attr' => array('class'=> 'form-control')
 			));
-		$builder->add('submit', 'submit', array('label' => 'Save questions', 'attr' => array('class' => 'btn btn-large btn-primary')));
+		$builder->add('submit', 'submit', array('label' => 'Save questions', 'attr' => array('class' => 'btn btn-large btn-primary',)));
 	}
 
     /**

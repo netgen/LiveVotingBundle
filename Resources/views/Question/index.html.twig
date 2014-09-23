@@ -9,7 +9,7 @@
                 <th></th>
                 <th>Question</th>
                 <th>Question type</th>
-                <th>Answers</th>
+                <th>View answers</th>
                 <th>Edit question</th>
                 <th>Delete question</th>
             </tr>
@@ -20,7 +20,13 @@
                 <td><img width="40px" src='{{ asset('bundles/livevoting/img/question_img.png')}}'/></td>
                 <td>{{ entity[0].question }}</td>
                 <td>{{ entity[0].questionType ? 'Answer (Yes-No)' : 'Voting (1-5)' }}</td>
-                <td>{{ entity[0].answers|length }}</td>
+                <td>
+                    {% if entity[0].answers|length > 0 %}
+                        <a class='btn btn-primary btn-success' href="{{ path('admin_question_view_answers', { 'id': entity[0].id }) }}"> {{ entity[0].answers|length }} Answer(s)</a>
+                    {% else %}
+                        <button class='btn btn-primary btn-info' style="cursor: default;">{{ entity[0].answers|length }} Answers</button>
+                    {% endif %}
+                </td>
                 <td>
                     <a class='btn btn-primary' href="{{ path('admin_question_edit', { 'id': entity[0].id }) }}">Edit</a>
                 </td>                
@@ -28,6 +34,7 @@
                     <a class="btn btn-danger" href="{{ path('admin_question_delete', { 'id': entity[0].id }) }}"> 
                     <span class="glyphicon glyphicon-remove"></span> Delete</a>                   
                 </td>
+
             </tr>
         {% endfor %}
         </tbody>
