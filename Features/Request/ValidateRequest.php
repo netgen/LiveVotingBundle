@@ -3,8 +3,10 @@
 namespace Netgen\LiveVotingBundle\Features\Request;
 
 use Netgen\LiveVotingBundle\Entity\Presentation;
+use Netgen\LiveVotingBundle\Entity\Question;
 use Netgen\LiveVotingBundle\Entity\User;
 use Netgen\LiveVotingBundle\Exception\JsonException;
+//use Symfony\Component\HttpFoundation\Response;
 
 use Netgen\LiveVotingBundle\Entity\Event;
 
@@ -120,7 +122,7 @@ class ValidateRequest{
         if(!is_numeric($rate)){
             throw new JsonException(array(
                 'error'=>1,
-                'errorMessage'=>'Answer must be a number.'
+                'errorMessage'=>'Vote must be a number.'
             ));
         }
         $rate = intval($rate);
@@ -146,7 +148,7 @@ class ValidateRequest{
             }
         }
 
-        if( $rate<=0 or $rate>5){
+        if( $rate<0 or $rate>5){
             throw new JsonException(array(
                 'error'=>1,
                 'errorMessage'=>'Answer must be between 1 and 5.'

@@ -9,6 +9,8 @@ use Netgen\LiveVotingBundle\Exception\JsonException;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Netgen\LiveVotingBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Netgen\LiveVotingBundle\Entity\Answers;
+
 
 class AnswerController extends Controller{
 
@@ -29,7 +31,7 @@ public function answerAction(Request $request, $question_id){
 
             // new answer
             if(!$answer){
-                $answer = new Vote();
+                $answer = new Answer();
                 $answer->setUser($user);
                 $answer->setQuestion($question);
             }

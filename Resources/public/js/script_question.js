@@ -30,7 +30,7 @@ function brain(options_){
     $('body').on('change', '.forma', function(e){e.preventDefault();});
 
 
-    $('body').on('click', '.forma input', function(e){
+    $('body').on('click', '.forma button', function(e){
         e.preventDefault();
         if(!canIAnswer)return;
         var action = $(this).parent().parent().attr('action');
@@ -219,7 +219,7 @@ function brain(options_){
             return data;
         }
         this.setAnswer = function(answer_number){
-            this.element.find('input[type=submit]').each(function(){
+            this.element.find('button').each(function(){
                 if(this.value == answer_number){
                     $(this).addClass('active');
                 }else{
