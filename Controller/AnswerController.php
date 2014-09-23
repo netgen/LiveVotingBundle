@@ -9,7 +9,7 @@ use Netgen\LiveVotingBundle\Exception\JsonException;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Netgen\LiveVotingBundle\Entity\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Netgen\LiveVotingBundle\Entity\Answers;
+use Netgen\LiveVotingBundle\Entity\Answer;
 
 
 class AnswerController extends Controller{

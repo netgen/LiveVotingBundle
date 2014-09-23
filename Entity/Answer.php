@@ -102,7 +102,7 @@ class Answer
      * @param \Netgen\LiveVotingBundle\Entity\Question $question
      * @return Answer
      */
-	public function setQuestion(\Netgen\LiveVotingBundle\Entity\Presentation $presentation = null)
+	public function setQuestion(\Netgen\LiveVotingBundle\Entity\Question $question = null)
     {
         $this->question = $question;
 
