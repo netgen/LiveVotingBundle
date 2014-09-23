@@ -1,8 +1,10 @@
 function brain(options_){
 
     var options = options_;
-    var source   = $("#question").html();
-    var template = Handlebars.compile(source);
+    var source_yes_no = $("#question").html();
+    var source_1_5 = $("#vote").html();
+    var template_yes_no = Handlebars.compile(source_yes_no);
+    var template_1_5 = Handlebars.compile(source_1_5);
     var urlPath = options['URLS']['EVENT_STATUS']+getEventId(1);
     var globalState = null;
     var timeout = options['STATES']['PRE']['TIMEOUT'];
@@ -190,7 +192,8 @@ function brain(options_){
 
         this.init = function(newData){
             this.setData(newData);
-            this.element = $(template(data));
+            if(data.question_type == 1) this.element = $(template_yes_no(data));
+                    else this.element = $(template_1_5(data));
             this.element.find('.highLight').hide();
             this.element.find('.flash').hide();
             $("#answerScreen").append(this.element);
