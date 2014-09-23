@@ -113,7 +113,7 @@ class EventController extends Controller {
                 $answer = $em->findOneBy(array('user' => $user, 'question' => $question));
                 $rate = 0;
                 if($answer)
-                    $rate = $answer->getRate();
+                    $rate = $answer->getAnswer();
                 $tmp = $this->getQuestionArray($question, $rate);
                 array_push($response['questions'], $tmp);
             }
