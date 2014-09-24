@@ -308,6 +308,9 @@ class QuestionAdminController extends Controller
 
     }
 
+    /**
+    *   functions for answers 1-5
+    */
     public function getResultsAction(Request $request, $event_id){
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
 
@@ -318,6 +321,35 @@ class QuestionAdminController extends Controller
     public function getTableAction($event_id){
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
         $results = $this->get('live_voting_question.result')->getLiveResultsQuestion($event_id);
+
+        usort($results['questions'], function($v1, $v2){
+            $v1score = floatval($v1['answer']['average']);
+            $v2score = floatval($v2['answer']['average']);
+            if($v1score > $v1score) return -1;
+            if($v1score < $v2score) return 1;
+            return 0;
+        });
+
+        return $this->render('LiveVotingBundle:Question:table.html.twig', array(
+            'questions' => $results
+        ));
+
+    }
+
+
+    /**
+    *   functions for answers yes/no
+    */
+    public function getResultsYesNoAction(Request $request, $event_id){
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+
+        $results = $this->get('live_voting_question_yesNo.result')->getLiveResultsQuestionYesNo($event_id);
+        return new JsonResponse($results);
+    }
+
+    public function getTableYesNoAction($event_id){
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        $results = $this->get('live_voting_question_yesNo.result')->getLiveResultsQuestionYesNo($event_id);
 
         usort($results['questions'], function($v1, $v2){
             $v1score = floatval($v1['answer']['average']);

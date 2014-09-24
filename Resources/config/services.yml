@@ -3,6 +3,8 @@ parameters:
     live_voting.handleRequest.class: Netgen\LiveVotingBundle\Features\Request\ValidateRequest
     live_voting_question.result.class: Netgen\LiveVotingBundle\Features\Result\Result
     live_voting_question.handleRequest.class: Netgen\LiveVotingBundle\Features\Request\ValidateRequest
+    live_voting_question_yesNo.result.class: Netgen\LiveVotingBundle\Features\Result\Result
+    live_voting_question_yesNo.handleRequest.class: Netgen\LiveVotingBundle\Features\Request\ValidateRequest
 services:
 #    live_voting.example:
 #        class: %live_voting.example.class%
@@ -16,4 +18,9 @@ services:
           class: %live_voting_question.result.class%
           arguments: [@doctrine.orm.entity_manager, event_id]
     live_voting_question.handleRequest:
-          class: %live_voting_question.handleRequest.class%    
+          class: %live_voting_question.handleRequest.class%
+    live_voting_question_yesNo.result:
+          class: %live_voting_question.result.class%
+          arguments: [@doctrine.orm.entity_manager, event_id]
+    live_voting_question_yesNo.handleRequest:
+          class: %live_voting_question.handleRequest.class%       

@@ -44,3 +44,7 @@ admin_question_results:
 admin_result_questions_json:
     path: /live_results_questions_api/{event_id}
     defaults: {_controller: LiveVotingBundle:QuestionAdmin:getResults}
+
+admin_result_questions_yesNo_json:
+    path: /live_results_questions_yesNo_api/{event_id}
+    defaults: {_controller: LiveVotingBundle:QuestionAdmin:getResultsYesNo}
