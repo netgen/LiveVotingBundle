@@ -166,8 +166,8 @@ class Result {
                                             
                     }
                     if($data['numOfUsers']){
-                        $data['yes'] = round($data['score'] / $data['numOfUsers'] * 100, 5);
-                        $data['no'] = round(($data['numOfUsers'] - $data['score']) / $data['numOfUsers'] * 100, 5);
+                        $data['yes'] = round($data['score'] / $data['numOfUsers'] * 100, 2);
+                        $data['no'] = round(($data['numOfUsers'] - $data['score']) / $data['numOfUsers'] * 100, 2);
                         $result['questions'][] = array(
                                 'question' => array(
                                     'name' => $question->getQuestion(), 

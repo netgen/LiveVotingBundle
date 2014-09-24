@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li>
-                    <h3>Netgen Question Results</h3>
+                    <h3>Netgen Question Results for event: {{ event.getName }}</h3>
                 </li>
             </ul>
         </div>
@@ -91,14 +91,13 @@
     function load_yes_no(){
         $.getJSON('{{ live_results_questions_yesNo_url }}', function(data){
             if('questions' in data){
-                console.log(data);
                 var sortMe = [], questionNames = [], questionValues = [], questionValues2 = [];
                 for(var i in data['questions']){
                     if(data['questions'][i]['question']['type'] == 1){
                         var ques = {};
                         ques.questionName = data['questions'][i]['question']['name'];
                         ques.questionValue = data['questions'][i]['score']['yes'];
-                        ques.questionValue2 = data['questions'][i]['score']['no'];
+                        //ques.questionValue2 = data['questions'][i]['score']['no'];
                         sortMe.push(ques);
                     }
                 }
@@ -106,11 +105,11 @@
                 for(var i in sortMe){
                     questionNames.push(sortMe[i].questionName);
                     questionValues.push(sortMe[i].questionValue);
-                    questionValues2.push(sortMe[i].questionValue2);
+                    //questionValues2.push(sortMe[i].questionValue2);
                 }
                 chart_yes_no.xAxis[0].update({categories: questionNames}, true);
                 chart_yes_no.series[0].setData(questionValues, true, true, true);
-                chart_yes_no.series[1].setData(questionValues2, true, true, true);
+                //chart_yes_no.series[1].setData(questionValues2, true, true, true);
             }
             setTimeout(load_yes_no, 5000);
         });
@@ -130,13 +129,17 @@
                     }
                 }
             },
+            credits: {
+                text: 'Netgenlabs',
+                href: 'http://netgenlabs.com'
+            },
             plotOptions: {
                 column:{
                     colorByPoint: true
                 }
             },
             title: {
-                text: 'Answers 1-5 on questions for event: {{ event.getName }}'
+                text: 'Answers 1-5'
             },
             xAxis: {
                 type: 'String',
@@ -156,14 +159,16 @@
                 {
                     showInLegend: false,
                     data:[],
+                    color: '#7BC043',
                     dataLabels: {
                         enabled: true,
                         rotation: 0,
+                        color: '#000000',
                         formatter: function() {
                             return this.y;
                         },
                         style: {
-                            fontSize: '13px'
+                            fontSize: '17px'
                         }
                     }
                 }]
@@ -176,25 +181,31 @@
             chart: {
                 renderTo: 'container_yes_no',
                 defaultSeriesType: 'bar',
+                color: '#FF0000',
                 events: {
                     load: function(){
                         setTimeout(load_yes_no, 1000);
                     }
                 }
             },
+
+            credits: {
+                text: 'Netgenlabs',
+                href: 'http://netgenlabs.com'
+            },
             plotOptions: {
                 column:{
                     colorByPoint: true
                 },
                 series: {
-                    stacking: 'normal'
+                    stacking: 'female'
                 }
             },
             legend: {
                 reversed: true
             },
             title: {
-                text: 'Yes-No question results for {{ event.getName }}'
+                text: 'Yes-No answers'
             },
             xAxis: {    
                 type: 'String',
@@ -207,21 +218,23 @@
                 min: 0,
                 max: 100,
                 title: {
-                    text: 'Average score'
+                    text: 'Average "Yes" percentage'
                 }
             },
             series: [
                 {
                     showInLegend: false,
                     data:[],
+                    color: '#0199C6',
                     dataLabels: {
                         enabled: true,
                         rotation: 0,
+                        color: '#000000',
                         formatter: function() {
                             return this.y;
                         },
                         style: {
-                            fontSize: '13px'
+                            fontSize: '17px'
                         }
                     }
                 }]
