@@ -283,19 +283,44 @@ class QuestionAdminController extends Controller
         return $this->redirect($this->generateUrl('admin_question', array('event_id' => $eventId )));
     }
 
-    public function getResultsAction($event_id){
+    public function viewResultsAction($event_id){
         $em = $this->getDoctrine()->getManager();
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
-        $questions = $em->getRepository('LiveVotingBundle:Question')->findAll($event_id);
+            if(!$event) throw $this->createNotFoundException('Unknown event.');
 
-        if(!$event) throw $this->createNotFoundException('Unknown event.');
-        if(!$questions) throw $this->createNotFoundException('There are no questions for this event.');
+        $questions = $em->getRepository('LiveVotingBundle:Question')->findAll($event_id);
+            if(!$questions) throw $this->createNotFoundException('There are no questions for this event.');
         
         return $this->render('LiveVotingBundle:Question:results.html.twig',array(
                 'event' => $event,
                 'questions' => $questions,
                 'live_results_url' => $this->generateUrl('result_json', array('event_id' => $event_id))
             ));
+
+    }
+
+    public function getResultsAction(Request $request, $event_id){
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+
+        $results = $this->get('live_voting.result')->getLiveResults($event_id);
+        return new JsonResponse($results);
+    }
+
+    public function getTableAction($event_id){
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        $results = $this->get('live_voting.result')->getLiveResults($event_id);
+
+        usort($results['questions'], function($v1, $v2){
+            $v1score = floatval($v1['answer']['average']);
+            $v2score = floatval($v2['answer']['average']);
+            if($v1score > $v1score) return -1;
+            if($v1score < $v2score) return 1;
+            return 0;
+        });
+
+        return $this->render('LiveVotingBundle:Question:table.html.twig', array(
+            'questions' => $results
+        ));
 
     }
 
