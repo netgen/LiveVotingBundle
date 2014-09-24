@@ -28,7 +28,7 @@
                 </td>
 
                 <td>
-                    <a class='btn btn-info' href="{{ path('admin_question', { 'event_id': entity.id }) }}">View</a>
+                    <a class='btn btn-info' href="{{ path('admin_question', { 'event_id': entity.id }) }}">Questions ({{ entity.getQuestions()|length }})</a>
                 </td>
 
                 <td>
