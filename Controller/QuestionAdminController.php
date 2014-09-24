@@ -146,7 +146,7 @@ class QuestionAdminController extends Controller
             foreach ($answers as $answer) {
                 if($answer->getAnswer() == 2)$answerS++;
             }
-            $prosjek = (int)($answerS/$answerN)*100;
+            $prosjek = (int)(($answerS/$answerN)*100);
         }
         $users = array();
         foreach($answers as $answer){
@@ -303,7 +303,8 @@ class QuestionAdminController extends Controller
         return $this->render('LiveVotingBundle:Question:results.html.twig',array(
                 'event' => $event,
                 'questions' => $questions,
-                'live_results_questions_url' => $this->generateUrl('admin_result_questions_json', array('event_id' => $event_id))
+                'live_results_questions_url' => $this->generateUrl('admin_result_questions_json', array('event_id' => $event_id)),
+                'live_results_questions_yesNo_url' => $this->generateUrl('admin_result_questions_yesNo_json', array('event_id' => $event_id))
             ));
 
     }
