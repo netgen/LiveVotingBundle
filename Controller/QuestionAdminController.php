@@ -133,12 +133,16 @@ class QuestionAdminController extends Controller
         $answerS = 0;
         $entity = $em->getRepository('LiveVotingBundle:Question')->find($id);
         $question = $entity->getQuestion();
+        $question_type = $entity->getQuestionType();
         $answers = $entity->getAnswers();
         $answerN = count($answers);
         foreach ($answers as $answer) {
             $answerS += $answer->getAnswer();
         }
-        $prosjek = (double)$answerS/$answerN;
+        $prosjek = number_format((double)$answerS/$answerN,'2','.','');
+        if($question_type==1){
+            $prosjek = (int)($prosjek * 100);
+        }
         $users = array();
         foreach($answers as $answer){
             $tmp = $answer->getUser();
@@ -153,7 +157,7 @@ class QuestionAdminController extends Controller
        return $this->render('LiveVotingBundle:Question:answers.html.twig', array(
             'entity'      => $entity,
             'question'    => $question,
-            'type'        => $entity->getQuestionType(),
+            'type'        => $question_type,
             'answers'     => $answers,
             'users'       => $users,
             'prosjek'     => $prosjek
