@@ -89,7 +89,7 @@
     }
 
     function load_yes_no(){
-        $.getJSON('{{ live_results_questions_url }}', function(data){
+        $.getJSON('{{ live_results_questions_yesNo_url }}', function(data){
             if('questions' in data){
                 var sortMe = [], questionNames = [], questionValues = [];
                 for(var i in data['questions']){
