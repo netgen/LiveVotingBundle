@@ -298,7 +298,7 @@ class QuestionAdminController extends Controller
         return $this->render('LiveVotingBundle:Question:results.html.twig',array(
                 'event' => $event,
                 'questions' => $questions,
-                'live_results_url' => $this->generateUrl('result_json', array('event_id' => $event_id))
+                'live_results_questions_url' => $this->generateUrl('admin_result_questions_json', array('event_id' => $event_id))
             ));
 
     }
@@ -306,13 +306,13 @@ class QuestionAdminController extends Controller
     public function getResultsAction(Request $request, $event_id){
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
 
-        $results = $this->get('live_voting.result')->getLiveResults($event_id);
+        $results = $this->get('live_voting_question.result')->getLiveResultsQuestion($event_id);
         return new JsonResponse($results);
     }
 
     public function getTableAction($event_id){
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
-        $results = $this->get('live_voting.result')->getLiveResults($event_id);
+        $results = $this->get('live_voting_question.result')->getLiveResultsQuestion($event_id);
 
         usort($results['questions'], function($v1, $v2){
             $v1score = floatval($v1['answer']['average']);

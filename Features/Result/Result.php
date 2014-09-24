@@ -5,6 +5,7 @@ namespace Netgen\LiveVotingBundle\Features\Result;
 use Doctrine\ORM\EntityManager;
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Vote;
+use Netgen\LiveVotingBundle\Entity\Answer;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Result {
@@ -101,6 +102,43 @@ class Result {
                 'score'=>$data);
             }
         }
+        $result['event'] = $event;
+        return $result;
+    }
+
+    public function getLiveResultsQuestion($event_id){
+        //TODO: FIX THIS
+        $event = $this->em->getRepository('LiveVotingBundle:Event')->find($event_id);
+        if( !$event instanceof Event){
+            // TODO: Ask Edi what to return to controller and how to handle exceptions
+        }
+
+        $result = array();
+        $questions = $this->em->getRepository('LiveVotingBundle:Question')->findBy(array(
+            'event' => $event
+        ));
+
+        foreach($questions as $question){
+                $answers = $question->getAnswers();
+                $data = array('numOfUsers' => 0, 'score' => 0, 'average' => 0);
+
+                foreach($answers as $answer){
+                    $data['score'] += $answer->getAnswer();
+                    $data['numOfUsers']++;
+                }
+                if($data['numOfUsers']){
+                    $data['average'] = round($data['score'] / $data['numOfUsers'], 5);
+                    $result['questions'][] = array(
+                            'question' => array(
+                                'name' => $question->getQuestion(), 
+                                'type' => $question->getQuestionType(), 
+                                'entity' => $question
+                            ),
+                            'score' => $data
+                        );
+                }
+        }
+
         $result['event'] = $event;
         return $result;
     }

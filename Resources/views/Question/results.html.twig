@@ -65,14 +65,17 @@
         return 0;
     }
     function load(){
-        $.getJSON('{{ live_results_url }}', function(data){
+        $.getJSON('{{ live_results_questions_url }}', function(data){
             if('questions' in data){
                 var sortMe = [], questionNames = [], questionValues = [];
                 for(var i in data['questions']){
-                    var ques = {};
-                    ques.questionName = data['questions'][i]['question']['name'];
-                    ques.questionValue = data['questions'][i]['answer']['average'];
-                    sortMe.push(ques);
+                    console.log(data['questions'][i]['question']['type']);
+                    if(data['questions'][i]['question']['type'] == 0){
+                        var ques = {};
+                        ques.questionName = data['questions'][i]['question']['name'];
+                        ques.questionValue = data['questions'][i]['score']['average'];
+                        sortMe.push(ques);
+                    }
                 }
                 sortMe.sort(cmp);
                 for(var i in sortMe){
@@ -85,6 +88,30 @@
             setTimeout(load, 5000);
         });
     }
+
+    /*function load_yes_no(){
+        $.getJSON('{{ live_results_questions_url }}', function(data){
+            if('questions' in data){
+                var sortMe = [], questionNames = [], questionValues = [];
+                for(var i in data['questions']){
+                    if(data['questions'][i]['question']['type'] == 1){
+                        var ques = {};
+                        ques.questionName = data['questions'][i]['question']['name'];
+                        ques.questionValue = data['questions'][i]['score']['average'];
+                        sortMe.push(ques);
+                    }
+                }
+                sortMe.sort(cmp);
+                for(var i in sortMe){
+                    questionNames.push(sortMe[i].questionName);
+                    questionValues.push(sortMe[i].questionValue);
+                }
+                chart.xAxis[0].update({categories: questionNames}, true);
+                chart.series[0].setData(questionValues, true, true, true);
+            }
+            setTimeout(load, 5000);
+        });
+    }*/
 
 
 
@@ -106,7 +133,7 @@
                 }
             },
             title: {
-                text: 'Voting 1-5 question results for {{ event.getName }}'
+                text: 'Answers 1-5 on questions for event: {{ event.getName }}'
             },
             xAxis: {
                 type: 'String',
@@ -142,13 +169,13 @@
     });
 
     //yes - no questions chart
-    $(document).ready(function(){
+    /*$(document).ready(function(){
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'container_yes_no',
                 defaultSeriesType: 'pie',
                 events: {
-                    load: function(){
+                    load_yes_no: function(){
                         setTimeout(load, 1000);
                     }
                 }
@@ -192,7 +219,7 @@
                 }]
         });
 
-    });
+    });*/
 </script>
 </body>
 </html>
