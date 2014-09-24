@@ -39,4 +39,4 @@ admin_question_delete:
 
 admin_question_results:
     path:     /event_id/{event_id}/results
-    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:getResults" }
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:viewResults" }
