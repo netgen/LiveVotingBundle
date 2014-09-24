@@ -1,31 +1,34 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
-    <div class="panel panel-default panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Answers for question: {{ question }}</h3>
-
-
-      </div>
-      <div class="panel-body"> 
-          Odgovori:  
-        {% for answer in answers %}
-        <li>{{ answer.answer }}</li>
-        {% endfor %}
-
-        Prosjek:
-
-        {{ prosjek }}
-
-        {% for user in users %}
-        <li>{{ user }}</li>
-        {% endfor %}
-
-
-
-      </div><br>
-        <a class="btn btn-large btn-primary btn-block" href="{{ path('admin_question', {'event_id':entity.event.id}) }}">
-            Back to the list
-        </a>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th><h3>Answers for question: {{ question }}</h3></th>
+                    <th><h3>Prosjek je: {{ prosjek }}</h3></th>
+                    <th><h3><a class="btn btn-large btn-primary btn-block" href="{{ path('admin_question', {'event_id':entity.event.id}) }}">Back to the list</a></h3></th>
+                </tr>
+            </thead>
+        </table>
     </div>
+    <table class="records_list table table-hover table-striped">
+     <tbody>
+            <tr>
+                <th></th>
+                <th>User</th>
+                <th>Answer</th>
+            </tr>
+        <tr>
+        {% for key,answer in answers %}
+          <tr>
+            <td></td>
+            <td>{{ users[key] }}</td>
+            <td>{{ answer.answer }}</td>
+          </tr>
+        {% endfor %}
+        </tr>
+     </tbody>
+</div>
 {% endblock %}
