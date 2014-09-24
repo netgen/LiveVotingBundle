@@ -153,6 +153,7 @@ class QuestionAdminController extends Controller
        return $this->render('LiveVotingBundle:Question:answers.html.twig', array(
             'entity'      => $entity,
             'question'    => $question,
+            'type'        => $entity->getQuestionType(),
             'answers'     => $answers,
             'users'       => $users,
             'prosjek'     => $prosjek
@@ -291,7 +292,10 @@ class QuestionAdminController extends Controller
             throw $this->createNotFoundException('There are no questions for this event.');
         }
 
-        return new Response("test");
+        return $this->render('LiveVotingBundle:Question:results.html.twig',array(
+                'questions' => $questions,
+                'live_results_url' => $this->generateUrl('result_json', array('event_id' => $event_id))
+            ));
 
     }
 
