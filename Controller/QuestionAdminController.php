@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Question;
 use Netgen\LiveVotingBundle\Form\QuestionType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Question controller.
@@ -156,7 +157,6 @@ class QuestionAdminController extends Controller
             'users'       => $users,
             'prosjek'     => $prosjek
         )); 
-        //return new Response(print_r($users));
     }
 
     /**
@@ -280,6 +280,19 @@ class QuestionAdminController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('admin_question', array('event_id' => $eventId )));
+    }
+
+    public function getResultsAction($event_id){
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('LiveVotingBundle:Question')->findAll($event_id);
+        if(!$entity)
+        {
+            throw $this->createNotFoundException('There are no questions for this event.');
+        }
+
+        return new Response("test");
+
     }
 
 }

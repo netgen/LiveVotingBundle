@@ -66,7 +66,7 @@
     function load(){
         $.getJSON('{{ live_results_url }}', function(data){
             if('presentations' in data){
-                var sortMe = [], presentationNames = [], presentationValues = [], counter = 0;
+                var sortMe = [], presentationNames = [], presentationValues = [];//, counter = 0;
                 for(var i in data['presentations']){
                     var pres = {};
                     pres.presentationName = data['presentations'][i]['presentation']['name'];
@@ -75,11 +75,11 @@
                 }
                 sortMe.sort(cmp);
                 for(var i in sortMe){
-                    if( counter < 3 ){
+                    //if( counter < 3 ){
                         presentationNames.push(sortMe[i].presentationName);
                         presentationValues.push(sortMe[i].presentationValue);
-                        counter++;
-                    }
+                        //counter++;
+                    //}
                 }
                 chart.xAxis[0].update({categories: presentationNames}, true);
                 chart.series[0].setData(presentationValues, true, true, true);
@@ -109,7 +109,7 @@
             //colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
             //    '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
             title: {
-                text: 'Live results: Top 3 presentations for {{ event.getName }}'
+                text: 'Live results: Presentations for {{ event.getName }}'
             },
             xAxis: {
                 type: 'String',

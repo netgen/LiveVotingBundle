@@ -52,5 +52,12 @@
                 Back to events
             </a>
         </li>
+        {% if entities|length > 0 %}
+            <li>
+                <a class="btn btn-primary btn-warning" href="{{ path('admin_question_results',{ 'event_id':event.getId }) }}">
+                    Average question results for this event
+                </a>
+            </li>
+        {% endif %}
     </ul>
     {% endblock %}

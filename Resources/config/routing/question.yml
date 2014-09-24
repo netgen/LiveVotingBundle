@@ -36,3 +36,7 @@ admin_question_vote_enable:
 admin_question_delete:
     path:     /{id}/delete
     defaults: { _controller: "LiveVotingBundle:QuestionAdmin:delete" }
+
+admin_question_results:
+    path:     /event_id/{event_id}/results
+    defaults: { _controller: "LiveVotingBundle:QuestionAdmin:getResults" }
