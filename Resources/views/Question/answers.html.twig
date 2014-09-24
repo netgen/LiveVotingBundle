@@ -14,7 +14,6 @@
                             <h3>{{ prosjek }}% Yes</h3></th><th><h3>{{ 100-prosjek }}% No</h3>
                         {% endif %}
                     </th>
-                    <th><h3><a class="btn btn-large btn-primary btn-block" href="{{ path('admin_question', {'event_id':entity.event.id}) }}">Back to the list</a></h3></th>
                 </tr>
             </thead>
         </table>
@@ -35,7 +34,7 @@
                 {% if type == 0 %}
                     {{ answer.answer }}
                 {% else %}
-                    {% if answer.answer == 0 %}
+                    {% if answer.answer == 1 %}
                         No
                     {% else %}
                         Yes
@@ -46,5 +45,8 @@
         {% endfor %}
         </tr>
      </tbody>
+     </table>
+     <a class="btn btn-large btn-primary btn-block" href="{{ path('admin_question', {'event_id':entity.event.id}) }}">Back to the list</a>
+
 </div>
 {% endblock %}
