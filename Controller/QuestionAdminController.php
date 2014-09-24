@@ -285,14 +285,14 @@ class QuestionAdminController extends Controller
 
     public function getResultsAction($event_id){
         $em = $this->getDoctrine()->getManager();
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        $questions = $em->getRepository('LiveVotingBundle:Question')->findAll($event_id);
 
-        $entity = $em->getRepository('LiveVotingBundle:Question')->findAll($event_id);
-        if(!$entity)
-        {
-            throw $this->createNotFoundException('There are no questions for this event.');
-        }
-
+        if(!$event) throw $this->createNotFoundException('Unknown event.');
+        if(!$questions) throw $this->createNotFoundException('There are no questions for this event.');
+        
         return $this->render('LiveVotingBundle:Question:results.html.twig',array(
+                'event' => $event,
                 'questions' => $questions,
                 'live_results_url' => $this->generateUrl('result_json', array('event_id' => $event_id))
             ));
