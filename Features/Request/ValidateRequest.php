@@ -148,7 +148,7 @@ class ValidateRequest{
             }
         }
 
-        if( $rate<0 or $rate>5){
+        if( $rate<=0 or $rate>5){
             throw new JsonException(array(
                 'error'=>1,
                 'errorMessage'=>'Answer must be between 1 and 5.'
