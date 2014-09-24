@@ -64,12 +64,11 @@
         if(v1.questionValue > v2.questionValue)return -1;
         return 0;
     }
-    function load(){
+    function load_voting(){
         $.getJSON('{{ live_results_questions_url }}', function(data){
             if('questions' in data){
                 var sortMe = [], questionNames = [], questionValues = [];
                 for(var i in data['questions']){
-                    console.log(data['questions'][i]['question']['type']);
                     if(data['questions'][i]['question']['type'] == 0){
                         var ques = {};
                         ques.questionName = data['questions'][i]['question']['name'];
@@ -82,14 +81,14 @@
                     questionNames.push(sortMe[i].questionName);
                     questionValues.push(sortMe[i].questionValue);
                 }
-                chart.xAxis[0].update({categories: questionNames}, true);
-                chart.series[0].setData(questionValues, true, true, true);
+                chart_voting.xAxis[0].update({categories: questionNames}, true);
+                chart_voting.series[0].setData(questionValues, true, true, true);
             }
-            setTimeout(load, 5000);
+            setTimeout(load_voting, 5000);
         });
     }
 
-    /*function load_yes_no(){
+    function load_yes_no(){
         $.getJSON('{{ live_results_questions_url }}', function(data){
             if('questions' in data){
                 var sortMe = [], questionNames = [], questionValues = [];
@@ -106,24 +105,24 @@
                     questionNames.push(sortMe[i].questionName);
                     questionValues.push(sortMe[i].questionValue);
                 }
-                chart.xAxis[0].update({categories: questionNames}, true);
-                chart.series[0].setData(questionValues, true, true, true);
+                chart_yes_no.xAxis[0].update({categories: questionNames}, true);
+                chart_yes_no.series[0].setData(questionValues, true, true, true);
             }
-            setTimeout(load, 5000);
+            setTimeout(load_yes_no, 5000);
         });
-    }*/
+    }
 
 
 
     //voting 1 - 5 questions chart
     $(document).ready(function(){
-        chart = new Highcharts.Chart({
+        chart_voting = new Highcharts.Chart({
             chart: {
                 renderTo: 'container_voting',
                 defaultSeriesType: 'bar',
                 events: {
                     load: function(){
-                        setTimeout(load, 1000);
+                        setTimeout(load_voting, 1000);
                     }
                 }
             },
@@ -165,18 +164,17 @@
                     }
                 }]
         });
-
     });
 
     //yes - no questions chart
-    /*$(document).ready(function(){
-        chart = new Highcharts.Chart({
+    $(document).ready(function(){
+        chart_yes_no = new Highcharts.Chart({
             chart: {
                 renderTo: 'container_yes_no',
-                defaultSeriesType: 'pie',
+                defaultSeriesType: 'bar',
                 events: {
-                    load_yes_no: function(){
-                        setTimeout(load, 1000);
+                    load: function(){
+                        setTimeout(load_yes_no, 1000);
                     }
                 }
             },
@@ -219,7 +217,7 @@
                 }]
         });
 
-    });*/
+    });
 </script>
 </body>
 </html>
