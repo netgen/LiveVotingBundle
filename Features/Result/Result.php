@@ -142,4 +142,43 @@ class Result {
         $result['event'] = $event;
         return $result;
     }
+    public function getLiveResultsQuestionYesNo($event_id){
+        $event = $this->em->getRepository('LiveVotingBundle:Event')->find($event_id);
+        if( !$event instanceof Event){
+            throw $this->NotFoundHttpException("Event not found.");
+        }
+
+        $result = array();
+        $questions = $this->em->getRepository('LiveVotingBundle:Question')->findBy(array(
+            'event' => $event
+        ));
+
+        foreach($questions as $question){
+                $answers = $question->getAnswers();
+                $data = array('numOfUsers' => 0, 'score' => 0, 'yes' => 0, 'no' => 0);
+
+                foreach($answers as $answer){
+                    $data['numOfUsers']++;
+                    if ( $answer == 2){
+                        $data['score'] += 1;
+                    }
+                                        
+                }
+                if($data['numOfUsers']){
+                    $data['yes'] = round($data['score'] / $data['numOfUsers'], 5);
+                    $data['no'] = round($data[ ('numOfUsers'] - $data['score']) / $data['numOfUsers'], 5);
+                    $result['questions'][] = array(
+                            'question' => array(
+                                'name' => $question->getQuestion(), 
+                                'type' => $question->getQuestionType(), 
+                                'entity' => $question
+                            ),
+                            'score' => $data
+                        );
+                }
+        }
+
+        $result['event'] = $event;
+        return $result;
+    }
 } 
