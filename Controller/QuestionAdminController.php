@@ -136,12 +136,17 @@ class QuestionAdminController extends Controller
         $question_type = $entity->getQuestionType();
         $answers = $entity->getAnswers();
         $answerN = count($answers);
-        foreach ($answers as $answer) {
-            $answerS += $answer->getAnswer();
-        }
-        $prosjek = number_format((double)$answerS/$answerN,'2','.','');
-        if($question_type==1){
-            $prosjek = (int)($prosjek * 100);
+        $prosjek = 0;
+        if($question_type==0){
+            foreach ($answers as $answer) {
+                $answerS += $answer->getAnswer();
+            }
+            $prosjek = number_format((double)$answerS/$answerN,'2','.','');
+        }else{
+            foreach ($answers as $answer) {
+                if($answer->getAnswer() == 2)$answerS++;
+            }
+            $prosjek = (int)($answerS/$answerN)*100;
         }
         $users = array();
         foreach($answers as $answer){
