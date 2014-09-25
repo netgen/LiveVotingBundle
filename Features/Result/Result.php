@@ -119,6 +119,7 @@ class Result {
         ));
 
         foreach($questions as $question){
+            if ($question->getQuestionType() == 0){
                 $answers = $question->getAnswers();
                 $data = array('numOfUsers' => 0, 'score' => 0, 'average' => 0);
 
@@ -137,6 +138,7 @@ class Result {
                             'score' => $data
                         );
                 }
+            }
         }
 
         $result['event'] = $event;
@@ -154,21 +156,21 @@ class Result {
         ));
 
         foreach($questions as $question){
-                if ($question->getQuestionType() == 1 ){
-                    $answers = $question->getAnswers();
-                    $data = array('numOfUsers' => 0, 'score' => 0, 'yes' => 0, 'no' => 0);
+            if ($question->getQuestionType() == 1 ){
+                $answers = $question->getAnswers();
+                $data = array('numOfUsers' => 0, 'score' => 0, 'yes' => 0, 'no' => 0);
 
-                    foreach($answers as $answer){
-                        $data['numOfUsers']++;
-                        if ( $answer->getAnswer() == 2){
-                            $data['score'] += 1;
-                        }
-                                            
+                foreach($answers as $answer){
+                    $data['numOfUsers']++;
+                    if ( $answer->getAnswer() == 2){
+                        $data['score'] += 1;
                     }
-                    if($data['numOfUsers']){
-                        $data['yes'] = round($data['score'] / $data['numOfUsers'] * 100, 2);
-                        $data['no'] = round(($data['numOfUsers'] - $data['score']) / $data['numOfUsers'] * 100, 2);
-                        $result['questions'][] = array(
+                }
+                 
+                if($data['numOfUsers']){
+                    $data['yes'] = round($data['score'] / $data['numOfUsers'] * 100, 2);
+                    $data['no'] = round(($data['numOfUsers'] - $data['score']) / $data['numOfUsers'] * 100, 2);
+                    $result['questions'][] = array(
                                 'question' => array(
                                     'name' => $question->getQuestion(), 
                                     'type' => $question->getQuestionType(), 
@@ -176,8 +178,8 @@ class Result {
                                 ),
                                 'score' => $data
                             );
-                    }
                 }
+            }
         }
 
         $result['event'] = $event;

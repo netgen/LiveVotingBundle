@@ -9,6 +9,7 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/no-data-to-display.js"></script>
 </head>
 <body>
 
@@ -84,7 +85,7 @@
                 chart_voting.xAxis[0].update({categories: questionNames}, true);
                 chart_voting.series[0].setData(questionValues, true, true, true);
             }
-            setTimeout(load_voting, 5000);
+            setTimeout(load_voting, 2000);
         });
     }
 
@@ -111,7 +112,7 @@
                 chart_yes_no.series[0].setData(questionValues, true, true, true);
                 //chart_yes_no.series[1].setData(questionValues2, true, true, true);
             }
-            setTimeout(load_yes_no, 5000);
+            setTimeout(load_yes_no, 2000);
         });
     }
 
@@ -155,6 +156,13 @@
                     text: 'Average number of rating score'
                 }
             },
+            noData: {
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '17px',
+                    color: '#303030'
+                }
+            },
             series: [
                 {
                     showInLegend: false,
@@ -173,6 +181,12 @@
                     }
                 }]
         });
+
+        if (!chart_voting.hasData()) {
+            chart_voting.hideNoData();
+            chart_voting.showNoData("Trenutno nema podataka za prikaz.");
+        } 
+
     });
 
     //yes - no questions chart
@@ -221,6 +235,13 @@
                     text: 'Average "Yes" percentage'
                 }
             },
+            noData: {
+                style: {
+                    fontWeight: 'bold',
+                    fontSize: '17px',
+                    color: '#303030'
+                }
+            },
             series: [
                 {
                     showInLegend: false,
@@ -239,6 +260,11 @@
                     }
                 }]
         });
+
+        if (!chart_yes_no.hasData()) {
+            chart_yes_no.hideNoData();
+            chart_yes_no.showNoData("Trenutno nema podataka za prikaz.");
+        }        
 
     });
 </script>
