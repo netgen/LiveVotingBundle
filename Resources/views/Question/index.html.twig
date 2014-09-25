@@ -60,15 +60,15 @@
             </li>
         {% endif %}
 
-        {% if status== false %}
+        {% if status == 0 %}
             <li>
-                <a class="btn btn-primary btn-success" href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId , 'status':1 }) }}">
+                <a class="btn btn-primary btn-success" href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 1 }) }}">
                 Enable question answering
                 </a>
             </li>
         {% else %}
             <li>
-                <a class="btn btn-primary btn-danger" href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId , 'status':0 }) }}">
+                <a class="btn btn-primary btn-danger" href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 0 }) }}">
                 Disable question answering
                 </a>
             </li>

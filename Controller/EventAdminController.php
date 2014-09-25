@@ -150,9 +150,6 @@ class EventAdminController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-
-
-                //rest of query
             $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
             $entity->upload();
             $em->flush();
