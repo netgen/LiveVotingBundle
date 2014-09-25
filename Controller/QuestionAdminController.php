@@ -114,6 +114,7 @@ class QuestionAdminController extends Controller
 
         // Not needed in edit page
         $editForm->remove('votingEnabled');
+        $editForm->remove('question_type');
 
         return $this->render('LiveVotingBundle:Question:edit.html.twig', array(
             'entity'      => $entity,
