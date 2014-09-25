@@ -1,7 +1,7 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Questions</h1>
+    <h1>Questions for {{ event }}</h1>
 
     <table class="records_list table table-hover table-striped">
         <thead>
@@ -56,6 +56,20 @@
             <li>
                 <a class="btn btn-primary btn-warning" href="{{ path('admin_question_results',{ 'event_id':event.getId }) }}">
                     Average question results for this event
+                </a>
+            </li>
+        {% endif %}
+
+        {% if status== false %}
+            <li>
+                <a class="btn btn-primary btn-success" href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId , 'status':1 }) }}">
+                Enable question answering
+                </a>
+            </li>
+        {% else %}
+            <li>
+                <a class="btn btn-primary btn-danger" href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId , 'status':0 }) }}">
+                Disable question answering
                 </a>
             </li>
         {% endif %}

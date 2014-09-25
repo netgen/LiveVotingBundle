@@ -28,6 +28,10 @@ admin_question_update:
     defaults: { _controller: "LiveVotingBundle:QuestionAdmin:update" }
     requirements: { _method: post|put }
 
+admin_question_enableDisable:
+    path:     /event_id/{event_id}/statusChange/{status}
+    defaults:  { _controller: "LiveVotingBundle:QuestionAdmin:statusChange"}
+
 admin_question_vote_enable:
     path:     /{id}/voting_status
     defaults: { _controller: "LiveVotingBundle:QuestionAdmin:enableDisable" }

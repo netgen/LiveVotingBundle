@@ -162,8 +162,7 @@
             noData: {
                 style: {
                     fontWeight: 'bold',
-                    fontSize: '17px',
-                    color: '#303030'
+                    fontSize: '17px'
                 }
             },
             series: [
@@ -187,7 +186,7 @@
 
         if (!chart_voting.hasData()) {
             chart_voting.hideNoData();
-            chart_voting.showNoData("Trenutno nema podataka za prikaz.");
+            chart_voting.showNoData("No data to display.");
         } 
 
     });
@@ -283,7 +282,7 @@
 
         if (!chart_yes_no.hasData()) {
             chart_yes_no.hideNoData();
-            chart_yes_no.showNoData("Trenutno nema podataka za prikaz.");
+            chart_yes_no.showNoData("No data to display.");
         }        
 
     });

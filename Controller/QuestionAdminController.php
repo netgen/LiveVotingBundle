@@ -26,6 +26,8 @@ class QuestionAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('LiveVotingBundle:Event')->find($event_id);
         $entities = $em->getRepository('LiveVotingBundle:Question')->findBy(array('event'=>$event));
+        $questions = $em->getRepository('LiveVotingBundle:Question')->findAll($event_id);
+        $status = $questions[0]->getVotingEnabled();
 
         $that = $this;
         return $this->render('LiveVotingBundle:Question:index.html.twig', array(
@@ -33,7 +35,8 @@ class QuestionAdminController extends Controller
                 function($ent) use ($that) {
                    return array($ent, $that->createEnableDisableForm($ent)->createView());
                 }, $entities),
-            'event' => $event
+            'event' => $event,
+            'status' => $status
         ));
     }
     /**
@@ -89,6 +92,7 @@ class QuestionAdminController extends Controller
 
         $form = $this->createCreateForm($entity);
         return $this->render('LiveVotingBundle:Question:new.html.twig', array(
+            'event' => $event,
             'entity' => $entity,
             'form'   => $form->createView(),
             'event_id' => $event_id
@@ -365,6 +369,29 @@ class QuestionAdminController extends Controller
             'questions' => $results
         ));
 
+    }
+
+    public function statusChangeAction($event_id, $status){
+            $em = $this->getDoctrine()->getManager();
+            $entity = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+             /**
+            * find all questions of the event and set votingEnabled value to current value of event
+             */
+            $questions = $em->getRepository('LiveVotingBundle:Question')->FindBy(array('event' => $entity));
+            $newValue = true;
+            switch($status){
+                case 1:
+                    $newValue = true;
+                    break;
+                case 0:
+                    $newValue = false;
+                    break;
+            }
+            foreach ($questions as $question) {
+                $question->setVotingEnabled($newValue);           
+            }
+
+            return $this->redirect($this->generateUrl('admin_question', array('event_id' => $event_id)));
     }
 
 }
