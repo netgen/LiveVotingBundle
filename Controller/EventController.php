@@ -133,16 +133,16 @@ class EventController extends Controller {
         );
     }
 
-        public function indexAnswerAction(Request $request, $event_id){
+    public function indexAnswerAction(Request $request, $event_id){
         $session = $request->getSession();
         $session->start();
         $session_id = $session->getId();
         $userT = $this->get('security.context')->getToken()->getUser();
         $user_id = $userT->getId();
-        //var_dump($user_id); die;
-        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($user_id);
 
+        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($user_id);
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        
         return $this->render('LiveVotingBundle:Answer:index.html.twig', 
                 array('event' => $event)
             );
