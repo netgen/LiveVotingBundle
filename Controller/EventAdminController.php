@@ -123,12 +123,23 @@ class EventAdminController extends Controller
     */
     private function createEditForm(Event $entity)
     {
+        $em = $this->getDoctrine()->getManager();
+        $event_id = $entity->getId();
+
+        $questions = $em->getRepository('LiveVotingBundle:Question')->findBy(array('event' => $event_id));
+        if($questions){
+            $questionStatus = $questions[0]->getVotingEnabled();
+        }
+        else $questionStatus = false;
+
+
+
         $form = $this->createForm(new EventType(), $entity, array(
             'action' => $this->generateUrl('admin_event_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('allowViewingResults', 'checkbox', array('required' => false, 'label' => 'Results available for public: '));
-        //$form->add('', 'checkbox', array('required' => false, 'label' => 'Questions enabled for this event: '));
+        $form->add('questionStatus', 'checkbox', array('mapped'=> false, 'required'=>false, 'label'=>'Questions enabled for this event: ', 'attr' => array('checked' => $questionStatus)));
         $form->add('numberOfSeconds', 'number', array('mapped'=> false, 'required'=>false, 'label'=>'Seconds until event ends: ', 'attr' => array('class'=> 'form-control')));
         $form->add('submit', 'submit', array('label' => 'Update event', 'attr' => array('class' => 'btn btn-large btn-primary')));
         return $form;
@@ -151,6 +162,25 @@ class EventAdminController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            /**
+            * find all questions of the event and set votingEnabled value to current value of event
+            */
+            $status = $editForm->get('questionStatus')->getData();
+            $questions = $em->getRepository('LiveVotingBundle:Question')->findBy(array('event' => $entity));
+            $newValue = 1;
+            switch($status){
+                case 1:
+                    $newValue = true;
+                    break;
+                case 0:
+                    $newValue = false;
+                    break;
+            }
+
+            foreach ($questions as $question) {
+                $question->setVotingEnabled($newValue);           
+            }
+
             $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
             $entity->upload();
             $em->flush();

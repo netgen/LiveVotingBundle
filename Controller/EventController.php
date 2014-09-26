@@ -146,9 +146,9 @@ class EventController extends Controller {
         $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($user_id);
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
         
-        return $this->render('LiveVotingBundle:Answer:index.html.twig', 
-                array('event' => $event)
-            );
+        return $this->render('LiveVotingBundle:Answer:index.html.twig', array(
+            'event' => $event
+        ));
     }
 
 } 
