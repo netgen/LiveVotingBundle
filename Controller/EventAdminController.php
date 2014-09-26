@@ -71,7 +71,7 @@ class EventAdminController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create new event', 'attr' => array('class' => 'btn btn-large btn-primary',)));
 
         return $form;
     }
@@ -127,9 +127,10 @@ class EventAdminController extends Controller
             'action' => $this->generateUrl('admin_event_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('allowViewingResults', 'checkbox', array('required'=>false, 'label'=>'Results available for public'));
-        $form->add('numberOfSeconds', 'number', array('mapped'=> false, 'required'=>false, 'label'=>'Seconds until event ends.'));
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('allowViewingResults', 'checkbox', array('required' => false, 'label' => 'Results available for public: '));
+        //$form->add('', 'checkbox', array('required' => false, 'label' => 'Questions enabled for this event: '));
+        $form->add('numberOfSeconds', 'number', array('mapped'=> false, 'required'=>false, 'label'=>'Seconds until event ends: ', 'attr' => array('class'=> 'form-control')));
+        $form->add('submit', 'submit', array('label' => 'Update event', 'attr' => array('class' => 'btn btn-large btn-primary')));
         return $form;
     }
     /**

@@ -15,18 +15,24 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('label'=>'Event name'))
+            ->add('name', 'text', array('label'=>'Event name',
+                        'attr' => array(
+                            'class' => 'form-control',
+                        )
+                    ))
             ->add('stateName', 'choice', array(
                 'choices' =>array(
-                    'PRE'=>'Welcome screen!',
-                    'ACTIVE'=>'Start!',
-                    'POST'=>'End!'
+                    'PRE' => 'Welcome screen!',
+                    'ACTIVE' => 'Start!',
+                    'POST' => 'End!'
                 ),
-                'label'=>'Current state'
+                'attr' => array('class'=> 'form-control'),
+                'label' =>'Current state'
             ))
             ->add('image', 'file', array(
                 'data_class' => null,
-                'required' => false
+                'required' => false,
+                'attr' => array('class'=> 'filestyle')
             ))
             //->add('stateValue', 'text', array('label'=>'Seconds until voting ends'))
         ;

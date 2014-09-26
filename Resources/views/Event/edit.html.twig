@@ -1,15 +1,21 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Event edit</h1>
-
-    {{ form(edit_form, {'attr':{'class':'form-horizontal'}}) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_event') }}">
+    <div class="panel panel-default panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit event</h3>
+      </div>
+      <div class="panel-body">
+      
+        {{ form(edit_form, {'attr':{'class':'form-horizontal'}}) }}
+      </div><br>
+        <a class="btn btn-large btn-primary btn-block" href="{{ path('admin_event') }}">
             Back to the list
         </a>
-    </li>
-</ul>
+    </div>
+
+    <script src='http://markusslima.github.io/bootstrap-filestyle/js/bootstrap-filestyle.min.js'></script>
+    <script>
+    	$(":file").filestyle({badge: false, buttonBefore: true, buttonText: "Upload image for event", buttonName: "btn-primary"});
+    </script>
 {% endblock %}

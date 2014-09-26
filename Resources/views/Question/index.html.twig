@@ -24,7 +24,7 @@
                     {% if entity[0].answers|length > 0 %}
                         <a class='btn btn-primary btn-success' href="{{ path('admin_question_view_answers', { 'id': entity[0].id }) }}"> {{ entity[0].answers|length }} Answer(s)</a>
                     {% else %}
-                        <button class='btn btn-primary btn-info' style="cursor: default;">{{ entity[0].answers|length }} Answers</button>
+                        <button class='btn btn-primary btn-info disabled'">{{ entity[0].answers|length }} Answers</button>
                     {% endif %}
                 </td>
                 <td>
