@@ -26,7 +26,11 @@ class QuestionAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('LiveVotingBundle:Event')->find($event_id);
         $entities = $em->getRepository('LiveVotingBundle:Question')->findBy(array('event' => $event));
-        $status = $entities[0]->getVotingEnabled();
+        
+        if($entities){
+            $status = $entities[0]->getVotingEnabled();            
+        }
+        else $status = 2; //hide enable-disable button
 
         $that = $this;
         return $this->render('LiveVotingBundle:Question:index.html.twig', array(

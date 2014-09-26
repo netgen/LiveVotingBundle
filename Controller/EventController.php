@@ -96,11 +96,14 @@ class EventController extends Controller {
             $userId = $userT->getId();
             $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
             $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+            $questions = $this->getDoctrine()->getRepository('LiveVotingBundle:Question')->findBy(array('event' => $event_id));
+
+            $questionStatus = $questions[0]->getVotingEnabled();
 
             // !! throws exception
             if(!$event)
                 throw new JsonException(array('error'=>1, 'errorMessage'=>'Non existing event.'));
-            $response = $this->get('live_voting.handleRequest')->validateEventQuestionStatus($event, $user);
+            $response = $this->get('live_voting.handleRequest')->validateEventQuestionStatus($event, $user, $questionStatus);
 
             $questions = $this->getDoctrine()
                 ->getRepository('LiveVotingBundle:Question')

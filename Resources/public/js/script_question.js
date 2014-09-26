@@ -5,11 +5,9 @@ function brain(options_){
     var source_1_5 = $("#vote").html();
     var template_yes_no = Handlebars.compile(source_yes_no);
     var template_1_5 = Handlebars.compile(source_1_5);
-    var urlPath = options['URLS']['EVENT_STATUS']+getEventId(1);
+    var urlPath = options['URLS']['EVENT_STATUS'] + getEventId(1);
     var globalState = null;
-    var timeout = options['STATES']['PRE']['TIMEOUT'];
-    var timer = new timer();
-    var canIAnswer = true;
+    var canIAnswer = true; //voting enabled on questions?
     var questions = new questionsArray();
     var shadow = $('<div id="shadow"></div>');
     var loader = $('#circleG');
@@ -32,14 +30,12 @@ function brain(options_){
 
     $('body').on('click', '.forma button', function(e){
         e.preventDefault();
-        if(!canIAnswer)return;
+        if(!canIAnswer) return;
         var action = $(this).parent().parent().attr('action');
         var question_id = action.split('/').pop();
         var question = questions.getById(question_id);
         var answer = $(this).attr('value');
         var rate = 'rate='+answer;
-        console.log(rate);
-        if(question.getData()['votingEnabled']==true){
             showSpinner();
             $.ajax({
                 type: 'post',
@@ -50,20 +46,19 @@ function brain(options_){
                     footer.displayMessage(data['errorMessage']);
                     question.setAnswer(answer);
                     hideSpinner();
+                    setTimeout(hideFooter, 3000);
                 },
                 error: function(e){
                     //fly out erro on footer
                     hideSpinner();
                 }
             });
-        }
-
     });
 
 
     /**
      *  Gets event id from url which looks like:
-     *  /event/{id}
+     *  /question/{id}
      */
     function getEventId(ret){
         var struct = window.location.pathname.split('/');
@@ -75,54 +70,19 @@ function brain(options_){
     var run = function() {
         $.getJSON(urlPath, function(data){
 
-            switch(data['error']){
-                case 1:
-                    // displayMessageInFooter(data['errorMessage']);
-                    footer.displayMessage(data['errorMessage']);
-                break;
-                case 2:
-                    timeout = -1;
-                    // displayMessageInFooter(data['errorMessage']);
-
-                    footer.staticMessage(data['errorMessage']);
-                    timer.stop();
-                    return;
-                break;
-            }
-            var state = data["eventStatus"];
+            var state = data["questionStatus"];
 
             switch(state){
-                case 'PRE':
-                   footer.staticMessage(data['errorMessage']);
-                   timeout = parseInt(options['STATES']['PRE']['TIMEOUT'])*1000;
-                   break;
-                case 'POST':
-                    var seconds = parseInt(data['seconds']);
-                    timeout = parseInt(options['STATES']['POST']['TIMEOUT'])*1000;
-                    if(!timer.isRunning && seconds>0){
-                        timer.init(parseInt(data['seconds']), changeFooter, endAnswering);
-                        timer.runTimer();
-                    }
-                    if(seconds<0){
-                        timeout = -1;
-                        endAnswering(data['errorMessage']);
-                    }
-                case 'ACTIVE':
-                    if(timeout>0){
-                        timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
-                    }
-                    if(state!='POST'){
-                        footer.removeStatic();
-                    }
+                case false:
+                    endAnswering();
+                    footer.displayMessage(data['errorMessage']);
+                case true:
+                    footer.displayMessage(data['errorMessage']);
                     hideSpinner();
                     handleNewQuestions(data['questions']);
                     break;
-                default:
-                    timeout = -1;
-
             }
             globalState = state;
-            if(timeout>0) setTimeout(run, timeout);
         }); 
     }
 
@@ -132,7 +92,6 @@ function brain(options_){
             ques = data[i];
             questions.add(ques);
         }
-        questions.notifiyAll();
     }
 
     function endAnswering(message){
@@ -140,46 +99,11 @@ function brain(options_){
         canIAnswer = false;
 
         questions.setEnabledAll(false);
-        footer.setStaticTimer('');
         footer.staticMessage(message);
     }
 
-    function changeFooter(seconds_) {
-        footer.setStaticTimer(seconds_.toString()+' seconds left until voting ends.');
-    }
-
-    /*
-    Class timer which calls callbackEverySecond function each second
-    and function callbackEnd when timer is done.
-     */
-    function timer(){
-        this.isRunning = false;
-        this.seconds = 1;
-        this.callbackEverySecond;
-        this.callbackEnd;
-        var killMe = false;
-
-        function stop(){
-            killMe = true;
-        }
-        this.init = function(seconds_, callbackEverySecond_, callbackEnd_){
-            this.seconds = seconds_;
-            this.callbackEverySecond = callbackEverySecond_;
-            this.callbackEnd = callbackEnd_;
-            killme = false;
-        }
-
-        this.runTimer = function(){
-            var that = this;
-            this.isRunning = true;
-            if(this.seconds==0 || killMe){
-                this.callbackEnd();
-                this.isRunning = false;
-                return;
-            }
-            this.callbackEverySecond(this.seconds--);
-            setTimeout(function(){that.runTimer()}, 1000);
-        }
+    function hideFooter(){
+        $('#footer').hide();
     }
 
     /*
@@ -193,12 +117,17 @@ function brain(options_){
 
         this.init = function(newData){
             this.setData(newData);
-            if(data.question_type == 1) this.element = $(template_yes_no(data));
-                    else this.element = $(template_1_5(data));
-            this.element.find('.highLight').hide();
-            this.element.find('.flash').hide();
-            $("#answerScreen").append(this.element);
-            this.element.find('.check').hide();
+            if(data.question_type == 1) 
+                this.element = $(template_yes_no(data));
+            else 
+                this.element = $(template_1_5(data));
+
+            //if(canIAnswer == false){
+                this.element.find('.highLight').hide();
+                this.element.find('.flash').hide();
+                $("#answerScreen").append(this.element);
+                this.element.find('.check').hide();
+            //}
         }
 
         /*
@@ -206,9 +135,9 @@ function brain(options_){
          */
         this.setData = function(newData){
             var status = false;
-            if(data==null){
+            if(data == null){
                 status = newData['votingEnabled'];
-            }else if(newData['votingEnabled']==true && data['votingEnabled']==false){
+            }else if(newData['votingEnabled'] == true && data['votingEnabled'] == false){
                 status = true;
             }
             delete data;
@@ -232,7 +161,6 @@ function brain(options_){
 
 
         this.setEnabled = function(enabled_status){
-            console.log(enabled_status);
             if(!enabled_status) // enabled_status == false
                 this.element.find('.highLight').fadeIn(2000);
             else
@@ -246,6 +174,7 @@ function brain(options_){
         this.handle = function(){
             var answer = data['answer'];
             this.setAnswer(answer);
+            this.setEnabled(true);
             this.setEnabled(data['votingEnabled'] && canIAnswer);
         }
     }
@@ -280,31 +209,12 @@ function brain(options_){
                 arr[i].setAnswer(arr[i].getData()['answer']);
             }
         }
-
-        this.notifiyAll = function(){
-            var scrolledTo = false;
-            for(var i in notify){
-                if(!scrolledTo){
-                    $('html, body').animate({
-                        scrollTop: arr[notify[i]].element.offset().top
-                    }, 1000);
-                    scrolledTo = true;
-                }
-                arr[notify[i]].highlightMe();
-            }
-            if(scrolledTo)
-                footer.displayMessage('Please answer the questions.');
-            delete notify;
-            notify = [];
-
-        }
     }
 
     function footerClass(el){
         var element=el;
         var holdingUp = false;
         var that = this;
-        var timeoutVariable = null;
         element.hide();
 
         this.displayMessage = function(message){
@@ -319,25 +229,15 @@ function brain(options_){
         }
 
         function setTimer(tmrMsg){
-            var tmr = element.find('.timer');
-            tmr.html(tmrMsg);
+            //
         }
         this.anim = function(seconds){
             if(!holdingUp)
                 this.animateUp(100);
-            clearTimeout(timeoutVariable);
-            timeoutVariable = setTimeout(
-                function(){
-                    if(!holdingUp)
-                        that.animateDown(100);
-                    setMessage('');
-                }
-            ,seconds*1000);
         }
 
         function endFooter(){
             setMessage('');
-            setTimer('');
         }
 
         this.animateUp = function(value){
@@ -356,11 +256,6 @@ function brain(options_){
 
         this.staticMessage = function(msg){
             setMessage(msg);
-            holdOn();
-        }
-
-        this.setStaticTimer = function(timerMsg){
-            setTimer(timerMsg);
             holdOn();
         }
 

@@ -66,7 +66,7 @@
                 Enable answering questions
                 </a>
             </li>
-        {% else %}
+        {% elseif status == 1 %}
             <li>
                 <a class="btn btn-primary btn-danger" href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 0 }) }}">
                 Disable answering questions

@@ -41,7 +41,7 @@ class ValidateRequest{
         return $response;
     }
 
-    public function validateEventQuestionStatus(Event $event, User $user){
+    public function validateEventQuestionStatus(Event $event, User $user, $questionStatus){
         if(!$event)
             throw new JsonException(array('error'=>2, 'errorMessage'=>'Non existing event.'));
         if(!$user)
@@ -51,21 +51,17 @@ class ValidateRequest{
             'error' => 0,
             'eventName' => $event->getName(),
             'eventId '=> $event->getId(),
-            'eventStatus' => $event->getStateName()
+            'eventStatus' => $event->getStateName(),
+            'questionStatus' => $questionStatus
         );
 
-        if($event->getStateName()=='POST'){
-            $date_when_voting_ends = intval($event->getStateValue());
-            $response['seconds'] = $date_when_voting_ends - time();
-            if ( time()>$date_when_voting_ends ){
-                $response['error']=0;
-                $response['errorMessage'] = 'Answering for this event is closed.';
-                // not returning because we still need to send presentations
-            }
-        }elseif($event->getStateName()=='PRE'){
-            $response['error']=0;
-            $response['errorMessage'] = 'Waiting for event to start.';
-            throw new JsonException($response);
+        if($questionStatus == false){
+            $response['error'] = 0;
+            $response['errorMessage'] = 'Answering for this event is closed.';
+        }
+        elseif($questionStatus == true){
+            $response['error'] = 0;
+            $response['errorMessage'] = 'Please answer these questions.';
         }
         return $response;
     }
@@ -117,7 +113,7 @@ class ValidateRequest{
         }
     }
 
-    public function validateAnswer(Question $question, Event $event, User $user, $rate){
+    public function validateAnswer(Question $question, Event $event, User $user, $rate, $questionStatus){
 
         if(!is_numeric($rate)){
             throw new JsonException(array(
@@ -133,19 +129,12 @@ class ValidateRequest{
                 'errorMessage'=>'Unknown question.'
             ));
         }
-        if( $event->getStateName()=='PRE' ){ // voting is closed
+
+        if($questionStatus == false){
             throw new JsonException(array(
-                'error'=>1,
-                'errorMessage'=>'Answering on these questions is not yet available.'
+                'error' => 1,
+                'errorMessage' => 'Answering on these questions is disabled.'
             ));
-        }elseif( $event->getStateName()=='POST' ){ // voting ended
-            $date_when_voting_ends = intval($event->getStateValue());
-            if ( time()>$date_when_voting_ends ){
-                throw new JsonException(array(
-                    'error'=>1,
-                    'errorMessage'=>'Answering on these questions is disabled.'
-                ));
-            }
         }
 
         if( $rate<=0 or $rate>5){
