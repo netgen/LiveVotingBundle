@@ -43,10 +43,11 @@ function brain(options_){
                 'data': rate,
                 success: function(data){
                     question.highlightMe();
+                    showFooter();
                     footer.displayMessage(data['errorMessage']);
                     question.setAnswer(answer);
                     hideSpinner();
-                    setTimeout(hideFooter, 3000);
+                    setTimeout(hideFooter, 2000);
                 },
                 error: function(e){
                     //fly out erro on footer
@@ -76,6 +77,7 @@ function brain(options_){
                 case false:
                     endAnswering();
                     footer.displayMessage(data['errorMessage']);
+                    break;
                 case true:
                     startAnswering();
                     footer.displayMessage(data['errorMessage']);
@@ -114,6 +116,10 @@ function brain(options_){
 
     function hideFooter(){
         $('#footer').hide();
+    }
+
+    function showFooter(){
+        $('#footer').show();
     }
 
     /*
@@ -185,7 +191,7 @@ function brain(options_){
             var answer = data['answer'];
             this.setAnswer(answer);
             this.setEnabled(true);
-            this.setEnabled(data['votingEnabled'] && canIAnswer);
+            this.setEnabled(canIAnswer);
         }
     }
 
@@ -215,7 +221,7 @@ function brain(options_){
 
         this.setEnabledAll = function(state){
             for(var i in arr){
-                arr[i].setEnabled(false);
+                arr[i].setEnabled(state);
                 arr[i].setAnswer(arr[i].getData()['answer']);
             }
         }
