@@ -77,12 +77,14 @@ function brain(options_){
                     endAnswering();
                     footer.displayMessage(data['errorMessage']);
                 case true:
+                    startAnswering();
                     footer.displayMessage(data['errorMessage']);
                     hideSpinner();
                     handleNewQuestions(data['questions']);
                     break;
             }
             globalState = state;
+            setTimeout(run, 5000);
         }); 
     }
 
@@ -99,6 +101,14 @@ function brain(options_){
         canIAnswer = false;
 
         questions.setEnabledAll(false);
+        footer.staticMessage(message);
+    }
+
+    function startAnswering(message){
+        //Thank u for answering
+        canIAnswer = true;
+
+        questions.setEnabledAll(true);
         footer.staticMessage(message);
     }
 
@@ -161,7 +171,7 @@ function brain(options_){
 
 
         this.setEnabled = function(enabled_status){
-            if(!enabled_status) // enabled_status == false
+            if(!canIAnswer) // enabled_status == false
                 this.element.find('.highLight').fadeIn(2000);
             else
                 this.element.find('.highLight').fadeOut(1000);
