@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Netgen LiveVoting bundle.
+ *
+ * https://github.com/netgen/LiveVotingBundle
+ * 
+ */
+
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Event;
@@ -13,20 +20,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class EventController extends Controller {
-    
-    // TODO: clean code and add comments.
-    public function eventStatusAction(Request $request, $event_id){
-        try{
-            //$sessionId = $request->getSession()->getId();
-            $userT = $this->get('security.context')->getToken()->getUser();
-            $userId = $userT->getId();
+/**
+ * Event controller. (user)
+ */
+class EventController extends Controller 
+{
+    /**
+     * Returns json response object which contain event presentations data
+     * @param $request Request
+     * @param $event_id Event ID 
+     * @return $response Event presentations in JSON
+     */
+    public function eventStatusAction(Request $request, $event_id)
+    {
+        try
+        {
+            $userByToken = $this->get('security.context')->getToken()->getUser();
+            $userId = $userByToken->getId();
             $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
             $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
-
-            // !! throws exception
             if(!$event)
+            {
                 throw new JsonException(array('error'=>1, 'errorMessage'=>'Non existing event.'));
+            }
             $response = $this->get('live_voting.handleRequest')->validateEventStatus($event, $user);
 
             // fetching presentations for current event
@@ -35,23 +51,40 @@ class EventController extends Controller {
                 ->findBy(array('event'=>$event));
 
             $response['presentations']=array();
+
             // adding presentations to response array
             $em = $this->getDoctrine()->getRepository('LiveVotingBundle:Vote');
-            foreach($presentations as $presentation){
+            foreach($presentations as $presentation)
+            {
                 $vote = $em->findOneBy(array('user'=>$user, 'presentation'=>$presentation));
                 $rate = 0;
-                if($vote)$rate = $vote->getRate();
+
+                if($vote)
+                {
+                    $rate = $vote->getRate();
+                }
                 $tmp = $this->getPresentationArray($presentation, $rate);
                 array_push($response['presentations'], $tmp);
             }
             return new JsonResponse($response);
-        }catch(JsonException $exception){
+        }
+
+        catch(JsonException $exception)
+        {
             return new JsonResponse(unserialize($exception->getMessage()));
         }
 
     }
 
-    protected function getPresentationArray(Presentation $presentation, $rate){
+    /**
+    * Returns presentation data array
+    * @param $presentation Presentation object
+    * @param $rate Presentation rate
+    * @return Presentation data array
+    */
+
+    protected function getPresentationArray(Presentation $presentation, $rate)
+    {
         return array(
             'presenterName' => $presentation->getPresenterName(),
             'presenterSurname' => $presentation->getPresenterSurname(),
@@ -63,56 +96,53 @@ class EventController extends Controller {
         );
     }
 
-    public function indexAction(Request $request, $event_id){
+    /**
+     * Lists all Presentations on /user/event/{event_id} page
+     * @param $request Request
+     * @param $event_id Event ID
+     */
+    public function indexAction(Request $request, $event_id)
+    {
         $session = $request->getSession();
         $session->start();
-        $session_id = $session->getId();
-        $userT = $this->get('security.context')->getToken()->getUser();
-        $user_id = $userT->getId();
-        //var_dump($user_id); die;
-        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($user_id);
-/*
-        // Saving new user to database
-        if($user==null){
-            $user = new User();
-            $user->setId($session_id);
-            $user->setEmail('');
-            $user->setPassword('');
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-        }
-*/
+        $sessionId = $session->getId();
+        $userByToken = $this->get('security.context')->getToken()->getUser();
+        $userId = $userByToken->getId();
+        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
-        //var_dump($user_id); die;
         return $this->render('LiveVotingBundle:Index:index.html.twig', 
                 array('event' => $event)
             );
     }
 
-    public function eventStatusQuestionAction(Request $request, $event_id){
-        try{
-            $userT = $this->get('security.context')->getToken()->getUser();
-            $userId = $userT->getId();
+    /**
+     * Returns json response object which contain event questions data
+     * @param $request Request
+     * @param $event_id Event ID
+     */
+    public function eventStatusQuestionAction(Request $request, $event_id)
+    {
+        try
+        {
+            $userByToken = $this->get('security.context')->getToken()->getUser();
+            $userId = $userByToken->getId();
             $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
             $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
             $questions = $this->getDoctrine()->getRepository('LiveVotingBundle:Question')->findBy(array('event' => $event_id));
-
             $questionStatus = $questions[0]->getVotingEnabled();
 
-            // !! throws exception
             if(!$event)
                 throw new JsonException(array('error'=>1, 'errorMessage'=>'Non existing event.'));
+            
             $response = $this->get('live_voting.handleRequest')->validateEventQuestionStatus($event, $user, $questionStatus);
-
             $questions = $this->getDoctrine()
                 ->getRepository('LiveVotingBundle:Question')
                 ->findBy(array('event'=>$event));
-
             $response['questions'] = array();
-
             $em = $this->getDoctrine()->getRepository('LiveVotingBundle:Answer');
-            foreach($questions as $question){
+
+            foreach($questions as $question)
+            {
                 $answer = $em->findOneBy(array('user' => $user, 'question' => $question));
                 $rate = 0;
                 if($answer)
@@ -121,11 +151,21 @@ class EventController extends Controller {
                 array_push($response['questions'], $tmp);
             }
             return new JsonResponse($response);
-        }catch(JsonException $exception){
+        }
+
+        catch(JsonException $exception)
+        {
             return new JsonResponse(unserialize($exception->getMessage()));
         }
 
     }
+
+    /**
+     * Returns question data array
+     * @param $question Question object
+     * @param $rate Question rate 
+     * @return Question data array
+     */
     protected function getQuestionArray(Question $question, $rate){
         return array(
             'question' => $question->getQuestion(),
@@ -136,19 +176,22 @@ class EventController extends Controller {
         );
     }
 
-    public function indexAnswerAction(Request $request, $event_id){
+    /**
+     * Lists all Questions on /user/question/{event_id} page
+     * @param $request Request
+     * @param $event_id Event ID
+     */
+    public function indexAnswerAction(Request $request, $event_id)
+    {
         $session = $request->getSession();
         $session->start();
-        $session_id = $session->getId();
-        $userT = $this->get('security.context')->getToken()->getUser();
-        $user_id = $userT->getId();
-
-        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($user_id);
+        $sessionId = $session->getId();
+        $userByToken = $this->get('security.context')->getToken()->getUser();
+        $userId = $userByToken->getId();
+        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
-        
         return $this->render('LiveVotingBundle:Answer:index.html.twig', array(
             'event' => $event
         ));
     }
-
 } 

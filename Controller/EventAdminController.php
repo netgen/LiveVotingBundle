@@ -1,24 +1,28 @@
 <?php
 
+/*
+ * This file is part of the Netgen LiveVoting bundle.
+ *
+ * https://github.com/netgen/LiveVotingBundle
+ * 
+ */
+
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Question;
 use Netgen\LiveVotingBundle\Form\EventType;
 
 /**
- * Event controller.
- *
+ * Event controller. (admin)
  */
 class EventAdminController extends Controller
 {
 
     /**
      * Lists all Event entities.
-     *
      */
     public function indexAction()
     {
@@ -34,7 +38,7 @@ class EventAdminController extends Controller
 
     /**
      * Creates a new Event entity.
-     *
+     * @param $request Request 
      */
     public function createAction(Request $request)
     {
@@ -42,7 +46,8 @@ class EventAdminController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid()) 
+        {
             $em = $this->getDoctrine()->getManager();
             $entity->upload();
             $em->persist($entity);
@@ -59,9 +64,7 @@ class EventAdminController extends Controller
 
     /**
      * Creates a form to create a Event entity.
-     *
      * @param Event $entity The entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Event $entity)
@@ -78,7 +81,6 @@ class EventAdminController extends Controller
 
     /**
      * Displays a form to create a new Event entity.
-     *
      */
     public function newAction()
     {
@@ -94,7 +96,7 @@ class EventAdminController extends Controller
 
     /**
      * Displays a form to edit an existing Event entity.
-     *
+     * @param $id Event ID
      */
     public function editAction($id)
     {
@@ -102,7 +104,8 @@ class EventAdminController extends Controller
 
         $entity = $em->getRepository('LiveVotingBundle:Event')->find($id);
 
-        if (!$entity) {
+        if (!$entity) 
+        {
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
@@ -116,23 +119,24 @@ class EventAdminController extends Controller
 
     /**
     * Creates a form to edit a Event entity.
-    *
     * @param Event $entity The entity
-    *
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(Event $entity)
     {
         $em = $this->getDoctrine()->getManager();
         $event_id = $entity->getId();
-
         $questions = $em->getRepository('LiveVotingBundle:Question')->findBy(array('event' => $event_id));
-        if($questions){
+
+        if($questions)
+        {
             $questionStatus = $questions[0]->getVotingEnabled();
         }
-        else $questionStatus = false;
 
-
+        else
+        { 
+            $questionStatus = false;
+        }
 
         $form = $this->createForm(new EventType(), $entity, array(
             'action' => $this->generateUrl('admin_event_update', array('id' => $entity->getId())),
@@ -144,9 +148,11 @@ class EventAdminController extends Controller
         $form->add('submit', 'submit', array('label' => 'Update event', 'attr' => array('class' => 'btn btn-large btn-primary')));
         return $form;
     }
+
     /**
      * Edits an existing Event entity.
-     *
+     * @param $request Request
+     * @param $id Event ID
      */
     public function updateAction(Request $request, $id)
     {
@@ -161,14 +167,16 @@ class EventAdminController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
-            /**
-            * find all questions of the event and set votingEnabled value to current value of event
-            */
+        if ($editForm->isValid()) 
+        {
+
+            //find all questions of the event and set votingEnabled value to current value of event
             $status = $editForm->get('questionStatus')->getData();
             $questions = $em->getRepository('LiveVotingBundle:Question')->findBy(array('event' => $entity));
             $newValue = 1;
-            switch($status){
+
+            switch($status)
+            {
                 case 1:
                     $newValue = true;
                     break;
@@ -177,13 +185,15 @@ class EventAdminController extends Controller
                     break;
             }
 
-            foreach ($questions as $question) {
+            foreach ($questions as $question) 
+            {
                 $question->setVotingEnabled($newValue);           
             }
 
             $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
             $entity->upload();
             $em->flush();
+
             return $this->redirect($this->generateUrl('admin_event'));
         }
 
@@ -193,26 +203,18 @@ class EventAdminController extends Controller
         ));
     }
 
-    public function enableDisableAction(){
-        // DELETE ME (MEJBI)
-    }
-
-    // TODO: Implement later if neede1d
-    private function createEnableDisableForm(Event $event){
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_event_enabledisable', array('event_id' => $event->getId())))
-            ->setMethod('PUT')
-            ->add('enabledisable', 'submit')
-            ->getForm()
-        ;
-    }
-
-    public function deleteAction($id){
+    /** 
+     * Deletes an existing Event entity.
+     * @param $id Event ID
+     */
+    public function deleteAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('LiveVotingBundle:Event')->find($id);
 
-        if (!$entity) {
+        if (!$entity) 
+        {
             throw $this->createNotFoundException('Event is already removed.');
         }
 

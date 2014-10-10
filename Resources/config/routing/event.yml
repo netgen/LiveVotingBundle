@@ -20,12 +20,6 @@ admin_event_update:
     defaults: { _controller: "LiveVotingBundle:EventAdmin:update" }
     requirements: { _method: post|put }
 
-
-admin_event_enabledisable:
-    path:     /enableDisable
-    defaults: { _controller: "LiveVotingBundle:EventAdmin:enableDisable" }
-    requirements: { _method: post }
-
 admin_event_delete:
     path:     /{id}/delete
     defaults: { _controller: "LiveVotingBundle:EventAdmin:delete" }

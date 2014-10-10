@@ -1,47 +1,78 @@
 <?php
 
+/*
+ * This file is part of the Netgen LiveVoting bundle.
+ *
+ * https://github.com/netgen/LiveVotingBundle
+ * 
+ */
+
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * Result controller. (user)
+ */
 class ResultController extends Controller{
 
-    /*
-     * Displays only html
+    /**
+     * Display live results on /user/live_results/{event_id} page
+     * @param $event_id Event ID
      */
-    public function indexAction($event_id){
+    public function indexAction($event_id)
+    {
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
         $enabled = $event->getallowViewingResults();
-        if($enabled){
+        if($enabled)
+        {
             return $this->render('LiveVotingBundle:Result:liveIndex.html.twig', array(
                 'event'=>$event,
                 'live_results_url'=>$this->generateUrl('result_json', array('event_id'=>$event_id))
             ));
-        }else{
+        }
+
+        else
+        {
             return $this->render('LiveVotingBundle:Result:empty.html.twig');
         }
     }
 
-    /*
+    /**
      * Returns json for all presentations so javascript can draw it
+     * @param $request Request
+     * @param $event_id Event ID
+     * @return JSON response of all presenatations (score)
      */
-    public function getResultsAction(Request $request, $event_id){
+    public function getResultsAction(Request $request, $event_id)
+    {
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
         $enabled = $event->getallowViewingResults();
-        if($enabled){
+        
+        if($enabled)
+        {
             $results = $this->get('live_voting.result')->getLiveResults($event_id);
             return new JsonResponse($results);
-        }else{
+        }
+        
+        else
+        {
             return new JsonResponse(array());
         }
     }
 
+    /**
+     * Returns tabel of results for presentations
+     * @param $event_id Event ID
+     */
     public function getTableAction($event_id){
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
         $enabled = $event->getallowViewingResults();
-        if($enabled){
+        
+        if($enabled)
+        {
             $results = $this->get('live_voting.result')->getLiveResults($event_id);
 
             usort($results['presentations'], function($v1, $v2){
@@ -55,11 +86,13 @@ class ResultController extends Controller{
             return $this->render('LiveVotingBundle:Result:table.html.twig', array(
                 'presentations'=>$results
             ));
-        }else{
+        }
+
+        else
+        {
             return $this->render('LiveVotingBundle:Result:empty.html.twig');
         }
     }
-
 }
 
 ?>

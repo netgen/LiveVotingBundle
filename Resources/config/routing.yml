@@ -9,19 +9,11 @@ user_landing:
     path:    /user/
     defaults: {_controller: LiveVotingBundle:Index:landing}
 
-
 event:
     path:    /user/event/{event_id}
     defaults: {_controller: LiveVotingBundle:Event:index, event_id: -1}
     requirements:
         event_id: -?\d+
-
-event_answer:
-    path:    /user/question/{event_id}
-    defaults: {_controller: LiveVotingBundle:Event:indexAnswer, event_id: -1}
-    requirements:
-        event_id: -?\d+
-        #negative numbers
 
 event_status:
     path: /user/event_status/{event_id}
@@ -38,7 +30,7 @@ result:
 
 question:
     path: /user/question/{event_id}
-    defaults: {_controller: LiveVotingBundle:Event:indexAnswer}
+    defaults: {_controller: LiveVotingBundle:Event:indexAnswer, event_id: -1}
     requirements:
         event_id: \d+
 

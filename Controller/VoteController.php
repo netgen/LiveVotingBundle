@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Netgen LiveVoting bundle.
+ *
+ * https://github.com/netgen/LiveVotingBundle
+ * 
+ */
 
 namespace Netgen\LiveVotingBundle\Controller;
 
@@ -9,11 +15,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Netgen\LiveVotingBundle\Exception\JsonException;
 use Netgen\LiveVotingBundle\Entity\Vote;
 
-class VoteController extends Controller{
+/**
+ * Vote controller. (user)
+ */
+class VoteController extends Controller
+{
 
+    /**
+     * Returns json response object which contain message
+     * @param $request Request
+     * @param $presentation_id Presentation ID
+     * @return $result Returns "Thanks for voting" message
+     */
     public function voteAction(Request $request, $presentation_id){
 
-        try{
+        try
+        {
             $rate = $request->request->get('rate');
             $presentation = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->find($presentation_id);
             $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')
@@ -27,12 +44,14 @@ class VoteController extends Controller{
             ));
 
             // new vote
-            if(!$vote){
+            if(!$vote)
+            {
                 $vote = new Vote();
                 $vote->setUser($user);
                 $vote->setPresentation($presentation);
                 $vote->setEvent($presentation->getEvent());
             }
+
             // saving vote
             $vote->setRate($rate);
             $em = $this->getDoctrine()->getManager();
@@ -43,10 +62,11 @@ class VoteController extends Controller{
                 'errorMessage'=>'Thanks for voting!'
             );
             return new JsonResponse($result);
-        }catch(JsonException $e){
-            return new JsonResponse(unserialize($e->getMessage()));
         }
 
+        catch(JsonException $e)
+        {
+            return new JsonResponse(unserialize($e->getMessage()));
+        }
     }
-
 } 

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Netgen LiveVoting bundle.
+ *
+ * https://github.com/netgen/LiveVotingBundle
+ * 
+ */
+
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

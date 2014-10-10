@@ -1,23 +1,28 @@
 <?php
 
+/*
+ * This file is part of the Netgen LiveVoting bundle.
+ *
+ * https://github.com/netgen/LiveVotingBundle
+ * 
+ */
+
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Netgen\LiveVotingBundle\Entity\Presentation;
 use Netgen\LiveVotingBundle\Form\PresentationType;
 
 /**
- * Presentation controller.
- *
+ * Presentation controller. (admin)
  */
 class PresentationAdminController extends Controller
 {
 
     /**
      * Lists all Presentation entities.
-     *
+     * @param $event_id Event ID
      */
     public function indexAction($event_id)
     {
@@ -36,7 +41,8 @@ class PresentationAdminController extends Controller
     }
     /**
      * Creates a new Presentation entity.
-     *
+     * @param $request Request
+     * @param $event_id Event ID
      */
     public function createAction(Request $request, $event_id)
     {
@@ -63,9 +69,7 @@ class PresentationAdminController extends Controller
 
     /**
      * Creates a form to create a Presentation entity.
-     *
      * @param Presentation $entity The entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Presentation $entity)
@@ -82,6 +86,7 @@ class PresentationAdminController extends Controller
 
     /**
      * Displays a form to create a new Presentation entity.
+     * @param @event_id Event ID
      */
     public function newAction($event_id)
     {
@@ -101,7 +106,8 @@ class PresentationAdminController extends Controller
 
     /**
      * Displays a form to edit an existing Presentation entity.
-     *
+     * @param Presenatation Id $id
+     * @return mixed
      */
     public function editAction($id)
     {
@@ -126,9 +132,7 @@ class PresentationAdminController extends Controller
 
     /**
     * Creates a form to edit a Presentation entity.
-    *
     * @param Presentation $entity The entity
-    *
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(Presentation $entity)
@@ -145,7 +149,6 @@ class PresentationAdminController extends Controller
     }
     /**
      * Edits an existing Presentation entity.
-     *
      */
     public function updateAction(Request $request, $id)
     {
@@ -175,6 +178,7 @@ class PresentationAdminController extends Controller
     /**
      * Creates form to create enable/disable form for presentation
      * so users can vote on it.
+     * @param Presentation $entity The entity 
      */
     public function createEnableDisableForm(Presentation $entity){
         $form = $this->createFormBuilder();
@@ -190,6 +194,8 @@ class PresentationAdminController extends Controller
 
     /**
      * Action that enabled and disables presentation.
+     * @param Request $param
+     * @param Presenatation Id $id
      */
     public function enableDisableAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
@@ -214,6 +220,10 @@ class PresentationAdminController extends Controller
 
     }
 
+    /**
+     * Deletes an existing Presentation entity
+     * @param Presenatation Id $id
+     */
     public function deleteAction($id){
         $em = $this->getDoctrine()->getManager();
 

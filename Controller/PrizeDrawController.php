@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Netgen LiveVoting bundle.
+ *
+ * https://github.com/netgen/LiveVotingBundle
+ * 
+ */
+
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,10 +16,19 @@ use Netgen\LiveVotingBundle\Entity\User;
 use Netgen\LiveVotingBundle\Entity\Vote;
 use Netgen\LiveVotingBundle\Entity\Event;
 
+/**
+ * PrizeDrawController controller. (admin)
+ *
+ */
+class PrizeDrawController extends Controller 
+{
 
-class PrizeDrawController extends Controller {
-
-	public function indexAction(){
+    /**
+     * Lists all Events which can be included in draw
+     * @return mixed
+     */
+	public function indexAction()
+	{
 
 		$events = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->findAll();
 
@@ -23,20 +39,26 @@ class PrizeDrawController extends Controller {
         );
 	}
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
 	public function generatePoolAction(Request $request){
 
 		$allVotes = $this->getDoctrine()->getRepository('LiveVotingBundle:Vote')->findAll();
 		$votePool = array();
 
-		if(!empty($_POST['check_list'])){
+		if(!empty($_POST['check_list']))
+		{
 
-			foreach($_POST['check_list'] as $voteId) {
+			foreach($_POST['check_list'] as $voteId) 
+			{
 				
-				for($i = 0; $i < count($allVotes); $i++) {
+				for($i = 0; $i < count($allVotes); $i++) 
+				{
 
-					if ( $allVotes[$i]->getPresentation()->getEvent()->getId() == $voteId ){
-
-						//TODO: Kada budu valjani emailovi u bazi promjeniti u getEmail(). Trenutno su svi string(0)
+					if ( $allVotes[$i]->getPresentation()->getEvent()->getId() == $voteId )
+					{
 						$votePool[] = $allVotes[$i]->getUser()->getEmail();
 					}
 				}	

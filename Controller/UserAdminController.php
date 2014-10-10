@@ -10,14 +10,12 @@ use Netgen\LiveVotingBundle\Form\UserType;
 
 /**
  * Event controller.
- *
  */
 class UserAdminController extends Controller
 {
 
     /**
      * Lists all User entities.
-     * °Radi°
      */
     public function indexAction()
     {
@@ -33,7 +31,7 @@ class UserAdminController extends Controller
 
     /**
      * Creates a new User entity.
-     * °Radi°
+     * @param Request $request
      */
     public function createAction(Request $request)
     {
@@ -61,9 +59,7 @@ class UserAdminController extends Controller
 
     /**
      * Creates a form to create a User entity.
-     * °Radi°
      * @param User $entity The entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(User $entity)
@@ -80,7 +76,6 @@ class UserAdminController extends Controller
 
     /**
      * Displays a form to create a new User entity.
-     * °Radi°
      */
     public function newAction()
     {
@@ -96,7 +91,6 @@ class UserAdminController extends Controller
 
     /**
      * Displays a form to edit an existing User entity.
-     *
      */
     public function editAction($id)
     {
@@ -118,9 +112,7 @@ class UserAdminController extends Controller
 
     /**
     * Creates a form to edit a User entity.
-    *
     * @param User $entity The entity
-    *
     * @return \Symfony\Component\Form\Form The form
     */
     private function createEditForm(User $entity)
@@ -135,7 +127,6 @@ class UserAdminController extends Controller
     }
     /**
      * Edits an existing User entity.
-     *
      */
     public function updateAction(Request $request, $id)
     {
@@ -164,7 +155,7 @@ class UserAdminController extends Controller
     }
 
     public function enableDisableAction(){
-        // DELETE ME (MEJBI)
+        // unfinished
     }
 
     // TODO: Implement later if neede1d

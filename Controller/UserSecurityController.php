@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Netgen LiveVoting bundle.
+ *
+ * https://github.com/netgen/LiveVotingBundle
+ *
+ */
+
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -8,6 +15,11 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserSecurityController extends Controller
 {
+    /**
+     * User login
+     * @param Request $request
+     * @return mixed
+     */
     public function loginAction(Request $request)
     {
         $session = $request->getSession();
