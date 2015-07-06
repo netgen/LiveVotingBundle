@@ -4,7 +4,7 @@
  * This file is part of the Netgen LiveVoting bundle.
  *
  * https://github.com/netgen/LiveVotingBundle
- * 
+ *
  */
 
 namespace Netgen\LiveVotingBundle\Controller;
@@ -86,7 +86,7 @@ class PresentationAdminController extends Controller
 
     /**
      * Displays a form to create a new Presentation entity.
-     * @param @event_id Event ID
+     * @param $event_id Event ID
      */
     public function newAction($event_id)
     {
@@ -178,7 +178,7 @@ class PresentationAdminController extends Controller
     /**
      * Creates form to create enable/disable form for presentation
      * so users can vote on it.
-     * @param Presentation $entity The entity 
+     * @param Presentation $entity The entity
      */
     public function createEnableDisableForm(Presentation $entity){
         $form = $this->createFormBuilder();
