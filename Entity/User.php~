@@ -353,7 +353,4 @@ class User implements UserInterface
     {
         return $this->registrations;
     }
-    public function __toString(){
-        return $this->email;
-    }
 }

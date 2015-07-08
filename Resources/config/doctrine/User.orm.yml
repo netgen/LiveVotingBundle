@@ -22,8 +22,27 @@ Netgen\LiveVotingBundle\Entity\User:
         enabled:
             type: boolean
             default: true
+        gender:
+            type: string
+            length: '10'
+        country:
+            type: string
+            length: '128'
+        city:
+            type: string
+            length: '128'
+        tshirt:
+            type: string
+            length: '128'
+        foodPreference:
+            type: string
+            length: '128'
 
-#    oneToMany:
+    oneToMany:
+        registrations:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Registration
+            mappedBy: user
+
 #        vote:
 #            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
 #            mappedBy: user_id

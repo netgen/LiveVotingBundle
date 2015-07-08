@@ -34,3 +34,17 @@ Netgen\LiveVotingBundle\Entity\Event:
         votes:
             targetEntity: Netgen\LiveVotingBundle\Entity\Vote
             mappedBy: event
+        events:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Event
+            mappedBy: event
+        registrations:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Registration
+            mappedBy: event
+    manyToOne:
+        event:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Event
+            inversedBy: events
+            joinColumn:
+                name: master_id
+                referencedColumnId: id
+                onDelete: CASCADE

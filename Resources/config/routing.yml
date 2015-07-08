@@ -79,6 +79,10 @@ LiveVotingBundle_admin_question:
     resource: "@LiveVotingBundle/Resources/config/routing/question.yml"
     prefix: /admin/question
 
+LiveVotingBundle_admin_registration:
+    resource: "@LiveVotingBundle/Resources/config/routing/registration.yml"
+    prefix: /admin/registration
+
 #New page for user manipulation#
 LiveVotingBundle_admin_user:
     resource: "@LiveVotingBundle/Resources/config/routing/user.yml"

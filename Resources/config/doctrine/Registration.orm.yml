@@ -1,0 +1,31 @@
+Netgen\LiveVotingBundle\Entity\Registration:
+    type: entity
+    table: registration
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        devLevel:
+            type: string
+            length: '128'
+        arrivalTime:
+            type: datetime
+        departureTime:
+            type: datetime
+    manyToOne:
+        event:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Event
+            inversedBy: registrations
+            joinColumn: registration_id
+            referencedId: id
+            onDelete: CASCADE
+        user:
+            targetEntity: Netgen\LiveVotingBundle\Entity\User
+            inversedBy: registrations
+            joinColumn: registration_id
+            referencedId: id
+            onDelete: CASCADE
+    lifecycleCallbacks: {  }

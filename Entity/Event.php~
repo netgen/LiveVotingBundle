@@ -4,7 +4,6 @@ namespace Netgen\LiveVotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Event
@@ -341,10 +340,6 @@ class Event
      * @var \Netgen\LiveVotingBundle\Entity\Event
      */
     private $event;
-
-    public function __constructor(){
-        $this->events = new ArrayCollection();
-    }
 
 
     /**
