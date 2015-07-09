@@ -23,7 +23,7 @@ class UserDataType extends AbstractType
             ->add('country', 'text', array('required' => false))
             ->add('city', 'text', array('required' => false))
             ->add('tshirt', 'choice', array(
-                'choices' => array('Female S','Female M','Female L','Male S','Male M','Male L','Male XL','Male XXL','Male XXXL'),
+                'choices' => array('Female S','Female M','Female L','Female XL', 'Male S','Male M','Male L','Male XL','Male XXL','Male XXXL'),
                 'required' => false,
                 'label' => 'T-shirt'
             ))
