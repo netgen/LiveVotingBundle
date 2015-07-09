@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Registration</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Devlevel</th>
+                <td>{{ entity.devLevel }}</td>
+            </tr>
+            <tr>
+                <th>Arrivaltime</th>
+                <td>{{ entity.arrivalTime|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Departuretime</th>
+                <td>{{ entity.departureTime|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('registration') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('registration_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
