@@ -23,4 +23,4 @@ services:
           class: %live_voting_question.result.class%
           arguments: [@doctrine.orm.entity_manager, event_id]
     live_voting_question_yesNo.handleRequest:
-          class: %live_voting_question.handleRequest.class%       
+          class: %live_voting_question.handleRequest.class%
