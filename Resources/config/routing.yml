@@ -90,21 +90,22 @@ LiveVotingBundle_admin_user:
 
 #USER LOGIN ROUTING#
 user_login:
-    path:    /user/login
-    defaults: { _controller: LiveVotingBundle:UserSecurity:login }
+    path:    /login
+    defaults: { _controller: LiveVotingBundle:Security:userLogin }
 
 user_login_check:
-    path:    /user/login_check
+    path:    /login_check
 
+user_logout:
+    path:    /logout
+
+#ADMIN LOGIN ROUTING#
 admin_login:
-    path:   /admin/login
-    defaults: {_controller : LiveVotingBundle:Security:login}
+    path:    /admin/login
+    defaults: { _controller: LiveVotingBundle:Security:adminLogin }
 
 admin_login_check:
-   path: /admin/login_check
-
-logout:
-    path:    user/logout
+    path:    /admin/login_check
 
 admin_logout:
     path:    /admin/logout

@@ -55,4 +55,3 @@ Netgen\LiveVotingBundle\Entity\User:
 #        vote:
 #            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
 #            mappedBy: user_id
-
