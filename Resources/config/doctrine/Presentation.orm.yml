@@ -44,3 +44,10 @@ Netgen\LiveVotingBundle\Entity\Presentation:
                 name: presentation_id
                 referencedColumnId: id
                 onDelete: CASCADE
+        user:
+            targetEntity: Netgen\LiveVotingBundle\Entity\User
+            inversedBy: presentations
+            joinColumn:
+                name: presentation_id
+                referencedColumnId: id
+                onDelete: CASCADE

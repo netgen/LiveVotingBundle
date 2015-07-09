@@ -48,6 +48,9 @@ Netgen\LiveVotingBundle\Entity\User:
         registrations:
             targetEntity: Netgen\LiveVotingBundle\Entity\Registration
             mappedBy: user
+        presentations:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
+            mappedBy: user
 
 #        vote:
 #            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
