@@ -312,6 +312,7 @@ class User implements UserInterface
      * @var \Doctrine\Common\Collections\Collection
      */
     private $registrations;
+    private $presentations;
 
     /**
      * Constructor
@@ -319,6 +320,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->registrations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->presentations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -353,7 +355,26 @@ class User implements UserInterface
     {
         return $this->registrations;
     }
-    public function __toString(){
+
+    public function addPresentation (\Netgen\LiveVotingBundle\Entity\Presentation $presentations)
+    {
+        $this->presentations[] = $presentations;
+
+        return $this;
+    }
+
+    public function removePresentation (\Netgen\LiveVotinBundle\Entity\Presentation $presentations)
+    {
+        $this->presentations->removeElement($presentations);
+    }
+
+    public function getPresentations()
+    {
+        return $this->presentations;
+    }
+
+    public function __toString()
+    {
         return $this->email;
     }
 }

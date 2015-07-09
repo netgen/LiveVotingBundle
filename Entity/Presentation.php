@@ -44,7 +44,7 @@ class Presentation
      * @var \Netgen\LiveVotingBundle\Entity\Event
      */
     private $event;
-
+    private $user;
 
     private $country = '';
     private $image = '';
@@ -214,6 +214,18 @@ class Presentation
     public function getEvent()
     {
         return $this->event;
+    }
+
+    public function setUser (\Netgen\LiveVotingBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
