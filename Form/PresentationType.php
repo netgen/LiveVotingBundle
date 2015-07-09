@@ -24,6 +24,8 @@ class PresentationType extends AbstractType
                 'required' => false
             ))
             ->add('user')
+            ->add('begin')
+            ->add('end')
             //->add('event', 'entity', array('class'=>'Netgen\LiveVotingBundle\Entity\Event', 'disabled'=>true))
         ;
     }

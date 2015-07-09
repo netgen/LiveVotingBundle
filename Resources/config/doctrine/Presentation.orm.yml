@@ -30,6 +30,10 @@ Netgen\LiveVotingBundle\Entity\Presentation:
             type: string
             length: 255
             nullable: true
+        begin:
+            type: datetime
+        end:
+            type: datetime
 
     oneToMany:
         votes:

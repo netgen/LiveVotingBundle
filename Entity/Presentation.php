@@ -264,6 +264,32 @@ class Presentation
         return $this->image;
     }
 
+    private $begin;
+    private $end;
+
+    public function setBegin($begin)
+    {
+        $this->begin = $begin;
+
+        return $this;
+    }
+
+    public function getBegin()
+    {
+        return $this->begin;
+    }
+
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    public function getEnd()
+    {
+        return $this->end;
+    }
 
     public function getAbsolutePath()
     {
