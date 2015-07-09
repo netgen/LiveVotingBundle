@@ -19,13 +19,13 @@ Netgen\LiveVotingBundle\Entity\Registration:
         event:
             targetEntity: Netgen\LiveVotingBundle\Entity\Event
             inversedBy: registrations
-            joinColumn: registration_id
+            joinColumn: event_id
             referencedId: id
             onDelete: CASCADE
         user:
             targetEntity: Netgen\LiveVotingBundle\Entity\User
             inversedBy: registrations
-            joinColumn: registration_id
+            joinColumn: user_id
             referencedId: id
             onDelete: CASCADE
     lifecycleCallbacks: {  }

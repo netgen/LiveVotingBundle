@@ -15,6 +15,7 @@ Netgen\LiveVotingBundle\Entity\Answer:
             joinColumn:
                 name: user_id
                 referencedColumnId: id
+                odDelete: CASCADE
 
         question:
             targetEntity: Netgen\LiveVotingBundle\Entity\Question

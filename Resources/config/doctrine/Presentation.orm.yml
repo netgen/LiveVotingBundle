@@ -43,11 +43,9 @@ Netgen\LiveVotingBundle\Entity\Presentation:
             joinColumn:
                 name: event_id
                 referencedColumnId: id
-                onDelete: CASCADE
         user:
             targetEntity: Netgen\LiveVotingBundle\Entity\User
             inversedBy: presentations
             joinColumn:
                 name: user_id
                 referencedColumnId: id
-                onDelete: CASCADE

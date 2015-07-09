@@ -329,7 +329,7 @@ class User implements UserInterface
      * @param \Netgen\LiveVotinBundle\Entity\Registration $registrations
      * @return User
      */
-    public function addRegistration(\Netgen\LiveVotinBundle\Entity\Registration $registrations)
+    public function addRegistration(\Netgen\LiveVotingBundle\Entity\Registration $registrations)
     {
         $this->registrations[] = $registrations;
 
@@ -341,7 +341,7 @@ class User implements UserInterface
      *
      * @param \Netgen\LiveVotinBundle\Entity\Registration $registrations
      */
-    public function removeRegistration(\Netgen\LiveVotinBundle\Entity\Registration $registrations)
+    public function removeRegistration(\Netgen\LiveVotingBundle\Entity\Registration $registrations)
     {
         $this->registrations->removeElement($registrations);
     }
@@ -363,7 +363,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removePresentation (\Netgen\LiveVotinBundle\Entity\Presentation $presentations)
+    public function removePresentation (\Netgen\LiveVotingBundle\Entity\Presentation $presentations)
     {
         $this->presentations->removeElement($presentations);
     }
