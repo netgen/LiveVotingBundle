@@ -9,6 +9,51 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
+    <style type="text/css">
+  @keyframes fadeIn{
+    0% {background-color: white;opacity: 0;}
+    50% {background-color: green;opacity: 0.5;}
+    100% {background-color: white;opacity: 1;}
+  }
+
+  @-webkit-keyframes fadeIn{
+    0% {background-color: white;opacity: 0;}
+    50% {background-color: green;opacity: 0.5;}
+    100% {background-color: white;opacity: 1;}
+  }
+
+  @keyframes fadeOut{
+    0% {background-color: white;opacity: 1;}
+    50% {background-color: red;opacity: 0.5;}
+    100% {background-color: white;opacity: 0;}
+  }
+
+  @-webkit-keyframes fadeOut{
+    0% {background-color: white;opacity: 1;}
+    50% {background-color: red;opacity: 0.5;}
+    100% {background-color: white;opacity: 0;}
+  }
+  .my-repeat-animation{
+    margin: 10px;
+    background-color: white;
+  }
+  .my-repeat-animation.ng-enter.ng-enter-active,
+  .my-repeat-animation.ng-leave {
+      -webkit-animation: fadeIn 3s linear;
+      -moz-animation:    fadeIn 3s linear;
+      -o-animation:      fadeIn 3s linear;
+      animation:         fadeIn 3s linear;
+  }
+
+  /* Remove animation */
+  .my-repeat-animation.ng-leave.ng-leave-active,
+  .my-repeat-animation.ng-enter {
+      -webkit-animation: fadeOut 3s linear;
+      -moz-animation:    fadeOut 3s linear;
+      -o-animation:      fadeOut 3s linear;
+      animation:         fadeOut 3s linear;
+  }
+</style>
 </head>
 <body>
 
@@ -33,7 +78,7 @@
 </div>
 
 <div class="container" ng-app="myApp" ng-controller="MyCtrl">
-  <div class="row" ng-repeat="div in divs">
+  <div class="row my-repeat-animation" ng-repeat="div in divs">
     {{ '<div>
           <p>{{div.presenterName}} {{div.presenterSurname}}</p>
           <p>{{div.presentationName}}</p>
@@ -64,7 +109,6 @@
     </div>
 </div>
 
-</body>
 <script type="text/javascript">
     var requestData, animation_data, chart;
     function cmp(v1, v2){
@@ -172,7 +216,7 @@
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-animate.min.js"></script>
 
 <script type="text/javascript">
-  var myApp = angular.module('myApp', []);
+  var myApp = angular.module('myApp', ['ngAnimate']);
   myApp.controller('MyCtrl', function($scope, $http, $interval){
     $scope.divs;
       var ajaxFunction = function(){
@@ -212,8 +256,8 @@
                       if(indexNumbers[j] === $scope.divs[i].id){
                         indexNumbers.splice(j,1);
                         $scope.divs.splice(i,1);
-                        j--;
                         i--;
+                        j=0;
                       }
                     }
                 }
@@ -256,17 +300,7 @@
         $interval(ajaxFunction, 5000);
       });
 
-
-
-  /*angular.element(document).ready(function () {
-    alert($scope.divs);
-  });*/
-
-    /*$scope.divs.forEach(function(value){
-      alert();
-    })*/
-
-
   });
 </script>
+</body>
 </html>
