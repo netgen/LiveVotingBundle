@@ -1,9 +1,6 @@
 root:
     path: /
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /user/
-        permanent: true
+    defaults: {_controller: LiveVotingBundle:Dashboard:index}
 
 user_landing:
     path:    /user/
@@ -109,3 +106,13 @@ admin_login_check:
 
 admin_logout:
     path:    /admin/logout
+
+# Dashboard #
+
+dashboard_presentations:
+  path: /dashboard/presentations
+  defaults: {_controller: LiveVotingBundle:Dashboard:getPresentations}
+
+dashboard_live_schedule:
+  path: /dashboard/liveschedule
+  defaults: {_controller: LiveVotingBundle:Dashboard:getLiveSchedule}
