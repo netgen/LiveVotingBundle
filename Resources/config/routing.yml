@@ -9,6 +9,20 @@ user_landing:
     path:    /user/
     defaults: {_controller: LiveVotingBundle:Index:landing}
 
+user_presentations:
+    path:    /user/presentations
+    defaults: {_controller: LiveVotingBundle:PresentationUser:index}
+    requirements:
+        user_id: \d+
+
+user_presentation_edit:
+    path:    /user/presentations/{id}/edit
+    defaults: { _controller: "LiveVotingBundle:PresentationUser:edit" }
+
+user_presentation_update:
+    path:    /user/presentations/{id}/update
+    defaults: { _controller: "LiveVotingBundle:PresentationUser:edit" }
+
 event:
     path:    /user/event/{event_id}
     defaults: {_controller: LiveVotingBundle:Event:index, event_id: -1}
@@ -87,6 +101,11 @@ LiveVotingBundle_admin_registration:
 LiveVotingBundle_admin_user:
     resource: "@LiveVotingBundle/Resources/config/routing/user.yml"
     prefix: /admin/user
+
+#User presentations
+LiveVotingBundle_user_presentations:
+    path: /user/presentations
+    defaults: {_controller: LiveVotingBundle:PresentationUser:index}
 
 #USER LOGIN ROUTING#
 user_login:
