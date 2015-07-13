@@ -82,12 +82,15 @@ class UserController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
 
-
+        if (count($em->getRepository('LiveVotingBundle:Registration')->findByUser($this->getUser()))==0) {
+            /*throw $this->createNotFoundException('Unable to find Event registration.');*/
+            return $this->redirect($this->generateUrl('user_landing'));
+        }
         $entity = $em->getRepository('LiveVotingBundle:User')->find($user_id);
         $entity2= $em->getRepository('LiveVotingBundle:Registration')->findByUser($this->getUser())[0];
         //dump($entity2);die;
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
+            throw $this->createNotFoundException('Unable to find User entity or Registration.');
         }
 
         $userEditForm = $this->createUserEditForm($entity);
