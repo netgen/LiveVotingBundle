@@ -1,0 +1,16 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>User & Registration edit</h1>
+
+    {{ form(edit_user_form, {'attr':{'class':'form-horizontal'}}) }}
+    {{ form(edit_registration_form, {'attr':{'class':'form-horizontal'}}) }}
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('user_landing') }}">
+                Back
+            </a>
+        </li>
+    </ul>
+{% endblock %}

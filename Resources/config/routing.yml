@@ -18,7 +18,19 @@ user_presentation_edit:
 
 user_presentation_update:
     path:    /user/presentations/{id}/update
-    defaults: { _controller: "LiveVotingBundle:PresentationUser:edit" }
+    defaults: { _controller: "LiveVotingBundle:PresentationUser:update" }
+    requirements: {_method: post|put}
+
+user_edit:
+    path:    /user/edit
+    defaults: { _controller: "LiveVotingBundle:User:edit" }
+    requirements: {_method: get}
+
+user_update:
+    path:    /user/edit
+    defaults: { _controller: "LiveVotingBundle:User:update" }
+    requirements: { _method: post|put}
+
 
 event:
     path:    /user/event/{event_id}
@@ -100,9 +112,9 @@ LiveVotingBundle_admin_user:
     prefix: /admin/user
 
 #User presentations
-LiveVotingBundle_user_presentations:
-    path: /user/presentations
-    defaults: {_controller: LiveVotingBundle:PresentationUser:index}
+#LiveVotingBundle_user_presentations:
+#    path: /user/presentations
+#    defaults: {_controller: LiveVotingBundle:PresentationUser:index}
 
 #USER LOGIN ROUTING#
 user_login:
