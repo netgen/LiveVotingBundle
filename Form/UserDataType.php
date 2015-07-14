@@ -39,7 +39,7 @@ class UserDataType extends AbstractType
             ->add('foodPreference', 'choice', array(
                 'choices' => array ('Everything'=>'Everything',
                     'No seafood'=>'No seafood',
-                    'Vegeterian'=>'Vegeterian',
+                    'Vegetarian'=>'Vegetarian',
                     'Gluten free'=>'Gluten free',
                     'Lactose free'=>'Lactose free'),
                 'required' => false
