@@ -143,9 +143,9 @@ class UserAdminController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) 
+        if ($editForm->isValid())
         {
-            $entity->setEmail($editForm->get('email')->getData());
+            $entity->setEmail($entity->getEmail());
             $em->flush();
             return $this->redirect($this->generateUrl('admin_user'));
         }
