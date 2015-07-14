@@ -9,14 +9,14 @@
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Netgen\LiveVotingBundle\Entity\User;
 use Netgen\LiveVotingBundle\Entity\Registration;
-use Netgen\LiveVotingBundle\Form\UserType;
 use Netgen\LiveVotingBundle\Form\UserDataType;
 use Netgen\LiveVotingBundle\Form\RegistrationUserType;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller {
 
@@ -78,6 +78,11 @@ class UserController extends Controller {
 
     public function EditAction()
     {
+        $cookie = $this->getRequest()->cookies->get('userEditEnabled');
+
+        if($cookie !== '1'){
+          return new Response('You have no permission to edit data.');
+        }
 
         $user_id =$this->getUser()->getId();
 
@@ -141,25 +146,21 @@ class UserController extends Controller {
         ));
     }
 
-    public function updateRegAction(Request $request) {
+    public function activateEditAction($activateHash){
+      if($activateHash === null){
+        return $this->redirect($this->generateUrl('root'));
+      }
+      $user_email = $this->getUser()->getEmail();
 
-        $entity2= $em->getRepository('LiveVotingBundle:Registration')->findByUser($this->getUser())[0];
+      $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
 
-        $editRegistrationForm = $this->createRegistrationEditForm($entity2);
-        $editRegistrationForm->handleRequest($request);
-
-        if ($editRegistrationForm->isValid()){
-            $entity2->setDevLevel($editRegistrationForm->get('devlevel')->getData());
-            $entity2->setArrivalTime($editRegistrationForm->get('arrivaltime')->getData());
-            $entity2->setDepartureTime($editRegistrationForm->get('departuretime')->getData());
-            $em->flush();
-            return $this->redirect($this->generateUrl('user_edit'));
-        }
-        return $this->render('LiveVotingBundle:User:useredit.html.twig', array(
-            'entity'      => $entity,
-            'edit_user_form'   => $editForm->createView(),
-            'edit_registration_form' => $editRegistrationForm->createView()
-        ));
+      if($emailHash === $activateHash){
+          $return = $this->redirect($this->generateUrl('user_edit'));
+          $return->headers->setCookie(new Cookie('userEditEnabled', '1', time()+60*60*24*30));
+          return $return;
+      }else{
+        return new Response('Activation link is invalid.');
+      }
     }
 
 }
