@@ -12,7 +12,145 @@ body {
     margin-bottom: 100px;
     padding-bottom: 100px;
     color:#206CA8;
+    background-color:#ECF0F5;
+    margin-top: 20px; 
+    font-family: 'Roboto Slab', serif;
 }
+
+/*-------
+NAVBAR 
+--------*/
+
+.navbar-logo {
+    height: 91px;
+    width: 205px;
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+}
+.navbar-fixed-top {
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+
+}
+.navbar-btn {
+    margin-right: 15px;
+}
+
+/*-------
+END OF NAVBAR 
+---------*/
+
+.panel {
+	border-bottom-left-radius: 100px;
+	border-top-left-radius: 100px;
+}
+
+.img-circle {
+	margin-top: 9px;
+	margin-left: 5px;
+	
+}
+.page-header {
+    padding-top:50px;
+}
+
+.prestitle {
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #383E4B;
+    padding-top: 5px;
+}
+.presname {
+    padding-bottom: 5px;
+}
+
+.text-left , .text-center {
+    text-align: left;
+    color: #7c7c7c;
+}
+
+.time {
+    padding-top: 30px;
+    font-size: 2em;
+    margin-left: 10px;
+}
+
+.vote, .room{
+    font-size: 14px;
+
+}
+
+@media (max-width: 768px) and (max-width: 991px) {
+    .prestitle ,
+    .presname ,
+    .time ,
+    .vote ,
+    .container2 ,
+    .imgpresenter
+     {
+        text-align: center;
+    }
+}
+
+@media (max-width: 1199px) {
+    .prestitle ,
+    .presname ,
+    .time ,
+    .vote ,
+    .container2 , 
+    .imgpresenter
+     {
+        text-align: center;
+    }
+}
+
+.btn-label {
+    position: relative;
+    left: -12px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: #f05a28;
+    border-radius: 3px 0 0 3px;
+
+}
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.btn { 
+    margin-bottom:10px; 
+    background-color: #ed6e44;
+    color: white;
+    border: none;
+    
+}
+
+.navbar-btn {
+	 margin-bottom:10px; 
+    background-color: #ed6e44;
+    color: white;
+    border: none;
+    margin-top: 25px;
+}
+
+.btn:hover {
+	background-color: #f05a28;
+	color: white;
+}
+
+
+.divider-vertical {
+
+  height: 120px;
+  border: 0;
+  border-left: 1px solid #ddd;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+/**--------------
+---------------**/
 .footer {
     position: fixed;
     bottom: 0;
@@ -21,7 +159,7 @@ body {
     background-color: #f5f5f5;
 }
 .navbar-collapse{
-    /*background: #ffffff;*/
+    background: #ffffff;*/
   	width: 100%;
 	border-bottom:1.5px solid #206CA8;
     margin-bottom: 20px;
@@ -334,7 +472,7 @@ div.container{
     border: none;
     margin: 2px;
 }
-
+/*
 @media all and (max-width: 768px){
     .media_question{ width: 100%;}    
-}
+}*/

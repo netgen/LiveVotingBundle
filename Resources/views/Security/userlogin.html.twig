@@ -6,11 +6,11 @@
         <!-- CSS -->
         <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
-
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 
     </head>
 
-    <body style="margin-top:15%;">
+  <!--  <body style="margin-top:15%;">
         <div class="container">
             <div class="form-signin">
 
@@ -37,5 +37,169 @@
 
             </div>
         </div>
-    </body>
+    </body
+
+
+<body>
+-->
+
+<!--NAVBAR-->
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-header pull-left">
+      <img src="{{ asset('bundles/livevoting/img/logo.png') }}" class="navbar-logo">
+    </div>
+    <div class="navbar-header pull-right">
+      <button type="button" class="btn btn-default navbar-btn">Sign in</button>
+    </div>
+</div>
+
+<!--END OF NAVBAR -->
+
+<!--EVENTS -->
+<div id="page-wrapper" class="container-fluid">
+
+    <div class="row heading">
+        <div class="col-lg-8">
+            <h1 class="page-header">DAY 1- Aug 26</h1>
+        </div>
+    </div>
+
+    <div class="row panels">
+        <div class="col-lg-8 col-md-6 col-sm-8">
+        <!--FIRST PANEL -->
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-lg-2 ">
+                           <!--<i class="fa fa-tasks fa-5x">-->
+                           <div class="imgpresenter"><img class="img-circle " src="{{ asset('bundles/livevoting/img/lik.png') }}" alt="Generic placeholder image" width="100" height="100"></div>
+                           <!--</i>-->
+                        </div>
+                        <div class="col-lg-7 text-left" >
+                            <div class="prestitle"><b>Getting started with the eZ Platform development</b>
+                            </div>
+                            <div class="presname">Jérôme Vieilledent & Bertrand Dunogier
+                            </div>
+                               <div class="vote"> 
+                                <button type="button" class="btn btn-labeled btn-default">
+                                <span class="btn-label">
+                                <i class="glyphicon glyphicon-stats"></i>
+                                </span>Vote</button>
+                               </div>
+                        </div>
+
+ 
+                        <div class="container2">
+                            <div class="divider-vertical">
+                                <div class="col-lg-3 time">
+                                    <div class="room">
+                                        <span class="glyphicon glyphicon-blackboard" aria-hidden="true">
+                                        </span><b>Elephant</b></div>
+                                        <div><b>9:00</b>am</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!--2ND PANEL -->
+             <div class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-lg-2 ">
+                           <!--<i class="fa fa-tasks fa-5x">-->
+                           <div class="imgpresenter"><img class="img-circle " src="{{ asset('bundles/livevoting/img/lik.png') }}" alt="Generic placeholder image" width="100" height="100"></div>
+                           <!--</i>-->
+                        </div>
+                        <div class="col-lg-7 text-left" >
+                            <div class="prestitle"><b>Getting started with the eZ Platform development</b>
+                            </div>
+                            <div class="presname">Jérôme Vieilledent & Bertrand Dunogier
+                            </div>
+                               <div class="vote"> 
+                                <button type="button" class="btn btn-labeled btn-default">
+                                <span class="btn-label">
+                                <i class="glyphicon glyphicon-stats"></i>
+                                </span>Vote</button>
+                               </div>
+                        </div>
+
+ 
+                        <div class="container2">
+                                <div class="divider-vertical">
+                                <div class="col-lg-3 time">
+
+
+                                    <div class="room">
+                                    <span class="glyphicon glyphicon-blackboard" aria-hidden="true">
+                                    </span><b>Elephant</b></div>
+                                    <div><b>9:00</b>am</div>
+                                    </div>
+
+                                </div>
+                             </div>
+                        </div>
+                     </div>
+                </div>
+<!--3RD PANEL -->
+ <div class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-lg-2">
+                           <!--<i class="fa fa-tasks fa-5x">-->
+                           <img class="img-circle center-block" src="{{ asset('bundles/livevoting/img/lik.png') }}" alt="Generic placeholder image" width="100" height="100">
+                           <!--</i>-->
+                        </div>
+                        <div class="col-lg-7 text-left" >
+                            <div class="prestitle"><b>Getting started with the eZ Platform development</b>
+                            </div>
+                            <div class="presname">Jérôme Vieilledent & Bertrand Dunogier
+                            </div>
+                                <div class="vote"> 
+                                <button type="button" class="btn btn-labeled btn-default">
+                                <span class="btn-label">
+                                <i class="glyphicon glyphicon-stats"></i>
+                                </span>Vote</button>
+                               </div>
+                        </div>
+
+ 
+                        <div class="container2">
+                            <div class="divider-vertical">
+                                <div class="col-lg-3 time">
+
+                                    <div class="room">Room:Elephant</div>
+                                        <div><b>9:00</b>am</div>
+                                     </div>
+                                </div>
+                             </div>
+                        </div>
+                     </div>
+                </div>
+        </div>
+
+        <!--END OF EVENTS -->
+        <!--TWITTER -->
+        <div class=" col-lg-4 col-md-6  twitter ">
+<a class="twitter-timeline" href="https://twitter.com/hashtag/php" data-widget-id="619436153545039872">#php Tweets</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+    </div>
+</div>
+<!--END OF TWITTER -->
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+</body>
 </html>
