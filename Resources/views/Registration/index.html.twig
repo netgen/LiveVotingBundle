@@ -1,0 +1,48 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Registration list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <!--<th>Id</th>-->
+                <th>User email</th>
+                <th>Registered for</th>
+                <th>Developer level</th>
+                <th>Arrivaltime</th>
+                <th>Departuretime</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <!--<td><a href="{{ path('registration_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>-->
+                <td>{{ entity.getUser.getEmail }}</td>
+                <td>{{ entity.getEvent.getName }}</td>
+                <td>{{ entity.devLevel }}</td>
+                <td>{% if entity.arrivalTime %}{{ entity.arrivalTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.departureTime %}{{ entity.departureTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <!--<li>
+                        <a href="{{ path('registration_show', { 'id': entity.id }) }}">show</a>
+                    </li>-->
+                    <a class='btn btn-primary' href="{{ path('registration_edit', { 'id': entity.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul class="list-inline">
+        <li>
+            <a class='btn btn-primary' href="{{ path('admin_user') }}">
+                Back to users
+            </a>
+            <a class='btn btn-primary' href="{{ path('registration_new') }}">
+                <span class="glyphicon glyphicon-plus"></span> Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

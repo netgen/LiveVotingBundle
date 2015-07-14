@@ -34,6 +34,7 @@ class EventType extends AbstractType
                 'required' => false,
                 'attr' => array('class'=> 'filestyle')
             ))
+            ->add('event')
             //->add('stateValue', 'text', array('label'=>'Seconds until voting ends'))
         ;
 

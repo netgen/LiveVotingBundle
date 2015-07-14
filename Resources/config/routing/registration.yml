@@ -1,0 +1,30 @@
+registration:
+    path:     /
+    defaults: { _controller: "LiveVotingBundle:Registration:index" }
+
+registration_show:
+    path:     /{id}/show
+    defaults: { _controller: "LiveVotingBundle:Registration:show" }
+
+registration_new:
+    path:     /new
+    defaults: { _controller: "LiveVotingBundle:Registration:new" }
+
+registration_create:
+    path:     /create
+    defaults: { _controller: "LiveVotingBundle:Registration:create" }
+    requirements: { _method: post }
+
+registration_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "LiveVotingBundle:Registration:edit" }
+
+registration_update:
+    path:     /{id}/update
+    defaults: { _controller: "LiveVotingBundle:Registration:update" }
+    requirements: { _method: post|put }
+
+registration_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "LiveVotingBundle:Registration:delete" }
+    requirements: { _method: post|delete }

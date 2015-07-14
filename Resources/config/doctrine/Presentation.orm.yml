@@ -30,6 +30,10 @@ Netgen\LiveVotingBundle\Entity\Presentation:
             type: string
             length: 255
             nullable: true
+        begin:
+            type: datetime
+        end:
+            type: datetime
 
     oneToMany:
         votes:
@@ -41,6 +45,11 @@ Netgen\LiveVotingBundle\Entity\Presentation:
             targetEntity: Netgen\LiveVotingBundle\Entity\Event
             inversedBy: presentations
             joinColumn:
-                name: presentation_id
+                name: event_id
                 referencedColumnId: id
-                onDelete: CASCADE
+        user:
+            targetEntity: Netgen\LiveVotingBundle\Entity\User
+            inversedBy: presentations
+            joinColumn:
+                name: user_id
+                referencedColumnId: id

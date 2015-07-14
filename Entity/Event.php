@@ -4,6 +4,7 @@ namespace Netgen\LiveVotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Event
@@ -331,4 +332,113 @@ class Event
         // set the path property to the filename where you've saved the file
         $this->image = $new_name;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $events;
+
+    /**
+     * @var \Netgen\LiveVotingBundle\Entity\Event
+     */
+    private $event;
+
+    public function __constructor(){
+        $this->events = new ArrayCollection();
+    }
+
+
+    /**
+     * Add events
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Event $events
+     * @return Event
+     */
+    public function addEvent(\Netgen\LiveVotingBundle\Entity\Event $events)
+    {
+        $this->events[] = $events;
+
+        return $this;
+    }
+
+    /**
+     * Remove events
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Event $events
+     */
+    public function removeEvent(\Netgen\LiveVotingBundle\Entity\Event $events)
+    {
+        $this->events->removeElement($events);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * Set event
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Event $event
+     * @return Event
+     */
+    public function setEvent(\Netgen\LiveVotingBundle\Entity\Event $event = null)
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * Get event
+     *
+     * @return \Netgen\LiveVotingBundle\Entity\Event 
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $registrations;
+
+
+    /**
+     * Add registrations
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Registration $registrations
+     * @return Event
+     */
+    public function addRegistration(\Netgen\LiveVotingBundle\Entity\Registration $registrations)
+    {
+        $this->registrations[] = $registrations;
+
+        return $this;
+    }
+
+    /**
+     * Remove registrations
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Registration $registrations
+     */
+    public function removeRegistration(\Netgen\LiveVotingBundle\Entity\Registration $registrations)
+    {
+        $this->registrations->removeElement($registrations);
+    }
+
+    /**
+     * Get registrations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRegistrations()
+    {
+        return $this->registrations;
+    }
+
 }

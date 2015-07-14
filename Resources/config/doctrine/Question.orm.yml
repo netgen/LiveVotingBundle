@@ -23,6 +23,6 @@ Netgen\LiveVotingBundle\Entity\Question:
             targetEntity: Netgen\LiveVotingBundle\Entity\Event
             inversedBy: questions
             joinColumn:
-                name: question_id
+                name: event_id
                 referencedColumnId: id
                 onDelete: CASCADE

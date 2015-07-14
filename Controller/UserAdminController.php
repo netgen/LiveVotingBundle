@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Netgen\LiveVotingBundle\Entity\User;
 use Netgen\LiveVotingBundle\Form\UserType;
+use Netgen\LiveVotingBundle\Form\UserDataType;
+
 
 /**
  * Event controller.
@@ -117,7 +119,7 @@ class UserAdminController extends Controller
     */
     private function createEditForm(User $entity)
     {
-        $form = $this->createForm(new UserType(), $entity, array(
+        $form = $this->createForm(new UserDataType(), $entity, array(
             'action' => $this->generateUrl('admin_user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -141,9 +143,9 @@ class UserAdminController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) 
+        if ($editForm->isValid())
         {
-            $entity->setEmail($editForm->get('email')->getData());
+            $entity->setEmail($entity->getEmail());
             $em->flush();
             return $this->redirect($this->generateUrl('admin_user'));
         }

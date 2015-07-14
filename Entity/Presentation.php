@@ -44,7 +44,7 @@ class Presentation
      * @var \Netgen\LiveVotingBundle\Entity\Event
      */
     private $event;
-
+    private $user;
 
     private $country = '';
     private $image = '';
@@ -215,6 +215,18 @@ class Presentation
     {
         return $this->event;
     }
+
+    public function setUser (\Netgen\LiveVotingBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -252,6 +264,32 @@ class Presentation
         return $this->image;
     }
 
+    private $begin;
+    private $end;
+
+    public function setBegin($begin)
+    {
+        $this->begin = $begin;
+
+        return $this;
+    }
+
+    public function getBegin()
+    {
+        return $this->begin;
+    }
+
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    public function getEnd()
+    {
+        return $this->end;
+    }
 
     public function getAbsolutePath()
     {

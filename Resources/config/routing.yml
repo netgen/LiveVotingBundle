@@ -1,13 +1,43 @@
 root:
     path: /
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /user/
-        permanent: true
+    defaults: {_controller: LiveVotingBundle:Dashboard:index}
 
 user_landing:
     path:    /user/
     defaults: {_controller: LiveVotingBundle:Index:landing}
+
+user_presentations:
+    path:    /user/presentations
+    defaults: {_controller: LiveVotingBundle:PresentationUser:index}
+    requirements:
+        user_id: \d+
+
+user_presentation_edit:
+    path:    /user/presentations/{id}/edit
+    defaults: { _controller: "LiveVotingBundle:PresentationUser:edit" }
+
+user_presentation_update:
+    path:    /user/presentations/{id}/update
+    defaults: { _controller: "LiveVotingBundle:PresentationUser:update" }
+    requirements: {_method: post|put}
+
+user_edit:
+    path:    /user/edit
+    defaults: { _controller: "LiveVotingBundle:User:edit" }
+    requirements: {_method: get}
+
+user_update:
+    path:    /user/edit
+    defaults: { _controller: "LiveVotingBundle:User:update" }
+    requirements: { _method: post|put}
+
+csv_export:
+    path:    /admin/export
+    defaults: { _controller: "LiveVotingBundle:Export:generateCsv" }
+
+user_activate_edit:
+    path: /user/activate/{activateHash}
+    defaults: {_controller: "LiveVotingBundle:User:activateEdit", activateHash: null}
 
 event:
     path:    /user/event/{event_id}
@@ -79,28 +109,48 @@ LiveVotingBundle_admin_question:
     resource: "@LiveVotingBundle/Resources/config/routing/question.yml"
     prefix: /admin/question
 
+LiveVotingBundle_admin_registration:
+    resource: "@LiveVotingBundle/Resources/config/routing/registration.yml"
+    prefix: /admin/registration
+
 #New page for user manipulation#
 LiveVotingBundle_admin_user:
     resource: "@LiveVotingBundle/Resources/config/routing/user.yml"
     prefix: /admin/user
 
+#User presentations
+#LiveVotingBundle_user_presentations:
+#    path: /user/presentations
+#    defaults: {_controller: LiveVotingBundle:PresentationUser:index}
+
 #USER LOGIN ROUTING#
 user_login:
-    path:    /user/login
-    defaults: { _controller: LiveVotingBundle:UserSecurity:login }
+    path:    /login
+    defaults: { _controller: LiveVotingBundle:Security:userLogin }
 
 user_login_check:
-    path:    /user/login_check
+    path:    /login_check
 
+user_logout:
+    path:    /logout
+
+#ADMIN LOGIN ROUTING#
 admin_login:
-    path:   /admin/login
-    defaults: {_controller : LiveVotingBundle:Security:login}
+    path:    /admin/login
+    defaults: { _controller: LiveVotingBundle:Security:adminLogin }
 
 admin_login_check:
-   path: /admin/login_check
-
-logout:
-    path:    user/logout
+    path:    /admin/login_check
 
 admin_logout:
     path:    /admin/logout
+
+# Dashboard #
+
+dashboard_presentations:
+  path: /dashboard/presentations
+  defaults: {_controller: LiveVotingBundle:Dashboard:getPresentations}
+
+dashboard_live_schedule:
+  path: /dashboard/liveschedule
+  defaults: {_controller: LiveVotingBundle:Dashboard:getLiveSchedule}
