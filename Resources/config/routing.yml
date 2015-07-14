@@ -31,6 +31,10 @@ user_update:
     defaults: { _controller: "LiveVotingBundle:User:update" }
     requirements: { _method: post|put}
 
+csv_export:
+    path:    /admin/export
+    defaults: { _controller: "LiveVotingBundle:Export:generateCsv" }
+
 user_activate_edit:
     path: /user/activate/{activateHash}
     defaults: {_controller: "LiveVotingBundle:User:activateEdit", activateHash: null}
