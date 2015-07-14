@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Authentication\Token\RememberMeToken;
 
 use Netgen\LiveVotingBundle\Entity\User;
 use Netgen\LiveVotingBundle\Entity\Registration;
@@ -153,12 +154,53 @@ class UserController extends Controller {
       $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
 
       if($emailHash === $activateHash){
+          $secretKey = $this->container->getParameter('secret');
+          $token = new RememberMeToken($this->getUser(), 'user', $secretKey);
+          $this->get('security.context')->setToken($token);
+
+          $user = $this->getUser();
+          $expires = time() + 60*60*24*183;
+          $value = $this->generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword());
+
           $return = $this->redirect($this->generateUrl('user_edit'));
           $return->headers->setCookie(new Cookie('userEditEnabled', '1', time()+60*60*24*30));
+
+          $return->headers->setCookie(
+              new Cookie(
+                  'REMEMBERME',
+                  $value,
+                  $expires
+              )
+          );
+
           return $return;
       }else{
         return new Response('Activation link is invalid.');
       }
     }
 
+    /**
+    * Three methods used from Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices
+    * to create cookie when the link is created. Modified to work with controller.
+    */
+
+    public function generateCookieValue($class, $username, $expires, $password)
+    {
+        return $this->encodeCookie(array(
+            $class,
+            base64_encode($username),
+            $expires,
+            $this->generateCookieHash($class, $username, $expires, $password)
+        ));
+    }
+
+    protected function encodeCookie(array $cookieParts)
+    {
+        return base64_encode(implode(':', $cookieParts));
+    }
+
+    public function generateCookieHash($class, $username, $expires, $password)
+    {
+        return hash_hmac('sha256', $class.$username.$expires.$password, $this->container->getParameter('secret'));
+    }
 }
