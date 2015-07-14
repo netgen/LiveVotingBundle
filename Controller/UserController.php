@@ -16,6 +16,7 @@ use Netgen\LiveVotingBundle\Entity\Registration;
 use Netgen\LiveVotingBundle\Form\UserType;
 use Netgen\LiveVotingBundle\Form\UserDataType;
 use Netgen\LiveVotingBundle\Form\RegistrationUserType;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller {
 
@@ -84,7 +85,7 @@ class UserController extends Controller {
 
         if (count($em->getRepository('LiveVotingBundle:Registration')->findByUser($this->getUser()))==0) {
             /*throw $this->createNotFoundException('Unable to find Event registration.');*/
-            return $this->redirect($this->generateUrl('user_landing'));
+            return new Response('There is no registration for any event!s');
         }
         $entity = $em->getRepository('LiveVotingBundle:User')->find($user_id);
         $entity2= $em->getRepository('LiveVotingBundle:Registration')->findByUser($this->getUser())[0];

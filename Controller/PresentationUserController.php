@@ -33,6 +33,7 @@ class PresentationUserController extends Controller
         ));
 
     }
+
     public function createEnableDisableForm(Presentation $entity){
         $form = $this->createFormBuilder();
         $form->setMethod('PUT');
@@ -44,6 +45,7 @@ class PresentationUserController extends Controller
 
         return $form->getForm();
     }
+
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -82,5 +84,35 @@ class PresentationUserController extends Controller
 
         return $form;
     }
+    public function updateAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Presentation entity.');
+        }
+
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $entity->upload();
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('user_presentations'/*, array('id' => $entity->->getId())*/));
+        }
+
+        return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView()
+        ));
+    }
+
+    /**
+     * Action that enabled and disables presentation.
+     * @param Request $param
+     * @param Presenatation Id $id
+     */
 
 }
