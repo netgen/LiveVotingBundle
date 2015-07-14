@@ -16,7 +16,7 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('devLevel', 'choice', array(
-                'choices' => array('0'=>'Beginner', '1'=>'Intermediate', '2'=>'Advanced'),
+                'choices' => array('Beginner'=>'Beginner', 'Intermediate'=>'Intermediate', 'Advanced'=>'Advanced'),
                 'label' => 'Developer level'
             ))
             ->add('arrivalTime')
