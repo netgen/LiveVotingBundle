@@ -2,14 +2,17 @@
 <html>
 <head>
 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
-    <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <style type="text/css">
+
   @keyframes fadeIn{
     0% {background-color: white;opacity: 0;}
     50% {background-color: green;opacity: 0.5;}
@@ -57,7 +60,7 @@
 </head>
 <body>
 
-<div class="navbar navbar-default navbar-collapse">
+<!--<div class="navbar navbar-default navbar-collapse">
     <div class="container">
         <div class="navbar-header">
             <ul class="list-inline list-unstyled text-center">
@@ -72,22 +75,124 @@
             </ul>
         </div>
     </div>
+</div>-->
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-header pull-left">
+        <img src="{{ asset('bundles/livevoting/img/logo.png') }}" class="navbar-logo">
+    </div>
+    <div class="navbar-header pull-right">
+        <a href="{{ path('user_login') }}"><button type="button" class="btn btn-default navbar-btn">Log in</button></a>
+    </div>
 </div>
 
-<div id="container" style="width:100%; height:400px;">
-</div>
+<div id="page-wrapper" class="container-fluid">
 
-<div class="container" ng-app="myApp" ng-controller="MyCtrl">
-  <div class="row my-repeat-animation" ng-repeat="div in divs">
-    {{ '<div>
+    <div class="row heading">
+        <div class="col-lg-8">
+            <h1 class="page-header">DAY 1- Aug 26</h1>
+        </div>
+    </div>
+    <!--<div class="container" ng-app="myApp" ng-controller="MyCtrl">
+        <div class="row my-repeat-animation" ng-repeat="div in divs">
+            {{ '<div>
           <p>{{div.presenterName}} {{div.presenterSurname}}</p>
           <p>{{div.presentationName}}</p>
         </div>' }}
-  </div>
-</div>
+        </div>
+    </div>-->
+    <div class="row panels" ng-app="myApp" ng-controller="MyCtrl">
+        <div class="col-lg-8 col-md-6 col-sm-8">
+            <!--FIRST PANEL -->
+            <div class="panel my-repeat-animation" ng-repeat="div in divs">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-lg-2 ">
+                            <div class="imgpresenter"><img class="img-circle " src="{{ asset('bundles/livevoting/img/lik.png') }}" alt="Generic placeholder image" width="100" height="100"></div>
+                        </div>
+                        <div class="col-lg-7 text-left">
+                            <div class="prestitle my-repeat-animation">{{ '<div>{{div.presentationName}}</div>' }}
+                            </div>
+                            <div class="presname my-repeat-animation">{{ '<div>{{div.presenterName}} {{div.presenterSurname}}</div>'}}
+                            </div>
+                            <div class="vote">
+                                <button type="button" class="btn btn-labeled btn-default">
+                                <span class="btn-label">
+                                <i class="glyphicon glyphicon-stats"></i>
+                                </span>Vote</button>
+                            </div>
+                        </div>
 
-<div class="container event-links">
-    <a class="btn btn-default" href="{{ path('root') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
+
+                        <div class="container2">
+                            <div class="divider-vertical">
+                                <div class="col-lg-3 time">
+                                    <div class="room">
+                                        <span class="glyphicon glyphicon-blackboard" aria-hidden="true">
+                                        </span><b>Elephant</b></div>
+                                    <div><b>9:00</b>am</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--END OF EVENTS -->
+        <!--TWITTER -->
+        <div class=" col-lg-4 col-md-6  twitter ">
+            <a class="twitter-timeline" href="https://twitter.com/hashtag/php" data-widget-id="619436153545039872">#php Tweets</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+    </div>
+</div>
+<!--END OF TWITTER -->
+
+<script type="text/javascript">
+    var requestData, animation_data, chart;
+    function cmp(v1, v2){
+        if(v1.presentationValue<v2.presentationValue)return 1;
+        if(v1.presentationValue>v2.presentationValue)return -1;
+        return 0;
+    }
+    function load(firstLoad){
+        $.getJSON('{{ path("dashboard_presentations") }}', function(data){
+            if('presentations' in data){
+                var sortMe = [], presentationNames = [], presentationValues = [];//, counter = 0;
+                for(var i in data['presentations']){
+                    var pres = {};
+                    pres.presentationName = data['presentations'][i]['presentationName'];
+
+                    // Check if page is not loaded. If yes set all values to zero so that chart animates
+                    if(firstLoad === true){
+                        pres.presentationValue = 0;
+                    }else{
+                        pres.presentationValue = data['presentations'][i]['average'];
+                    }
+                    sortMe.push(pres);
+                }
+                sortMe.sort(cmp);
+                for(var i in sortMe){
+                    //if( counter < 3 ){
+                    presentationNames.push(sortMe[i].presentationName);
+                    presentationValues.push(sortMe[i].presentationValue);
+                    //counter++;
+                    //}
+                }
+                chart.xAxis[0].update({categories: presentationNames}, true);
+                chart.series[0].setData(presentationValues, true, true, true);
+            }
+            //Check if loaded page. If yes animate chart in 500 miliseconds
+            if(firstLoad === true){
+                setTimeout(load, 500);
+            }else{
+                setTimeout(load, 5000);
+            }
+        });
+    }
+</script>
+
+<div id="container" style="margin-left:auto; margin-right:auto; width:98%; height:400px;">
 </div>
 
 <div id="footer-index">
@@ -158,7 +263,7 @@
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'container',
-                defaultSeriesType: 'bar',
+                defaultSeriesType: 'column',
                 events: {
                     load: function(){
                         setTimeout(function(){load(true)}, 1000);
