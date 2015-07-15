@@ -24,7 +24,7 @@
 		<div class="navbar navbar-default navbar-collapse">
 		    <div class="container">
 		        <!--
-		        <div class="navbar-header">	    	
+		        <div class="navbar-header">
 		           <a href="#">
 	           			<img src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" class="img-responsive" alt="kruzici">
 		           </a>
@@ -33,7 +33,7 @@
 		        	<h2 id="welcomeSign">Netgen LiveVoting</h2>
 		        </div>
 		    	-->
-		        <div class="navbar-header">         
+		        <div class="navbar-header">
 	            	<ul class="list-inline list-unstyled text-center">
 	                    <li>
 	                        <a href="{{ path('root') }}">
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="container">
-        	<div id="events">        	
+        	<div id="events">
                     <ul class="list-group">
                         {% for event in events %}
                         <li class="list-group-item clearfix">
@@ -60,7 +60,7 @@
                                 <a href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Results</a>
                             {% endif %}
                             {% if event.questions|length > 0 %}
-                            	<br><span class="glyphicon glyphicon-question-sign"></span> 
+                            	<br><span class="glyphicon glyphicon-question-sign"></span>
                             	<a href="{{ path('question', {'event_id':event.getId}) }}">
                             		{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}
                             	</a>
@@ -68,16 +68,18 @@
                         </li>
                         {% endfor %}
                     </ul>
-                </div>          
+                </div>
     		</div>
 		</div>
 
         <a class="btn btn-primary" href="{{ path('user_presentations') }}">
             Presentations
         </a>
-        <a class="btn btn-primary" href="{{ path('user_edit') }}">
-            Edit user info
-        </a>
+        {% if(app.request.cookies.has('userEditEnabled')) %}
+					<a class="btn btn-primary" href="{{ path('user_edit') }}">
+	            Edit user info
+	        </a>
+				{% endif %}
 
 		<div id="footer-index">
 	        <div id="footer" class="container">
@@ -108,7 +110,3 @@
 
 	</body>
 </html>
-
-
-
-
