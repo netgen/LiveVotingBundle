@@ -32,15 +32,17 @@
                 </td>
 
                 <td>
-                    <a class="btn btn-danger" href="{{ path('admin_event_delete', { 'id': entity.id }) }}"> <span class="glyphicon glyphicon-remove"></span> Delete</a>
-                </td>
-                <td>
                     <a class='btn {{ entity.allowViewingResults ? 'btn-success':'btn-warning'  }}' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">
                         <span class='glyphicon glyphicon-eye-{{ entity.allowViewingResults ? 'open':'close'  }}'></span>
                         Live
                     </a>
                     <a class='btn btn-primary' target="_blank" href="{{ path('result_view', { 'event_id': entity.id }) }}">Final</a>
                 </td>
+
+                <td>
+                    <a class="btn btn-danger" href="{{ path('admin_event_delete', { 'id': entity.id }) }}"> <span class="glyphicon glyphicon-remove"></span> Delete</a>
+                </td>
+                
             </tr>
         {% endfor %}
         </tbody>
@@ -53,14 +55,11 @@
             </a>
         </li>
         <li>
-            <a class="btn btn-primary" href="{{ path('admin_user') }}">
-                User list page
-            </a>
-        </li>
-        <li>
             <a class="btn btn-success" href="{{ path ('admin_prize_draw')}}">
                 Prize draw
             </a>
         </li>
     </ul>
+
+    <a href="/admin">Back to admin hompage</a>
     {% endblock %}

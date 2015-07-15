@@ -24,15 +24,10 @@
         </tbody>
     </table>
 
-        <ul class="list-inline">
+    <ul class="list-inline">
         <li>
             <a class="btn btn-primary" href="{{ path('admin_user_new') }}">
                 <span class="glyphicon glyphicon-plus"></span>Create a new user
-            </a>
-        </li>
-        <li>
-            <a class="btn btn-primary" href="{{ path('admin_event') }}">
-                Event list page
             </a>
         </li>
         <li>
@@ -40,10 +35,7 @@
                 Export users info in .csv
             </a>
         </li>
-        <li>
-            <a class="btn btn-primary" href="{{ path('registration') }}">
-                Register users
-            </a>
-        </li>
     </ul>
+
+    <a href="/admin">Back to admin homepage</a>
     {% endblock %}
