@@ -22,8 +22,7 @@ NAVBAR
 --------*/
 
 .navbar-logo {
-    height: 91px;
-    width: 205px;
+    
     padding-top: 5px;
     padding-left: 15px;
     padding-bottom: 5px;
@@ -41,18 +40,9 @@ NAVBAR
 END OF NAVBAR 
 ---------*/
 
-.panel {
-	border-bottom-left-radius: 100px;
-	border-top-left-radius: 100px;
-}
 
-.img-circle {
-	margin-top: 9px;
-	margin-left: 5px;
-	
-}
 .page-header {
-    padding-top:50px;
+    padding-top: 5px;
 }
 
 .prestitle {
@@ -81,30 +71,6 @@ END OF NAVBAR
 
 }
 
-@media (max-width: 768px) and (max-width: 991px) {
-    .prestitle ,
-    .presname ,
-    .time ,
-    .vote ,
-    .container2 ,
-    .imgpresenter
-     {
-        text-align: center;
-    }
-}
-
-@media (max-width: 1199px) {
-    .prestitle ,
-    .presname ,
-    .time ,
-    .vote ,
-    .container2 , 
-    .imgpresenter
-     {
-        text-align: center;
-    }
-}
-
 .btn-label {
     position: relative;
     left: -12px;
@@ -122,23 +88,13 @@ END OF NAVBAR
     margin-bottom:10px; 
     background-color: #ed6e44;
     color: white;
-    border: none;
-    
-}
-
-.navbar-btn {
-	 margin-bottom:10px; 
-    background-color: #ed6e44;
-    color: white;
-    border: none;
-    margin-top: 25px;
+    border: none;   
 }
 
 .btn:hover {
 	background-color: #f05a28;
 	color: white;
 }
-
 
 .divider-vertical {
 
@@ -149,8 +105,44 @@ END OF NAVBAR
   vertical-align: bottom;
 }
 
-/**--------------
----------------**/
+@media only screen and (max-width: 768px) and (max-width: 991px) {
+    .prestitle ,
+    .presname ,
+    .time ,
+    .vote ,
+    .container2 ,
+    .imgpresenter
+     {
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 1199px)  {
+    .prestitle ,
+    .presname ,
+    .time ,
+    .vote ,
+    .container2 , 
+    .imgpresenter
+     {
+        text-align: center;
+    }
+}
+@media only screen and (min-width: 1199px)  {
+    .prestitle ,
+    .presname ,
+    .time ,
+    .vote ,
+    .container2 , 
+    .imgpresenter
+     {
+        text-align: center;
+    }
+}
+
+
+/**------------------------------------------------
+------------------------------------------------**/
 .footer {
     position: fixed;
     bottom: 0;
