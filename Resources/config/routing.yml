@@ -87,7 +87,7 @@ table_results:
 # ADMIN ROUTING #
 admin_index:
     path:     /admin/
-    defaults: { _controller: "LiveVotingBundle:EventAdmin:index" }
+    defaults: { _controller: "LiveVotingBundle:Admin:index" }
 
 LiveVotingBundle_admin_event:
     resource: "@LiveVotingBundle/Resources/config/routing/event.yml"

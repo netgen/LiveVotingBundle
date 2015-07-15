@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4">
+        <a href="event" class=" btn btn-primary btn-lg btn-block">Events</a>
+      </div>
+      <div class="col-md-4">
+        <a href="user" class=" btn btn-primary btn-lg btn-block">Users</a>
+      </div>
+      <div class="col-md-4">
+        <a href="registration" class=" btn btn-primary btn-lg btn-block">Registrations</a>
+      </div>
+    </div>
+    
+  </div>
+{% endblock %}

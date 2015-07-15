@@ -4,7 +4,7 @@
  * This file is part of the Netgen LiveVoting bundle.
  *
  * https://github.com/netgen/LiveVotingBundle
- * 
+ *
  */
 
 namespace Netgen\LiveVotingBundle\Controller;
@@ -38,7 +38,7 @@ class EventAdminController extends Controller
 
     /**
      * Creates a new Event entity.
-     * @param $request Request 
+     * @param $request Request
      */
     public function createAction(Request $request)
     {
@@ -46,7 +46,7 @@ class EventAdminController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        if ($form->isValid()) 
+        if ($form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
             $entity->upload();
@@ -104,7 +104,7 @@ class EventAdminController extends Controller
 
         $entity = $em->getRepository('LiveVotingBundle:Event')->find($id);
 
-        if (!$entity) 
+        if (!$entity)
         {
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
@@ -134,7 +134,7 @@ class EventAdminController extends Controller
         }
 
         else
-        { 
+        {
             $questionStatus = false;
         }
 
@@ -167,7 +167,7 @@ class EventAdminController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) 
+        if ($editForm->isValid())
         {
 
             //find all questions of the event and set votingEnabled value to current value of event
@@ -185,9 +185,9 @@ class EventAdminController extends Controller
                     break;
             }
 
-            foreach ($questions as $question) 
+            foreach ($questions as $question)
             {
-                $question->setVotingEnabled($newValue);           
+                $question->setVotingEnabled($newValue);
             }
 
             $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
@@ -203,7 +203,7 @@ class EventAdminController extends Controller
         ));
     }
 
-    /** 
+    /**
      * Deletes an existing Event entity.
      * @param $id Event ID
      */
@@ -213,7 +213,7 @@ class EventAdminController extends Controller
 
         $entity = $em->getRepository('LiveVotingBundle:Event')->find($id);
 
-        if (!$entity) 
+        if (!$entity)
         {
             throw $this->createNotFoundException('Event is already removed.');
         }
