@@ -49,6 +49,8 @@ class Presentation
     private $country = '';
     private $image = '';
 
+    private $hall;
+
     /**
      * Constructor
      */
@@ -289,6 +291,15 @@ class Presentation
     public function getEnd()
     {
         return $this->end;
+    }
+
+    public function setHall($hall)
+    {
+        $this->hall = $hall;
+    }
+    public function getHall()
+    {
+        return $this->hall;
     }
 
     public function getAbsolutePath()

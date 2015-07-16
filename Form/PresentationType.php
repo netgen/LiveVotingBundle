@@ -23,6 +23,7 @@ class PresentationType extends AbstractType
                 'data_class' => null,
                 'required' => false
             ))
+            ->add('hall')
             ->add('user')
             ->add('begin')
             ->add('end')
