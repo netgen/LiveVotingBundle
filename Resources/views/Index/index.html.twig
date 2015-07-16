@@ -1,134 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+{% extends 'LiveVotingBundle::base.html.twig' %}
 
+{% block stylesheets %}
+	<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />
+	<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
+{% endblock %}
 
-        <!-- CSS -->
-		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
+{% block body %}
+	<div class="navbar navbar-default navbar-collapse">
+			<div class="container">
+					<div class="navbar-header text-center">
+						<ul class="list-inline list-unstyled text-center">
+									<li>
+											<a href="{{ path('root') }}">
+													<img width="20" height="20" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
+											</a>
+									</li>
+									<li>
+											<h3>Netgen Event Voting:</h3>
+									</li>
+									<li>
+											<h4>{{ event.getName }}</h4>
+									</li>
+							</ul>
+					</div>
+			</div>
+	</div>
 
-		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
-        <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />
-        <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
+	<div class="container">
+	<div id="voteScreen"></div>
+	</div>
 
-                <!--JavaScript -->
-        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
-        <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<div id="loader">
+			<div id="circleG">
+					<div id="circleG_1" class="circleG">
+					</div>
+					<div id="circleG_2" class="circleG">
+					</div>
+					<div id="circleG_3" class="circleG">
+					</div>
+					<span id="loadingMessage">Loading!</span>
+			</div>
+	</div>
 
-        <script type="text/javascript">
-            $(document).ready(function(){
-                new brain({
-                    'STATES':{
-                        'PRE':{'TIMEOUT':1},
-                        'ACTIVE':{'TIMEOUT':5},
-                        'POST':{'TIMEOUT':5}
-                },
-                    'URLS':{
-                        'EVENT_STATUS':'/user/event_status/',
-                        'VOTE':'/user/vote/'
-                    }
-                });
-            });
-        </script>
-		<script id="presentation" type="text/x-handlebars-template">
-            <div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12 media">
-                <div class='highLight'></div>
-                <div class='row'>
-                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
-                    <img src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}"
-                     class='thumbnail slikaa'>
-                </div>
-                <div class="unutra col-lg-10 col-md-10 col-sm-8 col-xs-8">
-                    <h4 class="text-info imeprezentera">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</h4>
-                    <h3 class="text-info naslovprezentacije"><small>{{ '{{presentationName}}' }}</small></h3>
-                    <br>
-                </div>
-                </div>
+	<div class="container event-links">
+			<a class="btn btn-default" href="{{ path('root') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
+			{% if event.getAllowViewingResults %}
+					<a class="btn btn-default" href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Live results</a>
+			{% endif %}
+	</div>
 
-                <div class='row'>
-                    <form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="../vote/{{ '{{ presentationId }}' }}" method="POST">
-                        
-                        <span class='glyphicon glyphicon-thumbs-down'></span>
-                        <div class="btn-group btn-group-lg">
+	<div id="wrap">
+			<div id="footer" class="container">
+					<span class="timer ermsg"></span>
+					<span class="error ermsg"></span>
+			</div>
+	</div>
+{% endblock %}
 
-                            <input type="submit" class='btn btn-default btn-sm' value='1'/>
-                            <input type="submit" class='btn btn-default btn-sm' value='2'/>
-                            <input type="submit" class='btn btn-default btn-sm' value='3'/>
-                            <input type="submit" class='btn btn-default btn-sm' value='4'/>
-                            <input type="submit" class='btn btn-default btn-sm' value='5'/>
+{% block javascripts %}
+	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
-                        </div>
+	<script type="text/javascript">
+			$(document).ready(function(){
+					new brain({
+							'STATES':{
+									'PRE':{'TIMEOUT':1},
+									'ACTIVE':{'TIMEOUT':5},
+									'POST':{'TIMEOUT':5}
+					},
+							'URLS':{
+									'EVENT_STATUS':'/user/event_status/',
+									'VOTE':'/user/vote/'
+							}
+					});
+			});
+	</script>
+	<script id="presentation" type="text/x-handlebars-template">
+			<div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12 media">
+					<div class='highLight'></div>
+					<div class='row'>
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
+							<img src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}"
+							class='thumbnail slikaa'>
+					</div>
+					<div class="unutra col-lg-10 col-md-10 col-sm-8 col-xs-8">
+							<h4 class="text-info imeprezentera">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</h4>
+							<h3 class="text-info naslovprezentacije"><small>{{ '{{presentationName}}' }}</small></h3>
+							<br>
+					</div>
+					</div>
 
-                        <span class='glyphicon glyphicon-thumbs-up'></span>
-                        <br>
-                        
-                    </form>
-                </div>
-            </div>
-		</script>
+					<div class='row'>
+							<form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="../vote/{{ '{{ presentationId }}' }}" method="POST">
 
-	<title></title>
+									<span class='glyphicon glyphicon-thumbs-down'></span>
+									<div class="btn-group btn-group-lg">
 
-	</head>
+											<input type="submit" class='btn btn-default btn-sm' value='1'/>
+											<input type="submit" class='btn btn-default btn-sm' value='2'/>
+											<input type="submit" class='btn btn-default btn-sm' value='3'/>
+											<input type="submit" class='btn btn-default btn-sm' value='4'/>
+											<input type="submit" class='btn btn-default btn-sm' value='5'/>
 
-	<body>
-        <div class="navbar navbar-default navbar-collapse">
-            <div class="container">
-                <div class="navbar-header text-center">         
-                   <ul class="list-inline list-unstyled text-center">
-                        <li>
-                            <a href="{{ path('root') }}">
-                                <img width="20" height="20" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
-                            </a>
-                        </li>
-                        <li>
-                            <h3>Netgen Event Voting:</h3>
-                        </li>
-                        <li>
-                            <h4>{{ event.getName }}</h4>
-                        </li>
-                    </ul>
-                 </div>
-            </div>
-        </div>
+									</div>
 
-		<div class="container">
-    		<div id="voteScreen"></div>
-    	</div>
-       
-        <div id="loader">
-            <div id="circleG">
-                <div id="circleG_1" class="circleG">
-                </div>
-                <div id="circleG_2" class="circleG">
-                </div>
-                <div id="circleG_3" class="circleG">
-                </div>
-                <span id="loadingMessage">Loading!</span>
-            </div>
-        </div>
+									<span class='glyphicon glyphicon-thumbs-up'></span>
+									<br>
 
-        <div class="container event-links">
-            <a class="btn btn-default" href="{{ path('root') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
-            {% if event.getAllowViewingResults %}
-                <a class="btn btn-default" href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Live results</a>
-            {% endif %}
-        </div>
-
-        <div id="wrap">
-            <div id="footer" class="container">
-                <span class="timer ermsg"></span>
-                <span class="error ermsg"></span>
-            </div>
-        </div>
-	</body>
-
-</html>
-
-
-
-
+							</form>
+					</div>
+			</div>
+	</script>
+{% endblock %}

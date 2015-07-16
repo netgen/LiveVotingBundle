@@ -1,16 +1,6 @@
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'LiveVotingBundle::base.html.twig' %}
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
-        <link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    </head>
-    <body>
+{% block body %}
         <div class="container">
             <div class="form-signin">
 
@@ -37,5 +27,4 @@
 
             </div>
         </div>
-    </body>
-</html>
+{% endblock %}

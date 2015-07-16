@@ -1,41 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
+{% extends 'LiveVotingBundle::base.html.twig' %}
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
+{% block body %}
+  <div class="table-responsive">
+      <table class="table table-condensed">
 
-
-
-    <title></title>
-
-</head>
-<body>
-<div class="container">
-    <div class="table-responsive">
-        <table class="table table-condensed">
-
-            <tr>
-                <th>Place</th>
-                <th>Question</th>
-                <th>Answer</th>
+          <tr>
+              <th>Place</th>
+              <th>Question</th>
+              <th>Answer</th>
 
 
-            </tr>
-            {% for q in questions['questions'] %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ q['question']['name'] }}</td>
-                <td>{{ q['answer']['average'] }}</td>
+          </tr>
+          {% for q in questions['questions'] %}
+          <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ q['question']['name'] }}</td>
+              <td>{{ q['answer']['average'] }}</td>
 
-            </tr>
-            {% endfor %}
+          </tr>
+          {% endfor %}
 
-        </table>
-    </div>
-</body>
-</html>
+      </table>
+  </div>
+{% endblock %}

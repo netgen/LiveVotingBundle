@@ -1,112 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'LiveVotingBundle::base.html.twig' %}
 
-   		<!-- CSS -->
-		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
-		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap-theme.css') }}">
-		<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
-        <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/loader.css') }}"  />
-
-	<title></title>
-
-	</head>
-
-	<body>
-		<!--
-		<div class="headerimg visible-lg">
-	    	<img src="{{ asset('bundles/livevoting/img/header.png') }}" alt="logo" width="100%" >
-	    </div>
-		-->
-
-		<div class="navbar navbar-default navbar-collapse">
-		    <div class="container">
-		        <!--
-		        <div class="navbar-header">
-		           <a href="#">
-	           			<img src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" class="img-responsive" alt="kruzici">
-		           </a>
-		         </div>
-		         <div class="text-center strong">
-		        	<h2 id="welcomeSign">Netgen LiveVoting</h2>
-		        </div>
-		    	-->
-		        <div class="navbar-header">
-	            	<ul class="list-inline list-unstyled text-center">
-	                    <li>
-	                        <a href="{{ path('root') }}">
-	                          <img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
-	                        </a>
-	                    </li>
-	                    <li class="text-center">
-	                        <h2>Netgen LiveVoting</h2>
-	                    </li>
-	                </ul>
-	            </div>
-            </div>
-        </div>
-        <div class="container">
-        	<div id="events">
-                    <ul class="list-group">
-                        {% for event in events %}
-                        <li class="list-group-item clearfix">
-                        	<a href="{{ path( 'event' , {'event_id':event.getId}) }}">
-	                        	<img style="float:left;" src="{{ asset('bundles/livevoting/') }}{{ event.getImage ? event.getWebPath : 'img/man1.png' }}" class='thumbnail slikaa'>
-	                     		<h3>{{ event.getName }}</h3>
-                     		</a>
-                            {% if event.getAllowViewingResults %}
-                                <a href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Results</a>
-                            {% endif %}
-                            {% if event.questions|length > 0 %}
-                            	<br><span class="glyphicon glyphicon-question-sign"></span>
-                            	<a href="{{ path('question', {'event_id':event.getId}) }}">
-                            		{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}
-                            	</a>
-                            {% endif %}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-    		</div>
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/loader.css') }}"  />
+{% endblock %}
+{% block body %}
+<div class="navbar navbar-default navbar-collapse">
+		<div class="container">
+				<!--
+				<div class="navbar-header">
+					<a href="#">
+							<img src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" class="img-responsive" alt="kruzici">
+					</a>
+				</div>
+				<div class="text-center strong">
+					<h2 id="welcomeSign">Netgen LiveVoting</h2>
+				</div>
+			-->
+				<div class="navbar-header">
+						<ul class="list-inline list-unstyled text-center">
+									<li>
+											<a href="{{ path('root') }}">
+												<img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
+											</a>
+									</li>
+									<li class="text-center">
+											<h2>Netgen LiveVoting</h2>
+									</li>
+							</ul>
+					</div>
+				</div>
+</div>
+		<div class="container">
+			<div id="events">
+								<ul class="list-group">
+										{% for event in events %}
+										<li class="list-group-item clearfix">
+											<a href="{{ path( 'event' , {'event_id':event.getId}) }}">
+												<img style="float:left;" src="{{ asset('bundles/livevoting/') }}{{ event.getImage ? event.getWebPath : 'img/man1.png' }}" class='thumbnail slikaa'>
+											<h3>{{ event.getName }}</h3>
+										</a>
+												{% if event.getAllowViewingResults %}
+														<a href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Results</a>
+												{% endif %}
+												{% if event.questions|length > 0 %}
+													<br><span class="glyphicon glyphicon-question-sign"></span>
+													<a href="{{ path('question', {'event_id':event.getId}) }}">
+														{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}
+													</a>
+												{% endif %}
+										</li>
+										{% endfor %}
+								</ul>
+						</div>
 		</div>
 
-        <a class="btn btn-primary" href="{{ path('user_presentations') }}">
-            Presentations
-        </a>
-        {% if(app.request.cookies.has('userEditEnabled')) %}
-					<a class="btn btn-primary" href="{{ path('user_edit') }}">
-	            Edit user info
-	        </a>
-				{% endif %}
+		<a class="btn btn-primary" href="{{ path('user_presentations') }}">
+				Presentations
+		</a>
+		{% if(app.request.cookies.has('userEditEnabled')) %}
+			<a class="btn btn-primary" href="{{ path('user_edit') }}">
+					Edit user info
+			</a>
+		{% endif %}
 
-		<div id="footer-index">
-	        <div id="footer" class="container">
-        		<ul class="list-inline list-unstyled">
-	        		<li class="hidden-xs">
-	        			<img width="20" height="20" alt="Netgen" src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" >
-	        		</li>
-	        		<li>
-	        			<a href="http://www.netgenlabs.com" target="_blank">Netgenlabs.com</a>
-	        		</li>
-	        		<li class="hidden-xs" style="margin-left:3rem;">
-			        	<img width="20" height="20" alt="GitHub Mark" src="{{ asset('bundles/livevoting/img/GitHub-Mark.png')}}">
-		        	</li>
-		        	<li>
-		        		<a href="https://github.com/netgen/LiveVoting" target="_blank">GitHub project</a>
-		        	</li>
-	        	</ul>
-	        </div>
-	    </div>
+<div id="footer-index">
+			<div id="footer" class="container">
+				<ul class="list-inline list-unstyled">
+					<li class="hidden-xs">
+						<img width="20" height="20" alt="Netgen" src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" >
+					</li>
+					<li>
+						<a href="http://www.netgenlabs.com" target="_blank">Netgenlabs.com</a>
+					</li>
+					<li class="hidden-xs" style="margin-left:3rem;">
+						<img width="20" height="20" alt="GitHub Mark" src="{{ asset('bundles/livevoting/img/GitHub-Mark.png')}}">
+					</li>
+					<li>
+						<a href="https://github.com/netgen/LiveVoting" target="_blank">GitHub project</a>
+					</li>
+				</ul>
+			</div>
+	</div>
+{% endblock %}
 
-		<!--JavaScript -->
-		<script src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/bootstrap.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('bundles/livevoting/js/icheck.js') }}"></script>
-
-	</body>
-</html>
+{% block javascripts %}
+	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/icheck.js') }}"></script>
+{% endblock %}

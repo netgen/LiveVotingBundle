@@ -1,292 +1,287 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'LiveVotingBundle::base.html.twig' %}
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
-    <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
+{% block stylesheets %}
+  <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
+{% endblock %}
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="http://code.highcharts.com/modules/no-data-to-display.js"></script>
-</head>
-<body>
+{% block body %}
+  <div class="navbar navbar-default navbar-collapse">
+      <div class="container">
+          <div class="navbar-header">
+              <ul class="list-inline list-unstyled text-center">
+                  <li>
+                      <a href="{{ path('root') }}">
+                        <img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
+                      </a>
+                  </li>
+                  <li>
+                      <h3>Netgen Question Results for event: {{ event.getName }}</h3>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
 
-<div class="navbar navbar-default navbar-collapse">
-    <div class="container">
-        <div class="navbar-header">         
-            <ul class="list-inline list-unstyled text-center">
-                <li>
-                    <a href="{{ path('root') }}">
-                      <img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
-                    </a>
-                </li>
-                <li>
-                    <h3>Netgen Question Results for event: {{ event.getName }}</h3>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+  <div id="container_voting" style="width:100%; height:400px;"></div>
 
-<div id="container_voting" style="width:100%; height:400px;"></div>
+  <div id="container_yes_no" style="width:100%; height:400px;"></div>
 
-<div id="container_yes_no" style="width:100%; height:400px;"></div>
+  <div class="container event-links">
+      <a class="btn btn-large btn-primary" href="{{ path('admin_question', {'event_id':event.getId}) }}">Back to event</a>
+  </div>
 
-<div class="container event-links">
-    <a class="btn btn-large btn-primary" href="{{ path('admin_question', {'event_id':event.getId}) }}">Back to event</a>
-</div>
+  <div id="footer-index">
+      <div id="footer" class="container">
+          <ul class="list-inline list-unstyled">
+              <li class="hidden-xs">
+                  <img width="20" height="20" alt="Netgen" src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" >
+              </li>
+              <li>
+                  <a href="http://www.netgenlabs.com">Netgenlabs.com</a>
+              </li>
+              <li class="hidden-xs" style="margin-left:3rem;">
+                  <img width="20" height="20" alt="GitHub Mark" src="{{ asset('bundles/livevoting/img/GitHub-Mark.png')}}">
+              </li>
+              <li>
+                  <a href="https://github.com/netgen/LiveVoting">GitHub project</a>
+              </li>
+          </ul>
+      </div>
+  </div>
+{% endblock %}
 
-<div id="footer-index">
-    <div id="footer" class="container">
-        <ul class="list-inline list-unstyled">
-            <li class="hidden-xs">
-                <img width="20" height="20" alt="Netgen" src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" >
-            </li>
-            <li>
-                <a href="http://www.netgenlabs.com">Netgenlabs.com</a>
-            </li>
-            <li class="hidden-xs" style="margin-left:3rem;">
-                <img width="20" height="20" alt="GitHub Mark" src="{{ asset('bundles/livevoting/img/GitHub-Mark.png')}}">
-            </li>
-            <li>
-                <a href="https://github.com/netgen/LiveVoting">GitHub project</a>
-            </li> 
-        </ul>
-    </div>
-</div>
+{% block javascripts %}
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/modules/no-data-to-display.js"></script>
 
-<script>
-    var requestData, animation_data, chart;
-    var event_id = {{ event.getId }};
-    function cmp(v1, v2){
-        if(v1.questionValue < v2.questionValue)return 1;
-        if(v1.questionValue > v2.questionValue)return -1;
-        return 0;
-    }
-    function load_voting(){
-        $.getJSON('{{ live_results_questions_url }}', function(data){
-            if('questions' in data){
-                var sortMe = [], questionNames = [], questionValues = [];
-                for(var i in data['questions']){
-                    if(data['questions'][i]['question']['type'] == 0){
-                        var ques = {};
-                        ques.questionName = data['questions'][i]['question']['name'];
-                        ques.questionValue = data['questions'][i]['score']['average'];
-                        sortMe.push(ques);
-                    }
-                }
-                sortMe.sort(cmp);
-                for(var i in sortMe){
-                    questionNames.push(sortMe[i].questionName);
-                    questionValues.push(sortMe[i].questionValue);
-                }
-                chart_voting.xAxis[0].update({categories: questionNames}, true);
-                chart_voting.series[0].setData(questionValues, true, true, true);
-            }
-            setTimeout(load_voting, 2000);
-        });
-    }
+  <script>
+      var requestData, animation_data, chart;
+      var event_id = {{ event.getId }};
+      function cmp(v1, v2){
+          if(v1.questionValue < v2.questionValue)return 1;
+          if(v1.questionValue > v2.questionValue)return -1;
+          return 0;
+      }
+      function load_voting(){
+          $.getJSON('{{ live_results_questions_url }}', function(data){
+              if('questions' in data){
+                  var sortMe = [], questionNames = [], questionValues = [];
+                  for(var i in data['questions']){
+                      if(data['questions'][i]['question']['type'] == 0){
+                          var ques = {};
+                          ques.questionName = data['questions'][i]['question']['name'];
+                          ques.questionValue = data['questions'][i]['score']['average'];
+                          sortMe.push(ques);
+                      }
+                  }
+                  sortMe.sort(cmp);
+                  for(var i in sortMe){
+                      questionNames.push(sortMe[i].questionName);
+                      questionValues.push(sortMe[i].questionValue);
+                  }
+                  chart_voting.xAxis[0].update({categories: questionNames}, true);
+                  chart_voting.series[0].setData(questionValues, true, true, true);
+              }
+              setTimeout(load_voting, 2000);
+          });
+      }
 
-    function load_yes_no(){
-        $.getJSON('{{ live_results_questions_yesNo_url }}', function(data){
-            if('questions' in data){
-                var sortMe = [], questionNames = [], questionValues = [], questionValues2 = [];
+      function load_yes_no(){
+          $.getJSON('{{ live_results_questions_yesNo_url }}', function(data){
+              if('questions' in data){
+                  var sortMe = [], questionNames = [], questionValues = [], questionValues2 = [];
 
-                for(var i in data['questions']){
-                    if(data['questions'][i]['question']['type'] == 1){
-                        var ques = {};
-                        ques.questionName = data['questions'][i]['question']['name'];
-                        ques.questionValue = data['questions'][i]['score']['yes'];
-                        ques.questionValue2 = data['questions'][i]['score']['no'];
-                        sortMe.push(ques);
-                    }
-                }
-                sortMe.sort(cmp);
-                for(var i in sortMe){
-                    questionNames.push(sortMe[i].questionName);
-                    questionValues.push(sortMe[i].questionValue);
-                    questionValues2.push(sortMe[i].questionValue2);
-                }
+                  for(var i in data['questions']){
+                      if(data['questions'][i]['question']['type'] == 1){
+                          var ques = {};
+                          ques.questionName = data['questions'][i]['question']['name'];
+                          ques.questionValue = data['questions'][i]['score']['yes'];
+                          ques.questionValue2 = data['questions'][i]['score']['no'];
+                          sortMe.push(ques);
+                      }
+                  }
+                  sortMe.sort(cmp);
+                  for(var i in sortMe){
+                      questionNames.push(sortMe[i].questionName);
+                      questionValues.push(sortMe[i].questionValue);
+                      questionValues2.push(sortMe[i].questionValue2);
+                  }
 
-                chart_yes_no.xAxis[0].update({categories: questionNames}, true);
-                chart_yes_no.series[0].setData(questionValues2, false); // setData on existing series, don't redraw
-                chart_yes_no.series[1].setData(questionValues, false);
+                  chart_yes_no.xAxis[0].update({categories: questionNames}, true);
+                  chart_yes_no.series[0].setData(questionValues2, false); // setData on existing series, don't redraw
+                  chart_yes_no.series[1].setData(questionValues, false);
 
-            }
-            setTimeout(load_yes_no, 2000);
-        });
-    }
+              }
+              setTimeout(load_yes_no, 2000);
+          });
+      }
 
 
 
-    //voting 1 - 5 questions chart
-    $(document).ready(function(){
-        chart_voting = new Highcharts.Chart({
-            chart: {
-                renderTo: 'container_voting',
-                defaultSeriesType: 'bar',
-                events: {
-                    load: function(){
-                        setTimeout(load_voting, 1000);
-                    }
-                }
-            },
-            credits: {
-                text: 'Netgenlabs',
-                href: 'http://netgenlabs.com'
-            },
-            plotOptions: {
-                column:{
-                    colorByPoint: true
-                }
-            },
-            title: {
-                text: 'Answers 1-5'
-            },
-            xAxis: {
-                type: 'String',
-                tickPixelInterval: 5
-            },
-            yAxis: {
-                minPadding: 0.1,
-                maxPadding: 0.1,
-                tickmarkPlacement: 'on',
-                min: 0,
-                max: 5,
-                title: {
-                    text: 'Average number of rating score'
-                }
-            },
-            noData: {
-                style: {
-                    fontWeight: 'bold',
-                    fontSize: '17px'
-                }
-            },
-            series: [
-                {
-                    showInLegend: false,
-                    data:[],
-                    color: '#7BC043',
-                    dataLabels: {
-                        enabled: true,
-                        rotation: 0,
-                        color: '#000000',
-                        formatter: function() {
-                            return this.y;
-                        },
-                        style: {
-                            fontSize: '14px'
-                        }
-                    }
-                }]
-        });
+      //voting 1 - 5 questions chart
+      $(document).ready(function(){
+          chart_voting = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'container_voting',
+                  defaultSeriesType: 'bar',
+                  events: {
+                      load: function(){
+                          setTimeout(load_voting, 1000);
+                      }
+                  }
+              },
+              credits: {
+                  text: 'Netgenlabs',
+                  href: 'http://netgenlabs.com'
+              },
+              plotOptions: {
+                  column:{
+                      colorByPoint: true
+                  }
+              },
+              title: {
+                  text: 'Answers 1-5'
+              },
+              xAxis: {
+                  type: 'String',
+                  tickPixelInterval: 5
+              },
+              yAxis: {
+                  minPadding: 0.1,
+                  maxPadding: 0.1,
+                  tickmarkPlacement: 'on',
+                  min: 0,
+                  max: 5,
+                  title: {
+                      text: 'Average number of rating score'
+                  }
+              },
+              noData: {
+                  style: {
+                      fontWeight: 'bold',
+                      fontSize: '17px'
+                  }
+              },
+              series: [
+                  {
+                      showInLegend: false,
+                      data:[],
+                      color: '#7BC043',
+                      dataLabels: {
+                          enabled: true,
+                          rotation: 0,
+                          color: '#000000',
+                          formatter: function() {
+                              return this.y;
+                          },
+                          style: {
+                              fontSize: '14px'
+                          }
+                      }
+                  }]
+          });
 
-        if (!chart_voting.hasData()) {
-            chart_voting.hideNoData();
-            chart_voting.showNoData("No data to display.");
-        } 
+          if (!chart_voting.hasData()) {
+              chart_voting.hideNoData();
+              chart_voting.showNoData("No data to display.");
+          }
 
-    });
+      });
 
-    //yes - no questions chart
-    $(document).ready(function(){
-        chart_yes_no = new Highcharts.Chart({
-            chart: {
-                renderTo: 'container_yes_no',
-                defaultSeriesType: 'bar',
-                color: '#FF0000',
-                events: {
-                    load: function(){
-                        setTimeout(load_yes_no, 1000);
-                    }
-                }
-            },
+      //yes - no questions chart
+      $(document).ready(function(){
+          chart_yes_no = new Highcharts.Chart({
+              chart: {
+                  renderTo: 'container_yes_no',
+                  defaultSeriesType: 'bar',
+                  color: '#FF0000',
+                  events: {
+                      load: function(){
+                          setTimeout(load_yes_no, 1000);
+                      }
+                  }
+              },
 
-            credits: {
-                text: 'Netgenlabs',
-                href: 'http://netgenlabs.com'
-            },
-            plotOptions: {
-                column:{
-                    colorByPoint: true
-                },
-                series: {
-                    stacking: 'female'
-                }
-            },
-            legend: {
-                reversed: true
-            },
-            title: {
-                text: 'Yes-No answers (%)'
-            },
-            xAxis: {    
-                type: 'String',
-                tickPixelInterval: 5
-            },
-            yAxis: {
-                minPadding: 0.1,
-                maxPadding: 0.1,
-                tickmarkPlacement: 'on',
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Average Yes-No asnwers percentage'
-                }
-            },
-            noData: {
-                style: {
-                    fontWeight: 'bold',
-                    fontSize: '17px'
-                }
-            },
-            series: [
-                {
-                    showInLegend: false,
-                    data:[],
-                    name: 'No',
-                    color: '#E34F4F',
-                    dataLabels: {
-                        enabled: true,
-                        rotation: 0,
-                        color: '#000000',
-                        formatter: function() {
-                            return this.y;
-                        },
-                        style: {
-                            fontSize: '14px'
-                        }
-                    }
-                },
-                {   
-                    showInLegend: false,
-                    data:[],
-                    name: 'Yes',
-                    color: '#0199C6',
-                    dataLabels: {
-                        enabled: true,
-                        rotation: 0,
-                        color: '#000000',
-                        formatter: function() {
-                            return this.y;
-                        },
-                        style: {
-                            fontSize: '14px'
-                        }
-                    }
-                }]
-        });
+              credits: {
+                  text: 'Netgenlabs',
+                  href: 'http://netgenlabs.com'
+              },
+              plotOptions: {
+                  column:{
+                      colorByPoint: true
+                  },
+                  series: {
+                      stacking: 'female'
+                  }
+              },
+              legend: {
+                  reversed: true
+              },
+              title: {
+                  text: 'Yes-No answers (%)'
+              },
+              xAxis: {
+                  type: 'String',
+                  tickPixelInterval: 5
+              },
+              yAxis: {
+                  minPadding: 0.1,
+                  maxPadding: 0.1,
+                  tickmarkPlacement: 'on',
+                  min: 0,
+                  max: 100,
+                  title: {
+                      text: 'Average Yes-No asnwers percentage'
+                  }
+              },
+              noData: {
+                  style: {
+                      fontWeight: 'bold',
+                      fontSize: '17px'
+                  }
+              },
+              series: [
+                  {
+                      showInLegend: false,
+                      data:[],
+                      name: 'No',
+                      color: '#E34F4F',
+                      dataLabels: {
+                          enabled: true,
+                          rotation: 0,
+                          color: '#000000',
+                          formatter: function() {
+                              return this.y;
+                          },
+                          style: {
+                              fontSize: '14px'
+                          }
+                      }
+                  },
+                  {
+                      showInLegend: false,
+                      data:[],
+                      name: 'Yes',
+                      color: '#0199C6',
+                      dataLabels: {
+                          enabled: true,
+                          rotation: 0,
+                          color: '#000000',
+                          formatter: function() {
+                              return this.y;
+                          },
+                          style: {
+                              fontSize: '14px'
+                          }
+                      }
+                  }]
+          });
 
-        if (!chart_yes_no.hasData()) {
-            chart_yes_no.hideNoData();
-            chart_yes_no.showNoData("No data to display.");
-        }        
+          if (!chart_yes_no.hasData()) {
+              chart_yes_no.hideNoData();
+              chart_yes_no.showNoData("No data to display.");
+          }
 
-    });
-</script>
-</body>
-</html>
-
+      });
+  </script>
+{% endblock %}
