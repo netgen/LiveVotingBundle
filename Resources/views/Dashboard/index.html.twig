@@ -88,12 +88,14 @@
                               </div>
                               <div class="presname my-repeat-animation">{{ '<div>{{div.presenterName}} {{div.presenterSurname}}</div>'}}
                               </div>
+                              {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                               <div class="vote">
                                   <button type="button" class="btn btn-labeled btn-default">
                                   <span class="btn-label">
                                   <i class="glyphicon glyphicon-stats"></i>
                                   </span>Vote</button>
                               </div>
+                              {%  endif %}
                           </div>
 
 
