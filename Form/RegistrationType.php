@@ -21,7 +21,7 @@ class RegistrationType extends AbstractType
             ))
             ->add('arrivalTime')
             ->add('departureTime')
-            ->add('event')
+            ->add('event', null ,array('label'=>'Master Event'))
             ->add('user')
         ;
     }
