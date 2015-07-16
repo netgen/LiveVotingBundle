@@ -24,27 +24,36 @@ class DashboardController extends Controller{
   }
 
   public function getLiveScheduleAction(){
+
     $presentations = $this->getDoctrine()->getManager()
           ->createQuery("
             SELECT p
             FROM LiveVotingBundle:presentation p
-            WHERE CURRENT_TIME() > p.begin
-              AND CURRENT_TIME() < p.end
-          ")->getArrayResult();
+            WHERE :datetime > p.begin
+              AND :datetime < p.end
+          ")->setParameter('datetime', new \DateTime())->getArrayResult();
 
       $responseArray['presentations'] = $presentations;
       return new JsonResponse($responseArray);
   }
 
   public function getPresentationsAction(){
+    $event = $this->getDoctrine()->getManager()->createQuery(
+            'SELECT e
+            FROM LiveVotingBundle:Event e
+            WHERE :datetime > e.begin
+              AND :datetime < e.end
+              AND e.event IS NOT null
+            ')->setParameter('datetime', new \DateTime())->getResult();
+
     $presentations = $this->getDoctrine()->getManager()
           ->createQuery("
             SELECT p
-            FROM LiveVotingBundle:Vote v
-            JOIN LiveVotingBundle:Presentation p
-            WHERE v.presentation = p
-            GROUP BY p.id
-            ")->getArrayResult();
+            FROM LiveVotingBundle:Presentation p
+            JOIN LiveVotingBundle:Event e
+            WHERE p.event = e
+             AND e = :event
+            ")->setParameter('event', $event)->getArrayResult();
 
     foreach ($presentations as &$presentation) {
       $votes = $this->getDoctrine()->getRepository('LiveVotingBundle:Vote')
@@ -55,7 +64,10 @@ class DashboardController extends Controller{
         $numOfUsers++;
         $sum += $vote->getRate();
       }
-      $presentation['average'] = $sum/$numOfUsers;
+      if($numOfUsers === 0)
+        $presentation['average'] = 0;
+      else
+        $presentation['average'] = $sum/$numOfUsers;
     }
 
     $responseArray['presentations'] = $presentations;

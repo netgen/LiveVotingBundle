@@ -24,6 +24,10 @@ Netgen\LiveVotingBundle\Entity\Event:
             type: string
             length: 255
             nullable: true
+        begin:
+            type: datetime
+        end:
+            type: datetime
     oneToMany:
         presentations:
             targetEntity: Netgen\LiveVotingBundle\Entity\Presentation

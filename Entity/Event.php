@@ -18,11 +18,13 @@ class Event
     private $stateValue = null;
     private $allowViewingResults = false;
     private $image = '';
+    private $begin;
+    private $end;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -45,7 +47,7 @@ class Event
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -68,7 +70,7 @@ class Event
     /**
      * Get stateName
      *
-     * @return string 
+     * @return string
      */
     public function getStateName()
     {
@@ -79,7 +81,7 @@ class Event
      * Set image
      *
      * @param image
-     */    
+     */
     public function setImage(UploadedFile $image = null)
     {
         $this->image = $image;
@@ -111,7 +113,7 @@ class Event
     /**
      * Get stateValue
      *
-     * @return string 
+     * @return string
      */
     public function getStateValue()
     {
@@ -186,7 +188,7 @@ class Event
     /**
      * Get presentations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPresentations()
     {
@@ -195,7 +197,7 @@ class Event
     /**
      * Get questions
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getQuestions()
     {
@@ -211,7 +213,7 @@ class Event
     /**
      * Get presentation
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPresentation()
     {
@@ -220,7 +222,7 @@ class Event
     /**
      * Get question
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getQuestion()
     {
@@ -258,7 +260,7 @@ class Event
     /**
      * Get vote
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVote()
     {
@@ -273,7 +275,7 @@ class Event
     /**
      * Get votes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVotes()
     {
@@ -373,7 +375,7 @@ class Event
     /**
      * Get events
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEvents()
     {
@@ -396,7 +398,7 @@ class Event
     /**
      * Get event
      *
-     * @return \Netgen\LiveVotingBundle\Entity\Event 
+     * @return \Netgen\LiveVotingBundle\Entity\Event
      */
     public function getEvent()
     {
@@ -434,11 +436,35 @@ class Event
     /**
      * Get registrations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRegistrations()
     {
         return $this->registrations;
+    }
+
+    public function setBegin($begin)
+    {
+        $this->begin = $begin;
+
+        return $this;
+    }
+
+    public function getBegin()
+    {
+        return $this->begin;
+    }
+
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    public function getEnd()
+    {
+        return $this->end;
     }
 
 }

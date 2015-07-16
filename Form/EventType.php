@@ -35,11 +35,13 @@ class EventType extends AbstractType
                 'attr' => array('class'=> 'filestyle')
             ))
             ->add('event')
+            ->add('begin')
+            ->add('end')
             //->add('stateValue', 'text', array('label'=>'Seconds until voting ends'))
         ;
 
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
