@@ -3,6 +3,7 @@
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Netgen\LiveVotingBundle\Entity\User;
@@ -168,5 +169,69 @@ class UserAdminController extends Controller
             ->add('enabledisable', 'submit')
             ->getForm()
         ;
+    }
+
+    public function importCsvAction(){
+      $form = $this->createFormBuilder()
+        ->setAction($this->generateUrl('user_csv_process_import'))
+        ->setMethod('POST')
+        ->add('attachment', 'file')
+        ->add('submit', 'submit', array('label' => 'Upload csv'))
+        ->getForm();
+      return $this->render(
+        'LiveVotingBundle:User:importcsv.html.twig',
+        array(
+          'form' => $form->createView()
+        )
+      );
+    }
+
+    public function processImportCsvAction(Request $request){
+      $form = $this->createFormBuilder()
+        ->setAction($this->generateUrl('user_csv_process_import'))
+        ->setMethod('POST')
+        ->add('attachment', 'file')
+        ->add('submit', 'submit', array('label' => 'Upload csv'))
+        ->getForm();
+
+      $form->handleRequest($request);
+
+      if($form->isValid()){
+        $file = $form['attachment']->getData();
+
+        if (($handle = fopen($file, "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+
+                for($i=0;$i<count($data);$i++){
+                  if(filter_var($data[$i], FILTER_VALIDATE_EMAIL)){
+                    $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->findByEmail($data[$i]);
+
+                    if(!$user){
+                      $newUser = new User();
+                      $newUser->setEmail($data[$i]);
+                      $idd = uniqid(rand(), true);
+                      $newUser->setId($idd);
+                      $newUser->setUsername($idd);
+                      $newUser->setPassword('1');
+                      $newUser->setEnabled(true);
+
+                      $em = $this->getDoctrine()->getManager();
+                      $em->persist($newUser);
+                      $em->flush();
+                    }
+                  }
+                }
+            }
+            fclose($handle);
+        }
+        return $this->redirect($this->generateUrl('admin_user'));
+      }
+
+      return $this->render(
+        'LiveVotingBundle:User:importcsv.html.twig',
+        array(
+          'form' => $form->createView()
+        )
+      );
     }
 }
