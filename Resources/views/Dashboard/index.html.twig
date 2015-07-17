@@ -8,19 +8,16 @@
     50% {background-color: green;opacity: 0.5;}
     100% {background-color: white;opacity: 1;}
     }
-
     @-webkit-keyframes fadeIn{
     0% {background-color: white;opacity: 0;}
     50% {background-color: green;opacity: 0.5;}
     100% {background-color: white;opacity: 1;}
     }
-
     @keyframes fadeOut{
     0% {background-color: white;opacity: 1;}
     50% {background-color: red;opacity: 0.5;}
     100% {background-color: white;opacity: 0;}
     }
-
     @-webkit-keyframes fadeOut{
     0% {background-color: white;opacity: 1;}
     50% {background-color: red;opacity: 0.5;}
@@ -37,7 +34,6 @@
       -o-animation:      fadeIn 3s linear;
       animation:         fadeIn 3s linear;
     }
-
     /* Remove animation */
     .my-repeat-animation.ng-leave.ng-leave-active,
     .my-repeat-animation.ng-enter {
@@ -52,7 +48,7 @@
 {% block body %}
   <div class="navbar navbar-fixed-top">
       <div class="navbar-header pull-left">
-          <img src="{{ asset('bundles/livevoting/img/logo.png') }}" class="navbar-logo">
+          <img src="{{ asset('bundles/livevoting/img/netgenlogo.png') }}" class="navbar-logo">
       </div>
       <div class="navbar-header pull-right">
           <a href="{{ path('user_login') }}"><button type="button" class="btn btn-default navbar-btn">Log in</button></a>
@@ -63,7 +59,7 @@
 
       <div class="row heading">
           <div class="col-lg-8">
-              <h1 class="page-header">DAY 1- Aug 26</h1>
+              <h1 class="page-header">DAY1- Aug 26</h1>
           </div>
       </div>
       <div class="row panels" ng-app="myApp" ng-controller="MyCtrl">
@@ -80,6 +76,7 @@
                               </div>
                               <div class="presname my-repeat-animation">{{ '<div>{{div.presenterName}} {{div.presenterSurname}}</div>'}}
                               </div>
+
                               {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                               <div class="vote">
                                   <button type="button" class="btn btn-labeled btn-default">
@@ -88,6 +85,7 @@
                                   </span>Vote</button>
                               </div>
                               {%  endif %}
+              
                           </div>
 
 
@@ -157,7 +155,6 @@
                   for(var i in data['presentations']){
                       var pres = {};
                       pres.presentationName = data['presentations'][i]['presentationName'];
-
                       // Check if page is not loaded. If yes set all values to zero so that chart animates
                       if(firstLoad === true){
                         pres.presentationValue = 0;
@@ -185,10 +182,7 @@
               }
           });
       }
-
-
       $(document).ready(function(){
-
           chart = new Highcharts.Chart({
               chart: {
                   renderTo: 'container',
@@ -243,7 +237,6 @@
                       name: 'Average'
                   }]
           });
-
       });
   </script>
 
@@ -266,9 +259,7 @@
                 for(var i in data['presentations']){
                   givenData.push(data['presentations'][i]);
                 }
-
                 var removeDivs = $scope.divs.slice(0);
-
                 //Checking if any element is removed. Removed elements
                 //will be in removeDivs at the end
                 for(var i=0;i<givenData.length;i++){
@@ -279,14 +270,12 @@
                     }
                   }
                 }
-
                 // If Something in removeDivs remove from DOM
                 if(removeDivs.length !== 0){
                   var indexNumbers = [];
                   for(var i=0;i<removeDivs.length;i++){
                     indexNumbers.push(removeDivs[i].id);
                   }
-
                   for(var i=0;i<$scope.divs.length;i++){
                       for(var j=0;j<indexNumbers.length;j++){
                         if(indexNumbers[j] === $scope.divs[i].id){
@@ -298,9 +287,7 @@
                       }
                   }
                 }
-
                 var checkDivs = $scope.divs.slice(0);
-
                 //Checking if any elemnent is added. Added elements
                 //will be in givenData at the end
                 for(var i=0;i<checkDivs.length;i++){
@@ -311,14 +298,12 @@
                     }
                   }
                 }
-
                 // If Something in givenData add to DOM
                 if(givenData.length !== 0){
                   for(var i=0;i<givenData.length;i++){
                       $scope.divs.push(givenData[i]);
                   }
                 }
-
               }
             }else{
               if('presentations' in data){
@@ -330,12 +315,10 @@
             }
           });
         }
-
         angular.element(document).ready(function () {
           ajaxFunction();
           $interval(ajaxFunction, 5000);
         });
-
     });
   </script>
 {% endblock %}

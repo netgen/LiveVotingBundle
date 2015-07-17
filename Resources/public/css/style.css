@@ -40,16 +40,20 @@ NAVBAR
 END OF NAVBAR 
 ---------*/
 
-
+.img-circle {
+	margin-top: 10px;
+}
 .page-header {
-    padding-top: 5px;
+    padding-top: 15px;
+    padding-bottom: 0px;
 }
 
 .prestitle {
-    font-size: 18px;
+    font-size: 16px;
     text-transform: uppercase;
     color: #383E4B;
     padding-top: 5px;
+    font-weight: bold;
 }
 .presname {
     padding-bottom: 5px;
@@ -61,9 +65,10 @@ END OF NAVBAR
 }
 
 .time {
-    padding-top: 30px;
+    
     font-size: 2em;
     margin-left: 10px;
+    padding-top: 10px;
 }
 
 .vote, .room{
@@ -105,6 +110,9 @@ END OF NAVBAR
   vertical-align: bottom;
 }
 
+.twitter {
+	padding-bottom: 10px;
+}
 @media only screen and (max-width: 768px) and (max-width: 991px) {
     .prestitle ,
     .presname ,
