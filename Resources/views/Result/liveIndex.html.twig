@@ -26,10 +26,11 @@
 
   <div class="container event-links">
       <a class="btn btn-default" href="{{ path('root') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
-      <a class="btn btn-default" href="{{ path('event' , {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Event</a>
+      <a class="btn btn-default" href="{{ path('event' , {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats">
+      </span> Event</a>
   </div>
 
-  <div id="footer-index">
+  <!--<div id="footer-index">
       <div id="footer" class="container">
           <ul class="list-inline list-unstyled">
               <li class="hidden-xs">
@@ -46,7 +47,7 @@
               </li>
           </ul>
       </div>
-  </div>
+  </div>-->
 {% endblock %}
 
 {% block javascripts %}

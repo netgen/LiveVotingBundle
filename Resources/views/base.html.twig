@@ -26,6 +26,25 @@
         </div>
     </div>
     {% block body %}{% endblock %}
+
+    <div id="footer-index">
+        <div id="footer" class="container">
+            <ul class="list-inline list-unstyled">
+                <li class="hidden-xs">
+                    <img width="20" height="20" alt="Netgen" src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" >
+                </li>
+                <li>
+                    <a href="http://www.netgenlabs.com">Netgenlabs.com NEW</a>
+                </li>
+                <li class="hidden-xs" style="margin-left:3rem;">
+                    <img width="20" height="20" alt="GitHub Mark" src="{{ asset('bundles/livevoting/img/GitHub-Mark.png')}}">
+                </li>
+                <li>
+                    <a href="https://github.com/netgen/LiveVoting">GitHub project</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     
     <script src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
     <script src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
