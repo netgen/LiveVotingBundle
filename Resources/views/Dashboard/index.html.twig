@@ -53,46 +53,10 @@
               <h1 class="page-header">DAY1- Aug 26</h1>
           </div>
       </div>
-      <div class="row panels" ng-app="myApp" ng-controller="MyCtrl">
-          <div class="col-lg-8 col-md-6 col-sm-8">
-              <!--FIRST PANEL -->
-              <div class="panel my-repeat-animation" ng-repeat="div in divs">
-                  <div class="panel-heading">
-                      <div class="row">
-                          <div class="col-lg-2 ">
-                              <div class="imgpresenter"><img class="img-circle " src="{{ asset('bundles/livevoting/img/lik.png') }}" alt="Generic placeholder image" width="100" height="100"></div>
-                          </div>
-                          <div class="col-lg-7 text-left">
-                              <div class="prestitle my-repeat-animation">{{ '<div>{{div.presentationName}}</div>' }}
-                              </div>
-                              <div class="presname my-repeat-animation">{{ '<div>{{div.presenterName}} {{div.presenterSurname}}</div>'}}
-                              </div>
+      <div class="row panels">
+          <div class="col-lg-8 col-md-6 col-sm-8" id="liveschedule">
+              <!--PANELS -->
 
-                              {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                              <div class="vote">
-                                  <button type="button" class="btn btn-labeled btn-default">
-                                  <span class="btn-label">
-                                  <i class="glyphicon glyphicon-stats"></i>
-                                  </span>Vote</button>
-                              </div>
-                              {%  endif %}
-              
-                          </div>
-
-
-                          <div class="container2">
-                              <div class="divider-vertical">
-                                  <div class="col-lg-3 time">
-                                      <div class="room">
-                                          <span class="glyphicon glyphicon-blackboard" aria-hidden="true">
-                                          </span><b>Elephant</b></div>
-                                      <div><b>9:00</b>am</div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
           </div>
 
           <!--END OF EVENTS -->
@@ -129,6 +93,131 @@
 {% endblock %}
 
 {% block javascripts %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+
+<script id="live-schedule-template" type="text/x-handlebars-template">
+  <div class="panel">
+      <div class="panel-heading">
+          <div class="row">
+              <div class="col-lg-2 ">
+                  <div class="imgpresenter"><img class="img-circle " src="{{ asset('bundles/livevoting/img/lik.png') }}" alt="Generic placeholder image" width="100" height="100"></div>
+              </div>
+              <div class="col-lg-7 text-left">
+                  <div class="prestitle my-repeat-animation">{{'<div>{{presentationName}}</div>'}}
+                  </div>
+                  <div class="presname my-repeat-animation">{{'<div>{{presenterName}} {{presenterSurname}}</div>'}}
+                  </div>
+
+                  <div class="vote">
+                    {% if app.user %}
+                      <form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="../vote/{{ '{{ presentationId }}' }}" method="POST">
+
+        									<span class='glyphicon glyphicon-thumbs-down'></span>
+        									<div class="btn-group btn-group-lg">
+
+        											<input type="submit" class='btn btn-default btn-sm' value='1'/>
+        											<input type="submit" class='btn btn-default btn-sm' value='2'/>
+        											<input type="submit" class='btn btn-default btn-sm' value='3'/>
+        											<input type="submit" class='btn btn-default btn-sm' value='4'/>
+        											<input type="submit" class='btn btn-default btn-sm' value='5'/>
+
+        									</div>
+
+        									<span class='glyphicon glyphicon-thumbs-up'></span>
+        									<br>
+
+        							</form>
+                    {% else %}
+                      <button type="button" class="btn btn-labeled btn-default">
+                      <span class="btn-label">
+                      <i class="glyphicon glyphicon-stats"></i>
+                      </span>Vote</button>
+                    {% endif %}
+                  </div>
+
+              </div>
+
+              <div class="container2">
+                  <div class="divider-vertical">
+                      <div class="col-lg-3 time">
+                          <div class="room">
+                              <span class="glyphicon glyphicon-blackboard" aria-hidden="true">
+                              </span><b>Elephant</b></div>
+                          <div><b>9:00</b>am</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</script>
+
+<script type="text/javascript">
+var srcDiv = document.getElementById('liveschedule');
+var content = [];
+var divContent = [];
+var source = document.getElementById('live-schedule-template').innerHTML;
+var template = Handlebars.compile(source);
+
+  $(document).ready(function(){
+    var ajaxFunction = function() {
+        $.ajax({
+        type: "GET",
+        url: 'http://localhost:8000/dashboard/liveschedule',
+        dataType: "json",
+        success: function(data){
+          if('presentations' in data){
+            if(content.length === 0){
+              for(var i=0;i<data['presentations'].length;i++){
+                content.push(JSON.stringify(data['presentations'][i]));
+
+                html = template(data['presentations'][i]);
+
+                newDiv = document.createElement('div');
+                newDiv.innerHTML = html;
+                divContent.push(srcDiv.appendChild(newDiv));
+              }
+              setInterval(ajaxFunction, 10000);
+            }else{
+              var givenData = [];
+              for(var k=0;k<data['presentations'].length;k++){
+                givenData.push(JSON.stringify(data['presentations'][k]));
+              }
+
+              for(var j=0;j<content.length;j++){
+                if(givenData.indexOf(content[j]) === -1){
+                  $(divContent[j]).fadeOut(2000, function(){
+                    this.remove();
+                  });
+                  content.splice(j, 1);
+                  divContent.splice(j,1);
+                  j--;
+                }
+              }
+
+              for(var j=0;j<givenData.length;j++){
+                if(content.indexOf(givenData[j]) === -1){
+                  content.push(givenData[j]);
+
+                  html = template(data['presentations'][j]);
+
+                  newDiv = document.createElement('div');
+                  newDiv.innerHTML = html;
+
+                  divContent.push(srcDiv.appendChild(newDiv));
+                  $(divContent[j]).hide();
+                  $(divContent[j]).fadeIn(2000);
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+    ajaxFunction();
+  });
+</script>
+
   <script src="http://code.highcharts.com/highcharts.js"></script>
 
   <!-- Rendering charts -->
@@ -231,85 +320,4 @@
       });
   </script>
 
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-animate.min.js"></script>
-
-  <!-- Showing and changing current presentations -->
-  <script type="text/javascript">
-    var myApp = angular.module('myApp', ['ngAnimate']);
-    myApp.controller('MyCtrl', function($scope, $http, $interval){
-      $scope.divs;
-        var ajaxFunction = function(){
-          $http.get('/dashboard/liveschedule').success(function(data){
-            if($scope.divs){
-              if('presentations' in data){
-              var givenData = [];
-              var removeDivs = [];
-              var givenData = [];
-              var checkDivs = [];
-                for(var i in data['presentations']){
-                  givenData.push(data['presentations'][i]);
-                }
-                var removeDivs = $scope.divs.slice(0);
-                //Checking if any element is removed. Removed elements
-                //will be in removeDivs at the end
-                for(var i=0;i<givenData.length;i++){
-                  for(var j=0;j<removeDivs.length;j++){
-                    if(removeDivs[j].id === givenData[i].id){
-                      removeDivs.splice(j, 1);
-                      j--;
-                    }
-                  }
-                }
-                // If Something in removeDivs remove from DOM
-                if(removeDivs.length !== 0){
-                  var indexNumbers = [];
-                  for(var i=0;i<removeDivs.length;i++){
-                    indexNumbers.push(removeDivs[i].id);
-                  }
-                  for(var i=0;i<$scope.divs.length;i++){
-                      for(var j=0;j<indexNumbers.length;j++){
-                        if(indexNumbers[j] === $scope.divs[i].id){
-                          indexNumbers.splice(j,1);
-                          $scope.divs.splice(i,1);
-                          i--;
-                          j=0;
-                        }
-                      }
-                  }
-                }
-                var checkDivs = $scope.divs.slice(0);
-                //Checking if any elemnent is added. Added elements
-                //will be in givenData at the end
-                for(var i=0;i<checkDivs.length;i++){
-                  for(var j=0;j<givenData.length;j++){
-                    if(givenData[j].id === checkDivs[i].id){
-                      givenData.splice(j, 1);
-                      j--;
-                    }
-                  }
-                }
-                // If Something in givenData add to DOM
-                if(givenData.length !== 0){
-                  for(var i=0;i<givenData.length;i++){
-                      $scope.divs.push(givenData[i]);
-                  }
-                }
-              }
-            }else{
-              if('presentations' in data){
-                $scope.divs = [];
-                for(var i in data['presentations']){
-                  $scope.divs.push(data['presentations'][i]);
-                }
-              }
-            }
-          });
-        }
-        angular.element(document).ready(function () {
-          ajaxFunction();
-          $interval(ajaxFunction, 5000);
-        });
-    });
-  </script>
 {% endblock %}
