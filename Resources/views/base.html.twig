@@ -20,13 +20,8 @@
         </div>
         <div class="navbar-header pull-right">
             {% if app.user %}
-                <span>{{ app.user.username }}</span>
-                {% if app.user.username == 'admin' %}
-                    <a href="{{ path('admin_index') }}"><button type="button" class="btn btn-default navbar-btn">Dashboard</button></a>
-                {% endif %}
-                <a href="{{ path('user_logout') }}"><button type="button" class="btn btn-default navbar-btn">Logout</button></a>
-            {% else %}
-                <a href="{{ path('user_login') }}"><button type="button" class="btn btn-default navbar-btn">Log in</button></a>
+                <a href="{{ path('root') }}"><button type="button" class="btn btn-default navbar-btn">Dashboard</button></a>
+                <a href="{{ path('user_landing') }}"><button type="button" class="btn btn-default navbar-btn">Events</button></a>
             {% endif %}
         </div>
     </div>
