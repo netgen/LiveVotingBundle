@@ -302,7 +302,7 @@ class Event
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../Resources/public/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/bundles/livevoting/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
