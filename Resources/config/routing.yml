@@ -50,7 +50,7 @@ user_activate_edit:
     defaults: {_controller: "LiveVotingBundle:User:activateEdit", activateHash: null}
 
 event:
-    path:    /user/event/{event_id}
+    path:    /events/{event_id}
     defaults: {_controller: LiveVotingBundle:Event:index, event_id: -1}
     requirements:
         event_id: -?\d+
@@ -65,7 +65,7 @@ vote:
     requirements: { _method: post }
 
 result:
-    path: /user/live_results/{event_id}
+    path: /events/live_results/{event_id}
     defaults: {_controller: LiveVotingBundle:Result:index}
 
 question:
