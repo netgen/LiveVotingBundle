@@ -3,7 +3,7 @@ root:
     defaults: {_controller: LiveVotingBundle:Dashboard:index}
 
 user_landing:
-    path:    /user/
+    path:    /events/
     defaults: {_controller: LiveVotingBundle:Index:landing}
 
 user_presentations:
