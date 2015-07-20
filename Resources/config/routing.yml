@@ -45,10 +45,6 @@ csv_export:
     path:    /admin/export
     defaults: { _controller: "LiveVotingBundle:Export:generateCsv" }
 
-user_activate_edit:
-    path: /user/activate/{activateHash}
-    defaults: {_controller: "LiveVotingBundle:User:activateEdit", activateHash: null}
-
 event:
     path:    /user/event/{event_id}
     defaults: {_controller: LiveVotingBundle:Event:index, event_id: -1}
@@ -135,14 +131,18 @@ LiveVotingBundle_admin_user:
 
 #USER LOGIN ROUTING#
 user_login:
-    path:    /login
-    defaults: { _controller: LiveVotingBundle:Security:userLogin }
+    path:    /login/{activateHash}
+    defaults: { _controller: LiveVotingBundle:Security:userLogin, activateHash: null }
 
 user_login_check:
     path:    /login_check
 
 user_logout:
     path:    /logout
+
+user_checkemail:
+    path: /checkemail
+    defaults: {_controller: LiveVotingBundle:Security:checkEmail}
 
 #ADMIN LOGIN ROUTING#
 admin_login:
