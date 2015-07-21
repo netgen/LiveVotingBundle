@@ -31,9 +31,8 @@ class DashboardController extends Controller{
               ->from('LiveVotingBundle:presentation', 'p')
               ->where('p.begin < :datetime')
               ->andWhere('p.end > :datetime')
-              ->andWhere('u.id = :user')
-              ->leftjoin("p.votes", "v")
-              ->join("v.user", "u")
+              ->leftjoin("p.votes", "v", "WITH", "v.user = :user")
+              ->leftjoin("v.user", "u")
               ->setParameters(array('datetime' => new \DateTime(), "user" => $user->getId()))
               ->getQuery()
               ->getArrayResult();
