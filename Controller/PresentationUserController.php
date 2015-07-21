@@ -100,6 +100,9 @@ class PresentationUserController extends Controller
             $entity->upload();
             $em->flush();
 
+            $request->getSession()->getFlashBag()->add(
+              'message', 'Your changes were saved.'
+            );
             return $this->redirect($this->generateUrl('user_presentations'/*, array('id' => $entity->->getId())*/));
         }
 

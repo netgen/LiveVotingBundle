@@ -4,7 +4,7 @@
  * This file is part of the Netgen LiveVoting bundle.
  *
  * https://github.com/netgen/LiveVotingBundle
- * 
+ *
  */
 
 namespace Netgen\LiveVotingBundle\Controller;
@@ -50,17 +50,32 @@ class ResultController extends Controller{
     {
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
         $enabled = $event->getallowViewingResults();
-        
+
         if($enabled)
         {
             $results = $this->get('live_voting.result')->getLiveResults($event_id);
+
+            // Limit LiveResults to three presentations
+
+            // Sort by average, MAX => MIN
+            usort($results['presentations'], array($this, 'cmp'));
+            //Return first three elements of array
+            array_splice($results['presentations'], 3);
+
             return new JsonResponse($results);
         }
-        
+
         else
         {
             return new JsonResponse(array());
         }
+    }
+
+    public function cmp($a, $b){
+      if ($a['score']['average'] == $b['score']['average']) {
+          return 0;
+      }
+      return ($a['score']['average'] < $b['score']['average']) ? 1 : -1;
     }
 
     /**
@@ -70,7 +85,7 @@ class ResultController extends Controller{
     public function getTableAction($event_id){
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
         $enabled = $event->getallowViewingResults();
-        
+
         if($enabled)
         {
             $results = $this->get('live_voting.result')->getLiveResults($event_id);

@@ -3,6 +3,10 @@
 {% block body -%}
     <h1>Presentations for event: {{ event.name }} [{{ event.stateName }}]</h1>
 
+    {% for flashMessage in app.Session.flashbag.get('message') %}
+      <h3>{{flashMessage}}</h3>
+    {% endfor %}
+    
     <table class="records_list table">
         <thead>
             <tr>

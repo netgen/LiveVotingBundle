@@ -31,6 +31,11 @@ class Presentation
     private $presentationName;
 
     /**
+    * @var text
+    */
+    private $description;
+
+    /**
      * @var boolean
      */
     private $votingEnabled = false;
@@ -63,7 +68,7 @@ class Presentation
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -86,7 +91,7 @@ class Presentation
     /**
      * Get presenterName
      *
-     * @return string 
+     * @return string
      */
     public function getPresenterName()
     {
@@ -109,7 +114,7 @@ class Presentation
     /**
      * Get presenterSurname
      *
-     * @return string 
+     * @return string
      */
     public function getPresenterSurname()
     {
@@ -132,7 +137,7 @@ class Presentation
     /**
      * Get presentationName
      *
-     * @return string 
+     * @return string
      */
     public function getPresentationName()
     {
@@ -155,7 +160,7 @@ class Presentation
     /**
      * Get votingEnabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getVotingEnabled()
     {
@@ -188,7 +193,7 @@ class Presentation
     /**
      * Get vote
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVote()
     {
@@ -211,7 +216,7 @@ class Presentation
     /**
      * Get event
      *
-     * @return \Netgen\LiveVotingBundle\Entity\Event 
+     * @return \Netgen\LiveVotingBundle\Entity\Event
      */
     public function getEvent()
     {
@@ -238,7 +243,7 @@ class Presentation
     /**
      * Get votes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVotes()
     {
@@ -363,4 +368,27 @@ class Presentation
     }
 
 
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Presentation
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 }

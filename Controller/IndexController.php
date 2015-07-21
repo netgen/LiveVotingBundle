@@ -4,7 +4,7 @@
  * This file is part of the Netgen LiveVoting bundle.
  *
  * https://github.com/netgen/LiveVotingBundle
- * 
+ *
  */
 
 namespace Netgen\LiveVotingBundle\Controller;
@@ -29,8 +29,15 @@ class IndexController extends Controller
     public function landingAction()
     {
         $events = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->findAll();
+
+        $presentations = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->findByUser($this->getUser());
+
+
         return $this->render('LiveVotingBundle:Index:landing.html.twig',
-            array('events'=>$events)
+            array(
+              'events'=>$events,
+              'userPresentationsNum' => count($presentations)
+              )
         );
     }
 }
