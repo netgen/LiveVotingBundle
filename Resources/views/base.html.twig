@@ -17,41 +17,46 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <nav class="navbar navbar-fixed-top" role="navigation">
-                    <div class="navbar-header pull-left">
-                        <a href="{{ path('root')}}">
-                            <img src="{{ asset('bundles/livevoting/img/netgen.svg') }}" class="navbar-logo">
-                        </a>
-                    </div>
-                    <div class="navbar-header pull-right">
-                        {% if app.user %}
-                            <a href="{{ path('root') }}"><button type="button" class="btn btn-default navbar-btn">Dashboard</button></a>
-                            <a href="{{ path('user_landing') }}"><button type="button" class="btn btn-default navbar-btn">Events</button></a>
-                        {% endif %}
-                    </div>
-                </nav>
+    <div id="global-container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <nav class="navbar navbar-fixed-top" role="navigation">
+                        <div class="navbar-header pull-left">
+                            <a href="{{ path('root')}}">
+                                <img src="{{ asset('bundles/livevoting/img/netgen.svg') }}" class="navbar-logo">
+                            </a>
+                        </div>
+                        <div class="navbar-header pull-right">
+                            {% if app.user %}
+                                <a href="{{ path('root') }}"><button type="button" class="btn btn-default navbar-btn">Dashboard</button></a>
+                                <a href="{{ path('user_landing') }}"><button type="button" class="btn btn-default navbar-btn">Events</button></a>
+                            {% endif %}
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
-    </div>
-    {% block body %}{% endblock %}
 
-    <footer id="main-footer" class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <ul class="list-inline list-unstyled text-center">
-                    <li>                        
-                        <a href="http://www.netgenlabs.com"><img width="32" height="32" alt="Netgen" src="{{ asset('bundles/livevoting/img/kruzici.svg')}}"><span>netgenlabs.com</span></a>
-                    </li>
-                    <li>                        
-                        <a href="https://github.com/netgen/LiveVoting"><i class="fa fa-2x fa-github"></i><span>GitHub project</span></a>
-                    </li>
-                </ul>
-            </div>
+        <div id="main" class="container">
+            {% block body %}{% endblock %}
         </div>
-    </footer>
+
+        <footer id="main-footer" class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="list-inline list-unstyled text-center">
+                        <li>                        
+                            <a href="http://www.netgenlabs.com"><img width="32" height="32" alt="Netgen" src="{{ asset('bundles/livevoting/img/kruzici.svg')}}"><span>netgenlabs.com</span></a>
+                        </li>
+                        <li>                        
+                            <a href="https://github.com/netgen/LiveVoting"><i class="fa fa-2x fa-github"></i><span>GitHub project</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
     
     <script src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
     <script src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>

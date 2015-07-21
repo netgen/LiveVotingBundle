@@ -3,59 +3,57 @@
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('bundles/livevoting/css/loader.css') }}"  />
 {% endblock %}
+
 {% block body %}
-<div class="navbar navbar-default navbar-collapse">
-		<div class="container">
-
-				<div class="navbar-header">
-						<ul class="list-inline list-unstyled text-center">
-									<li>
-											<a href="{{ path('root') }}">
-												<img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
-											</a>
-									</li>
-									<li class="text-center">
-											<h2>Netgen LiveVoting</h2>
-									</li>
-							</ul>
-					</div>
-				</div>
-</div>
-		<div class="container">
-			<div id="events">
-								<ul class="list-group">
-										{% for event in events %}
-										<li class="list-group-item clearfix">
-											<a href="{{ path( 'event' , {'event_id':event.getId}) }}">
-												<img style="float:left;" src="{{ asset('bundles/livevoting/') }}{{ event.getImage ? event.getWebPath : 'img/man1.png' }}" class='thumbnail slikaa'>
-											<h3>{{ event.getName }}</h3>
-										</a>
-												{% if event.getAllowViewingResults %}
-														<a href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Results</a>
-												{% endif %}
-												{% if event.questions|length > 0 %}
-													<br><span class="glyphicon glyphicon-question-sign"></span>
-													<a href="{{ path('question', {'event_id':event.getId}) }}">
-														{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}
-													</a>
-												{% endif %}
-										</li>
-										{% endfor %}
-								</ul>
-						</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>Netgen Live Voting</h1>
 		</div>
+	</div>
+	<div class="row">
+		<div id="events" class="col-xs-12">
+			<ul class="list-group">
+				{% for event in events %}
+				<li class="list-group-item clearfix">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 event-header">
+								<img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/man1.png'}}">
+								<h2 class="text-left">{{ event.getName }}</h2>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-4 text-center event-action">
+								<a href="{{path( 'event' , {'event_id':event.getId})}}" class="btn-event">Vote</a>
+							</div>
+							<div class="col-xs-4 text-center event-action">
+								{% if event.getAllowViewingResults %}
+								<a href="{{path('result', {'event_id':event.getId})}}" class="btn-event">Results</a>
+								{% else %}
+								<a class="btn-event disabled">Results</a>
+								{% endif %}
+							</div>
+							<div class="col-xs-4 text-center event-action">
+								{% if event.questions|length > 0 %}
+								<a href="{{path('question', {'event_id':event.getId})}}" class="btn-event">{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}</a>
+								{% else %}
+								<a class="btn-event disabled">-</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
 
-		{% if userPresentationsNum != 0 %}
-			<a class="btn btn-primary" href="{{ path('user_presentations') }}">
-					Presentations
-			</a>
-		{% endif %}
-		
-		{% if(app.request.cookies.has('userEditEnabled')) %}
-			<a class="btn btn-primary" href="{{ path('user_edit') }}">
-					Edit user info
-			</a>
-		{% endif %}
+	{% if userPresentationsNum != 0 %}
+	<a class="btn btn-primary" href="{{ path('user_presentations') }}">Presentations</a>
+	{% endif %}	
+	{% if(app.request.cookies.has('userEditEnabled')) %}
+	<a class="btn btn-primary" href="{{ path('user_edit') }}">Edit user info</a>
+	{% endif %}
 {% endblock %}
 
 {% block javascripts %}
