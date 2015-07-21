@@ -25,7 +25,7 @@ class DashboardController extends Controller{
 
   public function getLiveScheduleAction(){
     $user = $this->get('security.context')->getToken()->getUser();
-      if($user !== "anon.") {
+      if($user !== "anon." && method_exists($user, "getId")) {
           $presentations = $this->getDoctrine()->getManager()->createQueryBuilder("p")
               ->select("p, v, u")
               ->from('LiveVotingBundle:presentation', 'p')
