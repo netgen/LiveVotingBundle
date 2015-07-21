@@ -51,6 +51,10 @@ class UserAdminController extends Controller
             $em->persist($user);
             $em->flush();
 
+            $request->getSession()->getFlashBag()->add(
+              'message', 'You have added new user.'
+            );
+
             return $this->redirect($this->generateUrl('admin_user'));
         }
 
@@ -148,6 +152,10 @@ class UserAdminController extends Controller
         {
             $entity->setEmail($entity->getEmail());
             $em->flush();
+            $request->getSession()->getFlashBag()->add(
+              'message', 'Your changes were saved.'
+            );
+
             return $this->redirect($this->generateUrl('admin_user'));
         }
 
@@ -194,6 +202,8 @@ class UserAdminController extends Controller
         ->add('submit', 'submit', array('label' => 'Upload csv'))
         ->getForm();
 
+
+
       $form->handleRequest($request);
 
       if($form->isValid()){
@@ -223,6 +233,9 @@ class UserAdminController extends Controller
                 }
             }
             fclose($handle);
+            $request->getSession()->getFlashBag()->add(
+              'message', 'You have added new user(s) from csv file.'
+            );
         }
         return $this->redirect($this->generateUrl('admin_user'));
       }

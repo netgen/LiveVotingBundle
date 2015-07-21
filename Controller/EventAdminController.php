@@ -194,6 +194,10 @@ class EventAdminController extends Controller
             $entity->upload();
             $em->flush();
 
+            $request->getSession()->getFlashBag()->add(
+              'message', 'Your changes were saved.'
+            );
+            
             return $this->redirect($this->generateUrl('admin_event'));
         }
 

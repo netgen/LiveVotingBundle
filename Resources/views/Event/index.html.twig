@@ -3,6 +3,10 @@
 {% block body -%}
     <h1>Event list</h1>
 
+    {% for flashMessage in app.Session.flashbag.get('message') %}
+      <h3>{{flashMessage}}</h3>
+    {% endfor %}
+
     <table class="records_list table">
         <thead>
             <tr>
@@ -42,7 +46,7 @@
                 <td>
                     <a class="btn btn-danger" href="{{ path('admin_event_delete', { 'id': entity.id }) }}"> <span class="glyphicon glyphicon-remove"></span> Delete</a>
                 </td>
-                
+
             </tr>
         {% endfor %}
         </tbody>
