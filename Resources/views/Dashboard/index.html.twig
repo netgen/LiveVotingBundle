@@ -221,7 +221,8 @@
             };
 
             this.handle = function(){
-                if(data.votes != undefined) {
+                console.log(data);
+                if(data.votes != undefined && data.votes.length != 0) {
                     var vote = data.votes[0].rate;
                     this.setVote(vote);
                 }

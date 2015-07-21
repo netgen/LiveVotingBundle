@@ -24,6 +24,7 @@ class PresentationType extends AbstractType
                 'required' => false
             ))
             ->add('hall')
+            ->add('globalBrake')
             ->add('user')
             ->add('begin')
             ->add('end')
