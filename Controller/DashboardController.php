@@ -45,7 +45,7 @@ class DashboardController extends Controller{
               AND :datetime < e.end
               AND e.event IS NOT null
             ')->setParameter('datetime', new \DateTime())->getResult();
-
+    if(is_array($event)) $event = $event[0];
     $presentations = $this->getDoctrine()->getManager()
           ->createQuery("
             SELECT p
