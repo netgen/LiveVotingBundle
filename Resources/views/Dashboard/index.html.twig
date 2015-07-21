@@ -112,7 +112,6 @@
         function brain(options_){
 
             var options = options_;
-            var source   = $("#presentation").html();
             var urlPath = options['URLS']['EVENT_STATUS']+getEventId(1);
             var globalState = null;
             var timeout = options['STATES']['PRE']['TIMEOUT'];
@@ -501,7 +500,7 @@
           <div class="panel-heading">
               <div class="row">
                   <div class="col-lg-2 ">
-                      <div class="imgpresenter"><img class="img-circle " src="{{ asset('bundles/livevoting/img/lik.png') }}" alt="Generic placeholder image" width="100" height="100"></div>
+                      <div class="imgpresenter"><img class="img-circle " src="{{ asset('bundles/livevoting/img/faces') }}//{{ '{{ image }}' }}" alt="Presentation image" width="100" height="100"></div>
                   </div>
                   <div class="col-lg-7 text-left">
                       <div class="prestitle my-repeat-animation">{{'<div>{{presentationName}}</div>'}}
