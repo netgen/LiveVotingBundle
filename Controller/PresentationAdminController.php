@@ -58,6 +58,10 @@ class PresentationAdminController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $request->getSession()->getFlashBag()->add(
+              'message', 'You have created new presentation.'
+            );
+
             return $this->redirect($this->generateUrl('admin_presentation', array('event_id'=>$event_id)));
         }
 

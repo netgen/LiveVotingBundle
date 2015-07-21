@@ -3,6 +3,10 @@
 {% block body -%}
     <h1>Registration list</h1>
 
+    {% for flashMessage in app.Session.flashbag.get('message') %}
+      <h3>{{flashMessage}}</h3>
+    {% endfor %}
+
     <table class="records_list table">
         <thead>
             <tr>
@@ -19,8 +23,8 @@
         {% for entity in entities %}
             <tr>
                 <!--<td><a href="{{ path('registration_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>-->
-                <td>{{ entity.getUser.getEmail }}</td>
-                <td>{{ entity.getEvent.getName }}</td>
+                <td>{{ entity.user.email }}</td>
+                <td>{% if entity.event != null %}{{ entity.event.name }}{% else %} {% endif %}</td>
                 <td>{{ entity.devLevel }}</td>
                 <td>{% if entity.arrivalTime %}{{ entity.arrivalTime|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if entity.departureTime %}{{ entity.departureTime|date('Y-m-d H:i:s') }}{% endif %}</td>

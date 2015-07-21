@@ -44,6 +44,10 @@ class RegistrationController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $request->getSession()->getFlashBag()->add(
+              'message', 'You have created new registration.'
+            );
+
             return $this->redirect($this->generateUrl('registration', array('id' => $entity->getId())));
         }
 
@@ -172,7 +176,11 @@ class RegistrationController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('registration_edit', array('id' => $id)));
+            $request->getSession()->getFlashBag()->add(
+              'message', 'Your changes were saved.'
+            );
+
+            return $this->redirect($this->generateUrl('registration', array('id' => $id)));
         }
 
         return $this->render('LiveVotingBundle:Registration:edit.html.twig', array(
