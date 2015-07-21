@@ -3,6 +3,10 @@
 {% block body -%}
     <h1>Presentations for user:  {{ user.email }} </h1>
 
+    {% for flashMessage in app.Session.flashbag.get('message') %}
+      <h3>{{flashMessage}}</h3>
+    {% endfor %}
+
     <table class="records_list table">
         <thead>
         <tr>
@@ -12,6 +16,7 @@
         </tr>
         </thead>
         <tbody>
+
         {% for entity in entities %}
             <tr class="{{ entity[0].votingEnabled?'success':'danger' }}">
                 <td><img width="40px" src='{{ asset('bundles/livevoting/'~(entity[0].getImage ? entity[0].getWebPath: 'img/man1.png'))}}'/></td>

@@ -16,6 +16,8 @@ Netgen\LiveVotingBundle\Entity\Presentation:
         presentationName:
             type: string
             length: 256
+        description:
+            type: text
         votingEnabled:
             type: boolean
             default: false

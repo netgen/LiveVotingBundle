@@ -31,6 +31,11 @@ class Presentation
     private $presentationName;
 
     /**
+    * @var text
+    */
+    private $description;
+
+    /**
      * @var boolean
      */
     private $votingEnabled = false;
@@ -44,10 +49,12 @@ class Presentation
      * @var \Netgen\LiveVotingBundle\Entity\Event
      */
     private $event;
-
+    private $user;
 
     private $country = '';
     private $image = '';
+
+    private $hall;
 
     /**
      * Constructor
@@ -61,7 +68,7 @@ class Presentation
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -84,7 +91,7 @@ class Presentation
     /**
      * Get presenterName
      *
-     * @return string 
+     * @return string
      */
     public function getPresenterName()
     {
@@ -107,7 +114,7 @@ class Presentation
     /**
      * Get presenterSurname
      *
-     * @return string 
+     * @return string
      */
     public function getPresenterSurname()
     {
@@ -130,7 +137,7 @@ class Presentation
     /**
      * Get presentationName
      *
-     * @return string 
+     * @return string
      */
     public function getPresentationName()
     {
@@ -153,7 +160,7 @@ class Presentation
     /**
      * Get votingEnabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getVotingEnabled()
     {
@@ -186,7 +193,7 @@ class Presentation
     /**
      * Get vote
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVote()
     {
@@ -209,11 +216,23 @@ class Presentation
     /**
      * Get event
      *
-     * @return \Netgen\LiveVotingBundle\Entity\Event 
+     * @return \Netgen\LiveVotingBundle\Entity\Event
      */
     public function getEvent()
     {
         return $this->event;
+    }
+
+    public function setUser (\Netgen\LiveVotingBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -224,7 +243,7 @@ class Presentation
     /**
      * Get votes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getVotes()
     {
@@ -252,6 +271,41 @@ class Presentation
         return $this->image;
     }
 
+    private $begin;
+    private $end;
+
+    public function setBegin($begin)
+    {
+        $this->begin = $begin;
+
+        return $this;
+    }
+
+    public function getBegin()
+    {
+        return $this->begin;
+    }
+
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    public function getEnd()
+    {
+        return $this->end;
+    }
+
+    public function setHall($hall)
+    {
+        $this->hall = $hall;
+    }
+    public function getHall()
+    {
+        return $this->hall;
+    }
 
     public function getAbsolutePath()
     {
@@ -280,7 +334,7 @@ class Presentation
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../Resources/public/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/bundles/livevoting/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()

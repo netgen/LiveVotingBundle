@@ -20,17 +20,8 @@ class PresentationUserType extends AbstractType
     public function buildForm (FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('presenterName')
-            ->add('presenterSurname')
             ->add('presentationName')
-            ->add('votingEnabled')
-            ->add('image', 'file', array(
-                'data_class' => null,
-                'required' => false
-            ))
-            ->add('begin')
-            ->add('end')
-            ->add('event')
+            ->add('description')
         ;
     }
 
