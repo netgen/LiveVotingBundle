@@ -131,12 +131,18 @@ class UserController extends Controller {
         {
             $em->persist($entity);
             $em->flush();
+            $request->getSession()->getFlashBag()->add(
+              'message', 'Your changes were saved.'
+            );
             return $this->redirect($this->generateUrl('user_edit'));
         }
 
         if ($editRegistrationForm->isValid()){
             $em->persist($entity2);
             $em->flush();
+            $request->getSession()->getFlashBag()->add(
+              'message', 'Your changes were saved.'
+            );
             return $this->redirect($this->generateUrl('user_edit'));
         }
 

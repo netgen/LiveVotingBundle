@@ -3,6 +3,10 @@
 {% block body -%}
     <h1>User & Registration edit</h1>
 
+    {% for flashMessage in app.Session.flashbag.get('message') %}
+      <h3>{{flashMessage}}</h3>
+    {% endfor %}
+
     {{ form(edit_user_form, {'attr':{'class':'form-horizontal'}}) }}
     {{ form(edit_registration_form, {'attr':{'class':'form-horizontal'}}) }}
 

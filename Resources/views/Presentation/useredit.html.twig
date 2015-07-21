@@ -3,7 +3,9 @@
 {% block body -%}
     <h1>Presentation edit</h1>
 
-
+    {% for flashMessage in app.Session.flashbag.get('message') %}
+      <h3>{{flashMessage}}</h3>
+    {% endfor %}
 
     {{ form_start(edit_form) }}
 

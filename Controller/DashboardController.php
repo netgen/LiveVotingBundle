@@ -82,7 +82,21 @@ class DashboardController extends Controller{
         $presentation['average'] = $sum/$numOfUsers;
     }
 
+    // Limit LiveResults to three presentations
+
+    // Sort by average, MAX => MIN
+    usort($presentations, array($this, 'cmp'));
+    //Return first three elements of array
+    array_splice($presentations, 3);
+
     $responseArray['presentations'] = $presentations;
     return new JsonResponse($responseArray);
+  }
+
+  public function cmp($a, $b){
+    if ($a['average'] == $b['average']) {
+        return 0;
+    }
+    return ($a['average'] < $b['average']) ? 1 : -1;
   }
 }
