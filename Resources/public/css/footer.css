@@ -1,0 +1,42 @@
+/**
+ * Main footer
+ */
+footer#main-footer {
+	margin-top: 4em;
+	background-color: #404041;
+}
+
+footer#main-footer ul {
+	height: 6em;
+	min-height: 6em;
+	margin: 0;
+	padding: 0;
+}
+
+footer#main-footer ul li {
+	height: 2em;
+	width: auto;
+	margin: 2em;
+	padding: 0;
+}
+
+footer#main-footer ul li a {
+	line-height: 2em;
+	margin: 0;
+	padding: 0;
+}
+
+footer#main-footer ul li a span {
+	line-height: 2em;
+	height: 2em;
+	margin-left: 0.5em;
+}
+
+footer#main-footer ul li a i {
+	color: #bbbbbb;
+}
+
+footer#main-footer ul li a span, footer#main-footer ul li a i {
+	display: inline-block;
+	vertical-align: middle;
+}

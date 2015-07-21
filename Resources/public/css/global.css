@@ -1,0 +1,53 @@
+/**
+ * Global settings
+ */
+html {
+	min-height: 100%;
+}
+
+html > body {
+	margin-top: 4em;
+    color:#206CA8;
+    background-color:#ECF0F5;
+}
+
+
+/**
+ * Fonts
+ */
+html > body {
+	font-family: 'Roboto Slab', serif;
+	font-size: 16px;
+	line-height: 1.5em;
+}
+
+a {
+	font-size: 1em;
+}
+
+
+/**
+ * Buttons
+ */
+.btn {
+	background-color: #ed6e44;
+	color: #ffffff;
+    border-radius: 5px;
+}
+
+.btn:hover {
+	background-color: #f05a28;
+	color: #ffffff;
+}
+
+/**
+ * Links
+ */
+a, a:link, a:visited, a:active {
+	color: #ffffff;
+}
+
+a:link:hover, a:hover {
+	color: #0199C6;
+	text-decoration: none;
+}

@@ -5,46 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/style.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/global.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/content.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/transitions.css') }}">
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
-    {% block stylesheets %}{% endblock %}
 </head>
 
 <body>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-header pull-left">
-            <a href="{{ path('root')}}">
-                <img src="{{ asset('bundles/livevoting/img/netgenlogo.png') }}" class="navbar-logo">
-            </a>
-        </div>
-        <div class="navbar-header pull-right">
-            {% if app.user %}
-                <a href="{{ path('root') }}"><button type="button" class="btn btn-default navbar-btn">Dashboard</button></a>
-                <a href="{{ path('user_landing') }}"><button type="button" class="btn btn-default navbar-btn">Events</button></a>
-            {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <nav class="navbar navbar-fixed-top" role="navigation">
+                    <div class="navbar-header pull-left">
+                        <a href="{{ path('root')}}">
+                            <img src="{{ asset('bundles/livevoting/img/netgen.svg') }}" class="navbar-logo">
+                        </a>
+                    </div>
+                    <div class="navbar-header pull-right">
+                        {% if app.user %}
+                            <a href="{{ path('root') }}"><button type="button" class="btn btn-default navbar-btn">Dashboard</button></a>
+                            <a href="{{ path('user_landing') }}"><button type="button" class="btn btn-default navbar-btn">Events</button></a>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
         </div>
     </div>
     {% block body %}{% endblock %}
 
-    <div id="footer-index">
-        <div class="container">
-            <ul class="list-inline list-unstyled">
-                <li class="hidden-xs">
-                    <img width="20" height="20" alt="Netgen" src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" >
-                </li>
-                <li>
-                    <a href="http://www.netgenlabs.com">Netgenlabs.com NEW</a>
-                </li>
-                <li class="hidden-xs" style="margin-left:3rem;">
-                    <img width="20" height="20" alt="GitHub Mark" src="{{ asset('bundles/livevoting/img/GitHub-Mark.png')}}">
-                </li>
-                <li>
-                    <a href="https://github.com/netgen/LiveVoting">GitHub project</a>
-                </li>
-            </ul>
+    <footer id="main-footer" class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="list-inline list-unstyled text-center">
+                    <li>                        
+                        <a href="http://www.netgenlabs.com"><img width="32" height="32" alt="Netgen" src="{{ asset('bundles/livevoting/img/kruzici.svg')}}"><span>netgenlabs.com</span></a>
+                    </li>
+                    <li>                        
+                        <a href="https://github.com/netgen/LiveVoting"><i class="fa fa-2x fa-github"></i><span>GitHub project</span></a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
+    </footer>
     
     <script src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
     <script src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
