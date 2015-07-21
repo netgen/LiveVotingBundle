@@ -2,129 +2,181 @@
 
 {% block title %}Dashboard{% endblock %}
 {% block stylesheets %}
-  <style type="text/css">
-    @keyframes fadeIn{
-    0% {background-color: white;opacity: 0;}
-    50% {background-color: green;opacity: 0.5;}
-    100% {background-color: white;opacity: 1;}
-    }
-    @-webkit-keyframes fadeIn{
-    0% {background-color: white;opacity: 0;}
-    50% {background-color: green;opacity: 0.5;}
-    100% {background-color: white;opacity: 1;}
-    }
-    @keyframes fadeOut{
-    0% {background-color: white;opacity: 1;}
-    50% {background-color: red;opacity: 0.5;}
-    100% {background-color: white;opacity: 0;}
-    }
-    @-webkit-keyframes fadeOut{
-    0% {background-color: white;opacity: 1;}
-    50% {background-color: red;opacity: 0.5;}
-    100% {background-color: white;opacity: 0;}
-    }
-    .my-repeat-animation{
-    margin: 10px;
-    background-color: white;
-    }
-    .my-repeat-animation.ng-enter.ng-enter-active,
-    .my-repeat-animation.ng-leave {
-      -webkit-animation: fadeIn 3s linear;
-      -moz-animation:    fadeIn 3s linear;
-      -o-animation:      fadeIn 3s linear;
-      animation:         fadeIn 3s linear;
-    }
-    /* Remove animation */
-    .my-repeat-animation.ng-leave.ng-leave-active,
-    .my-repeat-animation.ng-enter {
-      -webkit-animation: fadeOut 3s linear;
-      -moz-animation:    fadeOut 3s linear;
-      -o-animation:      fadeOut 3s linear;
-      animation:         fadeOut 3s linear;
-    }
-  </style>
+    <style type="text/css">
+        @keyframes fadeIn {
+            0% {
+                background-color: white;
+                opacity: 0;
+            }
+            50% {
+                background-color: green;
+                opacity: 0.5;
+            }
+            100% {
+                background-color: white;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                background-color: white;
+                opacity: 0;
+            }
+            50% {
+                background-color: green;
+                opacity: 0.5;
+            }
+            100% {
+                background-color: white;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                background-color: white;
+                opacity: 1;
+            }
+            50% {
+                background-color: red;
+                opacity: 0.5;
+            }
+            100% {
+                background-color: white;
+                opacity: 0;
+            }
+        }
+
+        @-webkit-keyframes fadeOut {
+            0% {
+                background-color: white;
+                opacity: 1;
+            }
+            50% {
+                background-color: red;
+                opacity: 0.5;
+            }
+            100% {
+                background-color: white;
+                opacity: 0;
+            }
+        }
+
+        .my-repeat-animation {
+            margin: 10px;
+            background-color: white;
+        }
+
+        .my-repeat-animation.ng-enter.ng-enter-active,
+        .my-repeat-animation.ng-leave {
+            -webkit-animation: fadeIn 3s linear;
+            -moz-animation: fadeIn 3s linear;
+            -o-animation: fadeIn 3s linear;
+            animation: fadeIn 3s linear;
+        }
+
+        /* Remove animation */
+        .my-repeat-animation.ng-leave.ng-leave-active,
+        .my-repeat-animation.ng-enter {
+            -webkit-animation: fadeOut 3s linear;
+            -moz-animation: fadeOut 3s linear;
+            -o-animation: fadeOut 3s linear;
+            animation: fadeOut 3s linear;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-  <div id="page-wrapper" class="container-fluid">
+    <div id="page-wrapper" class="container-fluid">
 
-      <div class="row heading">
-          <div class="col-lg-8">
-              <h1 class="page-header">DAY1- Aug 26</h1>
-          </div>
-      </div>
-      <div class="row panels">
-          <div class="col-lg-8 col-md-6 col-sm-8" id="liveschedule">
-              <!--PANELS -->
+        <div class="row heading">
+            <div class="col-lg-8">
+                <h1 class="page-header">DAY1- Aug 26</h1>
+            </div>
+        </div>
+        <div class="row panels">
+            <div class="col-lg-8 col-md-6 col-sm-8" id="liveschedule">
+                <!--PANELS -->
 
-          </div>
+            </div>
 
-          <!--END OF EVENTS -->
-          <!--TWITTER -->
-          <div class=" col-lg-4 col-md-6  twitter ">
-              <a class="twitter-timeline" href="https://twitter.com/hashtag/php" data-widget-id="619436153545039872">#php Tweets</a>
-              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-          </div>
-      </div>
-  </div>
-  <!--END OF TWITTER -->
+            <!--END OF EVENTS -->
+            <!--TWITTER -->
+            <div class=" col-lg-4 col-md-6  twitter ">
+                <a class="twitter-timeline" href="https://twitter.com/hashtag/php" data-widget-id="619436153545039872">#php
+                    Tweets</a>
+                <script>!function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                        if (!d.getElementById(id)) {
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = p + "://platform.twitter.com/widgets.js";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }
+                    }(document, "script", "twitter-wjs");</script>
+            </div>
+        </div>
+    </div>
+    <!--END OF TWITTER -->
 
-  <div id="container" style="margin-left:auto; margin-right:auto; width:98%; height:400px;">
-  </div>
+    <div id="container" style="margin-left:auto; margin-right:auto; width:98%; height:400px;">
+    </div>
 {% endblock %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             new brain({
-                'STATES':{
-                    'PRE':{'TIMEOUT':1},
-                    'ACTIVE':{'TIMEOUT':5},
-                    'POST':{'TIMEOUT':5}
+                'STATES': {
+                    'PRE': {'TIMEOUT': 1},
+                    'ACTIVE': {'TIMEOUT': 5},
+                    'POST': {'TIMEOUT': 5}
                 },
-                'URLS':{
-                    'EVENT_STATUS':'/user/event_status/',
-                    'VOTE':'/user/vote/'
+                'URLS': {
+                    'EVENT_STATUS': '/user/event_status/',
+                    'VOTE': '/user/vote/'
                 }
             });
         });
-        function presentationsArray(){
+        function presentationsArray() {
             var arr = {};
             var notify = [];
             /*
              Adds new presentation if it's not there and change it's view if needs.
              */
-            this.add = function(presentation){
+            this.add = function (presentation) {
                 var id = presentation['id'].toString();
-                if(arr[id] === undefined){
+                if (arr[id] === undefined) {
                     arr[id] = new presentationClass();
                     arr[id].init(presentation);
                 }
                 var status = arr[id].setData(presentation);
-                if(status){
+                if (status) {
                     notify.push(id);
                 }
                 arr[id].handle();
             }
 
 
-            this.getById = function(id){
+            this.getById = function (id) {
                 return arr[id];
             };
 
-            this.setEnabledAll = function(state){
-                arr.forEach(function(presentation) {
+            this.setEnabledAll = function (state) {
+                arr.forEach(function (presentation) {
                     presentation.setEnabled(false);
                     presentation.setVote(presentation.getData()['presenterRate']);
                 });
             };
 
-            this.notifiyAll = function(){
+            this.notifiyAll = function () {
                 var scrolledTo = false;
-                for(var i in notify){
-                    if(!scrolledTo){
+                for (var i in notify) {
+                    if (!scrolledTo) {
                         $('html, body').animate({
                             scrollTop: arr[notify[i]].element.offset().top
                         }, 1000);
@@ -132,7 +184,7 @@
                     }
                     arr[notify[i]].highlightMe();
                 }
-                if(scrolledTo)
+                if (scrolledTo)
                     footer.displayMessage('Please vote.');
                 delete notify;
                 notify = [];
@@ -143,15 +195,15 @@
         /*
          Class presentation that holds one presentation and pointer to html element
          */
-        function presentationClass(){
+        function presentationClass() {
 
             var data = null;
             var that = this;
             this.element = null;
 
-            this.init = function(newData){
+            this.init = function (newData) {
                 this.setData(newData);
-                this.element = $("#presentation-"+data["id"]);
+                this.element = $("#presentation-" + data["id"]);
                 this.element.find('.highLight').hide();
                 this.element.find('.flash').hide();
                 $("#voteScreen").append(this.element);
@@ -161,11 +213,11 @@
             /*
              Returns true if user can now vote on it.
              */
-            this.setData = function(newData){
+            this.setData = function (newData) {
                 var status = false;
-                if(data==null){
+                if (data == null) {
                     status = newData['votingEnabled'];
-                }else if(newData['votingEnabled']==true && data['votingEnabled']==false){
+                } else if (newData['votingEnabled'] == true && data['votingEnabled'] == false) {
                     status = true;
                 }
                 delete data;
@@ -173,37 +225,37 @@
                 return status;
             };
 
-            this.getData = function(){
+            this.getData = function () {
                 return data;
             };
 
-            this.setVote = function(vote_number){
+            this.setVote = function (vote_number) {
                 console.log(this.element);
-                this.element.find('input[type=submit]').each(function(){
-                    if(this.value == vote_number){
+                this.element.find('input[type=submit]').each(function () {
+                    if (this.value == vote_number) {
                         $(this).addClass('active');
-                    }else{
+                    } else {
                         $(this).removeClass('active');
                     }
                 });
             };
 
 
-            this.setEnabled = function(enabled_status){
-                if(!enabled_status) // enabled_status == false
+            this.setEnabled = function (enabled_status) {
+                if (!enabled_status) // enabled_status == false
                     this.element.find('.highLight').fadeIn(2000);
                 else
                     this.element.find('.highLight').fadeOut(1000);
             };
 
-            this.highlightMe = function(){
+            this.highlightMe = function () {
                 this.setEnabled(true);
                 console.log('boom flash');
             };
 
-            this.handle = function(){
+            this.handle = function () {
                 console.log(data);
-                if(data.votes != undefined && data.votes.length != 0) {
+                if (data.votes != undefined && data.votes.length != 0) {
                     var vote = data.votes[0].rate;
                     this.setVote(vote);
                 }
@@ -211,10 +263,10 @@
             }
         }
 
-        function brain(options_){
+        function brain(options_) {
 
             var options = options_;
-            var urlPath = options['URLS']['EVENT_STATUS']+getEventId(1);
+            var urlPath = options['URLS']['EVENT_STATUS'] + getEventId(1);
             var globalState = null;
             var timeout = options['STATES']['PRE']['TIMEOUT'];
             var timer = new timer();
@@ -223,7 +275,7 @@
             var loader = $('#circleG');
             var footer = new footerClass($('#footer'));
 
-            Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
+            Handlebars.registerHelper('ifCond', function (v1, v2, options) {
                 if (v1 == v2) {
                     return options.fn(this);
                 }
@@ -232,30 +284,32 @@
 
 
             showSpinner();
-            $('#liveschedule').on('change', '.forma', function(e){e.preventDefault();});
-
-
-            $('#liveschedule').on('click', '.forma input', function(e){
+            $('#liveschedule').on('change', '.forma', function (e) {
                 e.preventDefault();
-                if(!canIVote)return;
+            });
+
+
+            $('#liveschedule').on('click', '.forma input', function (e) {
+                e.preventDefault();
+                if (!canIVote)return;
                 var action = $(this).parent().parent().attr('action');
                 var presentation_id = action.split('/').pop();
                 var presentation = presentations.getById(presentation_id);
                 var vote = $(this).attr('value');
-                var rate = 'rate='+vote;
+                var rate = 'rate=' + vote;
                 //if(presentation.getData()['votingEnabled']==true){
-                if(true){
+                if (true) {
                     showSpinner();
                     $.ajax({
                         type: 'post',
                         'url': action,
                         'data': rate,
-                        success: function(data){
+                        success: function (data) {
                             footer.displayMessage(data['errorMessage']);
                             //presentation.setVote(vote);
                             hideSpinner();
                         },
-                        error: function(e){
+                        error: function (e) {
                             //fly out erro on footer
                             hideSpinner();
                         }
@@ -269,17 +323,17 @@
              *  Gets event id from url which looks like:
              *  /event/{id}
              */
-            function getEventId(ret){
+            function getEventId(ret) {
                 var struct = window.location.pathname.split('/');
                 // 2 because '/'.split('/') returns array len 2
-                if(struct.length<=2)return ret.toString();
+                if (struct.length <= 2)return ret.toString();
                 return struct.pop();
             }
 
-            var run = function() {
-                $.getJSON(urlPath, function(data){
+            var run = function () {
+                $.getJSON(urlPath, function (data) {
 
-                    switch(data['error']){
+                    switch (data['error']) {
                         case 1:
                             // displayMessageInFooter(data['errorMessage']);
                             footer.displayMessage(data['errorMessage']);
@@ -295,27 +349,27 @@
                     }
                     var state = data["eventStatus"];
 
-                    switch(state){
+                    switch (state) {
                         case 'PRE':
                             footer.staticMessage(data['errorMessage']);
-                            timeout = parseInt(options['STATES']['PRE']['TIMEOUT'])*1000;
+                            timeout = parseInt(options['STATES']['PRE']['TIMEOUT']) * 1000;
                             break;
                         case 'POST':
                             var seconds = parseInt(data['seconds']);
-                            timeout = parseInt(options['STATES']['POST']['TIMEOUT'])*1000;
-                            if(!timer.isRunning && seconds>0){
+                            timeout = parseInt(options['STATES']['POST']['TIMEOUT']) * 1000;
+                            if (!timer.isRunning && seconds > 0) {
                                 timer.init(parseInt(data['seconds']), changeFooter, endVoting);
                                 timer.runTimer();
                             }
-                            if(seconds<0){
+                            if (seconds < 0) {
                                 timeout = -1;
                                 endVoting(data['errorMessage']);
                             }
                         case 'ACTIVE':
-                            if(timeout>0){
-                                timeout = parseInt(options['STATES'][state]['TIMEOUT'])*1000;
+                            if (timeout > 0) {
+                                timeout = parseInt(options['STATES'][state]['TIMEOUT']) * 1000;
                             }
-                            if(state!='POST'){
+                            if (state != 'POST') {
                                 footer.removeStatic();
                             }
                             hideSpinner();
@@ -327,20 +381,20 @@
 
                     }
                     globalState = state;
-                    if(timeout>0) setTimeout(run, timeout);
+                    if (timeout > 0) setTimeout(run, timeout);
                 });
             }
 
-            function handleNewPresentations(data){
+            function handleNewPresentations(data) {
                 var pres; // single presentations
-                for(var i in data){
+                for (var i in data) {
                     pres = data[i];
                     presentations.add(pres);
                 }
                 presentations.notifiyAll();
             }
 
-            function endVoting(message){
+            function endVoting(message) {
                 //Thank u for voting
                 canIVote = false;
 
@@ -353,368 +407,385 @@
             }
 
             function changeFooter(seconds_) {
-                footer.setStaticTimer(seconds_.toString()+' seconds left until voting ends.');
+                footer.setStaticTimer(seconds_.toString() + ' seconds left until voting ends.');
             }
 
             /*
              Class timer which calls callbackEverySecond function each second
              and function callbackEnd when timer is done.
              */
-            function timer(){
+            function timer() {
                 this.isRunning = false;
                 this.seconds = 1;
                 this.callbackEverySecond;
                 this.callbackEnd;
                 var killMe = false;
 
-                function stop(){
+                function stop() {
                     killMe = true;
                 }
-                this.init = function(seconds_, callbackEverySecond_, callbackEnd_){
+
+                this.init = function (seconds_, callbackEverySecond_, callbackEnd_) {
                     this.seconds = seconds_;
                     this.callbackEverySecond = callbackEverySecond_;
                     this.callbackEnd = callbackEnd_;
                     killme = false;
                 }
 
-                this.runTimer = function(){
+                this.runTimer = function () {
                     var that = this;
                     this.isRunning = true;
-                    if(this.seconds==0 || killMe){
+                    if (this.seconds == 0 || killMe) {
                         this.callbackEnd();
                         this.isRunning = false;
                         return;
                     }
                     this.callbackEverySecond(this.seconds--);
-                    setTimeout(function(){that.runTimer()}, 1000);
+                    setTimeout(function () {
+                        that.runTimer()
+                    }, 1000);
                 }
             }
 
 
-
-            function footerClass(el){
-                var element=el;
+            function footerClass(el) {
+                var element = el;
                 var holdingUp = false;
                 var that = this;
                 var timeoutVariable = null;
                 element.hide();
 
-                this.displayMessage = function(message){
+                this.displayMessage = function (message) {
                     setMessage(message);
                     this.anim(3);
 
                 }
 
-                function setMessage(message){
+                function setMessage(message) {
                     var er = element.find('.error');
                     er.html(message);
                 }
 
-                function setTimer(tmrMsg){
+                function setTimer(tmrMsg) {
                     var tmr = element.find('.timer');
                     tmr.html(tmrMsg);
                 }
-                this.anim = function(seconds){
-                    if(!holdingUp)
+
+                this.anim = function (seconds) {
+                    if (!holdingUp)
                         this.animateUp(100);
                     clearTimeout(timeoutVariable);
                     timeoutVariable = setTimeout(
-                            function(){
-                                if(!holdingUp)
+                            function () {
+                                if (!holdingUp)
                                     that.animateDown(100);
                                 setMessage('');
                             }
-                            ,seconds*1000);
+                            , seconds * 1000);
                 }
 
-                function endFooter(){
+                function endFooter() {
                     setMessage('');
                     setTimer('');
                 }
 
-                this.animateUp = function(value){
+                this.animateUp = function (value) {
                     element.show();
                     element.animate({
-                        bottom: value+'px'
+                        bottom: value + 'px'
                     }, 500);
                 }
 
-                this.animateDown = function(value){
+                this.animateDown = function (value) {
                     element.animate({
-                        bottom: -value+'px'
-                    }, 500, function(){endFooter();});
+                        bottom: -value + 'px'
+                    }, 500, function () {
+                        endFooter();
+                    });
                     element.show();
                 }
 
-                this.staticMessage = function(msg){
+                this.staticMessage = function (msg) {
                     setMessage(msg);
                     holdOn();
                 }
 
-                this.setStaticTimer = function(timerMsg){
+                this.setStaticTimer = function (timerMsg) {
                     setTimer(timerMsg);
                     holdOn();
                 }
 
-                function holdOn(){
-                    if(holdingUp)return;
+                function holdOn() {
+                    if (holdingUp)return;
                     holdingUp = true;
                     that.animateUp(100);
 
                 }
 
-                this.removeStatic = function(){
-                    if(!holdingUp)return;
+                this.removeStatic = function () {
+                    if (!holdingUp)return;
                     holdingUp = false;
                     this.animateDown(100);
                     endFooter();
                 }
 
             }
-            function showSpinner(){
+
+            function showSpinner() {
                 loader.show();
             }
-            function hideSpinner(){
+
+            function hideSpinner() {
                 loader.hide();
             }
+
             run();
         }
 
     </script>
 
     <script id="live-schedule-template" type="text/x-handlebars-template">
-      <div class="panel">
-          <div class="panel-heading">
-              <div class="row">
-                  <div class="col-lg-2 ">
-                      <div class="imgpresenter"><img class="img-circle " src="{{ asset('bundles/livevoting/img/faces') }}//{{ '{{ image }}' }}" alt="Presentation image" width="100" height="100"></div>
-                  </div>
-                  <div id="presentation-{{ '{{ id }}' }}" class="col-lg-7 text-left">
-                      <div class="prestitle my-repeat-animation">{{'<div>{{presentationName}}</div>'}}
-                      </div>
-                      <div class="presname my-repeat-animation">{{'<div>{{presenterName}} {{presenterSurname}}</div>'}}
-                      </div>
+        <div class="panel">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-lg-2 ">
 
-                      <div class="vote">
-                        {% if app.user %}
-                          <form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="{{ path('vote') }}/{{ '{{ id}}' }}" method="POST">
+                        <div class="imgpresenter">
+                            <img class="img-circle "
+                                 src="{{ asset('bundles/livevoting/img/faces') }}/{{ '{{ image }}' }}"
+                                 alt="Presentation image" width="100" height="100">
+                        </div>
+                    </div>
+                    <div id="presentation-{{ '{{ id }}' }}" class="col-lg-7 text-left">
+                        <div class="prestitle my-repeat-animation">{{ '<div>{{presentationName}}</div>' }}
+                        </div>
+                        <div class="presname my-repeat-animation">{{ '<div>{{presenterName}} {{presenterSurname}}</div>' }}
+                        </div>
 
-                              {% verbatim %}
-                                  {{#if votingEnabled }}
-                                      <span class='glyphicon glyphicon-thumbs-down'></span>
-                                      <div class="btn-group btn-group-lg">
+                        <div class="vote">
+                            {% if app.user %}
+                                <form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                      action="{{ path('vote') }}/{{ '{{ id}}' }}" method="POST">
 
-                                          <input type="submit" class='btn btn-default btn-sm' value='1'/>
-                                          <input type="submit" class='btn btn-default btn-sm' value='2'/>
-                                          <input type="submit" class='btn btn-default btn-sm' value='3'/>
-                                          <input type="submit" class='btn btn-default btn-sm' value='4'/>
-                                          <input type="submit" class='btn btn-default btn-sm' value='5'/>
+                                    {% verbatim %}
+                                        {{#if votingEnabled }}
+                                        <span class='glyphicon glyphicon-thumbs-down'></span>
+                                        <div class="btn-group btn-group-lg">
 
-                                      </div>
+                                            <input type="submit" class='btn btn-default btn-sm' value='1'/>
+                                            <input type="submit" class='btn btn-default btn-sm' value='2'/>
+                                            <input type="submit" class='btn btn-default btn-sm' value='3'/>
+                                            <input type="submit" class='btn btn-default btn-sm' value='4'/>
+                                            <input type="submit" class='btn btn-default btn-sm' value='5'/>
 
-                                      <span class='glyphicon glyphicon-thumbs-up'></span>
-                                      <br>
-                                  {{/if }}
-                              {% endverbatim %}
+                                        </div>
 
-                          </form>
-                        {% else %}
-                          <a href="{{ path('user_landing') }}">
-                              <button type="button" class="btn btn-labeled btn-default">
+                                        <span class='glyphicon glyphicon-thumbs-up'></span>
+                                        <br>
+                                        {{/if }}
+                                    {% endverbatim %}
+
+                                </form>
+                            {% else %}
+                                <a href="{{ path('user_landing') }}">
+                                    <button type="button" class="btn btn-labeled btn-default">
                               <span class="btn-label">
                               <i class="glyphicon glyphicon-stats"></i>
-                              </span>Vote</button>
-                          </a>
-                        {% endif %}
-                      </div>
+                              </span>Vote
+                                    </button>
+                                </a>
+                            {% endif %}
+                        </div>
 
-                  </div>
+                    </div>
 
-                  <div class="container2">
-                      <div class="divider-vertical">
-                          <div class="col-lg-3 time">
-                              <div class="room">
+                    <div class="container2">
+                        <div class="divider-vertical">
+                            <div class="col-lg-3 time">
+                                <div class="room">
                                   <span class="glyphicon glyphicon-blackboard" aria-hidden="true">
                                   </span><b>Elephant</b></div>
-                              <div><b>9:00</b>am</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+                                <div><b>9:00</b>am</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </script>
 
     <script type="text/javascript">
-    var srcDiv = document.getElementById('liveschedule');
-    var content = [];
-    var divContent = [];
-    var source = document.getElementById('live-schedule-template').innerHTML;
-    var template = Handlebars.compile(source);
+        var srcDiv = document.getElementById('liveschedule');
+        var content = [];
+        var divContent = [];
+        var source = document.getElementById('live-schedule-template').innerHTML;
+        var template = Handlebars.compile(source);
 
-      $(document).ready(function(){
-        var ajaxFunction = function() {
-            $.ajax({
-            type: "GET",
-            url: 'http://localhost:8000/dashboard/liveschedule',
-            dataType: "json",
-            success: function(data){
-              if('presentations' in data){
-                  presentations = new presentationsArray();
-                  data['presentations'].forEach(function(presentation) {
-                      presentations.add(presentation);
-                  });
-                  console.log(presentations);
-                if(content.length === 0){
-                  for(var i=0;i<data['presentations'].length;i++){
-                    content.push(JSON.stringify(data['presentations'][i]));
+        $(document).ready(function () {
+            var ajaxFunction = function () {
+                $.ajax({
+                    type: "GET",
+                    url: 'http://localhost:8000/dashboard/liveschedule',
+                    dataType: "json",
+                    success: function (data) {
+                        if ('presentations' in data) {
+                            presentations = new presentationsArray();
+                            data['presentations'].forEach(function (presentation) {
+                                presentations.add(presentation);
+                            });
+                            console.log(presentations);
+                            if (content.length === 0) {
+                                for (var i = 0; i < data['presentations'].length; i++) {
+                                    content.push(JSON.stringify(data['presentations'][i]));
 
-                    html = template(data['presentations'][i]);
+                                    html = template(data['presentations'][i]);
 
-                    newDiv = document.createElement('div');
-                    newDiv.innerHTML = html;
-                    divContent.push(srcDiv.appendChild(newDiv));
-                  }
-                  setInterval(ajaxFunction, 10000);
-                }else{
-                  var givenData = [];
-                  for(var k=0;k<data['presentations'].length;k++){
-                    givenData.push(JSON.stringify(data['presentations'][k]));
-                  }
+                                    newDiv = document.createElement('div');
+                                    newDiv.innerHTML = html;
+                                    divContent.push(srcDiv.appendChild(newDiv));
+                                }
+                                setInterval(ajaxFunction, 10000);
+                            } else {
+                                var givenData = [];
+                                for (var k = 0; k < data['presentations'].length; k++) {
+                                    givenData.push(JSON.stringify(data['presentations'][k]));
+                                }
 
-                  for(var j=0;j<content.length;j++){
-                    if(givenData.indexOf(content[j]) === -1){
-                      $(divContent[j]).fadeOut(2000, function(){
-                        this.remove();
-                      });
-                      content.splice(j, 1);
-                      divContent.splice(j,1);
-                      j--;
+                                for (var j = 0; j < content.length; j++) {
+                                    if (givenData.indexOf(content[j]) === -1) {
+                                        $(divContent[j]).fadeOut(2000, function () {
+                                            this.remove();
+                                        });
+                                        content.splice(j, 1);
+                                        divContent.splice(j, 1);
+                                        j--;
+                                    }
+                                }
+
+                                for (var j = 0; j < givenData.length; j++) {
+                                    if (content.indexOf(givenData[j]) === -1) {
+                                        content.push(givenData[j]);
+
+                                        html = template(data['presentations'][j]);
+
+                                        newDiv = document.createElement('div');
+                                        newDiv.innerHTML = html;
+
+                                        divContent.push(srcDiv.appendChild(newDiv));
+                                        $(divContent[j]).hide();
+                                        $(divContent[j]).fadeIn(2000);
+                                    }
+                                }
+                            }
+                        }
                     }
-                  }
-
-                  for(var j=0;j<givenData.length;j++){
-                    if(content.indexOf(givenData[j]) === -1){
-                      content.push(givenData[j]);
-
-                      html = template(data['presentations'][j]);
-
-                      newDiv = document.createElement('div');
-                      newDiv.innerHTML = html;
-
-                      divContent.push(srcDiv.appendChild(newDiv));
-                      $(divContent[j]).hide();
-                      $(divContent[j]).fadeIn(2000);
-                    }
-                  }
-                }
-              }
+                });
             }
-          });
-        }
-        ajaxFunction();
-      });
+            ajaxFunction();
+        });
     </script>
 
-  <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
 
-  <!-- Rendering charts -->
-  <script type="text/javascript">
-      var requestData, animation_data, chart;
-      function cmp(v1, v2){
-          if(v1.presentationValue<v2.presentationValue)return 1;
-          if(v1.presentationValue>v2.presentationValue)return -1;
-          return 0;
-      }
-      function load(firstLoad){
-          $.getJSON('{{ path("dashboard_presentations") }}', function(data){
-              if('presentations' in data){
-                  var sortMe = [], presentationNames = [], presentationValues = [];//, counter = 0;
-                  for(var i in data['presentations']){
-                      var pres = {};
-                      pres.presentationName = data['presentations'][i]['presentationName'];
-                      // Check if page is not loaded. If yes set all values to zero so that chart animates
-                      if(firstLoad === true){
-                        pres.presentationValue = 0;
-                      }else{
-                        pres.presentationValue = data['presentations'][i]['average'];
-                      }
-                      sortMe.push(pres);
-                  }
-                  sortMe.sort(cmp);
-                  for(var i in sortMe){
-                      //if( counter < 3 ){
-                          presentationNames.push(sortMe[i].presentationName);
-                          presentationValues.push(sortMe[i].presentationValue);
-                          //counter++;
-                      //}
-                  }
-                  chart.xAxis[0].update({categories: presentationNames}, true);
-                  chart.series[0].setData(presentationValues, true, true, true);
-              }
-              //Check if loaded page. If yes animate chart in 500 miliseconds
-              if(firstLoad === true){
-                setTimeout(load, 500);
-              }else{
-                setTimeout(load, 5000);
-              }
-          });
-      }
-      $(document).ready(function(){
-          chart = new Highcharts.Chart({
-              chart: {
-                  renderTo: 'container',
-                  defaultSeriesType: 'column',
-                  events: {
-                      load: function(){
-                          setTimeout(function(){load(true)}, 1000);
-                      }
-                  }
-              },
-              plotOptions: {
-                  column:{
-                      colorByPoint: true
-                  }
-              },
-              //colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
-              //    '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
-              title: {
-                  text: 'Live results: Presentations'
-              },
-              xAxis: {
-                  type: 'String',
-                  tickPixelInterval: 5,
-                  title: {
-                      text: 'Presentations name'
-                  }
-              },
-              yAxis: {
-                  minPadding: 0.1,
-                  maxPadding: 0.1,
-                  tickmarkPlacement: 'on',
-                  min: 0,
-                  max: 5,
-                  title: {
-                      text: 'Average number of rating score'
-                  }
-              },
-              series: [
-                  {
-                      showInLegend: false,
-                      data:[],
-                      dataLabels: {
-                          enabled: true,
-                          rotation: 0,
-                          formatter: function() {
-                              return this.y;
-                          },
-                          style: {
-                              fontSize: '13px'
-                          }
-                      },
-                      name: 'Average'
-                  }]
-          });
-      });
-  </script>
+    <!-- Rendering charts -->
+    <script type="text/javascript">
+        var requestData, animation_data, chart;
+        function cmp(v1, v2) {
+            if (v1.presentationValue < v2.presentationValue)return 1;
+            if (v1.presentationValue > v2.presentationValue)return -1;
+            return 0;
+        }
+        function load(firstLoad) {
+            $.getJSON('{{ path("dashboard_presentations") }}', function (data) {
+                if ('presentations' in data) {
+                    var sortMe = [], presentationNames = [], presentationValues = [];//, counter = 0;
+                    for (var i in data['presentations']) {
+                        var pres = {};
+                        pres.presentationName = data['presentations'][i]['presentationName'];
+                        // Check if page is not loaded. If yes set all values to zero so that chart animates
+                        if (firstLoad === true) {
+                            pres.presentationValue = 0;
+                        } else {
+                            pres.presentationValue = data['presentations'][i]['average'];
+                        }
+                        sortMe.push(pres);
+                    }
+                    sortMe.sort(cmp);
+                    for (var i in sortMe) {
+                        //if( counter < 3 ){
+                        presentationNames.push(sortMe[i].presentationName);
+                        presentationValues.push(sortMe[i].presentationValue);
+                        //counter++;
+                        //}
+                    }
+                    chart.xAxis[0].update({categories: presentationNames}, true);
+                    chart.series[0].setData(presentationValues, true, true, true);
+                }
+                //Check if loaded page. If yes animate chart in 500 miliseconds
+                if (firstLoad === true) {
+                    setTimeout(load, 500);
+                } else {
+                    setTimeout(load, 5000);
+                }
+            });
+        }
+        $(document).ready(function () {
+            chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container',
+                    defaultSeriesType: 'column',
+                    events: {
+                        load: function () {
+                            setTimeout(function () {
+                                load(true)
+                            }, 1000);
+                        }
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        colorByPoint: true
+                    }
+                },
+                //colors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
+                //    '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
+                title: {
+                    text: 'Live results: Presentations'
+                },
+                xAxis: {
+                    type: 'String',
+                    tickPixelInterval: 5,
+                    title: {
+                        text: 'Presentations name'
+                    }
+                },
+                yAxis: {
+                    minPadding: 0.1,
+                    maxPadding: 0.1,
+                    tickmarkPlacement: 'on',
+                    min: 0,
+                    max: 5,
+                    title: {
+                        text: 'Average number of rating score'
+                    }
+                },
+                series: [
+                    {
+                        showInLegend: false,
+                        data: [],
+                        dataLabels: {
+                            enabled: true,
+                            rotation: 0,
+                            formatter: function () {
+                                return this.y;
+                            },
+                            style: {
+                                fontSize: '13px'
+                            }
+                        },
+                        name: 'Average'
+                    }]
+            });
+        });
+    </script>
 {% endblock %}
