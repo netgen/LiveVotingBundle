@@ -109,6 +109,126 @@
                 }
             });
         });
+        function presentationsArray(){
+            var arr = {};
+            var notify = [];
+            /*
+             Adds new presentation if it's not there and change it's view if needs.
+             */
+            this.add = function(presentation){
+                var id = presentation['id'].toString();
+                if(arr[id] === undefined){
+                    arr[id] = new presentationClass();
+                    arr[id].init(presentation);
+                }
+                var status = arr[id].setData(presentation);
+                if(status){
+                    notify.push(id);
+                }
+                arr[id].handle();
+            }
+
+
+            this.getById = function(id){
+                return arr[id];
+            };
+
+            this.setEnabledAll = function(state){
+                arr.forEach(function(presentation) {
+                    presentation.setEnabled(false);
+                    presentation.setVote(presentation.getData()['presenterRate']);
+                });
+            };
+
+            this.notifiyAll = function(){
+                var scrolledTo = false;
+                for(var i in notify){
+                    if(!scrolledTo){
+                        $('html, body').animate({
+                            scrollTop: arr[notify[i]].element.offset().top
+                        }, 1000);
+                        scrolledTo = true;
+                    }
+                    arr[notify[i]].highlightMe();
+                }
+                if(scrolledTo)
+                    footer.displayMessage('Please vote.');
+                delete notify;
+                notify = [];
+
+            }
+        }
+
+        /*
+         Class presentation that holds one presentation and pointer to html element
+         */
+        function presentationClass(){
+
+            var data = null;
+            var that = this;
+            this.element = null;
+
+            this.init = function(newData){
+                this.setData(newData);
+                this.element = $("#presentation-"+data["id"]);
+                this.element.find('.highLight').hide();
+                this.element.find('.flash').hide();
+                $("#voteScreen").append(this.element);
+                this.element.find('.check').hide();
+            };
+
+            /*
+             Returns true if user can now vote on it.
+             */
+            this.setData = function(newData){
+                var status = false;
+                if(data==null){
+                    status = newData['votingEnabled'];
+                }else if(newData['votingEnabled']==true && data['votingEnabled']==false){
+                    status = true;
+                }
+                delete data;
+                data = newData;
+                return status;
+            };
+
+            this.getData = function(){
+                return data;
+            };
+
+            this.setVote = function(vote_number){
+                console.log(this.element);
+                this.element.find('input[type=submit]').each(function(){
+                    if(this.value == vote_number){
+                        $(this).addClass('active');
+                    }else{
+                        $(this).removeClass('active');
+                    }
+                });
+            };
+
+
+            this.setEnabled = function(enabled_status){
+                if(!enabled_status) // enabled_status == false
+                    this.element.find('.highLight').fadeIn(2000);
+                else
+                    this.element.find('.highLight').fadeOut(1000);
+            };
+
+            this.highlightMe = function(){
+                this.setEnabled(true);
+                console.log('boom flash');
+            };
+
+            this.handle = function(){
+                if(data.votes != undefined) {
+                    var vote = data.votes[0].rate;
+                    this.setVote(vote);
+                }
+                this.setEnabled(data['votingEnabled']);
+            }
+        }
+
         function brain(options_){
 
             var options = options_;
@@ -117,7 +237,7 @@
             var timeout = options['STATES']['PRE']['TIMEOUT'];
             var timer = new timer();
             var canIVote = true;
-            var presentations = new presentationsArray();
+            presentations = new presentationsArray();
             var loader = $('#circleG');
             var footer = new footerClass($('#footer'));
 
@@ -288,122 +408,7 @@
                 }
             }
 
-            /*
-             Class presentation that holds one presentation and pointer to html element
-             */
-            function presentationClass(){
 
-                var data = null;
-                var that = this;
-                this.element = null;
-
-                this.init = function(newData){
-                    this.setData(newData);
-                    this.element = $(template(data));
-                    this.element.find('.highLight').hide();
-                    this.element.find('.flash').hide();
-                    $("#voteScreen").append(this.element);
-                    this.element.find('.check').hide();
-                }
-
-                /*
-                 Returns true if user can now vote on it.
-                 */
-                this.setData = function(newData){
-                    var status = false;
-                    if(data==null){
-                        status = newData['votingEnabled'];
-                    }else if(newData['votingEnabled']==true && data['votingEnabled']==false){
-                        status = true;
-                    }
-                    delete data;
-                    data = newData;
-                    return status;
-                }
-
-                this.getData = function(){
-                    return data;
-                }
-                this.setVote = function(vote_number){
-                    this.element.find('input[type=submit]').each(function(){
-                        if(this.value == vote_number){
-                            $(this).addClass('active');
-                        }else{
-                            $(this).removeClass('active');
-                        }
-                    });
-                }
-
-
-                this.setEnabled = function(enabled_status){
-                    console.log(enabled_status);
-                    if(!enabled_status) // enabled_status == false
-                        this.element.find('.highLight').fadeIn(2000);
-                    else
-                        this.element.find('.highLight').fadeOut(1000);
-                }
-
-                this.highlightMe = function(){
-                    this.setEnabled(true);
-                    console.log('boom flash');
-                }
-
-                this.handle = function(){
-                    var vote = data['presenterRate'];
-                    this.setVote(vote);
-                    this.setEnabled(data['votingEnabled'] && canIVote);
-                }
-            }
-
-            function presentationsArray(){
-                var arr = {};
-                var notify = [];
-                /*
-                 Adds new presentation if it's not there and change it's view if needs.
-                 */
-                this.add = function(presentation){
-                    var id = presentation['presentationId'].toString();
-                    if(arr[id] === undefined){
-                        arr[id] = new presentationClass();
-                        arr[id].init(presentation);
-                    }
-                    var status = arr[id].setData(presentation);
-                    if(status){
-                        notify.push(id);
-                    }
-                    arr[id].handle();
-                }
-
-
-                this.getById = function(id){
-                    return arr[id];
-                }
-
-                this.setEnabledAll = function(state){
-                    for(var i in arr){
-                        arr[i].setEnabled(false);
-                        arr[i].setVote(arr[i].getData()['presenterRate']);
-                    }
-                }
-
-                this.notifiyAll = function(){
-                    var scrolledTo = false;
-                    for(var i in notify){
-                        if(!scrolledTo){
-                            $('html, body').animate({
-                                scrollTop: arr[notify[i]].element.offset().top
-                            }, 1000);
-                            scrolledTo = true;
-                        }
-                        arr[notify[i]].highlightMe();
-                    }
-                    if(scrolledTo)
-                        footer.displayMessage('Please vote.');
-                    delete notify;
-                    notify = [];
-
-                }
-            }
 
             function footerClass(el){
                 var element=el;
@@ -502,7 +507,7 @@
                   <div class="col-lg-2 ">
                       <div class="imgpresenter"><img class="img-circle " src="{{ asset('bundles/livevoting/img/faces') }}//{{ '{{ image }}' }}" alt="Presentation image" width="100" height="100"></div>
                   </div>
-                  <div class="col-lg-7 text-left">
+                  <div id="presentation-{{ '{{ id }}' }}" class="col-lg-7 text-left">
                       <div class="prestitle my-repeat-animation">{{'<div>{{presentationName}}</div>'}}
                       </div>
                       <div class="presname my-repeat-animation">{{'<div>{{presenterName}} {{presenterSurname}}</div>'}}
@@ -571,6 +576,11 @@
             dataType: "json",
             success: function(data){
               if('presentations' in data){
+                  presentations = new presentationsArray();
+                  data['presentations'].forEach(function(presentation) {
+                      presentations.add(presentation);
+                  });
+                  console.log(presentations);
                 if(content.length === 0){
                   for(var i=0;i<data['presentations'].length;i++){
                     content.push(JSON.stringify(data['presentations'][i]));

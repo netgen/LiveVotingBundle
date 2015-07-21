@@ -24,15 +24,28 @@ class DashboardController extends Controller{
   }
 
   public function getLiveScheduleAction(){
-
-    $presentations = $this->getDoctrine()->getManager()
-          ->createQuery("
+    $user = $this->get('security.context')->getToken()->getUser();
+      if($user !== "anon.") {
+          $presentations = $this->getDoctrine()->getManager()->createQueryBuilder("p")
+              ->select("p, v, u")
+              ->from('LiveVotingBundle:presentation', 'p')
+              ->where('p.begin < :datetime')
+              ->andWhere('p.end > :datetime')
+              ->andWhere('u.id = :user')
+              ->leftjoin("p.votes", "v")
+              ->join("v.user", "u")
+              ->setParameters(array('datetime' => new \DateTime(), "user" => $user->getId()))
+              ->getQuery()
+              ->getArrayResult();
+      } else {
+          $presentations = $this->getDoctrine()->getManager()
+              ->createQuery("
             SELECT p
             FROM LiveVotingBundle:presentation p
             WHERE :datetime > p.begin
               AND :datetime < p.end
           ")->setParameter('datetime', new \DateTime())->getArrayResult();
-
+      }
       $responseArray['presentations'] = $presentations;
       return new JsonResponse($responseArray);
   }
