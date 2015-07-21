@@ -53,6 +53,10 @@ class EventAdminController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $request->getSession()->getFlashBag()->add(
+              'message', 'Your have added new event.'
+            );
+
             return $this->redirect($this->generateUrl('admin_event'));
         }
 
@@ -197,7 +201,7 @@ class EventAdminController extends Controller
             $request->getSession()->getFlashBag()->add(
               'message', 'Your changes were saved.'
             );
-            
+
             return $this->redirect($this->generateUrl('admin_event'));
         }
 
