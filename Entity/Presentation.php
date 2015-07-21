@@ -41,6 +41,28 @@ class Presentation
     private $votingEnabled = false;
 
     /**
+     * @return mixed
+     */
+    public function getGlobalBrake()
+    {
+        return $this->globalBrake;
+    }
+
+    /**
+     * @param mixed $globalBrake
+     */
+    public function setGlobalBrake($globalBrake)
+    {
+        $this->globalBrake = $globalBrake;
+    }
+
+    /**
+     * @var boolean
+     */
+    private $globalBrake = false;
+
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $vote;
