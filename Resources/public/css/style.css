@@ -1,8 +1,7 @@
-/* Moj css */
-/* Sticky footer styles
--------------------------------------------------- */
-/* Sticky footer styles
--------------------------------------------------- */
+/**
+ * LiveVoting
+ * URL: https://github.com/netgen/LiveVoting
+ */
 html {
     position: relative;
     min-height: 100%;
@@ -243,19 +242,6 @@ END OF NAVBAR
 
 }
 
-#footer {
-    height: 70px;
-    background-color: #add2f5;
-    position:relative;
-    z-index:99999;
-    /*font-family: "Helvetica", "Arial", sans-serif; */
-    font-size: 1.5em;
-    text-align: center;
-    padding-top: 10px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
-    color: #2c2f3c !important;
-}
-
 #loader{
     position:fixed;
     top:50%;
@@ -476,3 +462,16 @@ div.container{
 @media all and (max-width: 768px){
     .media_question{ width: 100%;}    
 }*/
+
+#footer-index > div.container {
+    height: 70px;
+    background-color: #add2f5;
+    position:relative;
+    z-index:99999;
+    /*font-family: "Helvetica", "Arial", sans-serif; */
+    font-size: 1.5em;
+    text-align: center;
+    padding-top: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.4);
+    color: #2c2f3c !important;
+}
