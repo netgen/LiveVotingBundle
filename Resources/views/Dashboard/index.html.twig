@@ -537,10 +537,12 @@
 
                           </form>
                         {% else %}
-                          <button type="button" class="btn btn-labeled btn-default">
-                          <span class="btn-label">
-                          <i class="glyphicon glyphicon-stats"></i>
-                          </span>Vote</button>
+                          <a href="{{ path('user_landing') }}">
+                              <button type="button" class="btn btn-labeled btn-default">
+                              <span class="btn-label">
+                              <i class="glyphicon glyphicon-stats"></i>
+                              </span>Vote</button>
+                          </a>
                         {% endif %}
                       </div>
 
