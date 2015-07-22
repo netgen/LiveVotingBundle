@@ -1,7 +1,6 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block stylesheets %}
-	<!--<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />-->
 	<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
 {% endblock %}
 
@@ -17,15 +16,6 @@
 	</div>
 
 	<div class="row spin-loader" id="loader">
-			<!--<div id="circleG">
-					<div id="circleG_1" class="circleG">
-					</div>
-					<div id="circleG_2" class="circleG">
-					</div>
-					<div id="circleG_3" class="circleG">
-					</div>
-					<span id="loadingMessage">Loading!</span>
-			</div>-->
 		<div class="col-xs-12">
 			<span>
 				<i class="fa fa-cog fa-spin"></i>
@@ -35,9 +25,9 @@
 
 	<div class="row secondary-footer">
 		<div class="col-xs-12">
-			<a href="{{ path('user_landing') }}"><button type="button" class="btn btn-default navbar-btn"><i class="fa fa-chevron-left"></i>Back to events</button></a>
+			<a href="{{ path('user_landing') }}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>Back to events</button></a>
 			{% if event.getAllowViewingResults %}
-			<a href="{{ path('result', {'event_id':event.getId}) }}"><button type="button" class="btn btn-default navbar-btn"><i class="fa fa-bar-chart"></i>Live results</button></a>
+			<a href="{{ path('result', {'event_id':event.getId}) }}"><button type="button" class="btn"><i class="fa fa-bar-chart"></i>Live results</button></a>
 			{% endif %}
 		</div>
 	</div>
