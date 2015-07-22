@@ -11,7 +11,8 @@
 		</div>
 	</div>
 	{% for event in events %}
-	<div class="row {% if event.event %} slave-event {% else %} master-event {% endif %}">
+	{% if event.event %}
+	<div class="row slave-event">
 		<div class="col-xs-12">
 			<div class="wrapper">
 				<div class="pull-left">
@@ -26,6 +27,11 @@
 			</div>
 		</div>
 	</div>
+	{% else %}
+	<div class="row master-event">
+		<h2 class="text-left">{{ event.getName }}</h2>
+	</div>
+	{% endif %}
 	{% endfor %}
 
 	{% if userPresentationsNum != 0 %}

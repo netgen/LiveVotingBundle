@@ -5,9 +5,9 @@ nav.navbar.navbar-fixed-top {
 	height: 4em;
 	min-height: 4em;
 	margin: 0;
-	padding: 0 2em;
-    background-color: #ffffff;
-    border-bottom: 1px solid #dddddd;
+	padding: 0;
+	background-color: #ffffff;
+	border-bottom: 1px solid #dddddd;
 }
 
 nav.navbar img.navbar-logo {
