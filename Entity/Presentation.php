@@ -101,6 +101,8 @@ class Presentation
 
     private $hall;
 
+    private $presentationComments;
+
     /**
      * Constructor
      */
@@ -108,6 +110,7 @@ class Presentation
     public function __construct()
     {
         $this->vote = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->presentationComments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -430,10 +433,43 @@ class Presentation
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Add presentationComments
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\PresentationComment $presentationComments
+     * @return Presentation
+     */
+    public function addPresentationComment(\Netgen\LiveVotingBundle\Entity\PresentationComment $presentationComments)
+    {
+        $this->presentationComments[] = $presentationComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove presentationComments
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\PresentationComment $presentationComments
+     */
+    public function removePresentationComment(\Netgen\LiveVotingBundle\Entity\PresentationComment $presentationComments)
+    {
+        $this->presentationComments->removeElement($presentationComments);
+    }
+
+    /**
+     * Get presentationComments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPresentationComments()
+    {
+        return $this->presentationComments;
     }
 }
