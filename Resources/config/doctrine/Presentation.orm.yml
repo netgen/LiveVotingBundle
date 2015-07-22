@@ -42,6 +42,11 @@ Netgen\LiveVotingBundle\Entity\Presentation:
         hall:
             type: string
             length: 128
+        joind_in_id:
+            type: string
+            length: 128
+            default: null
+            nullable: true
 
     oneToMany:
         votes:
