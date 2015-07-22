@@ -74,7 +74,10 @@ class Presentation
     private $user;
 
     private $country = '';
-    private $image = '';
+    /**
+     * @var string
+     */
+    private $image;
 
     private $hall;
 
@@ -283,7 +286,7 @@ class Presentation
         return $this->country;
     }
 
-    public function setImage(UploadedFile $image = null)
+    public function setImage($image = null)
     {
         $this->image = $image;
     }
