@@ -31,3 +31,35 @@ div.slave-event a.btn-event {
 	line-height: 8em;
 	text-align: center;
 }
+
+
+/**
+ * Loader
+ */
+div#loader span {
+	display: block;
+	margin: 2em;
+	font-size: 4em;
+	text-align: center;
+	color: #58595b;
+}
+
+
+/**
+ * Secondary footer
+ */
+div.secondary-footer {
+	margin: 2em 0;
+}
+
+div.secondary-footer a {
+	margin: 0 0 0 1.1428em;
+}
+
+div.secondary-footer a i {
+	margin-right: 0.5em;
+}
+
+div.secondary-footer > div > a:first-child {
+	margin-left: 0;
+}

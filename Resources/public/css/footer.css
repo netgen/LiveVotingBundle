@@ -35,6 +35,10 @@ footer#main-footer a span, footer#main-footer a i {
 	vertical-align: middle;
 }
 
+footer#main-footer a:hover span, footer#main-footer a:active span, footer#main-footer a:focus span {
+	text-decoration: underline;
+}
+
 
 @media (max-width: 767px) {
 	footer#main-footer a {

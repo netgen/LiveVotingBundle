@@ -1,37 +1,23 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />
+	<!--<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />-->
 	<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
 {% endblock %}
 
 {% block body %}
-	<div class="navbar navbar-default navbar-collapse">
-			<div class="container">
-					<div class="navbar-header text-center">
-						<ul class="list-inline list-unstyled text-center">
-									<li>
-											<a href="{{ path('root') }}">
-													<img width="20" height="20" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
-											</a>
-									</li>
-									<li>
-											<h3>Netgen Event Voting:</h3>
-									</li>
-									<li>
-											<h4>{{ event.getName }}</h4>
-									</li>
-							</ul>
-					</div>
-			</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>Event voting: {{ event.getName }}</h1>
+		</div>
 	</div>
 
-	<div class="container">
-	<div id="voteScreen"></div>
+	<div class="row">
+		<div id="voteScreen"></div>
 	</div>
 
-	<div id="loader">
-			<div id="circleG">
+	<div class="row spin-loader" id="loader">
+			<!--<div id="circleG">
 					<div id="circleG_1" class="circleG">
 					</div>
 					<div id="circleG_2" class="circleG">
@@ -39,14 +25,21 @@
 					<div id="circleG_3" class="circleG">
 					</div>
 					<span id="loadingMessage">Loading!</span>
-			</div>
+			</div>-->
+		<div class="col-xs-12">
+			<span>
+				<i class="fa fa-cog fa-spin"></i>
+			</span>			
+		</div>		
 	</div>
 
-	<div class="container event-links">
-			<a class="btn btn-default" href="{{ path('root') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
+	<div class="row secondary-footer">
+		<div class="col-xs-12">
+			<a href="{{ path('user_landing') }}"><button type="button" class="btn btn-default navbar-btn"><i class="fa fa-chevron-left"></i>Back to events</button></a>
 			{% if event.getAllowViewingResults %}
-					<a class="btn btn-default" href="{{ path('result', {'event_id':event.getId}) }}"><span class="glyphicon glyphicon-stats"></span> Live results</a>
+			<a href="{{ path('result', {'event_id':event.getId}) }}"><button type="button" class="btn btn-default navbar-btn"><i class="fa fa-bar-chart"></i>Live results</button></a>
 			{% endif %}
+		</div>
 	</div>
 {% endblock %}
 

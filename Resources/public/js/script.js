@@ -387,6 +387,7 @@ function brain(options_){
     function hideSpinner(){
         shadow.hide();
         loader.hide();
+        $(".spin-loader").hide();
     }
 
 
