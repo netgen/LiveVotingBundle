@@ -40,6 +40,26 @@ class Presentation
      */
     private $votingEnabled = false;
 
+    private $joind_in_id = null;
+
+    /**
+     * @return null
+     */
+    public function getJoindInId()
+    {
+        return $this->joind_in_id;
+    }
+
+    /**
+     * @param null $joind_in_id
+     */
+    public function setJoindInId($joind_in_id)
+    {
+        $this->joind_in_id = $joind_in_id;
+    }
+
+
+
     /**
      * @return mixed
      */

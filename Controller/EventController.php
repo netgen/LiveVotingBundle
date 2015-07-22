@@ -110,6 +110,10 @@ class EventController extends Controller
         $userId = $userByToken->getId();
         $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
+        if(!$event) {
+            throw $this->createNotFoundException('The event does not exist!');
+        }
+
         return $this->render('LiveVotingBundle:Index:index.html.twig', 
                 array('event' => $event)
             );
