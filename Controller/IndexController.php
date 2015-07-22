@@ -29,13 +29,15 @@ class IndexController extends Controller
      */
     public function landingAction()
     {
-        $events = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->findAll();
-        usort($events, function(Event $a, Event $b) {
-           if($a->getEvent() == null) {
-               return -1;
-           }
-            return 1;
-        });
+        $events = $this->getDoctrine()->getManager()
+            ->createQueryBuilder("e")
+            ->select("e")
+            ->from("LiveVotingBundle:event", "e")
+            ->where('e.begin < :datetime')
+            ->andWhere('e.end > :datetime')
+            ->orderBy('e.event', 'ASC')
+            ->setParameter('datetime', new \DateTime())
+            ->getQuery()->getResult();
         $presentations = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->findByUser($this->getUser());
 
 
