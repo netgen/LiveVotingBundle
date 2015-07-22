@@ -1,47 +1,33 @@
 /**
  * Events
  */
-div#events ul {
-	margin: 0;
-	padding: 0;
+div.slave-event div.wrapper {
+	height: 8em;
+	border: 1px solid #ddd;
+	margin-bottom: 2em;
 }
 
-div#events ul li {
-	margin: 0 0 1.4375em 0;
-	padding: 0;
-	border: none;
-	border-bottom: 0.0625em solid #dddddd;
-	border-radius: 0;
+div.slave-event div.pull-left, div.slave-event div.pulll-right {
+	height: 100%;
 }
 
-div#events div.event-header {
-	padding: 0;
-}
-
-div#events div.event-header img {
+div.slave-event div.pull-left img, div.slave-event div.pull-left h2 {
 	display: inline-block;
+	height: 100%;
 	vertical-align: bottom;
+}
+
+div.slave-event div.pull-left h2 {
+	line-height: 4.5714em;
+	margin-left: 0.8571em;
+}
+
+div.slave-event a.btn-event {
+	display: inline-block;
+	width: 8em;
+	height: 8em;
 	margin: 0;
 	padding: 0;
-	height: 4em;
-	width: 4em;
-}
-
-div#events div.event-header h2 {
-	display: inline-block;
-	vertical-align: bottom;
-	padding-left: 0.5714em;
-}
-
-div#events .btn-event {
-	display: inline-block;
-	width: 100%;
-	margin: 1em 0 0 0;
-	padding: 1em;
-	background-color: blue;
-}
-
-div#events .event-action {
-	margin: 0;
-	padding: 0;
+	line-height: 8em;
+	text-align: center;
 }

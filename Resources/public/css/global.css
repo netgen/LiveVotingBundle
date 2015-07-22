@@ -1,28 +1,4 @@
 /**
- * Global settings
- */
-html, body {
-	height: 100%;
-	min-height: 100%;
-}
-
-html > body {
-    color:#206CA8;
-    background-color:#ECF0F5;
-}
-
-div#global-container {
-	padding-top: 4em;
-	min-height: 100%;
-	position: relative;
-}
-
-div#main {
-	padding-bottom: 12em;
-}
-
-
-/**
  * Fonts
  */
 html > body {
@@ -53,6 +29,30 @@ h2 {
 
 
 /**
+ * Global settings
+ */
+html, body {
+	height: 100%;
+	min-height: 100%;
+}
+
+html > body {
+    color:#206CA8;
+    background-color:#ECF0F5;
+}
+
+div#global-container {
+	padding-top: 4em;
+	min-height: 100%;
+	position: relative;
+}
+
+div#main {
+	padding-bottom: 12em;
+}
+
+
+/**
  * Font colors
  */
 a, h1, h2 {
@@ -72,6 +72,14 @@ a, h1, h2 {
 .btn:hover {
 	background-color: #f05a28;
 	color: #ffffff;
+}
+
+.btn-event {
+	background-color: red;
+}
+
+.btn-event:hover {
+	background-color: green;
 }
 
 /**
