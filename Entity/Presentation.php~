@@ -41,6 +41,28 @@ class Presentation
     private $votingEnabled = false;
 
     /**
+     * @return mixed
+     */
+    public function getGlobalBrake()
+    {
+        return $this->globalBrake;
+    }
+
+    /**
+     * @param mixed $globalBrake
+     */
+    public function setGlobalBrake($globalBrake)
+    {
+        $this->globalBrake = $globalBrake;
+    }
+
+    /**
+     * @var boolean
+     */
+    private $globalBrake = false;
+
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $vote;
@@ -52,9 +74,14 @@ class Presentation
     private $user;
 
     private $country = '';
-    private $image = '';
+    /**
+     * @var string
+     */
+    private $image;
 
     private $hall;
+
+    private $presentationComments;
 
     /**
      * Constructor
@@ -63,6 +90,7 @@ class Presentation
     public function __construct()
     {
         $this->vote = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->presentationComments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -261,7 +289,7 @@ class Presentation
         return $this->country;
     }
 
-    public function setImage(UploadedFile $image = null)
+    public function setImage($image = null)
     {
         $this->image = $image;
     }
@@ -368,4 +396,27 @@ class Presentation
     }
 
 
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Presentation
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 }

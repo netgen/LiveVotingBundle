@@ -47,6 +47,9 @@ Netgen\LiveVotingBundle\Entity\Presentation:
         votes:
             targetEntity: Netgen\LiveVotingBundle\Entity\Vote
             mappedBy: presentation
+        presentationComments:
+            targetEntity: Netgen\LiveVotingBundle\Entity\PresentationComment
+            mappedBy: presentation
 
     manyToOne:
         event:
