@@ -1,15 +1,13 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
-{% block body -%}
-    <h1>User edit</h1>
+{% block mainHeading %}<h1>Edit user</h1>{% endblock %}
 
+{% block body %}
     {{ form(edit_form, {'attr':{'class':'form-horizontal'}}) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_user') }}">
-            Back to the user list
-        </a>
-    </li>
-</ul>
+	<div class="row secondary-footer">
+		<div class="col-xs-12">
+			<a href="{{path('admin_user')}}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>Back</button></a>
+		</div>
+	</div>
 {% endblock %}

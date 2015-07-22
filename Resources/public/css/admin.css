@@ -49,3 +49,32 @@ div.alert.alert-danger {
 	margin: 0;
 	border-radius: 5px;
 }
+
+
+/**
+ * Forms
+ */
+form {
+	display: inline-block;
+	color: #404041;
+}
+
+form div {
+	display: block;
+}
+
+form div > div > div {
+	display: inline-block;
+}
+
+form label {
+	display: block;
+	margin: 1.5em 0.5em 0 0;
+	font-size: 1em;
+	font-weight: 600;
+	line-height: 1.5em;
+}
+
+.form-signin form {
+	display: block;
+}

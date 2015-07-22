@@ -1,17 +1,14 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
-{% block body -%}
-    <div class="panel panel-default panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Edit event</h3>
+{% block mainHeading %}<h1>Edit event</h1>{% endblock %}
+
+{% block body %}
+    {{ form(edit_form, {'attr':{'class':'form-horizontal'}}) }}
+
+    <div class="row secondary-footer">
+      <div class="col-xs-12">
+        <a href="{{path('admin_event')}}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>Back</button></a>
       </div>
-      <div class="panel-body">
-
-        {{ form(edit_form, {'attr':{'class':'form-horizontal'}}) }}
-      </div><br>
-        <a class="btn btn-large btn-primary btn-block" href="{{ path('admin_event') }}">
-            Back to the list
-        </a>
     </div>
 
     <script src='http://markusslima.github.io/bootstrap-filestyle/js/bootstrap-filestyle.min.js'></script>

@@ -65,6 +65,27 @@ div.slave-event a.btn-event i {
 
 
 /**
+ * Tables
+ */
+table.table {
+	margin: 0;
+}
+
+table.table tr td {
+	height: 1.5em;
+	padding: 0 0.5em;
+	margin: 0;
+	font-size: 1em;
+	line-height: 1.5em;
+	vertical-align: middle;
+}
+
+table.table tr th {
+	border-bottom: none;
+}
+
+
+/**
  * Loader
  */
 div#loader span {
@@ -89,21 +110,11 @@ div.secondary-footer a {
 }
 
 div.secondary-footer a i {
+	font-size: inherit;
+	line-height: inherit;
 	margin-right: 0.5em;
 }
 
 div.secondary-footer > div > a:first-child {
 	margin-left: 0;
-}
-
-
-/**
- * Admin navigation
- */
-div#admin-navigation {
-	border-bottom: 1px solid #ddd;
-}
-
-div#admin-navigation button.btn.btn-default {
-	width: 12em;
 }

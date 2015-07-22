@@ -1,69 +1,65 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
+
+{% block mainHeading %}<h1>Events</h1>{% endblock %}
 
 {% block body -%}
-    <h1>Event list</h1>
-
     {% for flashMessage in app.Session.flashbag.get('message') %}
       <h3>{{flashMessage}}</h3>
     {% endfor %}
 
-    <table class="records_list table">
-        <thead>
-            <tr>
-                <th>Event name</th>
-                <th>Event state</th>
-                <th>Edit event</th>
-                <th>View presentations</th>
-                <th>View questions</th>
-                <th>View results</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a target="_blank" href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">{{ entity.name }}</a></td>
-                <td>{{ entity.stateName }}</td>
-                <td>
-                    <a class='btn btn-primary' href="{{ path('admin_event_edit', { 'id': entity.id }) }}">Edit</a>
-                </td>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="records_list table">
+                <thead>
+                    <tr>
+                        <th>Event name</th>
+                        <th>Event state</th>
+                        <th>Edit event</th>
+                        <th>View presentations</th>
+                        <th>View questions</th>
+                        <th>View results</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a target="_blank" href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">{{ entity.name }}</a></td>
+                        <td>{{ entity.stateName }}</td>
+                        <td>
+                            <a href="{{ path('admin_event_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
+                        </td>
 
-                <td>
-                    <a class='btn btn-primary' href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">View</a>
-                </td>
+                        <td>
+                            <a href="{{ path('admin_presentation', { 'event_id': entity.id }) }}"><button type="button" class="btn">View</button></a>
+                        </td>
 
-                <td>
-                    <a class='btn btn-info' href="{{ path('admin_question', { 'event_id': entity.id }) }}">Questions ({{ entity.getQuestions()|length }})</a>
-                </td>
+                        <td>
+                            <a href="{{ path('admin_question', { 'event_id': entity.id }) }}">Questions ({{ entity.getQuestions()|length }})</a>
+                        </td>
 
-                <td>
-                    <a class='btn {{ entity.allowViewingResults ? 'btn-success':'btn-warning'  }}' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">
-                        <span class='glyphicon glyphicon-eye-{{ entity.allowViewingResults ? 'open':'close'  }}'></span>
-                        Live
-                    </a>
-                    <a class='btn btn-primary' target="_blank" href="{{ path('result_view', { 'event_id': entity.id }) }}">Final</a>
-                </td>
+                        <td>
+                            <!--<a class='{{ entity.allowViewingResults ? 'btn-success':'btn-warning'  }}' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">
+                                <span class='glyphicon glyphicon-eye-{{ entity.allowViewingResults ? 'open':'close'  }}'></span>
+                                Live
+                            </a>-->
+                            <a target="_blank" href="{{ path('result_view', { 'event_id': entity.id }) }}"><button type="button" class="btn">Final</button></a>
+                        </td>
 
-                <td>
-                    <a class="btn btn-danger" href="{{ path('admin_event_delete', { 'id': entity.id }) }}"> <span class="glyphicon glyphicon-remove"></span> Delete</a>
-                </td>
+                        <td>
+                            <a href="{{ path('admin_event_delete', { 'id': entity.id }) }}"><button type="button" class="btn">Delete</button></a>
+                        </td>
 
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        <ul class="list-inline">
-        <li>
-            <a class="btn btn-primary" href="{{ path('admin_event_new') }}">
-                <span class="glyphicon glyphicon-plus"></span>Create a new event
-            </a>
-        </li>
-        <li>
-            <a class="btn btn-success" href="{{ path ('admin_prize_draw')}}">
-                Prize draw
-            </a>
-        </li>
-    </ul>
-
-    <a href="/admin">Back to admin hompage</a>
-    {% endblock %}
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('admin_event_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i>New event</button></a>
+            <a href="{{ path('admin_prize_draw') }}"><button type="button" class="btn"><i class="fa fa-btc"></i>Prize draw</button></a>
+        </div>
+    </div>
+{% endblock %}

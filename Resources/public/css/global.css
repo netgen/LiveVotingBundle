@@ -1,5 +1,5 @@
 /**
- * Fonts
+ * Fonts & typography
  */
 html > body {
 	font-family: "ronnia", sans-serif;
@@ -31,6 +31,7 @@ h2 {
 p {
 	max-width: 465px;
 	font-weight: 300;
+	margin: 0 0 1.5em;
 }
 
 
@@ -61,7 +62,7 @@ div#main {
 /**
  * Font colors
  */
-a, h1, h2, p {
+a, h1, h2, p, td, th {
 	color: #404041;
 }
 
