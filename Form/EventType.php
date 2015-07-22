@@ -34,7 +34,7 @@ class EventType extends AbstractType
                 'required' => false,
                 'attr' => array('class'=> 'filestyle')
             ))
-            ->add('event')
+            ->add('event', 'entity' ,array('attr' => array('class' => 'form-control'), 'class' => 'LiveVotingBundle:Event', 'property' => 'name'))
             ->add('begin')
             ->add('end')
         ;
