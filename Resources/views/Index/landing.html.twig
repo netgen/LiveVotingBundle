@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	{% for event in events %}
-	<div class="row slave-event">
+	<div class="row {% if event.event %} master-event {% else %} slave-event {% endif %}">
 		<div class="col-xs-12">
 			<div class="wrapper">
 				<div class="pull-left">
