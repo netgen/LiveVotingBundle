@@ -132,9 +132,9 @@
         $(document).ready(function () {
             new brain({
                 'STATES': {
-                    'PRE': {'TIMEOUT': 1},
-                    'ACTIVE': {'TIMEOUT': 5},
-                    'POST': {'TIMEOUT': 5}
+                    'PRE': {'TIMEOUT': 0},
+                    'ACTIVE': {'TIMEOUT': 0},
+                    'POST': {'TIMEOUT': 0}
                 },
                 'URLS': {
                     'EVENT_STATUS': '/user/event_status/',
@@ -159,7 +159,7 @@
                     notify.push(id);
                 }
                 arr[id].handle();
-            }
+            };
 
 
             this.getById = function (id) {
@@ -174,20 +174,6 @@
             };
 
             this.notifiyAll = function () {
-                var scrolledTo = false;
-                for (var i in notify) {
-                    if (!scrolledTo) {
-                        $('html, body').animate({
-                            scrollTop: arr[notify[i]].element.offset().top
-                        }, 1000);
-                        scrolledTo = true;
-                    }
-                    arr[notify[i]].highlightMe();
-                }
-                if (scrolledTo)
-                    footer.displayMessage('Please vote.');
-                delete notify;
-                notify = [];
 
             }
         }
@@ -230,7 +216,6 @@
             };
 
             this.setVote = function (vote_number) {
-                console.log(this.element);
                 this.element.find('input[type=submit]').each(function () {
                     if (this.value == vote_number) {
                         $(this).addClass('active');
@@ -250,11 +235,9 @@
 
             this.highlightMe = function () {
                 this.setEnabled(true);
-                console.log('boom flash');
             };
 
             this.handle = function () {
-                console.log(data);
                 if (data.votes != undefined && data.votes.length != 0) {
                     var vote = data.votes[0].rate;
                     this.setVote(vote);
@@ -265,15 +248,8 @@
 
         function brain(options_) {
 
-            var options = options_;
-            var urlPath = options['URLS']['EVENT_STATUS'] + getEventId(1);
-            var globalState = null;
-            var timeout = options['STATES']['PRE']['TIMEOUT'];
-            var timer = new timer();
             var canIVote = true;
             presentations = new presentationsArray();
-            var loader = $('#circleG');
-            var footer = new footerClass($('#footer'));
 
             Handlebars.registerHelper('ifCond', function (v1, v2, options) {
                 if (v1 == v2) {
@@ -283,7 +259,6 @@
             });
 
 
-            showSpinner();
             $('#liveschedule').on('change', '.forma', function (e) {
                 e.preventDefault();
             });
@@ -297,21 +272,22 @@
                 var presentation = presentations.getById(presentation_id);
                 var vote = $(this).attr('value');
                 var rate = 'rate=' + vote;
-                //if(presentation.getData()['votingEnabled']==true){
-                if (true) {
-                    showSpinner();
+                $(e.target).parent(".btn-group").find('input[type=submit]').each(function () {
+                    if (this.value == rate) {
+                        $(this).addClass('active');
+                    } else {
+                        $(this).removeClass('active');
+                    }
+                });
+                if(presentation.getData()['votingEnabled']==true){
                     $.ajax({
                         type: 'post',
                         'url': action,
                         'data': rate,
                         success: function (data) {
-                            footer.displayMessage(data['errorMessage']);
-                            //presentation.setVote(vote);
-                            hideSpinner();
+
                         },
                         error: function (e) {
-                            //fly out erro on footer
-                            hideSpinner();
                         }
                     });
                 }
@@ -331,213 +307,9 @@
             }
 
             var run = function () {
-                $.getJSON(urlPath, function (data) {
-
-                    switch (data['error']) {
-                        case 1:
-                            // displayMessageInFooter(data['errorMessage']);
-                            footer.displayMessage(data['errorMessage']);
-                            break;
-                        case 2:
-                            timeout = -1;
-                            // displayMessageInFooter(data['errorMessage']);
-
-                            footer.staticMessage(data['errorMessage']);
-                            timer.stop();
-                            return;
-                            break;
-                    }
-                    var state = data["eventStatus"];
-
-                    switch (state) {
-                        case 'PRE':
-                            footer.staticMessage(data['errorMessage']);
-                            timeout = parseInt(options['STATES']['PRE']['TIMEOUT']) * 1000;
-                            break;
-                        case 'POST':
-                            var seconds = parseInt(data['seconds']);
-                            timeout = parseInt(options['STATES']['POST']['TIMEOUT']) * 1000;
-                            if (!timer.isRunning && seconds > 0) {
-                                timer.init(parseInt(data['seconds']), changeFooter, endVoting);
-                                timer.runTimer();
-                            }
-                            if (seconds < 0) {
-                                timeout = -1;
-                                endVoting(data['errorMessage']);
-                            }
-                        case 'ACTIVE':
-                            if (timeout > 0) {
-                                timeout = parseInt(options['STATES'][state]['TIMEOUT']) * 1000;
-                            }
-                            if (state != 'POST') {
-                                footer.removeStatic();
-                            }
-                            hideSpinner();
-                            //add presentations
-                            handleNewPresentations(data['presentations']);
-                            break;
-                        default:
-                            timeout = -1;
-
-                    }
-                    globalState = state;
-                    if (timeout > 0) setTimeout(run, timeout);
-                });
-            }
-
-            function handleNewPresentations(data) {
-                var pres; // single presentations
-                for (var i in data) {
-                    pres = data[i];
-                    presentations.add(pres);
-                }
-                presentations.notifiyAll();
-            }
-
-            function endVoting(message) {
-                //Thank u for voting
-                canIVote = false;
-
-                //footer.displayMessage(data['errorMessage']);
-                //$("#footer .error").html("Voting is now closed.");
-
-                presentations.setEnabledAll(false);
-                footer.setStaticTimer('');
-                footer.staticMessage(message);
-            }
-
-            function changeFooter(seconds_) {
-                footer.setStaticTimer(seconds_.toString() + ' seconds left until voting ends.');
-            }
-
-            /*
-             Class timer which calls callbackEverySecond function each second
-             and function callbackEnd when timer is done.
-             */
-            function timer() {
-                this.isRunning = false;
-                this.seconds = 1;
-                this.callbackEverySecond;
-                this.callbackEnd;
-                var killMe = false;
-
-                function stop() {
-                    killMe = true;
-                }
-
-                this.init = function (seconds_, callbackEverySecond_, callbackEnd_) {
-                    this.seconds = seconds_;
-                    this.callbackEverySecond = callbackEverySecond_;
-                    this.callbackEnd = callbackEnd_;
-                    killme = false;
-                }
-
-                this.runTimer = function () {
-                    var that = this;
-                    this.isRunning = true;
-                    if (this.seconds == 0 || killMe) {
-                        this.callbackEnd();
-                        this.isRunning = false;
-                        return;
-                    }
-                    this.callbackEverySecond(this.seconds--);
-                    setTimeout(function () {
-                        that.runTimer()
-                    }, 1000);
-                }
-            }
+            };
 
 
-            function footerClass(el) {
-                var element = el;
-                var holdingUp = false;
-                var that = this;
-                var timeoutVariable = null;
-                element.hide();
-
-                this.displayMessage = function (message) {
-                    setMessage(message);
-                    this.anim(3);
-
-                }
-
-                function setMessage(message) {
-                    var er = element.find('.error');
-                    er.html(message);
-                }
-
-                function setTimer(tmrMsg) {
-                    var tmr = element.find('.timer');
-                    tmr.html(tmrMsg);
-                }
-
-                this.anim = function (seconds) {
-                    if (!holdingUp)
-                        this.animateUp(100);
-                    clearTimeout(timeoutVariable);
-                    timeoutVariable = setTimeout(
-                            function () {
-                                if (!holdingUp)
-                                    that.animateDown(100);
-                                setMessage('');
-                            }
-                            , seconds * 1000);
-                }
-
-                function endFooter() {
-                    setMessage('');
-                    setTimer('');
-                }
-
-                this.animateUp = function (value) {
-                    element.show();
-                    element.animate({
-                        bottom: value + 'px'
-                    }, 500);
-                }
-
-                this.animateDown = function (value) {
-                    element.animate({
-                        bottom: -value + 'px'
-                    }, 500, function () {
-                        endFooter();
-                    });
-                    element.show();
-                }
-
-                this.staticMessage = function (msg) {
-                    setMessage(msg);
-                    holdOn();
-                }
-
-                this.setStaticTimer = function (timerMsg) {
-                    setTimer(timerMsg);
-                    holdOn();
-                }
-
-                function holdOn() {
-                    if (holdingUp)return;
-                    holdingUp = true;
-                    that.animateUp(100);
-
-                }
-
-                this.removeStatic = function () {
-                    if (!holdingUp)return;
-                    holdingUp = false;
-                    this.animateDown(100);
-                    endFooter();
-                }
-
-            }
-
-            function showSpinner() {
-                loader.show();
-            }
-
-            function hideSpinner() {
-                loader.hide();
-            }
 
             run();
         }
@@ -633,10 +405,9 @@
                             data['presentations'].forEach(function (presentation) {
                                 presentations.add(presentation);
                             });
-                            console.log(presentations);
                             if (content.length === 0) {
                                 for (var i = 0; i < data['presentations'].length; i++) {
-                                    content.push(JSON.stringify(data['presentations'][i]));
+                                    content.push(JSON.stringify(data['presentations'][i].id));
 
                                     html = template(data['presentations'][i]);
 
@@ -648,7 +419,7 @@
                             } else {
                                 var givenData = [];
                                 for (var k = 0; k < data['presentations'].length; k++) {
-                                    givenData.push(JSON.stringify(data['presentations'][k]));
+                                    givenData.push(JSON.stringify(data['presentations'][k].id));
                                 }
 
                                 for (var j = 0; j < content.length; j++) {
