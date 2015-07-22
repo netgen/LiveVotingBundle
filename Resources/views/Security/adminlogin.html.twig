@@ -1,14 +1,15 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
+
+{% block title %}Admin Login{% endblock %}
+{% block mainHeading %}<h1 class="text-center">Netgen LiveVoting</h1>{% endblock %}
 
 {% block body %}
-        <div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
             <div class="form-signin">
-
                 <form action="{{ path('admin_login_check') }}" method="post">
-                    <label for="email"><h2>Enter credentials:</h2></label>
                     <input class="form-control" type="text" id="username" name="_username" placeholder="Username" required>
                     <input class="form-control" type="password" id="password" name="_password" placeholder="Password" required>
-
 
                     {#
                         If you want to control the URL the user
@@ -16,15 +17,15 @@
                         <input type="hidden" name="_target_path" value="/account" />
                     #}
 
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">login</button>
+                    <button class="btn btn-block" type="submit">login</button>
                 </form>
 
                 {% if error %}
-                    <div class="alert alert-danger">
-                        Wrong entry. Please enter valid email.
-                    </div>
+                <div class="alert alert-danger">
+                    Wrong entry. Please enter valid email.
+                </div>
                 {% endif %}
-
             </div>
         </div>
+    </div>
 {% endblock %}
