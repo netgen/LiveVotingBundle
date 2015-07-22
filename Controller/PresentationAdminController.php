@@ -162,12 +162,12 @@ class PresentationAdminController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Presentation entity.');
         }
-
+        $old_image = $entity->getImage();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $entity->upload();
+            if($entity->getImage() == null) $entity->setImage($old_image);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add(
