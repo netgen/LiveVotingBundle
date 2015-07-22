@@ -3,8 +3,29 @@
  */
 div.slave-event div.wrapper, div.master-event div.wrapper {
 	height: 8em;
-	border: 1px solid #ddd;
 	margin-bottom: 2em;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+}
+
+div.master-event div.wrapper {
+	background-image: url('../img/header_stripe_php.png');
+}
+
+div.master-event div.wrapper > span {
+	display: block;
+	height: 100%;
+	width: auto;
+}
+
+div.master-event h2 {
+	margin-left: 0.6428em;
+}
+
+div.master-event span.time {
+	display: block;
+	margin: 0 0 1.4545em 0.8181em;
+	font-size: 1.375em;
+	line-height: 1.4545em;
 }
 
 div.slave-event div.pull-left, div.slave-event div.pulll-right {
@@ -22,14 +43,24 @@ div.slave-event div.pull-left h2 {
 	margin-left: 0.8571em;
 }
 
+div.slave-event div.pulll-right {
+	background-color: black;
+}
+
 div.slave-event a.btn-event {
 	display: inline-block;
 	width: 8em;
 	height: 8em;
 	margin: 0;
 	padding: 0;
-	line-height: 8em;
+	line-height: 2em;
 	text-align: center;
+	text-transform: uppercase;
+	vertical-align: top;
+}
+
+div.slave-event a.btn-event i {
+	font-size: 2em;
 }
 
 
@@ -41,7 +72,7 @@ div#loader span {
 	margin: 2em;
 	font-size: 4em;
 	text-align: center;
-	color: #58595b;
+	color: #404041;
 }
 
 

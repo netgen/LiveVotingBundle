@@ -57,6 +57,10 @@ a, h1, h2 {
 	color: #404041;
 }
 
+.master-event h2, .master-event span.time {
+	color: #ffffff;
+}
+
 
 /**
  * Buttons
@@ -81,11 +85,7 @@ a, h1, h2 {
 }
 
 .btn-event {
-	background-color: red;
-}
-
-.btn-event:hover {
-	background-color: green;
+	background-color: transparent;
 }
 
 /**
