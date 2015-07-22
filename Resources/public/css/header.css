@@ -20,7 +20,7 @@ nav.navbar img.navbar-logo:hover {
 	filter: drop-shadow(3px 3px 2px rgb(170, 170, 170));
 }
 
-div.navbar-header a {
+div.navbar-header.pull-right a {
 	margin: 0 0 0 1.1428em;
 }
 
