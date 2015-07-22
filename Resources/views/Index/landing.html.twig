@@ -34,12 +34,16 @@
 	{% endif %}
 	{% endfor %}
 
-	{% if userPresentationsNum != 0 %}
-	<a class="btn btn-primary" href="{{ path('user_presentations') }}">Presentations</a>
-	{% endif %}	
-	{% if(app.request.cookies.has('userEditEnabled')) %}
-	<a class="btn btn-primary" href="{{ path('user_edit') }}">Edit user info</a>
-	{% endif %}
+	<div class="row secondary-footer">
+		<div class="col-xs-12">
+			{% if userPresentationsNum != 0 %}
+			<a href="{{ path('user_presentations') }}"><button type="button" class="btn btn-default navbar-btn">Presentations</button></a>
+			{% endif %}
+			{% if(app.request.cookies.has('userEditEnabled')) %}
+			<a href="{{ path('user_edit') }}"><button type="button" class="btn btn-default navbar-btn">Edit user info</button></a>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}
 
 {% block javascripts %}

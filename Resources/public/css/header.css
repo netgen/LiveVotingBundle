@@ -14,10 +14,14 @@ nav.navbar img.navbar-logo {
 	height: 3em;
 	margin: 0.5em 0;
 	filter: drop-shadow(1px 1px 1px rgb(170, 170, 170));
+	-webkit-filter: drop-shadow(1px 1px 1px rgb(170, 170, 170));
+	-moz-filter: drop-shadow(1px 1px 1px rgb(170, 170, 170));
 }
 
 nav.navbar img.navbar-logo:hover {
 	filter: drop-shadow(3px 3px 2px rgb(170, 170, 170));
+	-webkit-filter: drop-shadow(3px 3px 2px rgb(170, 170, 170));
+	-moz-filter: drop-shadow(3px 3px 2px rgb(170, 170, 170));
 }
 
 div.navbar-header.pull-right a {
