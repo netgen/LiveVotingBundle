@@ -189,7 +189,7 @@
 
             this.init = function (newData) {
                 this.setData(newData);
-                this.element = $("#presentation-" + data["id"]);
+                this.element = $("#presentation-"+data['id']);
                 this.element.find('.highLight').hide();
                 this.element.find('.flash').hide();
                 $("#voteScreen").append(this.element);
@@ -389,10 +389,6 @@
                     dataType: "json",
                     success: function (data) {
                         if ('presentations' in data) {
-                            presentations = new presentationsArray();
-                            data['presentations'].forEach(function (presentation) {
-                                presentations.add(presentation);
-                            });
                             if (content.length === 0) {
                                 for (var i = 0; i < data['presentations'].length; i++) {
                                     content.push(JSON.stringify(data['presentations'][i].id));
@@ -436,10 +432,14 @@
                                     }
                                 }
                             }
+                            presentations = new presentationsArray();
+                            data['presentations'].forEach(function (presentation) {
+                                presentations.add(presentation);
+                            });
                         }
                     }
                 });
-            }
+            };
             ajaxFunction();
         });
     </script>
