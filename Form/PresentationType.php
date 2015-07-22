@@ -27,6 +27,7 @@ class PresentationType extends AbstractType
             ->add('user', 'entity' ,array('attr' => array('class' => 'form-control'), 'class' => 'LiveVotingBundle:User', 'property' => 'email'))
             ->add('begin')
             ->add('end')
+            ->add('joind_in_id', 'text', array('attr' => array('class' => 'form-control')))
             //->add('event', 'entity', array('class'=>'Netgen\LiveVotingBundle\Entity\Event', 'disabled'=>true))
         ;
     }
