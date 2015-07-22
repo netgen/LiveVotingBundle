@@ -9,6 +9,7 @@
 
 namespace Netgen\LiveVotingBundle\Controller;
 
+use Netgen\LiveVotingBundle\Entity\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,12 @@ class IndexController extends Controller
     public function landingAction()
     {
         $events = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->findAll();
-
+        usort($events, function(Event $a, Event $b) {
+           if($a->getEvent() == null) {
+               return -1;
+           }
+            return 1;
+        });
         $presentations = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->findByUser($this->getUser());
 
 
