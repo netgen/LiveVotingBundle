@@ -294,18 +294,6 @@
 
             });
 
-
-            /**
-             *  Gets event id from url which looks like:
-             *  /event/{id}
-             */
-            function getEventId(ret) {
-                var struct = window.location.pathname.split('/');
-                // 2 because '/'.split('/') returns array len 2
-                if (struct.length <= 2)return ret.toString();
-                return struct.pop();
-            }
-
             var run = function () {
             };
 
