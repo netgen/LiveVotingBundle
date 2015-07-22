@@ -87,10 +87,19 @@ a, h1, h2 {
  * Links
  */
 a, a:link, a:visited, a:active {
+	color: #0199C6;
+}
+
+#main-footer a, #main-footer a:link, #main-footer a:visited, #main-footer a:active {
 	color: #ffffff;
 }
 
 a:link:hover, a:hover, a:focus, a:link:focus {
-	color: #0199C6;
+	color: #015f7b;
 	text-decoration: underline;
+}
+
+#main-footer a:link:hover, #main-footer a:hover, #main-footer a:focus, #main-footer a:link:focus {
+	text-decoration: underline;
+	color: #0199C6;
 }

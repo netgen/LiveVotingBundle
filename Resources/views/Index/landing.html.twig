@@ -13,7 +13,7 @@
 	{% for event in events %}
 	{% if event.event %}
 	<div class="row slave-event">
-		<div class="col-xs-12">
+		<div class="col-xs-12 col-sm-11 col-sm-offset-1">
 			<div class="wrapper">
 				<div class="pull-left">
 					<img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/man1.png'}}">
@@ -29,7 +29,11 @@
 	</div>
 	{% else %}
 	<div class="row master-event">
-		<h2 class="text-left">{{ event.getName }}</h2>
+		<div class="col-xs-12">
+			<div class="wrapper">
+				<h2 class="text-left">{{ event.getName }}</h2>
+			</div>
+		</div>
 	</div>
 	{% endif %}
 	{% endfor %}
@@ -37,10 +41,10 @@
 	<div class="row secondary-footer">
 		<div class="col-xs-12">
 			{% if userPresentationsNum != 0 %}
-			<a href="{{ path('user_presentations') }}"><button type="button" class="btn btn-default navbar-btn">Presentations</button></a>
+			<a href="{{ path('user_presentations') }}"><button type="button" class="btn btn-default navbar-btn"><i class="fa fa-clipboard"></i>Presentations</button></a>
 			{% endif %}
 			{% if(app.request.cookies.has('userEditEnabled')) %}
-			<a href="{{ path('user_edit') }}"><button type="button" class="btn btn-default navbar-btn">Edit user info</button></a>
+			<a href="{{ path('user_edit') }}"><button type="button" class="btn btn-default navbar-btn"><i class="fa fa-pencil"></i>Edit user info</button></a>
 			{% endif %}
 		</div>
 	</div>
