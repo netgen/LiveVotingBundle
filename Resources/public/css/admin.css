@@ -1,8 +1,8 @@
 /**
  * Admin global settings
  */
-div#admin-container {
-	padding-top: 2em;
+#admin-container {
+	padding-top: 0;
 	min-height: 100%;
 	position: relative;
 }
@@ -10,6 +10,24 @@ div#admin-container {
 /**
  * Admin header
  */
+#admin-header {
+	height: 4em;
+	min-height: 4em;
+	border-bottom: 0.0625em solid #dddddd;
+}
+
+#admin-header img {
+	margin: 1em 0;
+	height: 2em;
+}
+
+
+/**
+ * Admin navigation
+ */
+#admin-navigation a {
+	line-height: 2em;
+}
 
 
 /**

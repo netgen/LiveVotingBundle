@@ -1,14 +1,14 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
+
+{% block title %}Admin panel{% endblock %}
+{% block mainHeading %}<h1>Welcome</h1>{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <h1>Admin panel</h1>
+            <p>Welcome to Netgen LiveVoting admin panel. This interface gives You total control of events and users in LiveVoting application.</p>
+            <p>To proceed choose on of the links in main navigation which is located at the top of the page. If you are done with Your job here click on the button in upper right corner of the page.</p>
+            <p class="text-right"><em>Netgen LiveVoting Team</em></p>
         </div>
     </div>
-    <div id="admin-navigation" class="row">
-        <div class="col-xs-12">
-            <a href="event">Events</a> - <a href="user">Users</a> - <a href="registration">Registrations</a>
-        </div>
-    </div>    
 {% endblock %}

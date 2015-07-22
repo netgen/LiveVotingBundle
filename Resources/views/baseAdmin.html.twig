@@ -17,26 +17,33 @@
 <body>
     <div id="admin-container">
     	{% if app.user %}
-        <div id="admin-header" class="container">
+        <div class="container">
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="navbar-header pull-left">
+                <div id="admin-header" class="col-xs-12">
+                    <div class="pull-left">
                         <a href="{{ path('root')}}">
                             <img src="{{ asset('bundles/livevoting/img/netgen.svg') }}" class="hidden-xs navbar-logo">
                             <img src="{{ asset('bundles/livevoting/img/kruzici.svg')}}" class="visible-xs navbar-logo">
                         </a>
                     </div>
-                    <div class="navbar-header pull-right">
+                    <div class="pull-right">
                         <a href="{{ path('admin_logout') }}"><button type="button" class="btn">Logout</button></a>
                     </div>
                 </div>
             </div>
+            <nav id="admin-navigation" class="row">
+		        <div class="col-xs-12 text-center">
+		            <a href="event">Events</a> - <a href="user">Users</a> - <a href="registration">Registrations</a>
+		        </div>
+    		</nav>
         </div>
         {% endif %}
 
         <div id="main" class="container">
         	<div class="row">
-        		{% block mainHeading %}{% endblock %}
+        		<div class="col-xs-12">
+        			{% block mainHeading %}{% endblock %}
+        		</div>
         	</div>
             {% block body %}{% endblock %}
         </div>
