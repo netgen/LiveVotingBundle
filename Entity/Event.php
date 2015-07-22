@@ -82,7 +82,7 @@ class Event
      *
      * @param image
      */
-    public function setImage(UploadedFile $image = null)
+    public function setImage($image = null)
     {
         $this->image = $image;
     }

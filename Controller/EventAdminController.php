@@ -168,6 +168,7 @@ class EventAdminController extends Controller
             throw $this->createNotFoundException('Unable to find Event entity.');
         }
 
+        $old_image = $entity->getImage();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -196,6 +197,7 @@ class EventAdminController extends Controller
 
             $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
             $entity->upload();
+            if($entity->getImage() == null) $entity->setImage($old_image);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add(
