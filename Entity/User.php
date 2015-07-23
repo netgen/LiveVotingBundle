@@ -1,7 +1,7 @@
 <?php
 
 namespace Netgen\LiveVotingBundle\Entity;
-   
+
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,11 +16,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class User implements UserInterface
 {
-    /** 
+    /**
     * @var string
     * @ORM\Column(type="string")
     * @ORM\Id
-    * 
+    *
     */
     private $id;
 
@@ -32,14 +32,14 @@ class User implements UserInterface
     private $email = null;
 
     /**
-     * 
+     *
      * @ORM\Column(type="string")
      * @var string
      */
     private $password = null;
 
     /**
-     * 
+     *
      * @ORM\Column(type="boolean")
      * @var enabled
      */
@@ -62,6 +62,8 @@ class User implements UserInterface
 
     private $foodPreference;
 
+    private $presentationComments;
+
     public function setId($id)
     {
         $this->id = $id;
@@ -72,7 +74,7 @@ class User implements UserInterface
     /**
      * Get id
      *
-     * @return string 
+     * @return string
      */
     public function getId()
     {
@@ -95,7 +97,7 @@ class User implements UserInterface
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -118,13 +120,13 @@ class User implements UserInterface
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
         return $this->password;
     }
-    
+
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
@@ -135,7 +137,7 @@ class User implements UserInterface
     /**
      * Get enabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnabled()
     {
@@ -210,7 +212,7 @@ class User implements UserInterface
     /**
      * Get gender
      *
-     * @return string 
+     * @return string
      */
     public function getGender()
     {
@@ -233,7 +235,7 @@ class User implements UserInterface
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -256,7 +258,7 @@ class User implements UserInterface
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -279,7 +281,7 @@ class User implements UserInterface
     /**
      * Get tshirt
      *
-     * @return string 
+     * @return string
      */
     public function getTshirt()
     {
@@ -302,7 +304,7 @@ class User implements UserInterface
     /**
      * Get foodPreference
      *
-     * @return string 
+     * @return string
      */
     public function getFoodPreference()
     {
@@ -321,6 +323,7 @@ class User implements UserInterface
     {
         $this->registrations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->presentations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->presentationComments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -349,7 +352,7 @@ class User implements UserInterface
     /**
      * Get registrations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRegistrations()
     {
@@ -376,5 +379,38 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->email;
+    }
+
+    /**
+     * Add presentationComments
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\PresentationComment $presentationComments
+     * @return Presentation
+     */
+    public function addPresentationComment(\Netgen\LiveVotingBundle\Entity\PresentationComment $presentationComments)
+    {
+        $this->presentationComments[] = $presentationComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove presentationComments
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\PresentationComment $presentationComments
+     */
+    public function removePresentationComment(\Netgen\LiveVotingBundle\Entity\PresentationComment $presentationComments)
+    {
+        $this->presentationComments->removeElement($presentationComments);
+    }
+
+    /**
+     * Get presentationComments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPresentationComments()
+    {
+        return $this->presentationComments;
     }
 }

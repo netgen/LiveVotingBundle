@@ -41,6 +41,16 @@ user_csv_process_import:
     defaults: {_controller: "LiveVotingBundle:UserAdmin:processImportCsv"}
     requirements: {_method: post}
 
+user_comment_presentation:
+    path: /user/comment/presentation/{presentationId}
+    defaults: {_controller: "LiveVotingBundle:User:commentPresentation"}
+    requirements: {_method: post}
+
+user_comment_event:
+    path: /user/comment/event/{eventId}
+    defaults: {_controller: "LiveVotingBundle:User:commentEvent"}
+    requirements: {_method: post}
+
 csv_export:
     path:    /admin/export
     defaults: { _controller: "LiveVotingBundle:Export:generateCsv" }

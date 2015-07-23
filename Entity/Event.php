@@ -20,6 +20,25 @@ class Event
     private $image = '';
     private $begin;
     private $end;
+    private $joindInId = null;
+
+    /**
+     * @return null
+     */
+    public function getJoindInId()
+    {
+        return $this->joindInId;
+    }
+
+    /**
+     * @param null $joindInId
+     */
+    public function setJoindInId($joindInId)
+    {
+        $this->joindInId = $joindInId;
+    }
+
+
 
     /**
      * Get id
