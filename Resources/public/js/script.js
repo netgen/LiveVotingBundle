@@ -25,10 +25,10 @@ function brain(options_){
     $('body').append(shadow);
 
     showSpinner();
-    $('body').on('change', '.forma', function(e){e.preventDefault();});
+    $('body').on('change', '.vote-form', function(e){e.preventDefault();});
 
 
-    $('body').on('click', '.forma input', function(e){
+    $('body').on('click', '.vote-form input', function(e){
         e.preventDefault();
         if(!canIVote)return;
         var action = $(this).parent().parent().attr('action');

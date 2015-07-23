@@ -61,6 +61,87 @@ a.btn-event i {
 
 
 /**
+ * Presentations
+ */
+.pres table {
+	width: 100%;
+	height: 100%;
+	border-collapse: separate;
+}
+
+.pres .pres-outer {
+	background-color: #ffffff;
+}
+
+.pres .pres-fixed {
+	width: 8em;
+	height: 8em;
+}
+
+.pres .pres-img {
+	width: 100%;
+}
+
+.pres .pres-head {
+	height: 2.8571em;
+	vertical-align: top;
+}
+
+.pres h2 {
+	margin: 0 0.8571em;
+	line-height: 1.4285em;
+}
+
+.pres .pres-info {
+	height: 3em;
+	line-height: 3em;
+}
+
+.pres .pres-info span {
+	display: inline-block;
+	margin-left: 1.5em;
+}
+
+.pres .wrapper {
+	width: 100%;
+	background-color: #404041;
+	padding: 1.5em 0;
+}
+
+.pres p.pres-desc-text {
+	margin: 1.5em 0 1.5em 9.5em;
+}
+
+.vote-form {
+	margin: 0;
+	padding: 1.5em 0 1.5em 9.5em;
+	background-color: #ffffff;
+}
+
+.vote-form span {
+	display: inline-block;
+	vertical-align: middle;
+	margin: 1.5em 0;
+	height: 3em;
+	width: 3em;
+	text-align: center;
+	/*background-color: #404041;*/
+}
+
+.vote-form span i {
+	font-size: 1.25em;
+	line-height: 2.4em;
+	color: #404041;
+}
+
+.vote-form input {
+	width: 3em;
+	margin: 1.5em 0;
+	padding: 1em;
+	line-height: 1em;
+}
+
+/**
  * Tables
  */
 table.table {
