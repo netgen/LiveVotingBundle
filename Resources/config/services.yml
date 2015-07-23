@@ -27,4 +27,4 @@ services:
           class: %live_voting_question.handleRequest.class%
     live_voting.joind_in_client:
           class: %live_voting.joind_in_client.class%
-          arguments: ["http://api.joind.in/v2.1", @buzz, ""]
+          arguments: ["https://api.joind.in/v2.1", @buzz, "%joind_in_access_token%"]

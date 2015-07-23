@@ -46,10 +46,12 @@ class PresentationAdminController extends Controller
             'joindInEvents' => $joindInEvents
         ));
     }
+
     /**
      * Creates a new Presentation entity.
      * @param $request Request
      * @param $event_id Event ID
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request, $event_id)
     {

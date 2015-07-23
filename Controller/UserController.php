@@ -24,6 +24,7 @@ use Netgen\LiveVotingBundle\Entity\PresentationComment;
 
 use Netgen\LiveVotingBundle\Form\PresentationImageType;
 use Netgen\LiveVotingBundle\Entity\PresentationImage;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UserController extends Controller {
 
@@ -185,11 +186,7 @@ class UserController extends Controller {
 
         $em->persist($entity);
         $em->flush();
-
-        $request->getSession()->getFlashBag()->add(
-          'message', 'Your comment has been added.'
-        );
-        return $this->redirect($this->generateUrl('event', array('event_id' => $presentation->getEvent()->getId())));
+        return new JsonResponse(array('success' => true));
       }
     }
 
@@ -213,10 +210,7 @@ class UserController extends Controller {
         $entity->upload();
         $em->persist($entity);
         $em->flush();
-        $request->getSession()->getFlashBag()->add(
-          'message', 'Your image has been added.'
-        );
-        return $this->redirect($this->generateUrl('event', array('event_id' => $presentation->getEvent()->getId())));
+        return new JsonResponse(array('success' => true));
       }
     }
 
