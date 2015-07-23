@@ -56,6 +56,7 @@
 									'VOTE':'/user/vote/'
 							}
 					});
+
 			});
 	</script>
 	<script id="presentation" type="text/x-handlebars-template">
@@ -94,15 +95,60 @@
 							{% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
 
 							{{ form(
-								form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'})}
+								form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'commentPresentation'}}
 								) }}
 
 								{% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
 
 								{{ form(
-									imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'})}
+									imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'imageUpload'}}
 									) }}
 					</div>
 			</div>
+	</script>
+
+	<script type="text/javascript">
+
+		$('body').on('submit', '.commentPresentation', function(e){
+				e.preventDefault();
+				var formData = new FormData(this);
+
+				$.ajax({
+						type:'POST',
+						url: $(this).attr('action'),
+						data:formData,
+						processData: false,
+						contentType: false,
+						success:function(data){
+								alert('Thank you for commenting!');
+						},
+						error: function(data){
+							alert('error');
+						}
+				});
+				this.reset();
+		});
+
+			$('body').on('submit', '.imageUpload', function(e){
+				e.preventDefault();
+					var formData = new FormData(this);
+
+					$.ajax({
+							type:'POST',
+							url: $(this).attr('action'),
+							data:formData,
+							processData: false,
+							contentType: false,
+							success:function(data){
+									alert('Thank you for uploading image!');
+							},
+							error: function(data){
+								alert('error');
+							}
+					});
+					this.reset();
+			});
+
+
 	</script>
 {% endblock %}
