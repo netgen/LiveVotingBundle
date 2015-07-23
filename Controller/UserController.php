@@ -22,6 +22,9 @@ use Netgen\LiveVotingBundle\Form\RegistrationUserType;
 use Netgen\LiveVotingBundle\Form\PresentationCommentType;
 use Netgen\LiveVotingBundle\Entity\PresentationComment;
 
+use Netgen\LiveVotingBundle\Form\PresentationImageType;
+use Netgen\LiveVotingBundle\Entity\PresentationImage;
+
 class UserController extends Controller {
 
     public function indexAction(){
@@ -185,6 +188,33 @@ class UserController extends Controller {
 
         $request->getSession()->getFlashBag()->add(
           'message', 'Your comment has been added.'
+        );
+        return $this->redirect($this->generateUrl('event', array('event_id' => $presentation->getEvent()->getId())));
+      }
+    }
+
+    public function uploadImagePresentationAction(Request $request, $presentationId){
+      $em = $this->getDoctrine()->getManager();
+
+      $user = $em->getRepository('LiveVotingBundle:User')->find($this->getUser()->getId());
+      $presentation = $em->getRepository('LiveVotingBundle:Presentation')->findById($presentationId)[0];
+
+      $entity = new PresentationImage();
+      $form = $this->createForm(new PresentationImageType(), $entity, array(
+          'method' => 'POST',
+          'action' => $this->generateUrl('user_upload_image_presentation', array('presentationId'=>$presentationId))
+      ));
+
+      $form->add('submit', 'submit', array('label' => 'Post image'));
+
+      $form->handleRequest($request);
+
+      if($form->isValid()){
+        $entity->upload();
+        $em->persist($entity);
+        $em->flush();
+        $request->getSession()->getFlashBag()->add(
+          'message', 'Your image has been added.'
         );
         return $this->redirect($this->generateUrl('event', array('event_id' => $presentation->getEvent()->getId())));
       }

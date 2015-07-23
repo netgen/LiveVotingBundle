@@ -51,6 +51,11 @@ user_comment_event:
     defaults: {_controller: "LiveVotingBundle:User:commentEvent"}
     requirements: {_method: post}
 
+user_upload_image_presentation:
+    path: /user/uploadimage/presentation/{presentationId}
+    defaults: {_controller: "LiveVotingBundle:User:uploadImagePresentation"}
+    requirements: {_method: post}
+
 csv_export:
     path:    /admin/export
     defaults: { _controller: "LiveVotingBundle:Export:generateCsv" }

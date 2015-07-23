@@ -22,6 +22,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Netgen\LiveVotingBundle\Entity\PresentationComment;
 use Netgen\LiveVotingBundle\Form\PresentationCommentType;
 
+use Netgen\LiveVotingBundle\Form\PresentationImageType;
+use Netgen\LiveVotingBundle\Entity\PresentationImage;
+
 /**
  * Event controller. (user)
  */
@@ -123,10 +126,18 @@ class EventController extends Controller
 
         $form->add('submit', 'submit', array('label' => 'Comment'));
 
+        $entity2 = new PresentationImage();
+        $imageForm = $this->createForm(new PresentationImageType(), $entity2, array(
+            'method' => 'POST',
+        ));
+
+        $imageForm->add('submit', 'submit', array('label' => 'Comment'));
+
         return $this->render('LiveVotingBundle:Index:index.html.twig',
                 array(
                   'event' => $event,
-                  'form' => $form->createView()
+                  'form' => $form->createView(),
+                  'imageForm' => $imageForm->createView()
                 )
             );
     }
