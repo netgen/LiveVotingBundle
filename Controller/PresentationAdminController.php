@@ -11,6 +11,7 @@ namespace Netgen\LiveVotingBundle\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Presentation;
 use Netgen\LiveVotingBundle\Form\PresentationType;
+use Netgen\LiveVotingBundle\Service\JoindInClient\JoindInClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,16 +31,19 @@ class PresentationAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('LiveVotingBundle:Event')->find($event_id);
         $entities = $em->getRepository('LiveVotingBundle:Presentation')->findBy(array('event'=>$event));
-        $buzz = $this->container->get('buzz');
-        $response = $buzz->get('http://api.joind.in/v2.1/users/27355/hosted?format=json');
-        var_dump(json_decode($response->getContent())->events);die();
+        /**
+         * @var $client JoindInClient
+         */
+        $client = $this->get('live_voting.joind_in_client');
+        $joindInEvents = $client->obtainUserEvents(27355, true);
         $that = $this;
         return $this->render('LiveVotingBundle:Presentation:index.html.twig', array(
             'entities' => array_map(
                 function($ent) use ($that) {
                    return array($ent, $that->createEnableDisableForm($ent)->createView());
                 }, $entities),
-            'event' => $event
+            'event' => $event,
+            'joindInEvents' => $joindInEvents
         ));
     }
     /**

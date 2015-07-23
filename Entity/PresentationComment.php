@@ -118,7 +118,7 @@ class PresentationComment
       return $this->user;
     }
 
-    public function setUser(\Netgen\LiveVotingBundle\Entity\User $user = null){
+    public function setUser( $user = null){
       $this->user = $user;
 
       return $this;

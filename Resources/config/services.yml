@@ -5,6 +5,7 @@ parameters:
     live_voting_question.handleRequest.class: Netgen\LiveVotingBundle\Features\Request\ValidateRequest
     live_voting_question_yesNo.result.class: Netgen\LiveVotingBundle\Features\Result\Result
     live_voting_question_yesNo.handleRequest.class: Netgen\LiveVotingBundle\Features\Request\ValidateRequest
+    live_voting.joind_in_client.class: Netgen\LiveVotingBundle\Service\JoindInClient\JoindInClient
 services:
 #    live_voting.example:
 #        class: %live_voting.example.class%
@@ -24,3 +25,6 @@ services:
           arguments: [@doctrine.orm.entity_manager, event_id]
     live_voting_question_yesNo.handleRequest:
           class: %live_voting_question.handleRequest.class%
+    live_voting.joind_in_client:
+          class: %live_voting.joind_in_client.class%
+          arguments: ["http://api.joind.in/v2.1", @buzz, ""]
