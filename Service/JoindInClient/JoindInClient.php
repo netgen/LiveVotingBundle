@@ -15,6 +15,10 @@ use Buzz\Message\Response;
 use Netgen\LiveVotingBundle\Entity\Event;
 use Service\JoindInClient\Exception\JoindInClientException;
 
+/**
+ * Class JoindInClient for communicating with joind.in API. Currently supporting Api v2.1
+ * @package Netgen\LiveVotingBundle\Service\JoindInClient
+ */
 class JoindInClient {
 
     private $api_key = null;
