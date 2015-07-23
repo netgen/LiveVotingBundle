@@ -5,18 +5,13 @@
 {% endblock %}
 
 {% block body %}
-	<div class="row">
-		<div class="col-xs-12">
-			<h1>Live Voting</h1>
-		</div>
-	</div>
 	{% for event in events %}
 	{% if event.event %}
 	<div class="row slave-event">
 		<div class="col-xs-12">
 			<div class="wrapper">
 				<div class="pull-left">
-					<img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/kruzici.svg'}}">
+					<img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
 					<h2 class="text-left">{{ event.getName }}</h2>
 				</div>
 				<div class="pull-right">
@@ -31,10 +26,13 @@
 	<div class="row master-event">
 		<div class="col-xs-12">
 			<div class="wrapper">
-				<span>
+				<div class="pull-left">
 					<h2 class="text-left">{{ event.getName }}</h2>
 					<span class="time">{{ event.begin.format('d F') }} - {{ event.end.format('d F') }}</span>
-				</span>
+				</div>
+				<div class="pull-right">
+					<span>{% if event.questions|length > 0 %}<a href="{{path('question', {'event_id':event.getId})}}" class="btn-event"><br><i class="fa fa-question"></i><br>{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}</a>{% endif %}</span>
+				</div>
 			</div>
 		</div>
 	</div>

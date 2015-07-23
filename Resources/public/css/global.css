@@ -98,6 +98,16 @@ a, h1, h2, p, td, th {
 	background-color: transparent;
 }
 
+.master-event .btn-event {
+	color: #ffffff;
+	background-color: rgba(64, 64, 65, 0.5);
+}
+
+.master-event .btn-event:hover, .master-event .btn-event:focus, .master-event .btn-event:active {
+	color: #ffffff;
+	background-color: rgba(64, 64, 65, 1);
+}
+
 /**
  * Links
  */
