@@ -1,15 +1,14 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
-{% block body -%}
-    <h1>Registration creation</h1>
+{% block mainHeading %}<h1>Create registration</h1>{% endblock %}
 
+{% block body %}
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('registration') }}">
-            Back to the list
-        </a>
-    </li>
+	<div class="row secondary-footer">
+		<div class="col-xs-12">
+			<a href="{{path('registration')}}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>Back</button></a>
+		</div>
+	</div>
 </ul>
 {% endblock %}
