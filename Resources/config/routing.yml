@@ -24,6 +24,7 @@ user_presentation_update:
 user_edit:
     path:    /user/edit
     defaults: { _controller: "LiveVotingBundle:User:edit" }
+    defaults: { _controller: "LiveVotingBundle:User:edit" }
     requirements: {_method: get}
 
 user_update:
@@ -138,6 +139,11 @@ LiveVotingBundle_admin_registration:
 LiveVotingBundle_admin_user:
     resource: "@LiveVotingBundle/Resources/config/routing/user.yml"
     prefix: /admin/user
+
+admin_presentation_publish:
+    path: /events/{event_id}/presentations/publish
+    defaults: { _controller: LiveVotingBundle:PresentationAdmin:publish, event_id: -1}
+
 
 #User presentations
 #LiveVotingBundle_user_presentations:

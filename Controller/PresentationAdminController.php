@@ -10,6 +10,7 @@
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Presentation;
+use Netgen\LiveVotingBundle\Exception\JoindInClientException;
 use Netgen\LiveVotingBundle\Form\PresentationType;
 use Netgen\LiveVotingBundle\Service\JoindInClient\JoindInClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -255,5 +256,32 @@ class PresentationAdminController extends Controller
 
         return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $eventId )));
     }
+
+    public function publishAction(Request $request, $event_id) {
+        /**
+         * @var $client JoindInClient
+         */
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('LiveVotingBundle:Event')->find($event_id);
+        $presentations = $em->getRepository('LiveVotingBundle:Presentation')->findBy(array('event'=>$event));
+        $client = $this->get('live_voting.joind_in_client');
+        foreach($presentations as $presentation) {
+            if($presentation->getGlobalBrake()) continue;
+            /**
+             * @var $presentation Presentation
+             */
+            try{
+                $publishedPresentation = $client->publishPresentation($request->get("joindEvent"), $presentation);
+            } catch(JoindInClientException $e) {
+                return new JsonResponse($e->getMessage());
+            }
+            $presentation.setJoindInId($publishedPresentation.getJoindInId());
+            $em->persist($presentation);
+        }
+        $em->flush();
+        return new JsonResponse(array("succesful" => true));
+    }
+
+
 
 }
