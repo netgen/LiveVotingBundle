@@ -11,7 +11,7 @@ namespace Netgen\LiveVotingBundle\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Presentation;
 use Netgen\LiveVotingBundle\Form\PresentationType;
-use Service\JoindInClient;
+use Netgen\LiveVotingBundle\Service\JoindInClient\JoindInClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

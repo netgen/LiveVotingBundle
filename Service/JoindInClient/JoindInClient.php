@@ -13,6 +13,7 @@ use Buzz\Browser;
 use Buzz\Exception\ClientException;
 use Buzz\Message\Response;
 use Netgen\LiveVotingBundle\Entity\Event;
+use Netgen\LiveVotingBundle\Entity\PresentationComment;
 use Service\JoindInClient\Exception\JoindInClientException;
 
 /**
@@ -25,6 +26,9 @@ class JoindInClient {
 
     private $base_url = null;
 
+    /**
+     * @var Browser|null
+     */
     private $client = null;
 
     public function __construct($base_url = null, Browser $client = null, $api_key = null)
@@ -54,7 +58,7 @@ class JoindInClient {
     }
 
     /**
-     * @param $user_id Id or stub of joind.in user hosting events
+     * @param $user_id Id of joind.in user hosting events
      * @param bool $convertToNativeModel if true returned events will be
      * converted to native LiveVoting\Event
      * @return array|mixed Array of joind.in events or array of LiveVoting\Event
@@ -83,6 +87,58 @@ class JoindInClient {
     }
 
     /**
+     * @param $event_id Event whose comments are going to be obtained
+     * @param bool $convertToNativeModel convert to native bundle entity(not supported)
+     * @return array Joind.in comments objects
+     * @throws JoindInClientException In case of error while communicating with joind.in API
+     */
+    public function obtainEventComments($event_id, $convertToNativeModel = false) {
+        /**
+         * @var $response Response
+         */
+        $response = null;
+        try {
+            $response = $this->client->get($this->base_url."/events/".$event_id."/comments?format=json");
+        } catch(ClientException $e) {
+            throw new JoindInClientException($e->getMessage(), $e, $response->getStatusCode());
+        }
+        $commentArray = json_decode($response->getContent());
+        if($convertToNativeModel) {
+            //TODO: events comments are currently not supported natively
+        }
+        return $commentArray->comments;
+    }
+
+    /**
+     * Obtains last 20 joind.in comments for given talk.
+     * @param $talk joind.in talk id
+     * @param $convertToNative if true
+     * it will convert join.in comments objects into native LiveVoting\PresentationComment
+     * @return array of Joind.in of PresentationComment -s depending on $convertToNative variable
+     * @throws JoindInClientException In case of error while communicating with joind.in API
+     */
+    public function obtainTalkComments($talk, $convertToNative) {
+        /**
+         * @var $response Response
+         */
+        $response = null;
+        try {
+            $response = $this->client->get($this->base_url."/talks/".$talk."/comments?format=json");
+        } catch(ClientException $e) {
+            throw new JoindInClientException($e->getMessage(), $e, $response->getStatusCode());
+        }
+        $commentsArray = json_decode($response->getContent());
+        if($convertToNative) {
+            $entityArray = array();
+            foreach($commentsArray->comments as $comment) {
+                array_push($entityArray, $this->convertToPresentationComment($comment));
+            }
+            return $entityArray;
+        }
+        return $commentsArray->events;
+    }
+
+    /**
      * Method for converting joind.in events into native LiveVoting\Event
      * @param $event joind.in event
      * @return Event converted event
@@ -96,8 +152,24 @@ class JoindInClient {
         $nativeEvent->setName($event->name);
         $nativeEvent->setBegin(new \DateTime($event->start_date));
         $nativeEvent->setEnd(new \DateTime($event->end_date));
-        $nativeEvent->setJoindInId($event->stub);
+        $nativeEvent->setJoindInId(substr($event->uri, strrpos($event->uri, "/")+1));
         return $nativeEvent;
     }
+
+    /**
+     * Converts joind.in comment object into native LiveVoting\PresentationComment object
+     * @param $comment joind.in comment object
+     * @return PresentationComment
+     */
+    private function convertToPresentationComment($comment)
+    {
+        if($comment == null) return new PresentationComment();
+        $presentation_comment = new PresentationComment();
+        $presentation_comment->setContent($comment->comment);
+        $presentation_comment->setPublished(new \DateTime($comment->created_date));
+        $presentation_comment->setUser($comment->user_display_name);
+        return $presentation_comment;
+    }
+
 
 }
