@@ -1,50 +1,42 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
-{% block body -%}
-    <h1>User list</h1>
+{% block mainHeading %}<h1>Users</h1>{% endblock %}
 
+{% block body %}
     {% for flashMessage in app.Session.flashbag.get('message') %}
       <h3>{{flashMessage}}</h3>
     {% endfor %}
 
-    <table class="records_list table">
-        <thead>
-            <tr>
-                <th>User email</th>
-                <th>User enabled</th>
-                <th>Edit user</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td>{{ entity.getEmail }}</td>
-                <td>{{ entity.getEnabled ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove"></span>' }}</td>
-                <td>
-                    <a class='btn btn-primary' href="{{ path('admin_user_edit', { 'id': entity.id }) }}">Edit</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="records_list table">
+                <thead>
+                    <tr>
+                        <th>User email</th>
+                        <th>User enabled</th>
+                        <th>Edit user</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.getEmail }}</td>
+                        <td>{{ entity.getEnabled ? '<i class="fa fa-lg fa-check"></i>' : '<i class="fa fa-lg fa-times"></i>' }}</td>
+                        <td>
+                            <a href="{{ path('admin_user_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <ul class="list-inline">
-        <li>
-            <a class="btn btn-primary" href="{{ path('admin_user_new') }}">
-                <span class="glyphicon glyphicon-plus"></span>Create a new user
-            </a>
-        </li>
-        <li>
-            <a class="btn btn-primary" href="{{ path('csv_export') }}">
-                Export users info in .csv
-            </a>
-        </li>
-        <li>
-            <a class="btn btn-primary" href="{{ path('user_csv_import') }}">
-                Import users from .csv
-            </a>
-        </li>
-    </ul>
-
-    <a href="/admin">Back to admin homepage</a>
-    {% endblock %}
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('admin_user_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i>New user</button></a>
+            <a href="{{ path('csv_export') }}"><button type="button" class="btn"><i class="fa fa-sign-out"></i>Export CSV</button></a>
+            <a href="{{ path('user_csv_import') }}"><button type="button" class="btn"><i class="fa fa-sign-in"></i>Import CSV</button></a>
+        </div>
+    </div>
+{% endblock %}

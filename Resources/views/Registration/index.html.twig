@@ -1,51 +1,48 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
-{% block body -%}
-    <h1>Registration list</h1>
+{% block mainHeading %}<h1>Registrations</h1>{% endblock %}
 
+{% block body %}
     {% for flashMessage in app.Session.flashbag.get('message') %}
       <h3>{{flashMessage}}</h3>
     {% endfor %}
 
-    <table class="records_list table">
-        <thead>
-            <tr>
-                <!--<th>Id</th>-->
-                <th>User email</th>
-                <th>Registered for</th>
-                <th>Developer level</th>
-                <th>Arrivaltime</th>
-                <th>Departuretime</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <!--<td><a href="{{ path('registration_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>-->
-                <td>{{ entity.user.email }}</td>
-                <td>{% if entity.event != null %}{{ entity.event.name }}{% else %} {% endif %}</td>
-                <td>{{ entity.devLevel }}</td>
-                <td>{% if entity.arrivalTime %}{{ entity.arrivalTime|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.departureTime %}{{ entity.departureTime|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                    <!--<li>
-                        <a href="{{ path('registration_show', { 'id': entity.id }) }}">show</a>
-                    </li>-->
-                    <a class='btn btn-primary' href="{{ path('registration_edit', { 'id': entity.id }) }}">edit</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="records_list table">
+                <thead>
+                    <tr>
+                        <!--<th>Id</th>-->
+                        <th>User email</th>
+                        <th>Registered for</th>
+                        <th>Developer level</th>
+                        <th>Arrivaltime</th>
+                        <th>Departuretime</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <!-- <td><a href="{{ path('registration_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td> -->
+                        <td>{{ entity.user.email }}</td>
+                        <td>{% if entity.event != null %}{{ entity.event.name }}{% else %} {% endif %}</td>
+                        <td>{{ entity.devLevel }}</td>
+                        <td>{% if entity.arrivalTime %}{{ entity.arrivalTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if entity.departureTime %}{{ entity.departureTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>
+                            <a href="{{ path('registration_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <ul class="list-inline">
-        <li>
-            <a class='btn btn-primary' href="{{ path('registration_new') }}">
-                <span class="glyphicon glyphicon-plus"></span> Create a new entry
-            </a>
-        </li>
-    </ul>
-
-    <a href="/admin">Back to admin homepage</a>
-    {% endblock %}
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('registration_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i>New registration</button></a>
+        </div>
+    </div>
+{% endblock %}
