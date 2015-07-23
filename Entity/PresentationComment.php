@@ -29,6 +29,11 @@ class PresentationComment
      */
     private $presentation;
 
+    /**
+     * @var \Netgen\LiveVotingBundle\Entity\User
+     */
+    private $user;
+
 
     /**
      * Get id
@@ -102,10 +107,20 @@ class PresentationComment
     /**
      * Get presentation
      *
-     * @return \Netgen\LiveVotingBundle\Entity\Presentation 
+     * @return \Netgen\LiveVotingBundle\Entity\Presentation
      */
     public function getPresentation()
     {
         return $this->presentation;
+    }
+
+    public function getUser(){
+      return $this->user;
+    }
+
+    public function setUser(\Netgen\LiveVotingBundle\Entity\User $user = null){
+      $this->user = $user;
+
+      return $this;
     }
 }

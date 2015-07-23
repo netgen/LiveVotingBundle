@@ -4,7 +4,7 @@
  * This file is part of the Netgen LiveVoting bundle.
  *
  * https://github.com/netgen/LiveVotingBundle
- * 
+ *
  */
 
 namespace Netgen\LiveVotingBundle\Controller;
@@ -19,16 +19,18 @@ use Netgen\LiveVotingBundle\Exception\JsonException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Netgen\LiveVotingBundle\Entity\PresentationComment;
+use Netgen\LiveVotingBundle\Form\PresentationCommentType;
 
 /**
  * Event controller. (user)
  */
-class EventController extends Controller 
+class EventController extends Controller
 {
     /**
      * Returns json response object which contain event presentations data
      * @param $request Request
-     * @param $event_id Event ID 
+     * @param $event_id Event ID
      * @return $response Event presentations in JSON
      */
     public function eventStatusAction(Request $request, $event_id)
@@ -114,8 +116,18 @@ class EventController extends Controller
             throw $this->createNotFoundException('The event does not exist!');
         }
 
-        return $this->render('LiveVotingBundle:Index:index.html.twig', 
-                array('event' => $event)
+        $entity = new PresentationComment();
+        $form = $this->createForm(new PresentationCommentType(), $entity, array(
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Comment'));
+
+        return $this->render('LiveVotingBundle:Index:index.html.twig',
+                array(
+                  'event' => $event,
+                  'form' => $form->createView()
+                )
             );
     }
 
@@ -137,7 +149,7 @@ class EventController extends Controller
 
             if(!$event)
                 throw new JsonException(array('error'=>1, 'errorMessage'=>'Non existing event.'));
-            
+
             $response = $this->get('live_voting.handleRequest')->validateEventQuestionStatus($event, $user, $questionStatus);
             $questions = $this->getDoctrine()
                 ->getRepository('LiveVotingBundle:Question')
@@ -167,7 +179,7 @@ class EventController extends Controller
     /**
      * Returns question data array
      * @param $question Question object
-     * @param $rate Question rate 
+     * @param $rate Question rate
      * @return Question data array
      */
     protected function getQuestionArray(Question $question, $rate){
@@ -176,7 +188,7 @@ class EventController extends Controller
             'question_type' => $question->getQuestionType(),
             'votingEnabled' => $question->getVotingEnabled(),
             'questionId' => $question->getId(),
-            'answer' => $rate         
+            'answer' => $rate
         );
     }
 
@@ -198,4 +210,4 @@ class EventController extends Controller
             'event' => $event
         ));
     }
-} 
+}
