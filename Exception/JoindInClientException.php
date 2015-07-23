@@ -6,7 +6,7 @@
  * Time: 09:58
  */
 
-namespace Service\JoindInClient\Exception;
+namespace Netgen\LiveVotingBundle\Exception;
 
 
 use Exception;
@@ -14,7 +14,7 @@ use Netgen\LiveVotingBundle\Exception\NetgenLiveVotingBundleExceptionInterface;
 
 class JoindInClientException extends Exception implements NetgenLiveVotingBundleExceptionInterface {
 
-    public function __construct($message = null, Exception $previous, $code = 200) {
+    public function __construct($message = null, Exception $previous = null, $code = 200) {
         parent::__construct($message, $code, $previous);
     }
 

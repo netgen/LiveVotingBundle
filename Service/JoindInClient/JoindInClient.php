@@ -15,7 +15,7 @@ use Buzz\Message\Response;
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Presentation;
 use Netgen\LiveVotingBundle\Entity\PresentationComment;
-use Service\JoindInClient\Exception\JoindInClientException;
+use Netgen\LiveVotingBundle\Exception\JoindInClientException;
 
 /**
  * Class JoindInClient for communicating with joind.in API. Currently supporting Api v2.1
@@ -31,7 +31,7 @@ class JoindInClient
      */
     private $client = null;
 
-    public function __construct($base_url = null, Browser $client = null)
+    public function __construct($base_url = null, Browser $client = null, $access_token)
     {
         if ($base_url == null) {
             throw new JoindInClientException("Base url not set in config!", null, 500);
@@ -40,13 +40,14 @@ class JoindInClient
             throw new JoindInClientException("Buzz client not loaded!", null, 500);
         }
         $this->base_url = $base_url;
-        $this->api_key = $api_key;
+        $this->api_key = $access_token;
         $this->client = $client;
     }
 
     /**
      * Obtains first 20 events from joind.in
      * @return array
+     * @throws JoindInClientException
      */
     public function obtainEvents()
     {
@@ -184,18 +185,17 @@ class JoindInClient
      * Publish array of presentations on joind.in
      * under on of the events(determined by event id) hosted by
      * user that generated api key.
-     * @param $event Id of joind.in event which api-key user has hosted
+     * @param String $event Id of joind.in event which api-key user has hosted
      * @param array $presentations array of Presentation entities
-     * @param $access_token token generated after user log in on joind.in
      * @return array
      * @throws JoindInClientException
      */
-    public function publishPresentations($event, $presentations = array(), $access_token)
+    public function publishPresentations($event, $presentations = array())
     {
         $presentationsArray = array();
         foreach ($presentations as $presentation) {
             array_push($presentationsArray,
-                $this->publishPresentation($event, $presentation, $access_token));
+                $this->publishPresentation($event, $presentation));
         }
         return $presentationsArray;
     }
@@ -205,23 +205,25 @@ class JoindInClient
      * user that generated api key.
      * @param String $event id of joind.in event which api-key user has hosted
      * @param Presentation $presentation presentation to be published
-     * @param $access_token
      * @return Presentation
      * @throws JoindInClientException
      */
-    public function publishPresentation($event, Presentation $presentation = null, $access_token)
+    public function publishPresentation($event, Presentation $presentation = null)
     {
         if ($this->api_key == null) {
             throw new JoindInClientException("Publishing presentations requires
              " . "API-key token to be set in configuration", null, 403);
         }
         if ($presentation == null) return;
+        /**
+         * @var $response Response
+         */
         $response = null;
         try {
             $response = $this->client->post(
                 $this->base_url . "/events/" . $event . "/talks",
                 array(
-                    "Authorization" => "Bearer " . $access_token
+                    "Authorization" => "Bearer " . $this->api_key
                 ),
                 json_encode(array(
                     "talk_title" => $presentation->getPresentationName(),
@@ -232,8 +234,11 @@ class JoindInClient
         } catch (ClientException $e) {
             throw new JoindInClientException($e->getMessage(), $e, 500);
         }
-        return $this->convertToPresentation(json_decode($response->getContent())->talks[0]);
-
+        if($response->isOk()) {
+            return $this->convertToPresentation(json_decode($response->getContent())->talks[0]);
+        } else {
+            throw new JoindInClientException($response->getContent(), null, $response->getStatusCode());
+        }
     }
 
     /**
