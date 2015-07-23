@@ -54,6 +54,9 @@ Netgen\LiveVotingBundle\Entity\User:
         presentationComments:
             targetEntity: Netgen\LiveVotingBundle\Entity\PresentationComment
             mappedBy: user
+        presentationImages:
+            targetEntity: Netgen\LiveVotingBundle\Entity\PresentationImage
+            mappedBy: user
 
 #        vote:
 #            targetEntity: Netgen\LiveVotingBundle\Entity\Vote

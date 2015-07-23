@@ -472,4 +472,42 @@ class Presentation
     {
         return $this->presentationComments;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $presentationImages;
+
+
+    /**
+     * Add presentationImages
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\PresentationImage $presentationImages
+     * @return Presentation
+     */
+    public function addPresentationImage(\Netgen\LiveVotingBundle\Entity\PresentationImage $presentationImages)
+    {
+        $this->presentationImages[] = $presentationImages;
+
+        return $this;
+    }
+
+    /**
+     * Remove presentationImages
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\PresentationImage $presentationImages
+     */
+    public function removePresentationImage(\Netgen\LiveVotingBundle\Entity\PresentationImage $presentationImages)
+    {
+        $this->presentationImages->removeElement($presentationImages);
+    }
+
+    /**
+     * Get presentationImages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPresentationImages()
+    {
+        return $this->presentationImages;
+    }
 }
