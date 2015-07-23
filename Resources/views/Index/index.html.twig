@@ -96,6 +96,12 @@
 							{{ form(
 								form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'})}
 								) }}
+
+								{% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
+
+								{{ form(
+									imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'})}
+									) }}
 					</div>
 			</div>
 	</script>

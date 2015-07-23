@@ -1,0 +1,143 @@
+<?php
+
+namespace Netgen\LiveVotingBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * PresentationImage
+ */
+class PresentationImage
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $description;
+
+    /**
+     * @var \Netgen\LiveVotingBundle\Entity\Presentation
+     */
+    private $presentation;
+
+    /**
+     * @var \Netgen\LiveVotingBundle\Entity\User
+     */
+    private $user;
+
+    /**
+    * @var \Symfony\Component\HttpFoundation\File\UploadedFile
+    */
+    private $file;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return PresentationImage
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return PresentationImage
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set presentation
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\Presentation $presentation
+     * @return PresentationImage
+     */
+    public function setPresentation(\Netgen\LiveVotingBundle\Entity\Presentation $presentation = null)
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    /**
+     * Get presentation
+     *
+     * @return \Netgen\LiveVotingBundle\Entity\Presentation
+     */
+    public function getPresentation()
+    {
+        return $this->presentation;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Netgen\LiveVotingBundle\Entity\User $user
+     * @return PresentationImage
+     */
+    public function setUser(\Netgen\LiveVotingBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Netgen\LiveVotingBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

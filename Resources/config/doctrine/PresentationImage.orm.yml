@@ -1,0 +1,34 @@
+Netgen\LiveVotingBundle\Entity\PresentationImage:
+    type: entity
+    table: presentation_image
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        path:
+            type: string
+            length: 255
+        description:
+            type: text
+
+    manyToOne:
+        presentation:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
+            inversedBy: presentationComments
+            joinColumn:
+                name: presentation_id
+                referencedColumnId: id
+                onDelete: CASCADE
+
+        user:
+            targetEntity: Netgen\LiveVotingBundle\Entity\User
+            inversedBy: presentationComments
+            joinColumn:
+                name: user_id
+                referencedColumnId: id
+                onDelete: CASCADE
+
+    lifecycleCallbacks: {  }
