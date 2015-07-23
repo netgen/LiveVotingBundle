@@ -329,6 +329,9 @@ class Presentation
         return $this;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getBegin()
     {
         return $this->begin;
