@@ -22,4 +22,12 @@ Netgen\LiveVotingBundle\Entity\PresentationComment:
                 referencedColumnId: id
                 onDelete: CASCADE
 
+        user:
+            targetEntity: Netgen\LiveVotingBundle\Entity\User
+            inversedBy: presentationComments
+            joinColumn:
+                name: user_id
+                referencedColumnId: id
+                onDelete: CASCADE
+
     lifecycleCallbacks: {  }

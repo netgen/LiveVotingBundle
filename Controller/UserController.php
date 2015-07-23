@@ -19,6 +19,9 @@ use Netgen\LiveVotingBundle\Entity\Registration;
 use Netgen\LiveVotingBundle\Form\UserDataType;
 use Netgen\LiveVotingBundle\Form\RegistrationUserType;
 
+use Netgen\LiveVotingBundle\Form\PresentationCommentType;
+use Netgen\LiveVotingBundle\Entity\PresentationComment;
+
 class UserController extends Controller {
 
     public function indexAction(){
@@ -151,6 +154,40 @@ class UserController extends Controller {
             'edit_user_form'   => $editForm->createView(),
             'edit_registration_form' => $editRegistrationForm->createView()
         ));
+    }
+
+    public function commentEventAction($eventId){
+
+    }
+
+    public function commentPresentationAction(Request $request, $presentationId){
+      $em = $this->getDoctrine()->getManager();
+
+      $user = $em->getRepository('LiveVotingBundle:User')->find($this->getUser()->getId());
+      $presentation = $em->getRepository('LiveVotingBundle:Presentation')->findById($presentationId)[0];
+
+      $entity = new PresentationComment();
+      $form = $this->createForm(new PresentationCommentType(), $entity, array(
+          'method' => 'POST',
+          'action' => $this->generateUrl('user_comment_presentation', array('presentationId'=>$presentationId))
+      ));
+
+      $form->add('submit', 'submit', array('label' => 'Comment'));
+      $form->handleRequest($request);
+
+      if($form->isValid()){
+        $entity->setUser($user);
+        $entity->setPresentation($presentation);
+        $entity->setPublished(new \DateTime());
+
+        $em->persist($entity);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add(
+          'message', 'Your comment has been added.'
+        );
+        return $this->redirect($this->generateUrl('event', array('event_id' => $presentation->getEvent()->getId())));
+      }
     }
 
 }

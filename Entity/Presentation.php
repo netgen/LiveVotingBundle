@@ -466,7 +466,7 @@ class Presentation
     /**
      * Get presentationComments
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPresentationComments()
     {
