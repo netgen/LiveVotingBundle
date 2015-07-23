@@ -5,19 +5,16 @@
 {% endblock %}
 
 {% block body %}
-
 {% for flashMessage in app.Session.flashbag.get('message') %}
 	<h3>{{flashMessage}}</h3>
 {% endfor %}
-
 	<div class="row">
 		<div class="col-xs-12">
-			<h1>Event voting: {{ event.getName }}</h1>
+			<h1>Event: {{ event.getName }}</h1>
 		</div>
 	</div>
 
-	<div class="row">
-		<div id="voteScreen"></div>
+	<div id="voteScreen">
 	</div>
 
 	<div class="row spin-loader" id="loader">
@@ -44,65 +41,127 @@
 	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
 	<script type="text/javascript">
-			$(document).ready(function(){
-					new brain({
-							'STATES':{
-									'PRE':{'TIMEOUT':1},
-									'ACTIVE':{'TIMEOUT':5},
-									'POST':{'TIMEOUT':5}
-					},
-							'URLS':{
-									'EVENT_STATUS':'/user/event_status/',
-									'VOTE':'/user/vote/'
-							}
-					});
+		$(document).ready(function(){
+			new brain({
+					'STATES':{
+							'PRE':{'TIMEOUT':1},
+							'ACTIVE':{'TIMEOUT':5},
+							'POST':{'TIMEOUT':5}
+			},
+					'URLS':{
+							'EVENT_STATUS':'/user/event_status/',
+							'VOTE':'/user/vote/'
+					}
 			});
+		});
 	</script>
 	<script id="presentation" type="text/x-handlebars-template">
-			<div class="voting-list-single col-md-6 col-lg-6 col-sm-12 col-xs-12 media">
-					<div class='highLight'></div>
-					<div class='row'>
-					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
-							<img src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}"
-							class='thumbnail slikaa'>
-					</div>
-					<div class="unutra col-lg-10 col-md-10 col-sm-8 col-xs-8">
-							<h4 class="text-info imeprezentera">{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</h4>
-							<h3 class="text-info naslovprezentacije"><small>{{ '{{presentationName}}' }}</small></h3>
-							<br>
-					</div>
-					</div>
-
-					<div class='row'>
-							<form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
-
-									<span class='glyphicon glyphicon-thumbs-down'></span>
-									<div class="btn-group btn-group-lg">
-
-											<input type="submit" class='btn btn-default btn-sm' value='1'/>
-											<input type="submit" class='btn btn-default btn-sm' value='2'/>
-											<input type="submit" class='btn btn-default btn-sm' value='3'/>
-											<input type="submit" class='btn btn-default btn-sm' value='4'/>
-											<input type="submit" class='btn btn-default btn-sm' value='5'/>
-
-									</div>
-
-									<span class='glyphicon glyphicon-thumbs-up'></span>
-									<br>
-
-							</form>
-							{% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
-
-							{{ form(
-								form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'})}
-								) }}
-
-								{% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
-
-								{{ form(
-									imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'})}
-									) }}
-					</div>
+		<div class="pres voting-list-single row media">
+			<div class="col-xs-12">
+				<table class="pres-outer">
+					<tr>
+						<td class="pres-fixed">
+							<img class="pres-img" src="{{ asset('bundles/livevoting/') }}{{ '{{image}}' }}">
+						</td>
+						<td>
+							<table>
+								<tr>
+									<td class="pres-head">
+										<h2>{{ '{{presentationName}}' }}</h2>
+									</td>
+								</tr>
+								<tr>
+									<td class="pres-info">
+										<span>{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</span>
+										<span>Elephant <i class="fa fa-at"></i> 12:30 - 14:00</span>
+										<span><a class="pres-desc-toggle" href="#">Show description</a></span>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>				
 			</div>
+			<div class="clearfix"></div>
+			<div id="pres-desc-container" class="col-xs-12">
+				<div class="wrapper">
+					<p class="pres-desc-text">dfsgjsjgkjfskgjfskgjfkfg</p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-12 col-sm-6">
+				<form class="vote-form col-lg-12 col-md-12 col-sm-12 col-xs-12" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
+						<span><i class="fa fa-thumbs-o-down"></i></span><!--
+						--><div class="btn-group">
+								<input type="submit" value='1'/><!--
+								--><input type="submit" value='2'/><!--
+								--><input type="submit" value='3'/><!--
+								--><input type="submit" value='4'/><!--
+								--><input type="submit" value='5'/>
+						</div><!--
+						--><span><i class="fa fa-thumbs-o-up"></i></span>
+						<br>
+				</form>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+			{% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
+
+			{{ form(
+				form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'commentPresentation'}}
+				) }}
+
+			{% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
+
+			{{ form(
+				imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'imageUpload'}}
+				) }}
+
+			</div>
+		</div>
+	</script>
+
+	<script type="text/javascript">
+
+		$('body').on('submit', '.commentPresentation', function(e){
+				e.preventDefault();
+				var formData = new FormData(this);
+
+				$.ajax({
+						type:'POST',
+						url: $(this).attr('action'),
+						data:formData,
+						processData: false,
+						contentType: false,
+						success:function(data){
+								alert('Thank you for commenting!');
+						},
+						error: function(data){
+							alert('error');
+						}
+				});
+				this.reset();
+		});
+
+			$('body').on('submit', '.imageUpload', function(e){
+				e.preventDefault();
+					var formData = new FormData(this);
+
+					$.ajax({
+							type:'POST',
+							url: $(this).attr('action'),
+							data:formData,
+							processData: false,
+							contentType: false,
+							success:function(data){
+									alert('Thank you for uploading image!');
+							},
+							error: function(data){
+								alert('error');
+							}
+					});
+					this.reset();
+			});
+
+
 	</script>
 {% endblock %}
