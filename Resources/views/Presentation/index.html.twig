@@ -59,8 +59,9 @@
             <li class="pull-right" style="margin-top: 15px;">
                 <label>
                     <select class="form-control">
-                        <option>Event 1</option>
-                        <option>Event 2</option>
+                        {% for event in joindInEvents %}
+                            <option value="{{ event.joindInId }}">{{ event.name }}</option>
+                        {% endfor %}
                     </select>
                 </label>
             </li>
