@@ -38,14 +38,30 @@ class IndexController extends Controller
             ->orderBy('e.event', 'ASC')
             ->setParameter('datetime', new \DateTime())
             ->getQuery()->getResult();
+        $events = $this->sortEvents($events);
         $presentations = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->findByUser($this->getUser());
-
-
         return $this->render('LiveVotingBundle:Index:landing.html.twig',
             array(
               'events'=>$events,
               'userPresentationsNum' => count($presentations)
               )
         );
+    }
+
+    private function sortEvents($events)
+    {
+        $sortedEvents = array();
+        $masterEvents = array_filter($events, function($event) {
+            return $event->getEvent() == null;
+        });
+        foreach($masterEvents as $masterEvent) {
+            array_push($sortedEvents, $masterEvent);
+            foreach($events as $event) {
+                if($event->getEvent() != null && $event->getEvent()->getId() == $masterEvent->getId()) {
+                    array_push($sortedEvents, $event);
+                }
+            }
+        }
+        return $sortedEvents;
     }
 }
