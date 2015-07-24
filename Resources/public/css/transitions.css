@@ -1,70 +1,42 @@
 /**
  * Transitions
  */
-.btn {
+.btn, .btn:hover {
 	transition: background-color 0.3s;
 	-webkit-transition: background-color 0.3s;
 	-moz-transition: background-color 0.3s;
 	-o-transition: background-color 0.3s;
 }
 
-.btn:hover {
+.btn-event, .btn-event:hover {
 	transition: background-color 0.3s;
 	-webkit-transition: background-color 0.3s;
 	-moz-transition: background-color 0.3s;
 	-o-transition: background-color 0.3s;
 }
 
-.btn-event {
+.form-container form button, .form-container form button:hover {
 	transition: background-color 0.3s;
 	-webkit-transition: background-color 0.3s;
 	-moz-transition: background-color 0.3s;
 	-o-transition: background-color 0.3s;
 }
 
-.btn-event:hover {
+.vote-form input, .vote-form input:hover {
 	transition: background-color 0.3s;
 	-webkit-transition: background-color 0.3s;
 	-moz-transition: background-color 0.3s;
 	-o-transition: background-color 0.3s;
 }
 
-.vote-form input {
-	transition: background-color 0.3s;
-	-webkit-transition: background-color 0.3s;
-	-moz-transition: background-color 0.3s;
-	-o-transition: background-color 0.3s;
-}
-
-.vote-form input:hover {
-	transition: background-color 0.3s;
-	-webkit-transition: background-color 0.3s;
-	-moz-transition: background-color 0.3s;
-	-o-transition: background-color 0.3s;
-}
-
-a {
+a, a:hover {
 	transition: color 0.3s;
 	-webkit-transition: color 0.3s;
 	-moz-transition: color 0.3s;
 	-o-transition: color 0.3s;
 }
 
-a:hover {
-	transition: color 0.3s;
-	-webkit-transition: color 0.3s;
-	-moz-transition: color 0.3s;
-	-o-transition: color 0.3s;
-}
-
-img.navbar-logo {
-	transition: filter 0.5s;
-	-webkit-transition: filter 0.5s;
-	-moz-transition: filter 0.5s;
-	-o-transition: filter 0.5s;
-}
-
-img.navbar-logo:hover {
+img.navbar-logo, img.navbar-logo:hover {
 	transition: filter 0.5s;
 	-webkit-transition: filter 0.5s;
 	-moz-transition: filter 0.5s;

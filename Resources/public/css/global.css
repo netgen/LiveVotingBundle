@@ -41,7 +41,7 @@ p {
 
 .form-container label {
 	font-size: 1em;
-	line-height: 1.5em;
+	line-height: 2em;
 }
 
 /**
@@ -81,11 +81,21 @@ p.pres-desc-text,
 	color: #ffffff;
 }
 
+.form-container form > #form > div:first-child > label {
+	color: #ffffff;
+	background-color: #6dbc45;
+}
+
+.form-container form > #form > div:nth-child(2) > label {
+	color: #ffffff;
+	background-color: #1678b9
+}
+
 
 /**
  * Buttons
  */
-.btn {
+.btn, .form-container form button {
 	margin: 1.1428em 0;
 	border: 0.0714em solid transparent;
 	padding: 0.2142em 1em;
@@ -95,12 +105,17 @@ p.pres-desc-text,
 	background-color: #0199C6;
 	color: #ffffff;
 	border: none;
-    /*border-radius: 5px;*/
     border-radius: 0;
     text-transform: uppercase;
 }
 
-.btn:hover, .btn:active, .btn:focus {
+.form-container form button {
+	margin: 0;
+	width: 100%;
+}
+
+.btn:hover, .btn:active, .btn:focus,
+.form-container form button:hover, .form-container form button:active, .form-container form button:focus {
 	border: none;
 	background-color: #015f7b;
 	color: #ffffff;
