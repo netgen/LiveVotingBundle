@@ -16,6 +16,7 @@ use Netgen\LiveVotingBundle\Entity\User;
 use Netgen\LiveVotingBundle\Entity\Vote;
 use Netgen\LiveVotingBundle\Entity\Answer;
 use Netgen\LiveVotingBundle\Exception\JsonException;
+use Netgen\LiveVotingBundle\Service\JoindInClient\JoindInClient;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,6 +60,10 @@ class EventController extends Controller
 
             // adding presentations to response array
             $em = $this->getDoctrine()->getRepository('LiveVotingBundle:Vote');
+            /**
+             * @var $client JoindInClient
+             */
+            $client = $this->get('live_voting.joind_in_client');
             foreach($presentations as $presentation)
             {
                 $vote = $em->findOneBy(array('user'=>$user, 'presentation'=>$presentation));
@@ -68,7 +73,9 @@ class EventController extends Controller
                 {
                     $rate = $vote->getRate();
                 }
-                $tmp = $this->getPresentationArray($presentation, $rate);
+                //$joindInComments = $client->obtainTalkComments($presentation->getJoindInId(), true);
+                $joindInComments = $client->obtainTalkComments(13579, true);
+                $tmp = $this->getPresentationArray($presentation, $rate, $joindInComments);
                 array_push($response['presentations'], $tmp);
             }
             return new JsonResponse($response);

@@ -126,14 +126,14 @@
                 <div class="comments-section">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active" >
-                            <a aria-controls="live-voting-comments" role="tab" data-toggle="tab">LiveVoting Comments</a>
+                            <a class="tab-button" data-toggle="tab" href="#liveVotingComments-{{ '{{ presentationId }}' }}" aria-controls="live-voting-comments" role="tab" data-toggle="tab">LiveVoting Comments</a>
                         </li>
                         <li role="presentation" >
-                            <a aria-controls="joind-in-comments" role="tab" data-toggle="tab">Joind.in Comments</a>
+                            <a class="tab-button" data-toggle="tab" href="#joindInComments-{{ '{{ presentationId }}' }}" aria-controls="joind-in-comments" role="tab" data-toggle="tab">Joind.in Comments</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="liveVotingComments">
+                        <div role="tabpanel" class="tab-pane fade in active" id="liveVotingComments-{{ '{{ presentationId }}' }}">
                             <ul class="media-list live-voting-comments">
                                 {% verbatim %}
                                     {{#each comments }}
@@ -142,7 +142,14 @@
                                 {% endverbatim %}
                             </ul>
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="joindInComments">
+                        <div role="tabpanel" class="tab-pane fade" id="joindInComments-{{ '{{ presentationId }}' }}">
+                            <ul class="media-list live-voting-comments">
+                                {% verbatim %}
+                                    {{#each joindInComments }}
+                                        {{>comment }}
+                                    {{/each }}
+                                {% endverbatim %}
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -204,6 +211,7 @@
                 $(e.target).text($(e.target).data("expanded-text"));
             }
         });
+
 
 		$('body').on('submit', '.commentPresentation', function(e){
 				e.preventDefault();
