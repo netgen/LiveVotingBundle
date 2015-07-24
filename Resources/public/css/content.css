@@ -114,8 +114,12 @@ a.btn-event i {
 
 .vote-form {
 	margin: 0;
-	padding: 1.5em 0 1.5em 9.5em;
+	/*padding: 1.5em 0 1.5em 9.5em;*/
+	padding: 1.5em 0;
 	background-color: #ffffff;
+}
+.vote-form .wrapper {
+	margin: 0 auto;
 }
 
 .vote-form span {
@@ -199,6 +203,15 @@ div#loader span {
 	text-align: center;
 	color: #404041;
 }
+
+
+/**
+ * Questions
+ */
+.question-list-single {
+
+}
+
 
 
 /**

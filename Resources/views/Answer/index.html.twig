@@ -6,52 +6,27 @@
 {% endblock %}
 
 {% block body %}
-	<div class="navbar navbar-default navbar-collapse">
-			<div class="container">
-					<div class="navbar-header text-center">
-						<ul class="list-inline list-unstyled text-center">
-									<li>
-											<a href="{{ path('root') }}">
-													<img width="20" height="20" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
-											</a>
-									</li>
-									<li>
-											<h3>Netgen Questions for event: {{ event }}</h3>
-									</li>
-									<li>
-
-									</li>
-							</ul>
-					</div>
-			</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h1>Questions: {{ event }}</h1>
+		</div>
 	</div>
 
-	<div class="container">
-			<div id="answerScreen"></div>
+	<div id="answerScreen"></div>
+
+	<div class="row spin-loader" id="loader">
+		<div class="col-xs-12">
+			<span>
+				<i class="fa fa-cog fa-spin"></i>
+			</span>
+		</div>
 	</div>
 
-	<div id="loader">
-			<div id="circleG">
-					<div id="circleG_1" class="circleG">
-					</div>
-					<div id="circleG_2" class="circleG">
-					</div>
-					<div id="circleG_3" class="circleG">
-					</div>
-					<span id="loadingMessage">Loading!</span>
-			</div>
-	</div>
-
-	<div class="container event-links">
-			<a class="btn btn-default" href="{{ path('root') }}"><span class="glyphicon glyphicon-home"></span> Home</a>
-	</div>
-
-	<!--<div id="wrap">
-			<div id="footer" class="container">
-					<span class="timer ermsg"></span>
-					<span class="error ermsg"></span>
-			</div>
-	</div>-->
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('root') }}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>Back to events</button></a>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -60,75 +35,47 @@
 	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
 	<script type="text/javascript">
-			$(document).ready(function(){
-					new brain({
-							'URLS':{
-									'EVENT_STATUS':'/user/event_status_question/',
-									'ANSWER':'/user/answer/'
-							}
-					});
+		$(document).ready(function(){
+			new brain({
+				'URLS':{
+					'EVENT_STATUS':'/user/event_status_question/',
+					'ANSWER':'/user/answer/'
+				}
 			});
+		});
 	</script>
 	<script id="question" type="text/x-handlebars-template">
-			<div class="voting-list-single_question col-md-6 col-lg-6 col-sm-12 col-xs-12 media_question" style="float: none;">
-					<div class='highLight'></div>
-					<div class='row'>
-					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
-							<img src="{{ asset('bundles/livevoting/img/question_img.png') }}"
-							class='thumbnail question_img' alt='Netgen question' title='Netgen question'>
-					</div>
-					<div class="unutra col-lg-10 col-md-10 col-sm-8 col-xs-8">
-							<h4 class="text-info pitanje">{{ '{{question}}' }}</h4>
-							<br>
-					</div>
-					</div>
-
-					<div class='row'>
-							<form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="../answer/{{ '{{ questionId }}' }}" method="POST">
-									<div class="btn-group btn-group-lg">
-											<button type="submit" class='btn btn-default btn-sm' value='2'>Yes</button>
-											<button type="submit" class='btn btn-default btn-sm' value='1'>No</button>
-									</div>
-									<br>
-
-							</form>
-					</div>
+		<div class="row question-list-single" style="float: none;">
+			<div class="col-xs-12 col-sm-6">
+				<h4 class="text-info pitanje">{{ '{{question}}' }}</h4>
 			</div>
+			<form class="forma col-xs-12 col-sm-6" action="../answer/{{ '{{ questionId }}' }}" method="POST">
+				<div class="btn-group btn-group-lg">
+						<button type="submit" class='btn btn-default btn-sm' value='2'>Yes</button>
+						<button type="submit" class='btn btn-default btn-sm' value='1'>No</button>
+				</div>
+			</form>
+		</div>
 	</script>
 
 	<script id="vote" type="text/x-handlebars-template">
-			<div class="voting-list-single_question col-md-6 col-lg-6 col-sm-12 col-xs-12 media_question" style="float: none;">
-					<div class='highLight'></div>
-					<div class='row'>
-					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
-							<img src="{{ asset('bundles/livevoting/img/question_img.png') }}"
-							class='thumbnail question_img' alt='Netgen question' title='Netgen question'>
-					</div>
-					<div class="unutra col-lg-10 col-md-10 col-sm-8 col-xs-8">
-							<h4 class="text-info pitanje">{{ '{{question}}' }}</h4>
-							<br>
-					</div>
-					</div>
-
-					<div class='row'>
-							<form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12" action="../answer/{{ '{{ questionId }}' }}" method="POST">
-
-									<span class='glyphicon glyphicon-thumbs-down'></span>
-									<div class="btn-group btn-group-lg">
-
-											<button type="submit" class='btn btn-default btn-sm' value='1'>1</button>
-											<button type="submit" class='btn btn-default btn-sm' value='2'>2</button>
-											<button type="submit" class='btn btn-default btn-sm' value='3'>3</button>
-											<button type="submit" class='btn btn-default btn-sm' value='4'>4</button>
-											<button type="submit" class='btn btn-default btn-sm' value='5'>5</button>
-
-									</div>
-
-									<span class='glyphicon glyphicon-thumbs-up'></span>
-									<br>
-
-							</form>
-					</div>
+		<div class="row question-list-single" style="float: none;">
+			<div class="col-xs-12 col-sm-6">
+				<h2 class="text-info pitanje">{{ '{{question}}' }}</h2>
 			</div>
+			<form class="vote-form col-xs-12 col-sm-6" action="../answer/{{ '{{ questionId }}' }}" method="POST">
+				<div class="wrapper text-center">
+					<span><i class="fa fa-thumbs-o-down"></i></span><!--
+					--><div class="btn-group">
+							<input type="submit" value='1'/><!--
+							--><input type="submit" value='2'/><!--
+							--><input type="submit" value='3'/><!--
+							--><input type="submit" value='4'/><!--
+							--><input type="submit" value='5'/>
+					</div><!--
+					--><span><i class="fa fa-thumbs-o-up"></i></span>
+				</div>
+			</form>
+		</div>
 	</script>
 {% endblock %}
