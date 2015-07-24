@@ -74,7 +74,10 @@
 								<tr>
 									<td class="pres-info">
 										<span>{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</span>
-										<span>Elephant <i class="fa fa-at"></i> 12:30 - 14:00</span>
+										<span>
+                                            {{ '{{ presentationLocation }}' }}
+                                            <i class="fa fa-at"></i>
+                                            {{ '{{ presentationBeginTime }}' }} - {{ '{{ presentationEndTime }}' }}</span>
 										<span>
                                             <a class="pres-desc-toggle"
                                                data-expanded-text="Hide description"

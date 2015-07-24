@@ -82,13 +82,14 @@ class EventController extends Controller
     }
 
     /**
-    * Returns presentation data array
-    * @param $presentation Presentation object
-    * @param $rate Presentation rate
-    * @return Presentation data array
-    */
+     * Returns presentation data array
+     * @param $presentation Presentation object
+     * @param $rate Presentation rate
+     * @param array $joindInComments
+     * @return Presentation data array
+     */
 
-    protected function getPresentationArray(Presentation $presentation, $rate)
+    protected function getPresentationArray(Presentation $presentation, $rate, $joindInComments= array())
     {
         return array(
             'presentationId' => $presentation->getId(),
@@ -97,10 +98,13 @@ class EventController extends Controller
             'presentationName' => $presentation->getPresentationName(),
             'presentationDescription' => $presentation->getDescription(),
             'votingEnabled' => $presentation->getVotingEnabled(),
-            'presentationId' => $presentation->getId(),
+            'presentationLocation' => $presentation->getHall(),
+            'presentationBeginTime' => $presentation->getBegin()->format("H:m"),
+            'presentationEndTime' => $presentation->getEnd()->format("H:m"),
             'image' =>  $presentation->getImage(),
             'presenterRate' => $rate,
-            'comments' => $this->getCommentsArray($presentation->getPresentationComments())
+            'comments' => $this->getCommentsArray($presentation->getPresentationComments()),
+            'joindInComments' => $this->getCommentsArray($joindInComments)
         );
     }
 
