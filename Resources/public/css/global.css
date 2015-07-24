@@ -81,6 +81,16 @@ p.pres-desc-text,
 	color: #ffffff;
 }
 
+.form-container form > #form > div:first-child > label {
+	color: #ffffff;
+	background-color: #6dbc45;
+}
+
+.form-container form > #form > div:nth-child(2) > label {
+	color: #ffffff;
+	background-color: #1678b9
+}
+
 
 /**
  * Buttons

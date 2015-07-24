@@ -200,18 +200,49 @@ div.secondary-footer > div > a:first-child {
  * Forms
  */
 .form-container form {
+	margin-top: 2em;
 	padding: 1em;
 	background-color: #ffffff;
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
 }
 
-.form-container form > div > div {
-	margin: 0 0 1.5em 0;
+.form-container form > #form > div > div > div  {
+	margin: 0 0 1em 0;
 	padding: 0;
 }
 
-.form-container form > div > div:last-child {
-	margin: 0;
+.form-container form > #form > div > label {
+	text-align: center;
+	text-transform: uppercase;
+	margin-bottom: 1.5em;
+}
+
+.form-container form > #form > div:first-child, .form-container form > #form > div:nth-child(2) {
+	position: relative;
+	width: 50%;
+	float: left;
+}
+
+.form-container form > #form > div:first-child {
+	padding-right: 15px;
+	border-right: 1px solid #dddddd;
+	z-index: 55;
+}
+
+.form-container form > #form > div:nth-child(2) {
+	padding-left: 15px;
+	z-index: 55;
+}
+
+.form-container form > #form > div:nth-child(3) {
+	position: relative;
+	width: 50%;
+	margin: 0 auto;
+	z-index: 50;
+}
+
+.form-container form #form button {
+	margin-top: 1.5em;
 }
 
 .form-container form label {
@@ -229,4 +260,31 @@ div.secondary-footer > div > a:first-child {
 .form-container select {
 	width: 50%;
 	height: 2em;
+}
+
+
+/**
+ * Ultra-specific forms
+ */
+#form_registrationInfo_departureTime {
+	color: #404041;
+	margin-left: 0.5em;
+}
+
+#form_registrationInfo_departureTime_date:before {
+	content: "Date: ";
+}
+
+#form_registrationInfo_departureTime_time:before {
+	content: "Time: ";
+}
+
+#form_registrationInfo_departureTime_date select {
+	margin-right: 3%;
+	width: 22%;
+}
+
+#form_registrationInfo_departureTime_time select {
+	color: #404041;
+	width: 25%;
 }

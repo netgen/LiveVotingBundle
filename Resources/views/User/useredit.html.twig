@@ -1,19 +1,13 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-xs-12">
-            <h1>Edit your info</h1>
-        </div>
-    </div>
-
     {% for flashMessage in app.Session.flashbag.get('message') %}
     <h3>{{flashMessage}}</h3>
     {% endfor %}
 
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 form-container">
-          {{ form(form, {'attr':{'class':'form-horizontal'}}) }}
+        <div id="form-useredit" class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 form-container">
+          {{ form(form, {}) }}
         </div>
     </div>
 
