@@ -15,6 +15,7 @@ use Buzz\Message\Response;
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Presentation;
 use Netgen\LiveVotingBundle\Entity\PresentationComment;
+use Netgen\LiveVotingBundle\Entity\User;
 use Netgen\LiveVotingBundle\Exception\JoindInClientException;
 
 /**
@@ -155,6 +156,7 @@ class JoindInClient
         } catch (ClientException $e) {
             throw new JoindInClientException($e->getMessage(), $e, $response->getStatusCode());
         }
+        if($response->getStatusCode() != 200) return array();
         $commentsArray = json_decode($response->getContent());
         if ($convertToNative) {
             $entityArray = array();
@@ -177,7 +179,9 @@ class JoindInClient
         $presentation_comment = new PresentationComment();
         $presentation_comment->setContent($comment->comment);
         $presentation_comment->setPublished(new \DateTime($comment->created_date));
-        $presentation_comment->setUser($comment->user_display_name);
+        $user = new User();
+        $user->setUsername($comment->user_display_name);
+        $presentation_comment->setUser($user);
         return $presentation_comment;
     }
 
