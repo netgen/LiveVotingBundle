@@ -22,7 +22,8 @@
 	-o-transition: background-color 0.3s;
 }
 
-.vote-form input, .vote-form input:hover {
+.vote-form input, .vote-form input:hover,
+.vote-form button, .vote-form button:hover {
 	transition: background-color 0.3s;
 	-webkit-transition: background-color 0.3s;
 	-moz-transition: background-color 0.3s;

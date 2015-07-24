@@ -45,23 +45,25 @@
 		});
 	</script>
 	<script id="question" type="text/x-handlebars-template">
-		<div class="row question-list-single" style="float: none;">
+		<div class="row question-list-single">
 			<div class="col-xs-12 col-sm-6">
-				<h4 class="text-info pitanje">{{ '{{question}}' }}</h4>
+				<h2>{{ '{{question}}' }}</h2>
 			</div>
-			<form class="forma col-xs-12 col-sm-6" action="../answer/{{ '{{ questionId }}' }}" method="POST">
-				<div class="btn-group btn-group-lg">
-						<button type="submit" class='btn btn-default btn-sm' value='2'>Yes</button>
-						<button type="submit" class='btn btn-default btn-sm' value='1'>No</button>
+			<form class="vote-form col-xs-12 col-sm-6" action="../answer/{{ '{{ questionId }}' }}" method="POST">
+				<div class="wrapper text-center">
+					<div class="btn-group">
+							<button type="submit" value='2'>Yes</button><!--
+							--><button type="submit" value='1'>No</button>
+					</div>
 				</div>
 			</form>
 		</div>
 	</script>
 
 	<script id="vote" type="text/x-handlebars-template">
-		<div class="row question-list-single" style="float: none;">
+		<div class="row question-list-single">
 			<div class="col-xs-12 col-sm-6">
-				<h2 class="text-info pitanje">{{ '{{question}}' }}</h2>
+				<h2>{{ '{{question}}' }}</h2>
 			</div>
 			<form class="vote-form col-xs-12 col-sm-6" action="../answer/{{ '{{ questionId }}' }}" method="POST">
 				<div class="wrapper text-center">
