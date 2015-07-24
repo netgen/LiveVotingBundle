@@ -194,3 +194,31 @@ div.secondary-footer a i {
 div.secondary-footer > div > a:first-child {
 	margin-left: 0;
 }
+
+
+/**
+ * Forms
+ */
+.form-container form {
+	padding: 1em;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+}
+
+.form-container form > div > div {
+	margin: 0 0 1.5em 0;
+	padding: 0;
+}
+
+.form-container form label {
+	display: block;
+	margin-bottom: 0;
+}
+
+.form-container input {
+	width: 100%;
+}
+
+.form-container select {
+	width: 50%;
+	height: 1.5em;
+}

@@ -1,20 +1,26 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
-{% block body -%}
-    <h1>User & Registration edit</h1>
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Edit your info</h1>
+        </div>
+    </div>
 
     {% for flashMessage in app.Session.flashbag.get('message') %}
-      <h3>{{flashMessage}}</h3>
+    <h3>{{flashMessage}}</h3>
     {% endfor %}
 
-    {{ form(edit_user_form, {'attr':{'class':'form-horizontal'}}) }}
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 form-container">
+            {{ form(edit_user_form, {}) }}
+        </div>
+    </div>
     {{ form(edit_registration_form, {'attr':{'class':'form-horizontal'}}) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('user_landing') }}">
-                Back
-            </a>
-        </li>
-    </ul>
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('user_landing') }}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>Back to events</button></a>
+        </div>
+    </div>
 {% endblock %}

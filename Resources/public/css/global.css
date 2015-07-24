@@ -39,6 +39,11 @@ p {
 	font-weight: 600;
 }
 
+.form-container label {
+	font-size: 1em;
+	line-height: 1.5em;
+}
+
 /**
  * Global settings
  */
@@ -66,14 +71,12 @@ div#main {
 /**
  * Font colors
  */
-a, h1, h2, p, td, th {
+a, h1, h2, p, td, th,
+.form-container label, .form-container input, .form-container select {
 	color: #404041;
 }
 
-p.pres-desc-text {
-	color: #ffffff;
-}
-
+p.pres-desc-text,
 .master-event h2, .master-event span.time {
 	color: #ffffff;
 }
