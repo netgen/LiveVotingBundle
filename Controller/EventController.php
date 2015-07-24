@@ -91,9 +91,11 @@ class EventController extends Controller
     protected function getPresentationArray(Presentation $presentation, $rate)
     {
         return array(
+            'presentationId' => $presentation->getId(),
             'presenterName' => $presentation->getPresenterName(),
             'presenterSurname' => $presentation->getPresenterSurname(),
             'presentationName' => $presentation->getPresentationName(),
+            'presentationDescription' => $presentation->getDescription(),
             'votingEnabled' => $presentation->getVotingEnabled(),
             'presentationId' => $presentation->getId(),
             'image' =>  $presentation->getImage(),
