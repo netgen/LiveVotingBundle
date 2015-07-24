@@ -90,7 +90,7 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="col-xs-12 col-sm-6">
-				<form class="vote-form col-lg-12 col-md-12 col-sm-12 col-xs-12" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
+				<form class="vote-form" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
 						<span><i class="fa fa-thumbs-o-down"></i></span><!--
 						--><div class="btn-group">
 								<input type="submit" value='1'/><!--
@@ -103,19 +103,21 @@
 						<br>
 				</form>
 			</div>
+			<div class="clearfix visible-xs-block"></div>
 			<div class="col-xs-12 col-sm-6">
+			</div>
+			<div class="col-xs-12">
 			{% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
-
 			{{ form(
 				form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'commentPresentation'}}
 				) }}
-
+			</div>
+			<div class="clearfix"></div>
+			<div class="col-xs-12">
 			{% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
-
 			{{ form(
 				imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'imageUpload'}}
 				) }}
-
 			</div>
 		</div>
 	</script>
