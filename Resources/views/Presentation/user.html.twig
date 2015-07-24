@@ -1,33 +1,29 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Presentations for user:  {{ user.email }} </h1>
-
     {% for flashMessage in app.Session.flashbag.get('message') %}
       <h3>{{flashMessage}}</h3>
     {% endfor %}
 
-    <table class="records_list table">
-        <thead>
-        <tr>
-            <th></th>
-            <th>Presentation name</th>
-            <th>Edit presentation</th>
-        </tr>
-        </thead>
-        <tbody>
-
+    <div class="row pres-list">
         {% for entity in entities %}
-            <tr class="{{ entity[0].votingEnabled?'success':'danger' }}">
-                <td><img width="40px" src='{{ asset('bundles/livevoting/'~(entity[0].getImage ? entity[0].getWebPath: 'img/man1.png'))}}'/></td>
-                <td>{{ entity[0].presentationName }}</td>
-                <td>
-
-                    <a class='btn btn-primary' href="{{ path('user_presentation_edit', { 'id': entity[0].id }) }}">Edit</a>
-                </td>
-
-            </tr>
+        <div class="col-xs-12">
+            <div class="wrapper">
+                <div class="pull-left">
+                    <h2>{{ entity[0].presentationName }}</h2>
+                    <span>Hall Elephant <i class="fa fa-at"></i> 12:30 - 14:00 | Date: 21. July</span>
+                </div>
+                <div class="pull-right">
+                    <a class="btn-event" href="{{ path('user_presentation_edit', { 'id': entity[0].id }) }}"><br><i class="fa fa-pencil"></i><br>Edit</a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
+
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('user_landing') }}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>Back to events</button></a>
+        </div>
+    </div>
 {% endblock %}

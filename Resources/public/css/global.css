@@ -28,6 +28,16 @@ h2 {
 	line-height: 2.2857em;
 }
 
+.pres-list h2 {
+	font-size: 1.5em;
+	margin-left: 0.6666em;
+	line-height: 1.3333em;
+}
+
+.pres-list span {
+	line-height: 2em;
+}
+
 p {
 	max-width: 465px;
 	font-weight: 300;
@@ -72,7 +82,8 @@ div#main {
  * Font colors
  */
 a, h1, h2, p, td, th,
-.form-container label, .form-container input, .form-container select {
+.form-container label, .form-container input, .form-container select,
+.pres-list span {
 	color: #404041;
 }
 

@@ -1,42 +1,43 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
 {% block body -%}
-    <h1>Presentation edit</h1>
+    <h1>{{ entity.presentationName }}</h1>
 
     {% for flashMessage in app.Session.flashbag.get('message') %}
       <h3>{{flashMessage}}</h3>
     {% endfor %}
 
-    {{ form_start(edit_form) }}
+    <div class="row">
+        <div id="form-userpres" class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 form-container">
+            {{ form_start(edit_form) }}
 
-    <div class="form-group">
-        {{ form_label(edit_form.presentationName) }}
-        {{ form_widget(edit_form.presentationName) }}
+            <div class="form-group">
+                {{ form_label(edit_form.presentationName) }}
+                {{ form_widget(edit_form.presentationName) }}
+            </div>
+
+            <p>Presenter Name <input type="text" value="{{ entity.presenterName }}" disabled></p>
+
+            <p>Presenter Name <input type="text" value="{{ entity.presenterSurname }}" disabled></p>
+
+            <div class="form-group">
+                {{ form_label(edit_form.description) }}
+                {{ form_widget(edit_form.description) }}
+            </div>
+
+            <p>Event <input type="text" value="{{ entity.event }}" disabled></p>
+
+            <p>Starts <input type="text" value="{{ entity.begin | date("i:H, m/d/Y") }}" disabled></p>
+
+            <p>Ends <input type="text" value="{{ entity.end | date("i:H, m/d/Y") }}" disabled></p>
+
+            {{ form_end(edit_form) }}
+        </div>
     </div>
 
-    <p>Presenter Name <input type="text" value="{{ entity.presenterName }}" disabled></p>
-
-    <p>Presenter Name <input type="text" value="{{ entity.presenterSurname }}" disabled></p>
-
-    <div class="form-group">
-        {{ form_label(edit_form.description) }}
-        {{ form_widget(edit_form.description) }}
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('user_presentations') }}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>My presentations</button></a>
+        </div>
     </div>
-
-    <p>Event <input type="text" value="{{ entity.event }}" disabled></p>
-
-    <p>Starts <input type="text" value="{{ entity.begin | date("i:H, m/d/Y") }}" disabled></p>
-
-    <p>Ends <input type="text" value="{{ entity.end | date("i:H, m/d/Y") }}" disabled></p>
-
-    {{ form_end(edit_form) }}
-
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('user_presentations')}}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
 {% endblock %}
