@@ -3,6 +3,7 @@ function brain(options_){
     var options = options_;
     var source   = $("#presentation").html();
     var template = Handlebars.compile(source);
+    Handlebars.registerPartial("comment", $("#comment-partial").html());
     var urlPath = options['URLS']['EVENT_STATUS']+getEventId(1);
     var globalState = null;
     var timeout = options['STATES']['PRE']['TIMEOUT'];
@@ -231,7 +232,6 @@ function brain(options_){
 
 
         this.setEnabled = function(enabled_status){
-            console.log(enabled_status);
             if(!enabled_status) // enabled_status == false
                 this.element.find('.highLight').fadeIn(2000);
             else
@@ -240,7 +240,6 @@ function brain(options_){
 
         this.highlightMe = function(){
             this.setEnabled(true);
-            console.log('boom flash');
         }
 
         this.handle = function(){
