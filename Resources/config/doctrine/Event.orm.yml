@@ -53,3 +53,4 @@ Netgen\LiveVotingBundle\Entity\Event:
                 name: master_id
                 referencedColumnId: id
                 onDelete: CASCADE
+                nullable: true

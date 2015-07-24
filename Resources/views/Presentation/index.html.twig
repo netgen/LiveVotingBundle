@@ -53,7 +53,7 @@
             </li>
 
             <li class="pull-right">
-                <button type="button" id="publishPresentationButton" onclick="publishPresentations()" id="myButton" data-loading-text="Publishing..." class="btn btn-primary" autocomplete="off">
+                <button type="button" id="publishPresentationButton" onclick="publishPresentations()" data-success-text="Publishing successful" data-loading-text="Publishing..." class="btn btn-primary" autocomplete="off">
                     Publish presentations
                 </button>
             </li>
@@ -75,17 +75,20 @@
         function publishPresentations() {
             var button = $("#publishPresentationButton");
             button.button('loading');
+            button.prop("disabled",true);
             $.ajax({
                 type: 'post',
-                'url': "/events/{{ event.id }}/presentations/publish",
+                'url': "/admin/events/{{ event.id }}/presentations/publish",
                 'data': {joindEvent: $("#joind-events-select").val()},
                 success: function (data) {
+                    button.button('success');
                 },
                 error: function (e) {
-                    alert(e.message);
+                    alert(e.responseJSON.error);
+                    button.button('reset');
+                    button.prop("disabled",false);
                 }
             });
-            button.button('reset');
         }
     </script>
 {% endblock %}
