@@ -63,7 +63,7 @@ class PresentationImage
      * Set path
      *
      * @param string $path
-     * @return PresentationImage
+     * @return PresentationI`ge
      */
     public function setPath($path)
     {

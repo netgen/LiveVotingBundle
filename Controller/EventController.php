@@ -96,9 +96,30 @@ class EventController extends Controller
             'presentationName' => $presentation->getPresentationName(),
             'votingEnabled' => $presentation->getVotingEnabled(),
             'presentationId' => $presentation->getId(),
-            'image' =>  $presentation->getImage() ? $presentation->getWebPath() : 'img/man1.png',
-            'presenterRate' => $rate
+            'image' =>  $presentation->getImage(),
+            'presenterRate' => $rate,
+            'comments' => $this->getCommentsArray($presentation->getPresentationComments())
         );
+    }
+
+    private function getCommentsArray($presentationComments)
+    {
+        $comments = array();
+        foreach($presentationComments as $comment) {
+            /**
+             * @var $comment PresentationComment
+             */
+            array_push($comments, array(
+                "content" => $comment->getContent(),
+                "published_at" => $comment->getPublished()->format("d.m.Y H:m"),
+                "user_display_name" =>
+                    $comment->getUser()->getEmail() ?
+                        substr($comment->getUser()->getEmail(), 0, strrpos($comment->getUser()->getEmail(), "@"))
+                        :
+                        $comment->getUser()->getUsername()
+            ));
+        }
+        return $comments;
     }
 
     /**
@@ -221,4 +242,5 @@ class EventController extends Controller
             'event' => $event
         ));
     }
+
 }

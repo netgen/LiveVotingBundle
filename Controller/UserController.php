@@ -163,7 +163,15 @@ class UserController extends Controller {
 
         $em->persist($entity);
         $em->flush();
-        return new JsonResponse(array('success' => true));
+        return new JsonResponse(array(
+            "content" => $entity->getContent(),
+            "published_at" => $entity->getPublished()->format("d.m.Y H:m"),
+            "user_display_name" =>
+                $entity->getUser()->getEmail() ?
+                    substr($entity->getUser()->getEmail(), 0, strrpos($entity->getUser()->getEmail(), "@"))
+                    :
+                    $entity->getUser()->getUsername()
+        ));
       }
     }
 
