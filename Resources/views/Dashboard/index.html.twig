@@ -127,9 +127,10 @@
 {% block javascripts %}
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
-
+    <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl.min.js') }}" ></script>
     <script type="text/javascript">
         $(document).ready(function () {
+
             new brain({
                 'STATES': {
                     'PRE': {'TIMEOUT': 0},
@@ -257,6 +258,7 @@
                 }
                 return options.inverse(this);
             });
+            HandlebarsIntl.registerWith(Handlebars);
 
 
             $('#liveschedule').on('change', '.forma', function (e) {
@@ -311,9 +313,8 @@
                     <div class="col-lg-2 ">
 
                         <div class="imgpresenter">
-                            <img class="img-circle "
-                                 src="{{ asset('bundles/livevoting/img/faces') }}/{{ '{{ image }}' }}"
-                                 alt="Presentation image" width="100" height="100">
+                            <img class="pres-img" src="{{ asset('bundles/livevoting/img/') }}{% verbatim %}{{#if image}}presentations/{{image}}{{else}}assets/presenter.svg{{/if}}{% endverbatim %}">
+
                         </div>
                     </div>
                     <div id="presentation-{{ '{{ id }}' }}" class="col-lg-7 text-left">
@@ -364,8 +365,8 @@
                             <div class="col-lg-3 time">
                                 <div class="room">
                                   <span class="glyphicon glyphicon-blackboard" aria-hidden="true">
-                                  </span><b>Elephant</b></div>
-                                <div><b>9:00</b>am</div>
+                                  </span><b>{{ '{{ hall }}' }}</b></div>
+                                <div>{{ '{{formatTime begin.date hour="numeric" minute="numeric"  }}' }} - {{ '{{formatTime end.date hour="numeric" minute="numeric"  }}' }}</div>
                             </div>
                         </div>
                     </div>
@@ -385,14 +386,14 @@
             var ajaxFunction = function () {
                 $.ajax({
                     type: "GET",
-                    url: 'http://localhost:8000/dashboard/liveschedule',
+                    url: '{{ path('dashboard_live_schedule') }}',
                     dataType: "json",
                     success: function (data) {
                         if ('presentations' in data) {
                             if (content.length === 0) {
                                 for (var i = 0; i < data['presentations'].length; i++) {
                                     content.push(JSON.stringify(data['presentations'][i].id));
-
+                                    console.log(data['presentations'][i]);
                                     html = template(data['presentations'][i]);
 
                                     newDiv = document.createElement('div');

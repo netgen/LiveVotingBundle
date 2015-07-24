@@ -514,4 +514,13 @@ class Presentation
     {
         return $this->presentationImages;
     }
+
+    public function getBeginTime() {
+        return $this->begin->format("H:m");
+    }
+
+    public function getEndTime() {
+        return $this->end->format("H:m");
+    }
+
 }
