@@ -16,6 +16,7 @@ use Netgen\LiveVotingBundle\Service\JoindInClient\JoindInClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Presentation controller. (admin)
@@ -266,16 +267,20 @@ class PresentationAdminController extends Controller
         $presentations = $em->getRepository('LiveVotingBundle:Presentation')->findBy(array('event'=>$event));
         $client = $this->get('live_voting.joind_in_client');
         foreach($presentations as $presentation) {
-            if($presentation->getGlobalBrake()) continue;
             /**
              * @var $presentation Presentation
              */
+            if($presentation->getGlobalBrake()) continue;
+            if($presentation->getJoindInId() == null) continue;
             try{
+                /**
+                 * @var $publishedPresentation Presentation
+                 */
                 $publishedPresentation = $client->publishPresentation($request->get("joindEvent"), $presentation);
+                $presentation.setJoindInId($publishedPresentation.getJoindInId());
             } catch(JoindInClientException $e) {
-                return new JsonResponse($e->getMessage());
+                return new JsonResponse(array("error" => $e->getMessage()), 500 );
             }
-            $presentation.setJoindInId($publishedPresentation.getJoindInId());
             $em->persist($presentation);
         }
         $em->flush();
