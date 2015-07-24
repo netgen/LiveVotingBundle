@@ -114,12 +114,12 @@ a.btn-event i {
 
 .vote-form {
 	margin: 0;
-	/*padding: 1.5em 0 1.5em 9.5em;*/
-	padding: 1.5em 0;
-	background-color: #ffffff;
 }
+
 .vote-form .wrapper {
 	margin: 0 auto;
+	padding: 0;
+	background-color: #ffffff;
 }
 
 .vote-form span {
@@ -137,7 +137,7 @@ a.btn-event i {
 	color: #404041;
 }
 
-.vote-form input {
+.vote-form input, .vote-form button {
 	width: 3em;
 	margin: 1.5em 0;
 	padding: 1em;
@@ -208,10 +208,24 @@ div#loader span {
 /**
  * Questions
  */
-.question-list-single {
-
+div.row.question-list-single {
+	margin: 0 0 2em 0 !important;
+	background-color: #ffffff;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
 }
 
+.question-list-single h2 {
+	min-height: 4em;
+}
+
+.question-list-single .vote-form {
+	border-left: 1px solid #dddddd;
+	background: url('../img/assets/bg-pattern.png');
+}
+
+.question-list-single .vote-form .wrapper {
+	background-color: transparent;
+}
 
 
 /**
