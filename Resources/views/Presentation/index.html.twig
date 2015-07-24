@@ -78,12 +78,13 @@
             button.prop("disabled",true);
             $.ajax({
                 type: 'post',
-                'url': "/events/{{ event.id }}/presentations/publish",
+                'url': "/admin/events/{{ event.id }}/presentations/publish",
                 'data': {joindEvent: $("#joind-events-select").val()},
                 success: function (data) {
                     button.button('success');
                 },
                 error: function (e) {
+                    alert(e.responseJSON.error);
                     button.button('reset');
                     button.prop("disabled",false);
                 }

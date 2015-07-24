@@ -141,8 +141,11 @@ LiveVotingBundle_admin_user:
     prefix: /admin/user
 
 admin_presentation_publish:
-    path: /events/{event_id}/presentations/publish
+    path: /admin/events/{event_id}/presentations/publish
     defaults: { _controller: LiveVotingBundle:PresentationAdmin:publish, event_id: -1}
+    requirements:
+        event_id: \d+
+    methods:  [POST, GET]
 
 
 #User presentations
