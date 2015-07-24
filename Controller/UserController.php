@@ -60,26 +60,15 @@ class UserController extends Controller {
         return $form->getForm();
     }
 
-    private function createUserEditForm(User $entity)
+    private function createEditForm(User $entity, Registration $entity2)
     {
-        $form = $this->createForm(new UserDataType(), $entity, array(
-            'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));;
-        /*$form->add('Enabled', 'checkbox', array('required'=>false, 'label'=>'Enabled'));*/
-        $form->add('submit', 'submit', array('label' => 'Update'));
-        return $form;
-    }
+        $form = $this->createFormBuilder()
+                ->add('userInfo', new UserDataType(), array('data'=>$entity))
+                ->add('registrationInfo', new RegistrationUserType(), array('data'=>$entity2))
+                ->add('submit', 'submit', array('label'=>'update'))
+        ;
 
-    private function createRegistrationEditForm(Registration $entity)
-    {
-        $form = $this->createForm(new RegistrationUserType(), $entity, array(
-            'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));;
-        /*$form->add('Enabled', 'checkbox', array('required'=>false, 'label'=>'Enabled'));*/
-        $form->add('submit', 'submit', array('label' => 'Update'));
-        return $form;
+        return $form->getForm();
     }
 
 
@@ -107,14 +96,11 @@ class UserController extends Controller {
             throw $this->createNotFoundException('Unable to find User entity or Registration.');
         }
 
-        $userEditForm = $this->createUserEditForm($entity);
-        $registrationEditForm = $this->createRegistrationEditForm($entity2);
-
+        $form = $this->createEditForm($entity, $entity2);
 
         return $this->render('LiveVotingBundle:User:useredit.html.twig', array(
             'entity'      => $entity,
-            'edit_user_form'   => $userEditForm->createView(),
-            'edit_registration_form' => $registrationEditForm->createView()
+            'form'   => $form->createView(),
         ));
     }
 
@@ -129,34 +115,25 @@ class UserController extends Controller {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm = $this->createUserEditForm($entity);
-        $editRegistrationForm = $this->createRegistrationEditForm($entity2);
-        $editForm->handleRequest($request);
-        $editRegistrationForm->handleRequest($request);
+        $form = $this->createEditForm($entity, $entity2);
+        $form->handleRequest($request);
+        if($form->isValid()){
+          $entity = $form->getData()['userInfo'];
+          $entity2 = $form->getData()['registrationInfo'];
+          $em->persist($entity);
+          $em->persist($entity2);
+          $em->flush();
 
-        if ($editForm->isValid())
-        {
-            $em->persist($entity);
-            $em->flush();
-            $request->getSession()->getFlashBag()->add(
-              'message', 'Your changes were saved.'
-            );
-            return $this->redirect($this->generateUrl('user_edit'));
-        }
+          $request->getSession()->getFlashBag()->add(
+            'message', 'Info updated.'
+          );
 
-        if ($editRegistrationForm->isValid()){
-            $em->persist($entity2);
-            $em->flush();
-            $request->getSession()->getFlashBag()->add(
-              'message', 'Your changes were saved.'
-            );
-            return $this->redirect($this->generateUrl('user_edit'));
+          return $this->redirect($this->generateUrl('user_edit'));
         }
 
         return $this->render('LiveVotingBundle:User:useredit.html.twig', array(
             'entity'      => $entity,
-            'edit_user_form'   => $editForm->createView(),
-            'edit_registration_form' => $editRegistrationForm->createView()
+            'form'   => $form->createView(),
         ));
     }
 
