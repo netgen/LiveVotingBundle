@@ -75,7 +75,16 @@
 									<td class="pres-info">
 										<span>{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</span>
 										<span>Elephant <i class="fa fa-at"></i> 12:30 - 14:00</span>
-										<span><a class="pres-desc-toggle" href="#">Show description</a></span>
+										<span>
+                                            <a class="pres-desc-toggle"
+                                               data-expanded-text="Hide description"
+                                               data-collapsed-text="Show description"
+                                               data-toggle="collapse"
+                                               href="#pres-desc-container-{{ '{{ presentationId }}' }}"
+                                               aria-expanded="false" aria-controls="pres-desc-container">
+                                                Show description
+                                            </a>
+                                        </span>
 									</td>
 								</tr>
 							</table>
@@ -84,9 +93,9 @@
 				</table>				
 			</div>
 			<div class="clearfix"></div>
-			<div id="pres-desc-container" class="col-xs-12">
+			<div id="pres-desc-container-{{ '{{ presentationId }}' }}" class="col-xs-12 collapse">
 				<div class="wrapper">
-					<p class="pres-desc-text">dfsgjsjgkjfskgjfskgjfkfg</p>
+					<p class="pres-desc-text">{{ '{{ presentationDescription }}' }}</p>
 				</div>
 			</div>
 			<div class="clearfix"></div>
@@ -184,6 +193,14 @@
 
 	<script type="text/javascript">
         var commentTemplate = Handlebars.compile($("#comment-partial").html());
+
+        $('body').on('click', '.pres-desc-toggle', function (e) {
+            if($(e.target).text() == $(e.target).data("expanded-text")) {
+                $(e.target).text($(e.target).data("collapsed-text"));
+            } else {
+                $(e.target).text($(e.target).data("expanded-text"));
+            }
+        });
 
 		$('body').on('submit', '.commentPresentation', function(e){
 				e.preventDefault();
