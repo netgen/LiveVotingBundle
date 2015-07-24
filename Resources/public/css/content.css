@@ -83,7 +83,6 @@ a.btn-event i {
 }
 
 .pres .pres-head {
-	height: 2.8571em;
 	vertical-align: top;
 }
 
@@ -93,8 +92,9 @@ a.btn-event i {
 }
 
 .pres .pres-info {
-	height: 3em;
-	line-height: 3em;
+	margin-top: 1em;
+	height: 2em;
+	line-height: 2em;
 }
 
 .pres .pres-info span {
@@ -125,7 +125,6 @@ a.btn-event i {
 	height: 3em;
 	width: 3em;
 	text-align: center;
-	/*background-color: #404041;*/
 }
 
 .vote-form span i {
