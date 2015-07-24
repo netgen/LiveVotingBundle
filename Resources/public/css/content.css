@@ -269,7 +269,7 @@ div.secondary-footer > div > a:first-child {
 	z-index: 50;
 }
 
-.form-container form #form button {
+.form-container form button {
 	margin-top: 1.5em;
 }
 
@@ -288,6 +288,13 @@ div.secondary-footer > div > a:first-child {
 .form-container select {
 	width: 50%;
 	height: 2em;
+}
+
+.form-container textarea {
+	width: 100%;
+	height: 5em;
+	padding: 0 0.5em;
+	line-height: 1.5em;
 }
 
 
@@ -315,4 +322,19 @@ div.secondary-footer > div > a:first-child {
 #form_registrationInfo_departureTime_time select {
 	color: #404041;
 	width: 25%;
+}
+
+#form-userpres div.ext {
+	margin-bottom: 1em;
+}
+
+#form-userpres p {
+	width: 100%;
+	max-width: none;
+	font-weight: 600;
+	margin-bottom: 1em;
+}
+
+#form-userpres p > input {
+	font-weight: 300;
 }
