@@ -2,6 +2,7 @@
 
 namespace Netgen\LiveVotingBundle\Form;
 
+use Netgen\LiveVotingBundle\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -34,7 +35,13 @@ class EventType extends AbstractType
                 'required' => false,
                 'attr' => array('class'=> 'filestyle')
             ))
-            ->add('event', 'entity' ,array('attr' => array('class' => 'form-control'), 'class' => 'LiveVotingBundle:Event', 'property' => 'name'))
+            ->add('event', 'entity' ,array(
+                'attr' => array('class' => 'form-control'),
+                'class' => 'LiveVotingBundle:Event',
+                'property' => 'name',
+                'required'    => false,
+                'empty_value' => '(Leave like this to remain master event)',
+                'empty_data' => null))
             ->add('begin')
             ->add('end')
         ;
