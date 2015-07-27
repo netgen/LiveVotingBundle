@@ -32,7 +32,7 @@ services:
           arguments: ["https://api.joind.in/v2.1", @buzz, "%joind_in_access_token%"]
     live_voting.doctrine_presentation_repo:
           class: %live_voting.doctrine_presentation_repo.class%
-          arguments: [@doctrine.orm.entity_manager]
+          arguments: [@doctrine.orm.entity_manager, "LiveVotingBundle:Presentation", "LiveVotingBundle:Vote"]
     live_voting.memcached_presentation_repo:
           class: %live_voting.memcached_presentation_repo.class%
           arguments: [@memcache.default]

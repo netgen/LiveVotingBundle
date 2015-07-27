@@ -13,12 +13,19 @@ use Doctrine\ORM\EntityManager;
 use Netgen\LiveVotingBundle\Service\PresentationService\PresentationRepository;
 use Netgen\LiveVotingBundle\Service\PresentationService\Record\PresentationRecord;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException
+
 class DoctrinePresentationRepo implements PresentationRepository {
 
     private $em;
+    private $presentationRepository;
+    private $voteRepository;
 
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManager $em, $presentationRepository, $voteRepository) {
         $this->em = $em;
+        $this->presentationRepository = $presentationRepository;
+        $this->voteRepository = $voteRepository;
     }
 
     /**
@@ -28,7 +35,13 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function save(PresentationRecord $presentation)
     {
-        // TODO: Implement save() method.
+        if($em->getRepository($presentationRepository)->findById($presentation->getId()))
+          throw new HttpException(400, 'Presentation id aleady exists.');
+
+        $presentationEntity = $this->presentationObjectToEntity($presentation);
+        $em->persist($presentationEntity);
+        $em->flush();
+        return $presentation;
     }
 
     /**
@@ -38,7 +51,18 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function update(PresentationRecord $presentation)
     {
-        // TODO: Implement update() method.
+      $presentation_id = $presentation->getId();
+
+      $presentationEntity = $em->getRepository($presentationRepository)->findOneById($presentation_id);
+
+      if(!$presentationEntity)
+        throw new NotFoundHttpException('Unable to find Presentation entity.');
+
+      $presentationEntity = $this->presentationObjectToEntity($presentation);
+      $em->persist($presentationEntity);
+      $em->flush();
+
+      return $presentation;
     }
 
     /**
@@ -48,7 +72,13 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function destroy($presentation_id)
     {
-        // TODO: Implement destroy() method.
+        $presentationEntity = $em->getRepository($presentationRepository)->findOneById($presentation_id);
+
+        if(!$presentationEntity)
+          throw new NotFoundHttpException('Presentation is already removed.');
+
+        $em->remove($presentationEntity);
+        $em->flush();
     }
 
     /**
@@ -60,7 +90,9 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function find($find_criteria = array())
     {
-        // TODO: Implement find() method.
+        return $em->getRepository($presentationRepository)->findBy($find_criteria)
+              ? $em->getRepository($presentationRepository)->findBy($find_criteria)
+              : throw new NotFoundHttpException('Presentation not found.');
     }
 
     /**
@@ -70,7 +102,9 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function findOne($presentation_id)
     {
-        // TODO: Implement findOne() method.
+          return $em->getRepository($presentationRepository)->findOneById($presentation_id)
+                ? $em->getRepository($presentationRepository)->findOneById($presentation_id)
+                : throw new NotFoundHttpException('Presentation not found.');
     }
 
     /**
@@ -79,7 +113,7 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function findAll()
     {
-        // TODO: Implement findAll() method.
+        return $em->getRepository($presentationRepository)->findAll();
     }
 
     /**
@@ -102,7 +136,19 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function getVote($presentation_id, $user_id)
     {
-        // TODO: Implement getVote() method.
+        $presentationEntity = $em->getRepository($presentationRepository)->findById($presentation_id);
+
+        if(!$presentationEntity)
+          throw new NotFoundHttpException('Presentation not found.');
+
+        $user = $em->getRepository('LiveVotingBundle:User')->findOneById($user_id);
+
+        $vote = $em->getRepository($presentationRepository)->findOneBy(array(
+          'id' => $presentation_id,
+          'user' => $user
+        ));
+
+        return $vote ? $vote->getRate() : null;
     }
 
     /**
@@ -112,6 +158,69 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function getPresentationRate($presentation_id)
     {
-        // TODO: Implement getPresentationRate() method.
+      $presentationEntity = $em->getRepository($presentationRepository)->findById($presentation_id);
+
+      if(!$presentationEntity)
+        throw new NotFoundHttpException('Presentation not found.');
+
+      $votes = $presentationEntity->getVotes();
+
+      if(count($votes) > 0){
+        $numOfVotes = 0;
+        $average = 0;
+        foreach ($votes as $vote) {
+          $sum += $vote->getRate();
+          $numOfVotes++;
+        }
+        return $sum/$numOfVotes;
+      }
+
+      return null;
+
+    }
+
+    public function presentationObjectToEntity(PresentationRecord $presentation){
+      $presentationEntity = new Presentation();
+
+      $presentationEntity->setPresentationName($presentation->getName());
+      $presentationEntity->setDescription($presentation->getDescription());
+      $presentationEntity->setVotingEnabled($presentation->getVotingEnabled());
+      $presentationEntity->setGlobalBrake($presentation->getGlobalBrake());
+      $presentationEntity->setHall($presentation->getHall());
+      $presentationEntity->setBeginTime($presentation->getBegin());
+      $presentationEntity->setEndtime($presentation->getEnd());
+      $presentationEntity->setJoindInId($presentation->getJoindInId());
+      $presentationEntity->setPath($presentation->getImageUrl());
+
+      $event = $em->getRepository('LiveVotingBundle:Event')->findOneById($presentation->getId());
+
+      if($event)
+        $presentationEntity->setEvent($event);
+
+      $user = $em->getRepository('LiveVotingBundle:User')->findOneById($presentation->getUserId());
+
+      if($user)
+        $presentationEntity->setUser($user);
+
+      return $presentationEntity;
+    }
+
+    public function presentationEntityToObject(Presentation $presentationEntity){
+      $presentation = new PresentationRecord();
+
+      $presentation->setName($presentationEntity->getPresentationName());
+      $presentation->setDescription($presentationEntity->getDescription());
+      $presentation->setVotingEnabled($presentationEntity->getVotingEnabled());
+      $presentation->setGlobalBrake($presentationEntity->getGlobalBrake());
+      $presentation->setHall($presentationEntity->getHall());
+      $presentation->setBegin($presentationEntity->getBeginTime());
+      $presentation->setEnd($presentationEntity->getEndTime());
+      $presentation->setJoindInId($presentationEntity->getJoindInId());
+      $presentation->setImageUrl($presentationEntity->getPath());
+
+      $presentation->setEventId($presentationEntity->getEvent()->getId())
+      $presentation->setUserId($presentationEntity->getUser()->getId())
+
+      return $presentation;
     }
 }
