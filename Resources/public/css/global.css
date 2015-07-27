@@ -54,7 +54,7 @@ p {
 	line-height: 2em;
 }
 
-.question-list-single h2 {
+.question-single-item h2 {
 	font-size: 1.5em;
 	line-height: 1.3333em;
 	margin: 0;
@@ -169,6 +169,17 @@ p.pres-desc-text,
 .vote-form input:hover, .vote-form button:hover {
 	background-color: #015f7b;
 }
+
+.question-single button, .question-multiple input {
+	border: none;
+	font-size: 1em;
+	font-weight: 600;
+	line-height: 3em;
+	text-transform: uppercase;
+	text-align: center;
+	color: #ffffff;
+}
+
 
 /**
  * Links

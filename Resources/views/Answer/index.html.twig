@@ -12,7 +12,7 @@
 		</div>
 	</div>
 
-	<div id="answerScreen"></div>
+	<div id="answerScreen" class="row"></div>
 
 	<div class="row spin-loader" id="loader">
 		<div class="col-xs-12">
@@ -45,39 +45,45 @@
 		});
 	</script>
 	<script id="question" type="text/x-handlebars-template">
-		<div class="row question-list-single">
-			<div class="col-xs-12 col-sm-6">
-				<h2>{{ '{{question}}' }}</h2>
-			</div>
-			<form class="vote-form col-xs-12 col-sm-6" action="../answer/{{ '{{ questionId }}' }}" method="POST">
-				<div class="wrapper text-center">
-					<div class="btn-group">
-							<button type="submit" value='2'>Yes</button><!--
-							--><button type="submit" value='1'>No</button>
+		<div class="col-xs-12 col-sm-6 question-single-item">
+			<div class="row">
+				<div class="col-xs-12 question-heading">
+					<div class="wrapper">
+						<h2>{{ '{{question}}' }}</h2>
 					</div>
 				</div>
-			</form>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<form class="question-single" action="../answer/{{ '{{ questionId }}' }}" method="POST">
+						<button class="yes" type="submit" value='2'>Yes</button><!--
+						--><button class="no" type="submit" value='1'>No</button>
+					</form>
+				</div>
+			</div>
 		</div>
 	</script>
 
 	<script id="vote" type="text/x-handlebars-template">
-		<div class="row question-list-single">
-			<div class="col-xs-12 col-sm-6">
-				<h2>{{ '{{question}}' }}</h2>
-			</div>
-			<form class="vote-form col-xs-12 col-sm-6" action="../answer/{{ '{{ questionId }}' }}" method="POST">
-				<div class="wrapper text-center">
-					<span><i class="fa fa-thumbs-o-down"></i></span><!--
-					--><div class="btn-group">
-							<input type="submit" value='1'/><!--
-							--><input type="submit" value='2'/><!--
-							--><input type="submit" value='3'/><!--
-							--><input type="submit" value='4'/><!--
-							--><input type="submit" value='5'/>
-					</div><!--
-					--><span><i class="fa fa-thumbs-o-up"></i></span>
+		<div class="col-xs-12 col-sm-6 question-single-item">
+			<div class="row">
+				<div class="col-xs-12 question-heading">
+					<div class="wrapper">
+						<h2>{{ '{{question}}' }}</h2>
+					</div>
 				</div>
-			</form>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<form class="question-multiple" action="../answer/{{ '{{ questionId }}' }}" method="POST">
+						<input type="submit" value='1'/><!--
+						--><input type="submit" value='2'/><!--
+						--><input type="submit" value='3'/><!--
+						--><input type="submit" value='4'/><!--
+						--><input type="submit" value='5'/>
+					</form>
+				</div>
+			</div>
 		</div>
 	</script>
 {% endblock %}
