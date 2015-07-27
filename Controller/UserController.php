@@ -192,6 +192,10 @@ class UserController extends Controller {
       $form->handleRequest($request);
 
       if($form->isValid()){
+        $entity->setUser($user);
+        $entity->setPresentation($presentation);
+        $entity->setPublished(new \DateTime());
+        
         $entity->upload();
         $em->persist($entity);
         $em->flush();

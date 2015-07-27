@@ -39,6 +39,11 @@ class PresentationImage
     */
     private $file;
 
+    /**
+     * @var \DateTime
+     */
+    private $published;
+
     public function setFile($file){
       $this->file = $file;
 
@@ -142,6 +147,29 @@ class PresentationImage
     }
 
     /**
+     * Set published
+     *
+     * @param \DateTime $published
+     * @return PresentationImage
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return \DateTime
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
      * Get user
      *
      * @return \Netgen\LiveVotingBundle\Entity\User
@@ -158,14 +186,14 @@ class PresentationImage
             : $this->getUploadDir().'/'.$this->getName();
     }
 
-    protected function getUploadRootDir()
+    private function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
         return __DIR__.'/../../../../web/bundles/livevoting/'.$this->getUploadDir();
     }
 
-    protected function getUploadDir()
+    private function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
