@@ -165,7 +165,7 @@ class UserController extends Controller {
         $em->flush();
         return new JsonResponse(array(
             "content" => $entity->getContent(),
-            "published_at" => $entity->getPublished()->format("d.m.Y H:m"),
+            "published_at" => $entity->getPublished()->format(DATE_ISO8601),
             "user_display_name" =>
                 $entity->getUser()->getEmail() ?
                     substr($entity->getUser()->getEmail(), 0, strrpos($entity->getUser()->getEmail(), "@"))
