@@ -10,6 +10,10 @@ nav.navbar.navbar-fixed-top {
 	border-bottom: 1px solid #dddddd;
 }
 
+nav.navbar.navbar-fixed-top .container {
+	padding: 0 1em;
+}
+
 nav.navbar img.navbar-logo {
 	height: 3em;
 	margin: 0.5em 0;
@@ -26,18 +30,18 @@ nav.navbar img.navbar-logo:hover {
 
 
 /* Navigation UL */
-.nav-ul {
-	border-right: 1px solid #dddddd;
-}
-
-.nav-ul li {
-	margin: 0;
-	padding: 1em;
-	width: 10em;
+.nav-ul a {
+	display: inline-block;
+	width: 25%;
+	height: 4em;
 	text-align: center;
-	line-height: 2em;
+	line-height: 4em;
 	border-left: 1px solid #dddddd;
 	background-color: transparent;
+}
+
+.nav-ul a:last-child {
+	border-right: 1px solid #dddddd;
 }
 
 

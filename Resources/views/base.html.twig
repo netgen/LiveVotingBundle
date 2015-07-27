@@ -21,24 +21,24 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="navbar-header pull-left">
+                        <div class="navbar-header col-xs-6">
                             <a href="{{ path('root')}}">
                                 <img src="{{ asset('bundles/livevoting/img/assets/logo.svg') }}" class="hidden-xs navbar-logo">
                                 <img src="{{ asset('bundles/livevoting/img/assets/small-logo.svg')}}" class="visible-xs navbar-logo">
                             </a>
                         </div>
-                        <div class="navbar-header pull-right">
+                        <div class="navbar-header col-xs-6">
                             {% if app.user %}
-                            <ul class="list-inline list-unstyled hidden-xs hidden-sm nav-ul">
-                                <li><a href="{{ path('root') }}">Dashboard</a></li><!--
-                                --><li><a href="{{ path('user_landing') }}">Events</a></li><!--
+                            <div class="hidden-xs hidden-sm nav-ul">
+                                <a href="{{ path('root') }}">Dashboard</a><!--
+                                --><a href="{{ path('user_landing') }}">Events</a><!--
                                 {% if userPresentationsNum is defined and userPresentationsNum != 0 %}
-                                --><li><a href="{{ path('user_presentations') }}">My presentations</a></li><!--
+                                --><a href="{{ path('user_presentations') }}">My lectures</a><!--
                                 {% endif %}
                                 {% if(app.request.cookies.has('userEditEnabled')) %}
-                                --><li><a href="{{ path('user_edit') }}">Edit my info</a></li><!--
+                                --><a href="{{ path('user_edit') }}">Edit my info</a><!--
                                 {% endif %}-->
-                            </ul>
+                            </div>
                             <div class="visible-xs visible-sm dropdown">
                                 <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-bars"></i></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">

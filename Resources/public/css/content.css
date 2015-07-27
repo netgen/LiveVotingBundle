@@ -269,7 +269,15 @@ div.slave-event.questions {
 }
 
 .question-single-item {
-	margin: 2em 0;
+	margin: 0 0 2em 0;
+}
+
+.question-single-item:nth-child(odd) {
+	padding-right: 1em;
+}
+
+.question-single-item:nth-child(even) {
+	padding-left: 1em;
 }
 
 .question-single-item h2 {
