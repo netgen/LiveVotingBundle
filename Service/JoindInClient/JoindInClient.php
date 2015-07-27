@@ -152,7 +152,7 @@ class JoindInClient
          */
         $response = null;
         try {
-            $response = $this->client->get($this->base_url . "/talks/" . $talk . "/comments?format=json");
+            $response = $this->client->get($this->base_url . "/talks/" . $talk . "/comments?format=json&verbose=yes");
         } catch (ClientException $e) {
             throw new JoindInClientException($e->getMessage(), $e, $response->getStatusCode());
         }
@@ -181,6 +181,7 @@ class JoindInClient
         $presentation_comment->setPublished(new \DateTime($comment->created_date));
         $user = new User();
         $user->setUsername($comment->user_display_name);
+        $user->setGravatar($comment->gravatar_hash);
         $presentation_comment->setUser($user);
         return $presentation_comment;
     }
