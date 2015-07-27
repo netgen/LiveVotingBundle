@@ -124,7 +124,7 @@ class EventController extends Controller
              */
             array_push($comments, array(
                 "content" => $comment->getContent(),
-                "published_at" => $comment->getPublished()->format("d.m.Y H:m"),
+                "published_at" => $comment->getPublished()->format(DATE_ISO8601),
                 "user_display_name" =>
                     $comment->getUser()->getEmail() ?
                         substr($comment->getUser()->getEmail(), 0, strrpos($comment->getUser()->getEmail(), "@"))
