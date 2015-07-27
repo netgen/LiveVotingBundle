@@ -28,12 +28,22 @@
                         </div>
                         <div class="navbar-header pull-right">
                             {% if app.user %}
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Dropdown</button>
+                            <ul class="nav-ul list-inline list-unstyled hidden-xs">
+                                <li><a href="{{ path('root') }}">Dashboard</a></li>
+                                <li><a href="{{ path('user_landing') }}">Events</a></li>
+                                {% if userPresentationsNum is defined and userPresentationsNum != 0 %}
+                                <li><a href="{{ path('user_presentations') }}">My presentations</a></li>
+                                {% endif %}
+                                {% if(app.request.cookies.has('userEditEnabled')) %}
+                                <li><a href="{{ path('user_edit') }}">Edit my info</a></li>
+                                {% endif %}
+                            </ul>
+                            <div class="visible-xs dropdown">
+                                <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-bars"></i></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                     <li><a href="{{ path('root') }}">Dashboard</a></li>
                                     <li><a href="{{ path('user_landing') }}">Events</a></li>
-                                    {% if userPresentationsNum != 0 %}
+                                    {% if userPresentationsNum is defined and userPresentationsNum != 0 %}
                                     <li><a href="{{ path('user_presentations') }}"><i class="fa fa-clipboard"></i>My presentations</a></li>
                                     {% endif %}
                                     {% if(app.request.cookies.has('userEditEnabled')) %}

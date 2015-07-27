@@ -121,7 +121,6 @@ p.pres-desc-text,
  * Buttons
  */
 .btn, .form-container form button {
-	width: 12em;
 	margin: 1.1428em 0;
 	border: 0.0714em solid transparent;
 	padding: 0.2142em 1em;
