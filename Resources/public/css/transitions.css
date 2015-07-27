@@ -43,3 +43,23 @@ img.navbar-logo, img.navbar-logo:hover {
 	-moz-transition: filter 0.5s;
 	-o-transition: filter 0.5s;
 }
+
+.question-multiple input.q1,
+.question-multiple input.q2,
+.question-multiple input.q3,
+.question-multiple input.q4,
+.question-multiple input.q5,
+.question-single button.yes,
+.question-single button.no,
+.question-multiple input.q1:hover,
+.question-multiple input.q2:hover,
+.question-multiple input.q3:hover,
+.question-multiple input.q4:hover,
+.question-multiple input.q5:hover,
+.question-single button.yes:hover,
+.question-single button.no:hover {
+	transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-o-transition: all 0.3s;
+}
