@@ -17,7 +17,7 @@ Netgen\LiveVotingBundle\Entity\PresentationImage:
     manyToOne:
         presentation:
             targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
-            inversedBy: presentationComments
+            inversedBy: presentationImages
             joinColumn:
                 name: presentation_id
                 referencedColumnId: id
@@ -25,7 +25,7 @@ Netgen\LiveVotingBundle\Entity\PresentationImage:
 
         user:
             targetEntity: Netgen\LiveVotingBundle\Entity\User
-            inversedBy: presentationComments
+            inversedBy: presentationImages
             joinColumn:
                 name: user_id
                 referencedColumnId: id
