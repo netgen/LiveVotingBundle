@@ -12,10 +12,15 @@ namespace Netgen\LiveVotingBundle\Service\PresentationService\Impl;
 use Memcached;
 use Netgen\LiveVotingBundle\Service\PresentationService\PresentationRepository;
 use Netgen\LiveVotingBundle\Service\PresentationService\Record\PresentationRecord;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class MemcachedPresentationRepo implements PresentationRepository {
 
     private $memcached;
+
+    private $incrementalPresentationId = 1;
 
     public function __construct(Memcached $memcached) {
         $this->$memcached = $memcached;
@@ -28,7 +33,11 @@ class MemcachedPresentationRepo implements PresentationRepository {
      */
     public function save(PresentationRecord $presentation)
     {
-        // TODO: Implement save() method.
+        $presentation->setId($this->incrementalPresentationId++);
+        $this->memcached->add(
+            "presentation-".$presentation->getId(),
+            serialize($presentation)
+        );
     }
 
     /**

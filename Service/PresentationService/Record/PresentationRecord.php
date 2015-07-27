@@ -29,6 +29,8 @@ class PresentationRecord {
 
     private $image_url;
 
+    private $global_brake = false;
+
     /**
      * @return mixed
      */
@@ -204,6 +206,24 @@ class PresentationRecord {
     {
         $this->image_url = $image_url;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isGlobalBrake()
+    {
+        return $this->global_brake;
+    }
+
+    /**
+     * @param boolean $global_brake
+     */
+    public function setGlobalBrake($global_brake)
+    {
+        $this->global_brake = $global_brake;
+    }
+
+
 
 
 
