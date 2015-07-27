@@ -105,23 +105,21 @@
 			</div>
 			<div class="clearfix"></div>
 			<div class="col-xs-12 col-sm-6">
-				<form class="vote-form" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
-					<div class="wrapper text-center">
-						<span><i class="fa fa-thumbs-o-down"></i></span><!--
-                    --><div class="btn-group">
-								<input type="submit" value='1'/><!--
-								--><input type="submit" value='2'/><!--
-								--><input type="submit" value='3'/><!--
-								--><input type="submit" value='4'/><!--
-								--><input type="submit" value='5'/>
-						</div><!--
-						--><span><i class="fa fa-thumbs-o-up"></i></span>
-					</div>
+				<form class="question-multiple" action="../user/vote/{{ '{{ questionId }}' }}" method="POST">
+					<label>Rate presentation</label>
+					<input class="q5" type="submit" value='5'/><!--
+					--><input class="q4" type="submit" value='4'/><!--
+					--><input class="q3" type="submit" value='3'/><!--
+					--><input class="q2" type="submit" value='2'/><!--
+					--><input class="q1" type="submit" value='1'/
 				</form>
 			</div>
 			<div class="clearfix visible-xs-block"></div>
 			<div class="col-xs-12 col-sm-6">
-
+				<div class="pres-opinion">
+					<h3 href="#">Share Your opinion!</h3>
+					<a href="#">View comments (0)</a>
+				</div>
 			</div>
 
 			<div class="col-xs-12">

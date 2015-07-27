@@ -44,11 +44,6 @@ p {
 	margin: 0 0 1.5em;
 }
 
-.vote-form input, .vote-form button {
-	font-size: 1em;
-	font-weight: 600;
-}
-
 .form-container label {
 	font-size: 1em;
 	line-height: 2em;
@@ -160,17 +155,7 @@ p.pres-desc-text,
 	background-color: rgba(64, 64, 65, 1);
 }
 
-.vote-form input, .vote-form button {
-	color: #ffffff;
-	background-color: #0199C6;
-	border: none;
-}
-
-.vote-form input:hover, .vote-form button:hover {
-	background-color: #015f7b;
-}
-
-.question-single button, .question-multiple input {
+.question-single button, .question-multiple input, .pres .pres-opinion a {
 	margin: 0;
 	padding: 0.7em;
 	border: none;

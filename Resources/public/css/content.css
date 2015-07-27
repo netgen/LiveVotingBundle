@@ -71,6 +71,7 @@ a.btn-event i {
 
 .pres .pres-outer {
 	background-color: #ffffff;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
 }
 
 .pres .pres-fixed {
@@ -88,7 +89,7 @@ a.btn-event i {
 
 .pres h2 {
 	margin: 0 0.8571em;
-	line-height: 1.4285em;
+	line-height: 1.7142em;
 }
 
 .pres .pres-info {
@@ -106,70 +107,42 @@ a.btn-event i {
 	width: 100%;
 	background-color: #404041;
 	padding: 1.5em 0;
+	border: 1px solid #dddddd;
 }
 
 .pres p.pres-desc-text {
 	margin: 1.5em 0 1.5em 9.5em;
 }
 
-.vote-form {
-	margin: 0;
-}
-
-.vote-form .wrapper {
-	margin: 0 auto;
-	padding: 0;
-	background-color: #ffffff;
-}
-
-.vote-form span {
-	display: inline-block;
-	vertical-align: middle;
-	margin: 1.5em 0;
-	height: 3em;
-	width: 3em;
-	text-align: center;
-}
-
-.vote-form span i {
-	font-size: 1.25em;
-	line-height: 2.4em;
-	color: #404041;
-}
-
-.vote-form input, .vote-form button {
-	width: 3em;
-	margin: 1.5em 0;
-	padding: 1em;
-	line-height: 1em;
-}
-
-.pres-list {
-	margin-top: 2em;	
-}
-
-.pres-list .wrapper {
-	height: 6em;
-	margin-bottom: 2em;
-	background-color: #ffffff;
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
-}
-
-.pres-list h2 {
-	max-width: 700px;
-	height: 2.6666em;
-}
-
-.pres-list a.btn-event {
-	height: 6em;
-	width: 6em;
-	line-height: 1.5em;
-}
-
-.pres-list span {
+.pres .question-multiple label, .pres .pres-opinion h3 {
 	display: block;
-	height: 2em;
-	margin-left: 1em;
+	margin: 0 0 0.8em 0;
+	padding: 0;
+	color: #404041;
+	font-weight: 600;
+	line-height: 1.6em;
+	font-size: 1.25em;
+}
+
+.pres .pres-opinion {
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+	background: url('../img/assets/bg-pattern.png');
+	padding: 0.9375em 1em 1em 1em;
+	border-top: 0.0625em solid #dddddd;
+}
+
+.pres .pres-opinion a {
+	display: block;
+	width: 100%;
+	color: #ffffff;
+	text-decoration: none;
+	background-color: rgba(108, 187, 68, 0.9);
+}
+
+.pres .pres-opinion a:hover {
+	color: #ffffff;
+	text-decoration: none;
+	background-color: rgba(64, 64, 65, 0.9);
 }
 
 /**
