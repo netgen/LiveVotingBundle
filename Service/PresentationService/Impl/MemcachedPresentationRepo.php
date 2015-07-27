@@ -9,21 +9,23 @@
 namespace Netgen\LiveVotingBundle\Service\PresentationService\Impl;
 
 
+use Exception;
 use Memcached;
 use Netgen\LiveVotingBundle\Service\PresentationService\PresentationRepository;
 use Netgen\LiveVotingBundle\Service\PresentationService\Record\PresentationRecord;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class MemcachedPresentationRepo implements PresentationRepository {
 
+    /**
+     * @var Memcached
+     */
     private $memcached;
 
     private $incrementalPresentationId = 1;
 
-    public function __construct(Memcached $memcached) {
-        $this->$memcached = $memcached;
+    public function __construct() {
+        $this->memcached = new Memcached();
+        $this->memcached->addServer("localhost", 11211);
     }
 
     /**
@@ -34,10 +36,12 @@ class MemcachedPresentationRepo implements PresentationRepository {
     public function save(PresentationRecord $presentation)
     {
         $presentation->setId($this->incrementalPresentationId++);
-        $this->memcached->add(
+        if(!$this->memcached->set(
             "presentation-".$presentation->getId(),
-            serialize($presentation)
-        );
+            serialize($presentation),
+            null
+        )) throw new Exception("Greška");
+        return $presentation;
     }
 
     /**
@@ -79,7 +83,7 @@ class MemcachedPresentationRepo implements PresentationRepository {
      */
     public function findOne($presentation_id)
     {
-        // TODO: Implement findOne() method.
+        return unserialize($this->memcached->get("presentation-".$presentation_id));
     }
 
     /**
