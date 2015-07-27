@@ -28,8 +28,19 @@
                         </div>
                         <div class="navbar-header pull-right">
                             {% if app.user %}
-                                <a href="{{ path('root') }}"><button type="button" class="btn">Dashboard</button></a>
-                                <a href="{{ path('user_landing') }}"><button type="button" class="btn">Events</button></a>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Dropdown</button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a href="{{ path('root') }}">Dashboard</a></li>
+                                    <li><a href="{{ path('user_landing') }}">Events</a></li>
+                                    {% if userPresentationsNum != 0 %}
+                                    <li><a href="{{ path('user_presentations') }}"><i class="fa fa-clipboard"></i>My presentations</a></li>
+                                    {% endif %}
+                                    {% if(app.request.cookies.has('userEditEnabled')) %}
+                                    <li><a href="{{ path('user_edit') }}"><i class="fa fa-pencil"></i>Edit my info</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
                             {% endif %}
                         </div>
                     </div>

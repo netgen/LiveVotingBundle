@@ -58,7 +58,7 @@ p {
 	font-size: 1.5em;
 	line-height: 1.3333em;
 	margin: 0;
-	padding: 0.6666em;
+	padding: 1.3333em 0.6666em;
 }
 
 /**
@@ -121,6 +121,7 @@ p.pres-desc-text,
  * Buttons
  */
 .btn, .form-container form button {
+	width: 12em;
 	margin: 1.1428em 0;
 	border: 0.0714em solid transparent;
 	padding: 0.2142em 1em;
@@ -171,13 +172,16 @@ p.pres-desc-text,
 }
 
 .question-single button, .question-multiple input {
+	margin: 0;
+	padding: 0.7em;
 	border: none;
-	font-size: 1em;
+	font-size: 1.25em;
 	font-weight: 600;
-	line-height: 3em;
+	line-height: 1em;
 	text-transform: uppercase;
 	text-align: center;
 	color: #ffffff;
+	vertical-align: middle;
 }
 
 

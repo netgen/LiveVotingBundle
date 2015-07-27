@@ -6,11 +6,29 @@
 {% endblock %}
 
 {% block body %}
-	<div class="row">
+	{% if event.event %}
+	<div class="row slave-event questions">
 		<div class="col-xs-12">
-			<h1>Questions: {{ event }}</h1>
+			<div class="wrapper">
+				<div class="pull-left">
+					<img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
+					<h2 class="text-left">Questions: {{ event.getName }}</h2>
+				</div>
+			</div>
 		</div>
 	</div>
+	{% else %}
+	<div class="row master-event">
+		<div class="col-xs-12">
+			<div class="wrapper">
+				<div class="pull-left">
+					<h2 class="text-left">{{ event.getName }}</h2>
+					<span class="time">Questions</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
 
 	<div id="answerScreen" class="row"></div>
 
@@ -49,7 +67,7 @@
 			<div class="row">
 				<div class="col-xs-12 question-heading">
 					<div class="wrapper">
-						<h2>{{ '{{question}}' }}</h2>
+						<h2><i class="fa fa-question-circle"></i>{{ '{{question}}' }}</h2>
 					</div>
 				</div>
 			</div>
@@ -69,18 +87,18 @@
 			<div class="row">
 				<div class="col-xs-12 question-heading">
 					<div class="wrapper">
-						<h2>{{ '{{question}}' }}</h2>
+						<h2><i class="fa fa-question-circle"></i>{{ '{{question}}' }}</h2>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
 					<form class="question-multiple" action="../answer/{{ '{{ questionId }}' }}" method="POST">
-						<input type="submit" value='1'/><!--
-						--><input type="submit" value='2'/><!--
-						--><input type="submit" value='3'/><!--
-						--><input type="submit" value='4'/><!--
-						--><input type="submit" value='5'/>
+						<input class="q5" type="submit" value='5'/><!--
+						--><input class="q4" type="submit" value='4'/><!--
+						--><input class="q3" type="submit" value='3'/><!--
+						--><input class="q2" type="submit" value='2'/><!--
+						--><input class="q1" type="submit" value='1'/
 					</form>
 				</div>
 			</div>

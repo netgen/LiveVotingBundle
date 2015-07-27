@@ -34,9 +34,9 @@ div.slave-event div.pull-left img, div.slave-event div.pull-left h2 {
 	vertical-align: bottom;
 }
 
-div.slave-event div.pull-left h2 {
+div.slave-event h2 {
+	margin-left: 0.5714em;
 	line-height: 4.5714em;
-	margin-left: 0.8571em;
 }
 
 div.slave-event div.pulll-right {
@@ -208,30 +208,16 @@ div#loader span {
 /**
  * Questions
  */
-/*div.row.question-list-single {
-	margin: 0 0 2em 0 !important;
-	background-color: #ffffff;
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+div.slave-event.questions {
+	margin-top: 2em;
 }
 
-.question-list-single h2 {
-	min-height: 4em;
-}
-
-.question-list-single .vote-form {
-	border-left: 1px solid #dddddd;
-	background: url('../img/assets/bg-pattern.png');
-}
-
-.question-list-single .vote-form .wrapper {
-	background-color: transparent;
-}*/
 .question-single-item {
 	margin: 2em 0;
 }
 
 .question-single-item h2 {
-	min-height: 4em;
+	min-height: 5.3333em;
 }
 
 .question-heading .wrapper {
@@ -239,20 +225,53 @@ div#loader span {
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
 }
 
+.question-heading i {
+	float: left;
+	font-size: 2.6666em;
+	margin-right: 0.25em;
+	vertical-align: middle;
+	line-height: 1em;
+}
+
 .question-single, .question-multiple {
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+	background: url('../img/assets/bg-pattern.png');
+	padding: 0.9375em 1em 1em 1em;
+	border-top: 0.0625em solid #dddddd;
 }
 
 .question-multiple input {
 	width: 20%;
+	text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);
 }
 
 .question-single button {
 	width: 50%;
+	text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);
 }
 
-.question-single button, .question-multiple input {
-	background-color: #0199C6;
+.question-multiple input.q1 { background-color: rgba(22, 120, 185, 0.9); }
+.question-multiple input.q2 { background-color: rgba(22, 120, 185, 0.8); }
+.question-multiple input.q3 { background-color: rgba(65,154,127, 0.75); }
+.question-multiple input.q4 { background-color: rgba(108, 187, 68, 0.8); }
+.question-multiple input.q5 { background-color: rgba(108, 187, 68, 0.9); }
+
+.question-single button.yes {
+	background-color: rgba(108, 187, 68, 0.9);
+}
+
+.question-single button.no {
+	background-color: rgba(22, 120, 185, 0.9);
+}
+
+.question-multiple input.q1:hover,
+.question-multiple input.q2:hover,
+.question-multiple input.q3:hover,
+.question-multiple input.q4:hover,
+.question-multiple input.q5:hover,
+.question-single button.yes:hover,
+.question-single button.no:hover {
+	background-color: rgba(64, 64, 65, 0.9);
 }
 
 

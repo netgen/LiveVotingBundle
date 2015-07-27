@@ -38,17 +38,6 @@
 	</div>
 	{% endif %}
 	{% endfor %}
-
-	<div class="row secondary-footer">
-		<div class="col-xs-12">
-			{% if userPresentationsNum != 0 %}
-			<a href="{{ path('user_presentations') }}"><button type="button" class="btn"><i class="fa fa-clipboard"></i>My presentations</button></a>
-			{% endif %}
-			{% if(app.request.cookies.has('userEditEnabled')) %}
-			<a href="{{ path('user_edit') }}"><button type="button" class="btn"><i class="fa fa-pencil"></i>Edit user info</button></a>
-			{% endif %}
-		</div>
-	</div>
 {% endblock %}
 
 {% block javascripts %}
