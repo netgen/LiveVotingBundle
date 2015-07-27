@@ -110,12 +110,12 @@ class EventController extends Controller
             'presentationEndTime' => $presentation->getEnd()->format("H:m"),
             'image' =>  $presentation->getImage(),
             'presenterRate' => $rate,
-            'comments' => $this->getCommentsArray($presentation->getPresentationComments()),
-            'joindInComments' => $this->getCommentsArray($joindInComments)
+            'comments' => $this->getCommentsArray($presentation->getPresentationComments(), $presentation->getPresentationImages()),
+            'joindInComments' => $this->getCommentsArray($joindInComments, array())
         );
     }
 
-    private function getCommentsArray($presentationComments)
+    private function getCommentsArray($presentationComments, $presentationImages)
     {
         $comments = array();
         foreach($presentationComments as $comment) {
@@ -133,6 +133,23 @@ class EventController extends Controller
                 "user_gravatar" => $comment->getUser()->getGravatar() ? "http://www.gravatar.com/avatar/".$comment->getUser()->getGravatar() : null
             ));
         }
+
+        foreach ($presentationImages as $image) {
+          $content = $image->getDescription().'<br><img src="/bundles/livevoting/'.$image->getPath().'" alt="'.$image->getDescription().'">';
+
+          array_push($comments, array(
+              "content" => $content,
+              "published_at" => $image->getPublished()->format(DATE_ISO8601),
+              "user_display_name" =>
+                  $image->getUser()->getEmail() ?
+                      substr($image->getUser()->getEmail(), 0, strrpos($image->getUser()->getEmail(), "@"))
+                      :
+                      $image->getUser()->getUsername(),
+              "user_gravatar" => $image->getUser()->getGravatar() ? "http://www.gravatar.com/avatar/".$image->getUser()->getGravatar() : null
+          ));
+
+        }
+
         return $comments;
     }
 

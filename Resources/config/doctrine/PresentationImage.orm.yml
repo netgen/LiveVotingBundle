@@ -13,6 +13,8 @@ Netgen\LiveVotingBundle\Entity\PresentationImage:
             length: 255
         description:
             type: text
+        published:
+            type: datetime
 
     manyToOne:
         presentation:
