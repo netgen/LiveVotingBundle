@@ -160,33 +160,37 @@ a.btn-event i {
 
 .comments-section .nav-tabs {
 	margin: 0;
-	padding: 1em 1em 0.9375em 1em;
+	padding: 1em 0 0 1em;
 	border-bottom: 0.0625em solid #dddddd;
-	background-color: #404041;
+	background-color: #fff;
+}
+
+.comments-section .nav-tabs li {
+	margin-bottom: 0;
 }
 
 .comments-section .nav-tabs a {
-	margin-right: 1em;
+	margin-right: 0;
 	padding: 0.5em 1em;
 	border-radius: 0;
 	border: none;
 	font-size: 1em;
 	line-height: 1em;
-	color: #ffffff;
-	background-color: #0199C6;
+	color: #0199C6;
+	background-color: #fff;
 }
 
 .comments-section .nav-tabs a:hover {
-	color: #ffffff;
-	background-color: #015f7b;
+	color: #015f7b;
+	background-color: #ecf0f5;
 	text-decoration: none;
 }
 
 .comments-section .nav-tabs li.active a, .comments-section .nav-tabs li.active a:hover {
 	border-radius: 0;
 	border: none;
-	color: #ffffff;
-	background-color: #015f7b;
+	color: #404041;
+	background-color: #fff;
 }
 
 .comments-section .tab-content {
