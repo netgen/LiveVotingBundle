@@ -4,7 +4,8 @@
     <title>{% block title %}LiveVoting app{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.min.css')}}">
+    <!-- <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.min.css')}}"> -->
+    <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/bootstrap.custom.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/font-face.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/global.css') }}">
@@ -36,8 +37,7 @@
                                 {% endif %}
                                 {% if(app.request.cookies.has('userEditEnabled')) %}
                                 --><li><a href="{{ path('user_edit') }}">Edit my info</a></li><!--
-                                {% endif %}
-                                -->
+                                {% endif %}-->
                             </ul>
                             <div class="visible-xs visible-sm dropdown">
                                 <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-bars"></i></button>
@@ -58,7 +58,6 @@
                 </div>
             </div>
         </nav>
-
 
         <div id="main" class="container">
             {% block body %}{% endblock %}
