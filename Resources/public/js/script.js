@@ -32,7 +32,7 @@ function brain(options_){
     $('body').on('click', '.vote-form input', function(e){
         e.preventDefault();
         if(!canIVote)return;
-        var action = $(this).parent().parent().attr('action');
+        var action = $(this).parent().parent().parent().attr('action');
         var presentation_id = action.split('/').pop();
         var presentation = presentations.getById(presentation_id);
         var vote = $(this).attr('value');
@@ -44,7 +44,7 @@ function brain(options_){
                 'url': action,
                 'data': rate,
                 success: function(data){
-                    presentation.highlightMe();
+                    console.log("works");
                     footer.displayMessage(data['errorMessage']);
                     presentation.setVote(vote);
                     hideSpinner();
@@ -219,16 +219,19 @@ function brain(options_){
 
         this.getData = function(){
             return data;
-        }
+        };
+
         this.setVote = function(vote_number){
+            console.log("Setting_vote");
             this.element.find('input[type=submit]').each(function(){
+                console.log(vote_number);
                 if(this.value == vote_number){
                     $(this).addClass('active');
                 }else{
                     $(this).removeClass('active');
                 }
             });
-        }
+        };
 
 
         this.setEnabled = function(enabled_status){

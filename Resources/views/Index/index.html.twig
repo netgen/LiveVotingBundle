@@ -37,6 +37,7 @@
 
 {% block javascripts %}
 	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
 	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
@@ -53,6 +54,7 @@
 							'VOTE':'/user/vote/'
 					}
 			});
+            HandlebarsIntl.registerWith(Handlebars);
 		});
 	</script>
 	<script id="presentation" type="text/x-handlebars-template">
@@ -106,7 +108,7 @@
 				<form class="vote-form" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
 					<div class="wrapper text-center">
 						<span><i class="fa fa-thumbs-o-down"></i></span><!--
-						--><div class="btn-group">
+                    --><div class="btn-group">
 								<input type="submit" value='1'/><!--
 								--><input type="submit" value='2'/><!--
 								--><input type="submit" value='3'/><!--
@@ -126,23 +128,45 @@
                 <div class="comments-section">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active" >
-                            <a class="tab-button" data-toggle="tab" href="#liveVotingComments-{{ '{{ presentationId }}' }}" aria-controls="live-voting-comments" role="tab" data-toggle="tab">LiveVoting Comments</a>
+                            <a class="tab-button live-comments-tab-toggle" data-toggle="tab" href="#liveVotingComments-{{ '{{ presentationId }}' }}" aria-controls="live-voting-comments" role="tab">LiveVoting Comments</a>
                         </li>
                         <li role="presentation" >
-                            <a class="tab-button" data-toggle="tab" href="#joindInComments-{{ '{{ presentationId }}' }}" aria-controls="joind-in-comments" role="tab" data-toggle="tab">Joind.in Comments</a>
+                            <a class="tab-button joindin-comments-tab-toggle" data-toggle="tab" href="#joindInComments-{{ '{{ presentationId }}' }}" aria-controls="joind-in-comments" role="tab" >Joind.in Comments</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="liveVotingComments-{{ '{{ presentationId }}' }}">
-                            <ul class="media-list live-voting-comments">
+                            <ul  style="height: 300px;overflow-y: scroll" class="media-list live-voting-comments">
                                 {% verbatim %}
                                     {{#each comments }}
                                         {{>comment }}
                                     {{/each }}
                                 {% endverbatim %}
                             </ul>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active" >
+                                    <a href="#commentForm" aria-controls="comment" role="tab" data-toggle="tab">Comment</a>
+                                </li>
+                                <li role="presentation" >
+                                    <a href="#pictureForm" aria-controls="picture" role="tab" data-toggle="tab">Picture</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="commentForm">
+                                    {% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
+                                    {{ form(
+                                    form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'commentPresentation'}}
+                                    ) }}
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="pictureForm">
+                                    {% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
+                                    {{ form(
+                                    imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'imageUpload'}}
+                                    ) }}
+                                </div>
+                            </div>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="joindInComments-{{ '{{ presentationId }}' }}">
+                        <div style="height: 300px;overflow-y: scroll" role="tabpanel" class="tab-pane fade joindin-comments-tab" id="joindInComments-{{ '{{ presentationId }}' }}">
                             <ul class="media-list live-voting-comments">
                                 {% verbatim %}
                                     {{#each joindInComments }}
@@ -151,28 +175,6 @@
                                 {% endverbatim %}
                             </ul>
                         </div>
-                    </div>
-                </div>
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active" >
-                        <a aria-controls="comment" role="tab" data-toggle="tab">Comment</a>
-                    </li>
-                    <li role="presentation" >
-                        <a aria-controls="picture" role="tab" data-toggle="tab">Picture</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="commentForm">
-                        {% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
-                        {{ form(
-                        form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'commentPresentation'}}
-                        ) }}
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="pictureForm">
-                        {% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
-                        {{ form(
-                        imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'imageUpload'}}
-                        ) }}
                     </div>
                 </div>
 			</div>
@@ -184,13 +186,17 @@
         {% verbatim %}
             <li class="media">
                 <a class="pull-left" href="#">
-                    <i class="fa fa-user fa-5x"></i>
+                    {{#if user_gravatar }}
+                        <img src="{{ user_gravatar }}" class="img-responsive img-circle">
+                    {{else}}
+                        <i class="fa fa-user fa-5x"></i>
+                    {{/if }}
                 </a>
                 <div class="media-body">
                     <div class="well well-lg">
                         <h4 class="media-heading text-uppercase reviews">{{ user_display_name }}</h4>
                         <ul class="media-date text-uppercase reviews list-inline">
-                            <li>{{ published_at }}</li>
+                            <li>{{formatRelative published_at }}</li>
                         </ul>
                         <p class="media-comment">
                             {{ content }}
@@ -215,6 +221,7 @@
 
 		$('body').on('submit', '.commentPresentation', function(e){
 				e.preventDefault();
+                $(e.target).closest("col-xs-12").find("a .live-comments-tab-toggle").trigger('click');
 				var formData = new FormData(this);
 
 				$.ajax({
