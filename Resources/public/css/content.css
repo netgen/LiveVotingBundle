@@ -105,13 +105,17 @@ a.btn-event i {
 
 .pres .wrapper {
 	width: 100%;
+	padding: 1.4375em 0;
+	border: 0.0625em solid #dddddd;
 	background-color: #404041;
-	padding: 1.5em 0;
-	border: 1px solid #dddddd;
 }
 
 .pres p.pres-desc-text {
 	margin: 1.5em 0 1.5em 9.5em;
+}
+
+.vote-question-container {
+	padding-right: 0;
 }
 
 .pres .question-multiple label, .pres .pres-opinion h3 {
@@ -125,6 +129,11 @@ a.btn-event i {
 }
 
 .pres .pres-opinion {
+	padding-left: 0;
+	border-left: 1px solid #dddddd;
+}
+
+.pres .pres-opinion > div {
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
 	background: url('../img/assets/bg-pattern.png');
 	padding: 0.9375em 1em 1em 1em;
@@ -136,13 +145,83 @@ a.btn-event i {
 	width: 100%;
 	color: #ffffff;
 	text-decoration: none;
-	background-color: rgba(108, 187, 68, 0.9);
+	background-color: #0199C6;
 }
 
 .pres .pres-opinion a:hover {
 	color: #ffffff;
 	text-decoration: none;
-	background-color: rgba(64, 64, 65, 0.9);
+	background-color: #015f7b;
+}
+
+.comments-section {
+	border: 0.0625em solid #dddddd;
+}
+
+.comments-section .nav-tabs {
+	margin: 0;
+	padding: 1em 1em 0.9375em 1em;
+	border-bottom: 0.0625em solid #dddddd;
+	background-color: #404041;
+}
+
+.comments-section .nav-tabs a {
+	margin-right: 1em;
+	padding: 0.5em 1em;
+	border-radius: 0;
+	border: none;
+	font-size: 1em;
+	line-height: 1em;
+	color: #ffffff;
+	background-color: #0199C6;
+}
+
+.comments-section .nav-tabs a:hover {
+	color: #ffffff;
+	background-color: #015f7b;
+	text-decoration: none;
+}
+
+.comments-section .nav-tabs li.active a, .comments-section .nav-tabs li.active a:hover {
+	border-radius: 0;
+	border: none;
+	color: #ffffff;
+	background-color: #015f7b;
+}
+
+.comments-section .tab-content {
+	background: url('../img/assets/bg-pattern.png');
+}
+
+.live-voting-comments li.media > a {
+	margin: 1em;
+}
+
+.live-voting-comments li.media .media-body {
+	margin: 1em 1em 0 0;
+	padding: 1em;
+	border: 0.0625em solid #dddddd;
+	border-radius: 0;
+	background-color: #ffffff;
+}
+
+.live-voting-comments li.media .media-body ul {
+	margin: 0;
+	padding: 0;
+}
+
+.live-voting-comments li.media .media-body ul > li {
+	margin: 0;
+	padding: 0;
+	font-size: 1em;
+	line-height: 1.5em;
+	color: #58585a;
+}
+
+.live-voting-comments li.media .media-body .media-comment {
+	margin: 0;
+	padding: 1em 0 0 0;
+	color: #404041;
 }
 
 /**
