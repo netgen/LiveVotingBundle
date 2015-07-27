@@ -35,4 +35,4 @@ services:
           arguments: [@doctrine.orm.entity_manager]
     live_voting.memcached_presentation_repo:
           class: %live_voting.memcached_presentation_repo.class%
-          arguments: [@memcache.default]
+          arguments: []
