@@ -129,7 +129,8 @@ class EventController extends Controller
                     $comment->getUser()->getEmail() ?
                         substr($comment->getUser()->getEmail(), 0, strrpos($comment->getUser()->getEmail(), "@"))
                         :
-                        $comment->getUser()->getUsername()
+                        $comment->getUser()->getUsername(),
+                "user_gravatar" => $comment->getUser()->getGravatar() ? "http://www.gravatar.com/avatar/".$comment->getUser()->getGravatar() : null
             ));
         }
         return $comments;

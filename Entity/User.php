@@ -64,6 +64,24 @@ class User implements UserInterface
 
     private $presentationComments;
 
+    private $gravatar;
+
+    /**
+     * @return mixed
+     */
+    public function getGravatar()
+    {
+        return $this->gravatar;
+    }
+
+    /**
+     * @param mixed $gravatar
+     */
+    public function setGravatar($gravatar)
+    {
+        $this->gravatar = $gravatar;
+    }
+
     public function setId($id)
     {
         $this->id = $id;
