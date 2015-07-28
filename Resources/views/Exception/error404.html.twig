@@ -1,6 +1,37 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
+{% block stylesheets %}
+    <style>
+        body {
+            padding-top: 15%;
+        }
+        .img-error{
+            width:220px;
+            height:220px;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <h1>Error 404 - Not found</h1>
-    <h2>{{ status_text }}</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div style="margin-top:10px;">
+                <div class="col-md-10 col-md-offset-1 pull-right">
+                    <img class="img-error" src="http://bootdey.com/img/Content/fdfadfadsfadoh.png">
+                    <h2>404 Not Found</h2>
+                    <p>Sorry, an error has occured, Requested page not found!</p>
+                    <div class="error-actions">
+                        <a href="/" >
+                            <button class="btn btn-primary btn-lg"><i class="fa fa-home"></i>
+                                Back Home</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
 {% endblock %}

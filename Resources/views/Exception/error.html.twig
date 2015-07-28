@@ -1,0 +1,41 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            padding-top: 15%;
+        }
+        .img-error{
+            width:220px;
+            height:220px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div style="margin-top:10px;">
+                    <div class="col-md-10 col-md-offset-1 pull-right">
+                        <img class="img-error img-responsive" src="http://bootdey.com/img/Content/fdfadfadsfadoh.png">
+                        <h2>The server returned a "{{ status_code }} {{ status_text }}".</h2>
+
+                        <div>
+                            Something is broken. Please let us know what you were doing when this error occurred.
+                            We will fix it as soon as possible. Sorry for any inconvenience caused.
+                        </div>
+                        <div class="error-actions">
+                            <a href="/" >
+                                <button class="btn btn-primary btn-lg"><i class="fa fa-home"></i>
+                                    Back Home</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+{% endblock %}
