@@ -61,6 +61,11 @@ p {
 	padding: 1.3333em 0.6666em;
 }
 
+.question-heading i {
+	font-size: 2.6666em;
+	line-height: 1em;
+}
+
 .box .label {
 	font-size: 1em;
 }
@@ -75,6 +80,18 @@ p {
 	font-weight: 300;
 	font-size: 1em;
 	line-height: 1.5em;
+}
+
+@media (max-width: 991px) {
+	h1 { font-size: 1.5714em; }
+
+	h2 { font-size: 1.4285em; }
+
+	.question-single-item h2 { font-size: 1.2857em; }
+
+	.box .label label { font-size: 1em; }
+
+	.pres .question-multiple label, .pres .pres-opinion h3 { font-size: 1.1428em; }
 }
 
 /**
@@ -108,6 +125,10 @@ div#main {
 
 .vertical-align-xs {
 	display: block;
+}
+
+@media (max-width: 767px) {
+	div#main { padding-bottom: 10em; }
 }
 
 @media (min-width: 768px) {

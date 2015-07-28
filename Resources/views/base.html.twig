@@ -45,7 +45,7 @@
                                     <li><a href="{{ path('root') }}">Dashboard</a></li>
                                     <li><a href="{{ path('user_landing') }}">Events</a></li>
                                     {% if userPresentationsNum is defined and userPresentationsNum != 0 %}
-                                    <li><a href="{{ path('user_presentations') }}">My presentations</a></li>
+                                    <li><a href="{{ path('user_presentations') }}">My lectures</a></li>
                                     {% endif %}
                                     {% if(app.request.cookies.has('userEditEnabled')) %}
                                     <li><a href="{{ path('user_edit') }}">Edit my info</a></li>
