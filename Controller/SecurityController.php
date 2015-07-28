@@ -68,15 +68,10 @@ class SecurityController extends Controller
 
           return $return;
       }else{
-        return new Response('Activation link is invalid.');
+          return $this->render('LiveVotingBundle:Error:general.html.twig', array(
+              "message" => "Activation link is invalid."
+          ));
       }
-
-        return $this->render(
-            'LiveVotingBundle:Security:userlogin.html.twig',
-            array(
-                'error' =>  $error
-            )
-        );
     }
 
     public function checkEmailAction(){
