@@ -141,7 +141,8 @@ class PresentationAdminController extends Controller
 
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
+            'event_id' => $entity->getEvent()->getId()
         ));
     }
 

@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
+{% block title %}Questions|LiveVoting{% endblock %}
+
 {% block stylesheets %}
 	<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/loader.css') }}"  />
 	<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
@@ -53,14 +55,6 @@
 	{% endif %}
 
 	<div id="answerScreen" class="row"></div>
-
-	<div class="row spin-loader" id="loader">
-		<div class="col-xs-12">
-			<span>
-				<i class="fa fa-cog fa-spin"></i>
-			</span>
-		</div>
-	</div>
 {% endblock %}
 
 {% block javascripts %}

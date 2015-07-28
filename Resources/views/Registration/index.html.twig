@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
+{% block title %}Registrations|LiveVoting{% endblock %}
+
 {% block mainHeading %}<h1>Registrations</h1>{% endblock %}
 
 {% block body %}
@@ -42,7 +44,7 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
-            <a href="{{ path('registration_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i>New registration</button></a>
+            <a href="{{ path('registration_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i> New registration</button></a>
         </div>
     </div>
 {% endblock %}
