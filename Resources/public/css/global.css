@@ -34,6 +34,14 @@ h2 {
 	line-height: 1.5em;
 }
 
+h3 {
+	margin: 0;
+	padding: 0;
+	font-size: 1.375em;
+	font-weight: 600;
+	line-height: 1.5em;
+}
+
 h4 {
 	margin: 0;
 	padding: 0;
@@ -61,6 +69,11 @@ p {
 	padding: 1.3333em 0.6666em;
 }
 
+.question-heading i {
+	font-size: 2.6666em;
+	line-height: 1em;
+}
+
 .box .label {
 	font-size: 1em;
 }
@@ -75,6 +88,18 @@ p {
 	font-weight: 300;
 	font-size: 1em;
 	line-height: 1.5em;
+}
+
+@media (max-width: 991px) {
+	h1 { font-size: 1.5714em; }
+
+	h2 { font-size: 1.4285em; }
+
+	.question-single-item h2, h3 { font-size: 1.2857em; }
+
+	.box .label label { font-size: 1em; }
+
+	.pres .question-multiple label, .pres .pres-opinion h3 { font-size: 1.1428em; }
 }
 
 /**
@@ -110,6 +135,10 @@ div#main {
 	display: block;
 }
 
+@media (max-width: 767px) {
+	div#main { padding-bottom: 10em; }
+}
+
 @media (min-width: 768px) {
 	.vertical-align-xs {
 		display: flex;
@@ -121,7 +150,7 @@ div#main {
 /**
  * Font colors
  */
-a, h1, h2, h4, p, td, th,
+a, h1, h2, h3, h4, p, td, th,
 .form-container label, .form-container input, .form-container select, .form-container textarea,
 .pres-list span {
 	color: #404041;

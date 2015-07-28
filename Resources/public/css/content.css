@@ -57,7 +57,12 @@
 	color: #ffffff;
 }
 
-.box.light .xs-description span {
+.box .xs-description span i {
+	color: #ffffff;
+	display: inline-block;
+}
+
+.box.light .xs-description span, .box.light .xs-description span i {
 	color: #404041;
 }
 
@@ -73,15 +78,30 @@
 
 .box .actions a span {
 	display: block;
-	/*padding-top: 1em;*/
 	text-transform: uppercase;
 }
 
 @media (max-width: 767px) {
 	.box .actions {
 		border-top: 1px solid #dddddd;
-		padding: 2em 0;
+		padding: 1em 0;
 	}
+}
+
+
+/**
+ * Flash messages
+ */
+.flash-messages {
+	margin-top: 2em;
+	padding: 1em;
+	background-color: #ffffff;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+}
+
+.flash-messages h3 i {
+	padding-right: 0.5em;
+	color: #0199c6;
 }
 
 /**
@@ -311,10 +331,8 @@ div#loader span {
 
 .question-heading i {
 	float: left;
-	font-size: 2.6666em;
 	margin-right: 0.25em;
 	vertical-align: middle;
-	line-height: 1em;
 }
 
 .question-single, .question-multiple {
@@ -356,6 +374,13 @@ div#loader span {
 .question-single button.yes:hover,
 .question-single button.no:hover {
 	background-color: rgba(64, 64, 65, 0.9);
+}
+
+@media (max-width: 767px) {
+	.question-single-item {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
 }
 
 /**
@@ -431,31 +456,42 @@ div#loader span {
 	line-height: 1.5em;
 }
 
+@media (max-width: 767px) {
+	.form-container form > #form > div:first-child, .form-container form > #form > div:nth-child(2) {
+		width: 100%;
+	}
+
+	.form-container form > #form > div:first-child {
+		border-right: none;
+		border-bottom: 1px solid #dddddd;
+		padding-right: 0;
+		margin-bottom: 1em;
+	}
+
+	.form-container form > #form > div:nth-child(2) {
+		padding-left: 0;
+	}
+
+	.form-container form > #form > div:nth-child(3) {
+		width: 100%;
+	}
+}
 
 /**
  * Ultra-specific forms
  */
-#form_registrationInfo_departureTime {
+#form_registrationInfo_departureTime, #form_registrationInfo_arrivalTime {
 	color: #404041;
 	margin-left: 0.5em;
 }
 
-#form_registrationInfo_departureTime_date:before {
-	content: "Date: ";
-}
-
-#form_registrationInfo_departureTime_time:before {
-	content: "Time: ";
-}
-
-#form_registrationInfo_departureTime_date select {
-	margin-right: 3%;
-	width: 22%;
-}
-
-#form_registrationInfo_departureTime_time select {
-	color: #404041;
+#form_registrationInfo_departureTime_date select, #form_registrationInfo_arrivalTime_date select {
 	width: 25%;
+}
+
+#form_registrationInfo_departureTime_time select, #form_registrationInfo_arrivalTime_time select {
+	color: #404041;
+	width: 20%;
 }
 
 #form-userpres div.ext {
