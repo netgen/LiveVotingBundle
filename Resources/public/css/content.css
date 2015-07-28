@@ -4,10 +4,15 @@
 .box {
 	margin-top: 2em;
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+	background-color: #ffffff;
 }
 
 .box * {
 	color: #404041;
+}
+
+.box.light {
+	background-color: #404041;
 }
 
 .box.light * {
@@ -23,6 +28,10 @@
 	width: 100%;
 }
 
+.box .image.garbage > img {
+	opacity: 0.25;
+}
+
 .box .text-wrapper {
 	padding: 0 1em;
 }
@@ -32,86 +41,48 @@
 	padding: 0;
 }
 
-.box .heading h1 {
-	height: 2em;
-	line-height: 2em;
+.box .xs-description {
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	background-color: #404041;
 }
 
-.box .heading h2 {
-	height: 2.2857em;
-	line-height: 1.1428em;
+.box.light .xs-description {
+	background-color: #ffffff;
 }
 
-.box .label label {
-	font-weight: 300;
-	line-height: 1.4545em;
+.box .xs-description span {
+	display: block;
+	margin: 1em;
+	color: #ffffff;
+}
+
+.box.light .xs-description span {
+	color: #404041;
 }
 
 .box .actions a {
 	display: inline-block;
+	width: 33.3333%;
 }
 
-/**
- * Events
- */
-div.slave-event div.wrapper, div.master-event div.wrapper {
-	height: 8em;
-	margin-bottom: 2em;
-	background-color: #ffffff;
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
-}
-
-div.master-event div.wrapper {
-	margin-top: 2em;
-	background-image: url('../img/assets/master-event.png');
-}
-
-div.master-event h2 {
-	margin-left: 0.6428em;
-}
-
-div.master-event span.time {
+.box .actions a i {
 	display: block;
-	margin: 0 0 1.4545em 0.8181em;
-	font-size: 1.375em;
-	line-height: 1.4545em;
-}
-
-div.slave-event div.pull-left, div.slave-event div.pulll-right, div.master-event div.pull-left, div.master-event div.pulll-right {
-	height: 100%;
-}
-
-div.slave-event div.pull-left img, div.slave-event div.pull-left h2 {
-	display: inline-block;
-	height: 100%;
-	vertical-align: bottom;
-}
-
-div.slave-event h2 {
-	margin-left: 0.5714em;
-	line-height: 4.5714em;
-}
-
-div.slave-event div.pulll-right {
-	background-color: black;
-}
-
-a.btn-event {
-	display: inline-block;
-	width: 8em;
-	height: 8em;
-	margin: 0;
-	padding: 0;
-	line-height: 2em;
-	text-align: center;
-	text-transform: uppercase;
-	vertical-align: top;
-}
-
-a.btn-event i {
 	font-size: 2em;
 }
 
+.box .actions a span {
+	display: block;
+	padding-top: 1em;
+	text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+	.box .actions {
+		border-top: 1px solid #dddddd;
+		padding: 2em 0;
+	}
+}
 
 /**
  * Presentations
@@ -317,10 +288,6 @@ div#loader span {
 /**
  * Questions
  */
-div.slave-event.questions {
-	margin-top: 2em;
-}
-
 .question-single-item {
 	margin: 0 0 2em 0;
 }
