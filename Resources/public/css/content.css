@@ -73,7 +73,7 @@
 
 .box .actions a span {
 	display: block;
-	padding-top: 1em;
+	/*padding-top: 1em;*/
 	text-transform: uppercase;
 }
 
@@ -289,7 +289,7 @@ div#loader span {
  * Questions
  */
 .question-single-item {
-	margin: 0 0 2em 0;
+	margin: 2em 0 0 0;
 }
 
 .question-single-item:nth-child(odd) {
@@ -357,30 +357,6 @@ div#loader span {
 .question-single button.no:hover {
 	background-color: rgba(64, 64, 65, 0.9);
 }
-
-
-/**
- * Secondary footer
- */
-div.secondary-footer {
-	margin-top: 2em;
-	margin-bottom: 2em;
-}
-
-div.secondary-footer a {
-	margin: 0 0 0 1.1428em;
-}
-
-div.secondary-footer a i {
-	font-size: inherit;
-	line-height: inherit;
-	margin-right: 0.5em;
-}
-
-div.secondary-footer > div > a:first-child {
-	margin-left: 0;
-}
-
 
 /**
  * Forms

@@ -178,7 +178,7 @@ p.pres-desc-text {
 	color: #ffffff;
 }
 
-.box .actions a:hover {
+.box .actions a:hover, .box .actions a:active, .box .actions a:focus {
 	text-decoration: none !important;
 }
 
@@ -247,8 +247,3 @@ a:link:hover, a:hover, a:focus, a:link:focus {
 	text-decoration: underline;
 	color: #0199C6;
 }
-
-
-/**
- * Presentations
- */
