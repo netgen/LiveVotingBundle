@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
+{% block title %}New|Questions|LiveVoting{% endblock %}
+
 {% block body -%}
     <div class="panel panel-default panel-primary">
       <div class="panel-heading">
@@ -25,8 +27,8 @@
         {{ form_end(form) }}
 
       </div><br>
-        <a class="btn btn-large btn-primary btn-block" href="{{ path('admin_question', {'event_id':event_id}) }}">
-            Back to the list
+        <a  href="{{ path('admin_question', {'event_id':entity.event.id}) }}">
+            <button class="btn btn-large btn-primary btn-block"><i class="fa fa-arrow-left"></i> Questions List</button>
         </a>
     </div>
 {% endblock %}

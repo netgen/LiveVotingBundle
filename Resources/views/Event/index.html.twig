@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
+{% block title %}Events|LiveVoting{% endblock %}
+
 {% block mainHeading %}<h1>Events</h1>{% endblock %}
 
 {% block body -%}
@@ -15,7 +17,7 @@
                         <th>Event name</th>
                         <th>Event state</th>
                         <th>Edit event</th>
-                        <th>View presentations</th>
+                        <th class="text-center">View presentations</th>
                         <th>View questions</th>
                         <th>View results</th>
                     </tr>
@@ -26,10 +28,10 @@
                         <td><a target="_blank" href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">{{ entity.name }}</a></td>
                         <td>{{ entity.stateName }}</td>
                         <td>
-                            <a href="{{ path('admin_event_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
+                            <a href="{{ path('admin_event_edit', { 'id': entity.id }) }}"><button type="button" class="btn"><i class="fa fa-pencil-square-o"></i> Edit</button></a>
                         </td>
 
-                        <td>
+                        <td class="text-center">
                             <a href="{{ path('admin_presentation', { 'event_id': entity.id }) }}"><button type="button" class="btn">View</button></a>
                         </td>
 
@@ -46,7 +48,7 @@
                         </td>
 
                         <td>
-                            <a href="{{ path('admin_event_delete', { 'id': entity.id }) }}"><button type="button" class="btn">Delete</button></a>
+                            <a href="{{ path('admin_event_delete', { 'id': entity.id }) }}"><button type="button" class="btn"><i class="fa fa-times"></i> Delete</button></a>
                         </td>
 
                     </tr>
@@ -58,8 +60,8 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
-            <a href="{{ path('admin_event_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i>New event</button></a>
-            <a href="{{ path('admin_prize_draw') }}"><button type="button" class="btn"><i class="fa fa-btc"></i>Prize draw</button></a>
+            <a href="{{ path('admin_event_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i> New event</button></a>
+            <a href="{{ path('admin_prize_draw') }}"><button type="button" class="btn"><i class="fa fa-btc"></i> Prize draw</button></a>
         </div>
     </div>
 {% endblock %}

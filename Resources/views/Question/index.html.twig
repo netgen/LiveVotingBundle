@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
+{% block title %}Questions|LiveVoting{% endblock %}
+
 {% block body -%}
     <h1>Questions for {{ event }}</h1>
 
@@ -54,7 +56,7 @@
             </a>
         <li>
             <a href="{{ path('admin_event') }}">
-                <button class="btn btn-primary">Back to events</button>
+                <button class="btn btn-primary"><i class="fa fa-arrow-left"></i> Event List</button>
             </a>
         </li>
         {% if entities|length > 0 %}
