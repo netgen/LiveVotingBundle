@@ -32,6 +32,7 @@ class MemcachedPresentationRepo implements PresentationRepository {
      * Method for saving PresentationRecord into some data storage.
      * @param PresentationRecord $presentation object containing presentation data
      * @return PresentationRecord saved presentation object
+     * @throws Exception
      */
     public function save(PresentationRecord $presentation)
     {
@@ -40,7 +41,10 @@ class MemcachedPresentationRepo implements PresentationRepository {
             "presentation-".$presentation->getId(),
             serialize($presentation),
             null
-        )) throw new Exception("Greška");
+        )) throw new Exception("Error while saving presentation.");
+        $presentations = $this->findAll();
+        $presentations[$presentation->getId()] = $presentation;
+        $this->memcached->set("presentations", serialize($presentations), null);
         return $presentation;
     }
 
@@ -48,10 +52,19 @@ class MemcachedPresentationRepo implements PresentationRepository {
      * Method for updating PresentationRecord from some storage.
      * @param PresentationRecord $presentation existing presentation
      * @return PresentationRecord update presentation
+     * @throws Exception
      */
     public function update(PresentationRecord $presentation)
     {
-        // TODO: Implement update() method.
+        if(!$this->memcached->set(
+            "presentation-".$presentation->getId(),
+            serialize($presentation),
+            null
+        )) throw new Exception("Error while saving presentation.");
+        $presentations = $this->findAll();
+        $presentations[$presentation->getId()] = $presentation;
+        $this->memcached->set("presentations", serialize($presentations), null);
+        return $presentation;
     }
 
     /**
@@ -61,7 +74,9 @@ class MemcachedPresentationRepo implements PresentationRepository {
      */
     public function destroy($presentation_id)
     {
-        // TODO: Implement destroy() method.
+        $this->memcached->delete("presentation-".$presentation_id);
+        $presentations = $this->findAll();
+        unset($presentations[$presentation_id]);
     }
 
     /**
@@ -80,10 +95,13 @@ class MemcachedPresentationRepo implements PresentationRepository {
      * Method for finding specific presentation by its id.
      * @param mixed $presentation_id
      * @return PresentationRecord Retrieved presentation with given id
+     * @throws Exception
      */
     public function findOne($presentation_id)
     {
-        return unserialize($this->memcached->get("presentation-".$presentation_id));
+        $presentation_data = $this->memcached->get("presentation-".$presentation_id);
+        if(!$presentation_data) throw new Exception("Presentation with given id does not exist");
+        return unserialize($presentation_data);
     }
 
     /**
@@ -92,7 +110,9 @@ class MemcachedPresentationRepo implements PresentationRepository {
      */
     public function findAll()
     {
-        // TODO: Implement findAll() method.
+        $presentations = $this->memcached->get("presentations");
+        if(!$presentations) return array();
+        return unserialize($presentations);
     }
 
     /**
@@ -104,7 +124,9 @@ class MemcachedPresentationRepo implements PresentationRepository {
      */
     public function vote($presentation_id, $user_id, $vote)
     {
-        // TODO: Implement vote() method.
+        $votes = $this->getPresentationVotes($presentation_id);
+        $votes[$user_id] = $vote;
+        $this->memcached->set("votes-".$presentation_id, serialize($votes));
     }
 
     /**
@@ -115,7 +137,8 @@ class MemcachedPresentationRepo implements PresentationRepository {
      */
     public function getVote($presentation_id, $user_id)
     {
-        // TODO: Implement getVote() method.
+        $votes = $this->getPresentationVotes($presentation_id);
+        return $votes[$user_id];
     }
 
     /**
@@ -125,6 +148,24 @@ class MemcachedPresentationRepo implements PresentationRepository {
      */
     public function getPresentationRate($presentation_id)
     {
-        // TODO: Implement getPresentationRate() method.
+        $votes = $this->getPresentationVotes($presentation_id);
+        $total_votes = 0;
+        foreach($votes as $vote) {
+            $total_votes += $vote;
+        }
+        return $total_votes/count($votes);
     }
+
+    /**
+     * @param $presentation_id
+     * @return array|mixed
+     */
+    private function getPresentationVotes($presentation_id)
+    {
+        $votesData = $this->memcached->get("votes-" . $presentation_id);
+        $votes = array();
+        if ($votesData) $votes = unserialize($votesData);
+        return $votes;
+    }
+
 }
