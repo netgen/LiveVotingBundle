@@ -5,6 +5,33 @@
 {% endblock %}
 
 {% block body %}
+	<div class="col-xs-12 box"><!-- START BOX CONTAINER -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-8">
+				<div class="row">
+					<div class="col-xs-3 col-md-2 image">
+						<img src="{{asset('bundles/livevoting/img/assets/slave-event.svg')}}">
+					</div>
+					<div class="col-xs-9 col-md-10 text-wrapper">
+						<div class="heading">
+							<h2>Box container with h2 heading</h2>
+						</div>
+						<div class="label">
+							<label>Box with label, image and actions</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix visible-xs"></div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="text-right actions">
+					<a href="#"><i class="fa fa-bar-chart"></i>Action</a>
+					<a href="#"><i class="fa fa-bar-chart"></i>Action</a>
+					<a href="#"><i class="fa fa-bar-chart"></i>Action</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	{% for event in events %}
 	{% if event.event %}
 	<div class="row slave-event">

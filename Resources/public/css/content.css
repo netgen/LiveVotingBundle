@@ -1,4 +1,57 @@
 /**
+ * Box container
+ */
+.box {
+	margin-top: 2em;
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+}
+
+.box * {
+	color: #404041;
+}
+
+.box.light * {
+	color: #ffffff;
+}
+
+.box .image {
+	text-align: center;	
+}
+
+.box .image > img {
+	height: 100%;
+	width: 100%;
+}
+
+.box .text-wrapper {
+	padding: 0 1em;
+}
+
+.box .heading, .box .label, .box .label label {
+	margin: 0;
+	padding: 0;
+}
+
+.box .heading h1 {
+	height: 2em;
+	line-height: 2em;
+}
+
+.box .heading h2 {
+	height: 2.2857em;
+	line-height: 1.1428em;
+}
+
+.box .label label {
+	font-weight: 300;
+	line-height: 1.4545em;
+}
+
+.box .actions a {
+	display: inline-block;
+}
+
+/**
  * Events
  */
 div.slave-event div.wrapper, div.master-event div.wrapper {

@@ -7,6 +7,12 @@ html > body {
 	line-height: 1.5em;
 }
 
+@media (max-width: 991px) {
+	html > body {
+		font-size: 14px;
+	}
+}
+
 a {
 	font-size: 1em;
 	font-weight: 600;
@@ -62,6 +68,14 @@ p {
 	line-height: 1.3333em;
 	margin: 0;
 	padding: 1.3333em 0.6666em;
+}
+
+.box .label {
+	font-size: 1em;
+}
+
+.box .label label {
+	font-size: 1.375em;
 }
 
 /**
