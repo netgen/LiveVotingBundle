@@ -2,11 +2,9 @@
 
 {% block title %}Registrations|LiveVoting{% endblock %}
 
-{% block mainHeading %}<h1>Registrations</h1>{% endblock %}
-
 {% block body %}
     {% for flashMessage in app.Session.flashbag.get('message') %}
-      <h3>{{flashMessage}}</h3>
+    <div class="alert alert-danger">{{flashMessage}}</div>
     {% endfor %}
 
     <div class="row">
@@ -44,7 +42,7 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
-            <a href="{{ path('registration_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i> New registration</button></a>
+            <a href="{{ path('registration_new') }}"><button type="button" class="btn">New registration</button></a>
         </div>
     </div>
 {% endblock %}

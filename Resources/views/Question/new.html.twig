@@ -1,34 +1,27 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
 {% block title %}New|Questions|LiveVoting{% endblock %}
+{% block mainHeading %}New question{% endblock %}
 
 {% block body -%}
-    <div class="panel panel-default panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Add new questions for {{ event }}</h3>
-      </div>
-      <div class="panel-body">
-      
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-lg-3">
         {{ form_start(form) }}
-        <div class="row">
-            <div class="col-md-9">
-                <div class="form-group">
-                    {{ form_label(form.question) }}
-                    {{ form_widget(form.question) }}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    {{ form_label(form.question_type) }}
-                    {{ form_widget(form.question_type) }}
-                </div>
-            </div>
+        <div class="form-group">
+            {{ form_label(form.question) }}
+            {{ form_widget(form.question) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.question_type) }}
+            {{ form_widget(form.question_type) }}
         </div>
         {{ form_end(form) }}
+      </div>
+  </div>
 
-      </div><br>
-        <a  href="{{ path('admin_question', {'event_id':entity.event.id}) }}">
-            <button class="btn btn-large btn-primary btn-block"><i class="fa fa-arrow-left"></i> Questions List</button>
-        </a>
+  <div class="row secondary-footer">
+    <div class="col-xs-12">
+      <a href="{{ path('admin_question', {'event_id':entity.event.id}) }}"><button type="button" class="btn">Back</button></a>
     </div>
+  </div>
 {% endblock %}

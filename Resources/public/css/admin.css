@@ -7,8 +7,35 @@
 	position: relative;
 }
 
+.admin-heading {
+	margin-top: 2em;
+}
+
+ol, ol li {
+	color: #404041;
+}
+
+div.alert.alert-danger {
+	padding: 1em;
+	margin: 0;
+	border-radius: 0;
+	background-color: #ffffff;
+	border-color: #dddddd;
+	color: #404041;
+	text-align: center;
+}
+
+h1 {
+	font-size: 1.5em;
+}
+
+h2 {
+	font-size: 1.25em;
+	margin: 0.8em 0;
+}
+
 /**
- * Admin header
+ * Admin header & footer
  */
 #admin-header {
 	height: 4em;
@@ -19,6 +46,26 @@
 #admin-header img {
 	margin: 1em 0;
 	height: 2em;
+}
+
+#admin-footer {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	line-height: 2em;
+}
+
+#admin-footer .container {
+	padding: 0.9375em 15px 1em 15px;
+	border-top: 0.0625em solid #dddddd;
+}
+
+.secondary-footer {
+	margin-top: 1em;
+}
+
+.secondary-footer i {
+	padding-right: 0.5em;
 }
 
 
@@ -33,6 +80,14 @@
 /**
  * Admin login
  */
+.form-signin {
+	margin-top: 2em;
+}
+
+.form-signin form {
+	display: block;
+}
+
 .form-signin input.form-control {
 	margin: 1.1428em 0px;
 	padding: 0.1428em 1em;
@@ -41,13 +96,7 @@
 	background-color: #ffffff;
 	color: #404041;
 	border-width: 0.0714em;
-	border-radius: 5px;
-}
-
-div.alert.alert-danger {
-	padding: 1em;
-	margin: 0;
-	border-radius: 5px;
+	border-radius: 0;
 }
 
 
@@ -55,8 +104,12 @@ div.alert.alert-danger {
  * Forms
  */
 form {
-	display: inline-block;
+	display: block;
 	color: #404041;
+	border-top: 1px solid #dddddd;
+	border-bottom: 1px solid #dddddd;
+	width: initial !important;
+	margin-left: 0px !important;
 }
 
 form div {
@@ -64,17 +117,75 @@ form div {
 }
 
 form div > div > div {
-	display: inline-block;
+	display: block;
 }
 
 form label {
-	display: block;
-	margin: 1.5em 0.5em 0 0;
+	display: inline-block;
+	margin: 1em 0 0 0;
 	font-size: 1em;
 	font-weight: 600;
 	line-height: 1.5em;
 }
 
-.form-signin form {
+form select, form input[type="text"], form input[type="email"] {
 	display: block;
+	width: 100%;
+}
+
+form input[type="checkbox"] {
+	display: inline-block;
+	float: right;
+	margin-top: 1.25em;
+}
+
+form button {
+	width: 100%;
+	margin: 1.1428em 0px;
+	padding: 0.2142em 1em;
+	font-size: 0.875em;
+	font-weight: 600;
+	line-height: 1.8571em;
+	background-color: #0199C6;
+	color: #FFF;
+	border: none;
+	border-radius: 0px;
+	text-transform: uppercase;
+}
+
+form button:hover, form button:focus {
+	background-color: #015f7b;
+}
+
+.form-control {
+	border-color: #dddddd;
+}
+
+.form-control:focus {
+	box-shadow: none;
+	border-color: #bbbbbb;
+}
+
+.form-horizontal .form-group {
+	margin: 0;
+}
+
+#netgen_livevotingbundle_registration_arrivalTime_date select,
+#netgen_livevotingbundle_registration_departureTime_date select,
+#netgen_livevotingbundle_event_begin_date select,
+#netgen_livevotingbundle_event_end_date select,
+#netgen_livevotingbundle_presentation_begin_date select,
+#netgen_livevotingbundle_presentation_end_date select {
+	display: inline-block;
+	width: 30%;
+}
+
+#netgen_livevotingbundle_registration_arrivalTime_time select,
+#netgen_livevotingbundle_registration_departureTime_time select,
+#netgen_livevotingbundle_event_begin_time select,
+#netgen_livevotingbundle_event_end_time select,
+#netgen_livevotingbundle_presentation_begin_time select,
+#netgen_livevotingbundle_presentation_end_time select {
+	display: inline-block;
+	width: 25%;
 }

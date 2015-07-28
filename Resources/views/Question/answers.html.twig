@@ -1,56 +1,53 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
 {% block title %}Answers|Questions|LiveVoting{% endblock %}
 
-{% block body -%}
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <table class="table table-condensed">
-            <thead>
-                <tr>
-                    <th><h3>Answers for question: {{ question }}</h3></th>
-                    <th>
-                        {% if type == 0 %}
-                            <h3>Average is: {{ prosjek }}</h3>
-                        {% else %}
-                            <h3>{{ prosjek }}% Yes</h3></th><th><h3>{{ 100-prosjek }}% No</h3>
-                        {% endif %}
-                    </th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    <table class="records_list table table-hover table-striped">
-     <tbody>
-            <tr>
-                <th></th>
-                <th>User</th>
-                <th>Answer</th>
-            </tr>
-        <tr>
-        {% for key,answer in answers %}
-          <tr>
-            <td></td>
-            <td>{{ users[key] }}</td>
-            <td>
-                {% if type == 0 %}
-                    {{ answer.answer }}
-                {% else %}
-                    {% if answer.answer == 1 %}
-                        No
-                    {% else %}
-                        Yes
-                    {% endif %}
-                {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
-        </tr>
-     </tbody>
-     </table>
-     <a  href="{{ path('admin_question', {'event_id':entity.event.id}) }}">
-         <button class="btn btn-large btn-primary btn-block"><i class="fa fa-arrow-left"></i> Questions List</button>
-     </a>
+{% block mainHeading %}Answers for "{{ question }}"{% endblock %}
 
-</div>
+{% block body -%}
+    <div class="row">
+        <div class="col-xs-12">
+            {% if type == 0 %}
+            <h2>Average is: {{ prosjek }}</h2>
+            {% else %}
+            <h2>{{ prosjek }}% Yes | {{ 100-prosjek }}% No</h2>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="records_list table">
+                <tbody>
+                    <tr>
+                        <th>User</th>
+                        <th>Answer</th>
+                    </tr>
+                    <tr>
+                    {% for key,answer in answers %}
+                    <tr>
+                    <td>{{ users[key] }}</td>
+                    <td>
+                        {% if type == 0 %}
+                            {{ answer.answer }}
+                        {% else %}
+                            {% if answer.answer == 1 %}
+                                No
+                            {% else %}
+                                Yes
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    </tr>
+                    {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('admin_question', {'event_id':entity.event.id}) }}"><button type="button" class="btn">Back</button></a>
+        </div>
+    </div>
 {% endblock %}
