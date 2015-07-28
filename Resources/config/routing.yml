@@ -63,7 +63,7 @@ csv_export:
 
 event:
     path:    /events/{event_id}
-    defaults: {_controller: LiveVotingBundle:Event:index, event_id: -1}
+    defaults: {_controller: LiveVotingBundle:Event:in dex, event_id: -1}
     requirements:
         event_id: -?\d+
 

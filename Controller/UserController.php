@@ -78,7 +78,9 @@ class UserController extends Controller {
         $cookie = $this->getRequest()->cookies->get('userEditEnabled');
 
         if($cookie !== '1'){
-          return new Response('You have no permission to edit data.');
+            return $this->render('LiveVotingBundle:Error:general.html.twig', array(
+                "message" => "You have no permission to edit data."
+            ));
         }
 
         $user_id =$this->getUser()->getId();
@@ -87,7 +89,9 @@ class UserController extends Controller {
 
         if (count($em->getRepository('LiveVotingBundle:Registration')->findByUser($this->getUser()))==0) {
             /*throw $this->createNotFoundException('Unable to find Event registration.');*/
-            return new Response('There is no registration for any event!s');
+            return $this->render('LiveVotingBundle:Error:general.html.twig', array(
+                "message" => "There is no registration for any event!s"
+            ));
         }
         $entity = $em->getRepository('LiveVotingBundle:User')->find($user_id);
         $entity2= $em->getRepository('LiveVotingBundle:Registration')->findByUser($this->getUser())[0];

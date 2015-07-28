@@ -1,0 +1,16 @@
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
+{% endblock %}
+
+{% block body %}
+    <div>
+        <div class="alert alert-danger text-center" role="alert">
+            <i class="fa fa-exclamation-triangle fa-2x"></i> {{ message }}
+        </div>
+        <div>
+            <button class="btn btn-primary" onclick="history.back(-1)">Go Back</button>
+        </div>
+    </div>
+{% endblock %}
