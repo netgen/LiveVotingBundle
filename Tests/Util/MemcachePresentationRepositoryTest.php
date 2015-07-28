@@ -48,6 +48,18 @@ class MemcachePresentationRepositoryTest extends WebTestCase {
         $this->memcachePresentationRepo->findOne($presentation->getId());
     }
 
+    public function testFind() {
+        $presentation1 = $this->createPresentationRecord();
+        $presentation2 = $this->createPresentationRecord2();
+        $presentation1 = $this->memcachePresentationRepo->save($presentation1);
+        $presentation2 = $this->memcachePresentationRepo->save($presentation2);
+        $expectedArray = array($presentation1->getId() => $presentation1);
+        $givenArray = $this->memcachePresentationRepo->find(array("name" => "sadasdas"));
+        var_dump($expectedArray);
+        var_dump($givenArray);
+        assert($expectedArray == $givenArray, "Arrays doesn't match");
+    }
+
     public function testFindAll() {
         $presentation1 = $this->createPresentationRecord();
         $presentation2 = $this->createPresentationRecord();
@@ -90,6 +102,25 @@ class MemcachePresentationRepositoryTest extends WebTestCase {
         $presentation->setHall("D308");
         $presentation->setImageUrl("asdasdasdasd");
         $presentation->setName("sadasdas");
+        $presentation->setUserId(123);
+        $presentation->setVotingEnabled(true);
+        return $presentation;
+    }
+
+    /**
+     * @return PresentationRecord
+     */
+    private function createPresentationRecord2()
+    {
+        $presentation = new PresentationRecord();
+        $presentation->setDescription("acsdfsdfff");
+        $presentation->setBegin(new \DateTime());
+        $presentation->setJoindInId("asdasdas");
+        $presentation->setEnd(new \DateTime());
+        $presentation->setEventId(123123);
+        $presentation->setHall("D308");
+        $presentation->setImageUrl("asdasdasdasd");
+        $presentation->setName("fvfvfvfv");
         $presentation->setUserId(123);
         $presentation->setVotingEnabled(true);
         return $presentation;

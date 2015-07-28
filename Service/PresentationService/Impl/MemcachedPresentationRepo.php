@@ -88,7 +88,16 @@ class MemcachedPresentationRepo implements PresentationRepository {
      */
     public function find($find_criteria = array())
     {
-        // TODO: Implement find() method.
+        $presentations = $this->findAll();
+        foreach($find_criteria as $attribute => $value) {
+            $presentations = array_filter($presentations, function($presentation) use ($attribute, $value) {
+                    if(property_exists($presentation, $attribute)) {
+                        if(call_user_func(array($presentation, "get".ucwords($attribute))) != $value) return false;
+                    }
+                    return true;
+            });
+        }
+        return $presentations;
     }
 
     /**
