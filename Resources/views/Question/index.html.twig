@@ -17,22 +17,27 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><img width="40px" src='{{ asset('bundles/livevoting/img/question_img.png')}}'/></td>
+                <td><i class="fa fa-question-circle fa-3x"></i></td>
                 <td>{{ entity[0].question }}</td>
                 <td>{{ entity[0].questionType ? 'Answer (Yes-No)' : 'Voting (1-5)' }}</td>
                 <td>
                     {% if entity[0].answers|length > 0 %}
-                        <a class='btn btn-primary btn-success' href="{{ path('admin_question_view_answers', { 'id': entity[0].id }) }}"> {{ entity[0].answers|length }} Answer(s)</a>
+                        <a  href="{{ path('admin_question_view_answers', { 'id': entity[0].id }) }}">
+                            <button class='btn btn-primary btn-success'> {{ entity[0].answers|length }} Answer(s)</button>
+                        </a>
                     {% else %}
                         <button class='btn btn-primary btn-info disabled'">{{ entity[0].answers|length }} Answers</button>
                     {% endif %}
                 </td>
                 <td>
-                    <a class='btn btn-primary' href="{{ path('admin_question_edit', { 'id': entity[0].id }) }}">Edit</a>
+                    <a href="{{ path('admin_question_edit', { 'id': entity[0].id }) }}">
+                        <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
+                    </a>
                 </td>                
                 <td>
-                    <a class="btn btn-danger" href="{{ path('admin_question_delete', { 'id': entity[0].id }) }}"> 
-                    <span class="glyphicon glyphicon-remove"></span> Delete</a>                   
+                    <a href="{{ path('admin_question_delete', { 'id': entity[0].id }) }}">
+                        <button class="btn btn-danger" ><i class="fa fa-times"></i> Delete</button>
+                    </a>
                 </td>
 
             </tr>
@@ -44,32 +49,32 @@
         <li>
             
         </li>
-            <a class="btn btn-primary" href="{{ path('admin_question_new',{ 'event_id':event.getId }) }}">
-                <span class="glyphicon glyphicon-plus"></span> Add new question
+            <a  href="{{ path('admin_question_new',{ 'event_id':event.getId }) }}">
+                <button class="btn btn-primary"><i class="fa fa-plus"></i> Add new question</button>
             </a>
         <li>
-            <a class="btn btn-primary" href="{{ path('admin_event') }}">
-                Back to events
+            <a href="{{ path('admin_event') }}">
+                <button class="btn btn-primary">Back to events</button>
             </a>
         </li>
         {% if entities|length > 0 %}
             <li>
-                <a class="btn btn-primary btn-warning" href="{{ path('admin_question_results',{ 'event_id':event.getId }) }}">
-                    Average question results for this event
+                <a  href="{{ path('admin_question_results',{ 'event_id':event.getId }) }}">
+                    <button class="btn btn-primary btn-warning">Average question results for this event</button>
                 </a>
             </li>
         {% endif %}
 
         {% if status == 0 %}
             <li>
-                <a class="btn btn-primary btn-success" href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 1 }) }}">
-                Enable answering questions
+                <a  href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 1 }) }}">
+                    <button  class="btn btn-primary">Enable answering questions</button>
                 </a>
             </li>
         {% elseif status == 1 %}
             <li>
-                <a class="btn btn-primary btn-danger" href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 0 }) }}">
-                Disable answering questions
+                <a href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 0 }) }}">
+                    <button class="btn btn-primary">Disable answering questions</button>
                 </a>
             </li>
         {% endif %}
