@@ -5,19 +5,32 @@
       <h3>{{flashMessage}}</h3>
     {% endfor %}
 
-    <div class="row pres-list">
-        {% for entity in entities %}
-        <div class="col-xs-12">
-            <div class="wrapper">
-                <div class="pull-left">
+    {% for entity in entities %}
+    <div class="col-xs-12 box"><!-- START BOX CONTAINER -->
+        <div class="row vertical-align-xs">
+            <div class="col-xs-4 col-sm-1 image">
+                <img src="{{asset('bundles/livevoting/img/assets/presenter.svg')}}">
+            </div>
+            <div class="col-xs-8 col-sm-7 text-wrapper">
+                <div class="heading">
                     <h2>{{ entity[0].presentationName }}</h2>
-                    <span>Hall Elephant <i class="fa fa-at"></i> 12:30 - 14:00 | Date: 21. July</span>
                 </div>
-                <div class="pull-right">
-                    <a class="btn-event" href="{{ path('user_presentation_edit', { 'id': entity[0].id }) }}"><br><i class="fa fa-pencil"></i><br>Edit</a>
+                <div class="description hidden-xs">
+                    <span>Elephant <i class="fa fa-at"></i> 12:30</span>
+                    <span>Date: 21. July</span>
+                </div>
+            </div>
+            <div class="clearfix visible-xs"></div>
+            <div class="col-xs-12 visible-xs xs-description">
+                <span>Elephant <i class="fa fa-at"></i> 12:30</span>
+                <span>Date: 21. July</span>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+                <div class="text-right actions">
+                    <a href="{{ path('user_presentation_edit', { 'id': entity[0].id }) }}" class="text-center"><i class="fa fa-pencil"></i><span>Edit</span></a>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
 {% endblock %}

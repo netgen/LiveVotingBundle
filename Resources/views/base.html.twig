@@ -27,9 +27,9 @@
                                 <img src="{{ asset('bundles/livevoting/img/assets/small-logo.svg')}}" class="visible-xs navbar-logo">
                             </a>
                         </div>
-                        <div class="navbar-header col-xs-6">
+                        <div class="navbar-header col-xs-6 text-right">
                             {% if app.user %}
-                            <div class="hidden-xs hidden-sm text-right nav-ul">
+                            <div class="hidden-xs hidden-sm nav-ul">
                                 <a href="{{ path('root') }}">Dashboard</a><!--
                                 --><a href="{{ path('user_landing') }}">Events</a><!--
                                 {% if userPresentationsNum is defined and userPresentationsNum != 0 %}

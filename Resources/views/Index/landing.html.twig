@@ -6,60 +6,106 @@
 
 {% block body %}
 	<div class="col-xs-12 box"><!-- START BOX CONTAINER -->
-		<div class="row">
-			<div class="col-xs-12 col-sm-8">
-				<div class="row">
-					<div class="col-xs-3 col-md-2 image">
-						<img src="{{asset('bundles/livevoting/img/assets/slave-event.svg')}}">
-					</div>
-					<div class="col-xs-9 col-md-10 text-wrapper">
-						<div class="heading">
-							<h2>Box container with h2 heading</h2>
-						</div>
-						<div class="label">
-							<label>Box with label, image and actions</label>
-						</div>
-					</div>
+		<div class="row vertical-align-xs">
+			<div class="col-xs-4 col-sm-1 image">
+				<img src="{{asset('bundles/livevoting/img/assets/slave-event.svg')}}">
+			</div>
+			<div class="col-xs-8 col-sm-7 text-wrapper">
+				<div class="heading">
+					<h1>Box container with h1 heading</h1>
+				</div>
+				<div class="label">
+					<label>Box with label, image and actions</label>
 				</div>
 			</div>
 			<div class="clearfix visible-xs"></div>
 			<div class="col-xs-12 col-sm-4">
 				<div class="text-right actions">
-					<a href="#"><i class="fa fa-bar-chart"></i>Action</a>
-					<a href="#"><i class="fa fa-bar-chart"></i>Action</a>
-					<a href="#"><i class="fa fa-bar-chart"></i>Action</a>
+					<a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a><!--
+					--><a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a><!--
+					--><a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 box"><!-- START BOX CONTAINER -->
+		<div class="row vertical-align-xs">
+			<div class="col-xs-4 col-sm-1 image">
+				<img src="{{asset('bundles/livevoting/img/assets/slave-event.svg')}}">
+			</div>
+			<div class="col-xs-8 col-sm-7 text-wrapper">
+				<div class="heading">
+					<h1>Box container with h1 heading</h1>
+				</div>
+				<div class="description hidden-xs">
+					<span>Elephant @ 12:30</span>
+					<span>Date: 21. July</span>
+				</div>
+			</div>
+			<div class="clearfix visible-xs"></div>
+			<div class="col-xs-12 visible-xs xs-description">
+				<span>Elephant @ 12:30</span>
+				<span>Date: 21. July</span>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<div class="text-right actions">
+					<a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a><!--
+					--><a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a><!--
+					--><a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a>
 				</div>
 			</div>
 		</div>
 	</div>
 	{% for event in events %}
 	{% if event.event %}
-	<div class="row slave-event">
-		<div class="col-xs-12">
-			<div class="wrapper">
-				<div class="pull-left">
-					<img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
-					<h2 class="text-left">{{ event.getName }}</h2>
+	<div class="col-xs-12 box">
+		<div class="row vertical-align-xs">
+			<div class="col-xs-4 col-sm-1 image">
+				<img src="{{asset('bundles/livevoting/img/assets/slave-event.svg')}}">
+			</div>
+			<div class="col-xs-8 col-sm-7 text-wrapper">
+				<div class="heading">
+					<h2>{{ event.getName }}</h2>
 				</div>
-				<div class="pull-right">
-					<span><a href="{{path( 'event' , {'event_id':event.getId})}}" class="btn-event"><br><i class="fa fa-thumbs-o-up"></i><br>Vote</a></span
-					><span>{% if event.getAllowViewingResults %}<a href="{{path('result', {'event_id':event.getId})}}" class="btn-event"><br><i class="fa fa-bar-chart"></i><br>Results</a>{% endif %}</span
-					><span>{% if event.questions|length > 0 %}<a href="{{path('question', {'event_id':event.getId})}}" class="btn-event"><br><i class="fa fa-question"></i><br>{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}</a>{% endif %}</span>
+				<div class="label">
+					<label><a href="#">View event details</a></label>
 				</div>
+			</div>
+			<div class="clearfix visible-xs"></div>
+			<div class="col-xs-12 col-sm-4">				
+				<div class="text-right actions">
+					<a href="{{path( 'event' , {'event_id':event.getId})}}" class="text-center"><i class="fa fa-thumbs-o-up"></i><span>Vote</span></a><!--
+					{% if event.getAllowViewingResults %}
+					--><a href="{{path('result', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-bar-chart"></i><span>Results</span></a><!--
+					{% endif %}
+					{% if event.questions|length > 0 %}
+					--><a href="{{path('question', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-question"></i><span>{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}</span></a><!--
+					{% endif %}-->
+				</div>				
 			</div>
 		</div>
 	</div>
 	{% else %}
-	<div class="row master-event">
-		<div class="col-xs-12">
-			<div class="wrapper">
-				<div class="pull-left">
-					<h2 class="text-left">{{ event.getName }}</h2>
-					<span class="time">{{ event.begin.format('d F') }} - {{ event.end.format('d F') }}</span>
+	<div class="col-xs-12 box light" style="background-image: url({{asset('bundles/livevoting/img/assets/master-event.png')}});">
+		<div class="row vertical-align-xs">
+			<div class="col-xs-4 col-sm-1 image garbage">
+				<img src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
+			</div>
+			<div class="col-xs-8 col-sm-7 text-wrapper">
+				<div class="heading">
+					<h1>{{ event.getName }}</h1>
 				</div>
-				<div class="pull-right">
-					<span>{% if event.questions|length > 0 %}<a href="{{path('question', {'event_id':event.getId})}}" class="btn-event"><br><i class="fa fa-question"></i><br>{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}</a>{% endif %}</span>
+				<div class="label">
+					<label>{{ event.begin.format('d F') }} - {{ event.end.format('d F') }}</label>
 				</div>
+			</div>
+			<div class="clearfix visible-xs"></div>
+			<div class="col-xs-12 col-sm-4">
+				{% if event.questions|length > 0 %}
+				<div class="text-right actions">
+					<a href="{{path('question', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-question"></i><span>{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}</span></a>
+				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
