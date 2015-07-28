@@ -42,7 +42,8 @@ class DoctrinePresentationRepo implements PresentationRepository {
         $presentationEntity = $this->presentationObjectToEntity($presentation);
         $this->em->persist($presentationEntity);
         $this->em->flush();
-        return $presentationEntity;
+
+        return $this->presentationEntityToObject($presentationEntity);
     }
 
     /**
@@ -63,7 +64,7 @@ class DoctrinePresentationRepo implements PresentationRepository {
       $this->em->persist($presentationEntity);
       $this->em->flush();
 
-      return $presentationEntity;
+      return $this->presentationEntityToObject($presentationEntity);
     }
 
     /**
@@ -91,11 +92,16 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function find($find_criteria = array())
     {
-        $presentationEntity = $this->em->getRepository($this->presentationRepository)->findBy($find_criteria);
-              if(!$presentationEntity)
+        $presentationEntities = $this->em->getRepository($this->presentationRepository)->findBy($find_criteria);
+              if(!$presentationEntities)
                 throw new NotFoundHttpException('Presentation not found.');
 
-              return $presentationEntity;
+        $presentationObjects = array();
+        foreach ($presentationEntities as $pres) {
+            $presentationObjects[] = $this->presentationEntityToObject($pres);
+        }
+
+        return $presentationObjects;
     }
 
     /**
@@ -110,7 +116,7 @@ class DoctrinePresentationRepo implements PresentationRepository {
         if(!$presentationEntity)
           throw new NotFoundHttpException('Presentation not found.');
 
-        return $presentationEntity;
+        return $this->presentationEntityToObject($presentationEntity);
     }
 
     /**
@@ -119,7 +125,14 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function findAll()
     {
-        return $this->em->getRepository($this->presentationRepository)->findAll();
+        $presentationEntities = $this->em->getRepository($this->presentationRepository)->findAll();
+
+        $presentationObjects = array();
+        foreach ($presentationEntities as $pres) {
+            $presentationObjects[] = $this->presentationEntityToObject($pres);
+        }
+
+        return $presentationObjects;
     }
 
     /**
@@ -252,10 +265,10 @@ class DoctrinePresentationRepo implements PresentationRepository {
       $presentation->setEnd($presentationEntity->getEnd());
       $presentation->setJoindInId($presentationEntity->getJoindInId());
       $presentation->setImageUrl($presentationEntity->getImage());
-      
-      if($presentationEntity->getEvent()->getId())
+
+      if($presentationEntity->getEvent())
         $presentation->setEventId($presentationEntity->getEvent()->getId());
-      if($presentationEntity->getUser()->getId())
+      if($presentationEntity->getUser())
         $presentation->setUserId($presentationEntity->getUser()->getId());
 
       return $presentation;

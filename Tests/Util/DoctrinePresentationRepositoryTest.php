@@ -23,16 +23,16 @@ class DoctrinePresentationRepositoryTest extends WebTestCase {
 
     public function testSavePresentation(){
       $presentation = $this->createPresentationRecord();
-      $presentationEntity = $this->doctrinePresentationRepo->save($presentation);
-      assert($presentationEntity == $this->doctrinePresentationRepo->findOne($presentationEntity->getId()),
+      $presentation = $this->doctrinePresentationRepo->save($presentation);
+      assert($presentation == $this->doctrinePresentationRepo->findOne($presentation->getId()),
           "Saved presentation is not equal retrived presentation!");
     }
 
     public function testUpdatePresentation(){
       $presentation = $this->createPresentationRecord();
       $presentation = $this->updatePresentationRecord($presentation);
-      $presentationEntity = $this->doctrinePresentationRepo->update($presentation);
-      assert($presentationEntity == $this->doctrinePresentationRepo->findOne($presentation->getId()),
+      $presentation = $this->doctrinePresentationRepo->update($presentation);
+      assert($presentation == $this->doctrinePresentationRepo->findOne($presentation->getId()),
           "Updated presentation is equal retrived presentation!");
     }
 
@@ -45,18 +45,18 @@ class DoctrinePresentationRepositoryTest extends WebTestCase {
     }
 
     public function testFindPresentation(){
-      $presentationEntity = $this->doctrinePresentationRepo->find(array('id' => 55));
+      $presentation = $this->doctrinePresentationRepo->find(array('id' => 55))[0];
 
-      $this->assertEquals($presentationEntity[0], $this->doctrinePresentationRepo->findOne(55));
+      $this->assertEquals($presentation, $this->doctrinePresentationRepo->findOne(55));
     }
 
     public function testFindAll(){
       $found = false;
       $presentation = $this->createPresentationRecord();
       $presentation->setDescription('FindAll test');
-      $presentationEntity = $this->doctrinePresentationRepo->save($presentation);
+      $presentation = $this->doctrinePresentationRepo->save($presentation);
       $allPresentations = $this->doctrinePresentationRepo->findAll();
-      if(in_array($presentationEntity, $allPresentations))
+      if(in_array($presentation, $allPresentations))
         $found = true;
       $this->assertEquals(true, $found);
     }
