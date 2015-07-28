@@ -2,6 +2,7 @@
 
 namespace Netgen\LiveVotingBundle\Tests\Util;
 
+use DateTime;
 use Exception;
 use Netgen\LiveVotingBundle\Service\PresentationService\Impl\MemcachedPresentationRepo;
 use Netgen\LiveVotingBundle\Service\PresentationService\Record\PresentationRecord;
@@ -95,9 +96,9 @@ class MemcachePresentationRepositoryTest extends WebTestCase {
     {
         $presentation = new PresentationRecord();
         $presentation->setDescription("asafsdfsdfs");
-        $presentation->setBegin(new \DateTime());
+        $presentation->setBegin(new DateTime());
         $presentation->setJoindInId("asdasdas");
-        $presentation->setEnd(new \DateTime());
+        $presentation->setEnd(new DateTime());
         $presentation->setEventId(123123);
         $presentation->setHall("D308");
         $presentation->setImageUrl("asdasdasdasd");
@@ -114,9 +115,9 @@ class MemcachePresentationRepositoryTest extends WebTestCase {
     {
         $presentation = new PresentationRecord();
         $presentation->setDescription("acsdfsdfff");
-        $presentation->setBegin(new \DateTime());
+        $presentation->setBegin(new DateTime());
         $presentation->setJoindInId("asdasdas");
-        $presentation->setEnd(new \DateTime());
+        $presentation->setEnd(new DateTime());
         $presentation->setEventId(123123);
         $presentation->setHall("D308");
         $presentation->setImageUrl("asdasdasdasd");
