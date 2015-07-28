@@ -5,63 +5,12 @@
 {% endblock %}
 
 {% block body %}
-	<div class="col-xs-12 box"><!-- START BOX CONTAINER -->
-		<div class="row vertical-align-xs">
-			<div class="col-xs-4 col-sm-1 image">
-				<img src="{{asset('bundles/livevoting/img/assets/slave-event.svg')}}">
-			</div>
-			<div class="col-xs-8 col-sm-7 text-wrapper">
-				<div class="heading">
-					<h1>Box container with h1 heading</h1>
-				</div>
-				<div class="label">
-					<label>Box with label, image and actions</label>
-				</div>
-			</div>
-			<div class="clearfix visible-xs"></div>
-			<div class="col-xs-12 col-sm-4">
-				<div class="text-right actions">
-					<a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a><!--
-					--><a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a><!--
-					--><a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-xs-12 box"><!-- START BOX CONTAINER -->
-		<div class="row vertical-align-xs">
-			<div class="col-xs-4 col-sm-1 image">
-				<img src="{{asset('bundles/livevoting/img/assets/slave-event.svg')}}">
-			</div>
-			<div class="col-xs-8 col-sm-7 text-wrapper">
-				<div class="heading">
-					<h1>Box container with h1 heading</h1>
-				</div>
-				<div class="description hidden-xs">
-					<span>Elephant @ 12:30</span>
-					<span>Date: 21. July</span>
-				</div>
-			</div>
-			<div class="clearfix visible-xs"></div>
-			<div class="col-xs-12 visible-xs xs-description">
-				<span>Elephant @ 12:30</span>
-				<span>Date: 21. July</span>
-			</div>
-			<div class="col-xs-12 col-sm-4">
-				<div class="text-right actions">
-					<a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a><!--
-					--><a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a><!--
-					--><a href="#" class="text-center"><i class="fa fa-bar-chart"></i><span>Action</span></a>
-				</div>
-			</div>
-		</div>
-	</div>
 	{% for event in events %}
 	{% if event.event %}
 	<div class="col-xs-12 box">
 		<div class="row vertical-align-xs">
 			<div class="col-xs-4 col-sm-1 image">
-				<img src="{{asset('bundles/livevoting/img/assets/slave-event.svg')}}">
+				<img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
 			</div>
 			<div class="col-xs-8 col-sm-7 text-wrapper">
 				<div class="heading">
@@ -86,7 +35,7 @@
 		</div>
 	</div>
 	{% else %}
-	<div class="col-xs-12 box light" style="background-image: url({{asset('bundles/livevoting/img/assets/master-event.png')}});">
+	<div class="col-xs-12 box light" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
 		<div class="row vertical-align-xs">
 			<div class="col-xs-4 col-sm-1 image garbage">
 				<img src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
