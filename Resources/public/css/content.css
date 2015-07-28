@@ -456,31 +456,42 @@ div#loader span {
 	line-height: 1.5em;
 }
 
+@media (max-width: 767px) {
+	.form-container form > #form > div:first-child, .form-container form > #form > div:nth-child(2) {
+		width: 100%;
+	}
+
+	.form-container form > #form > div:first-child {
+		border-right: none;
+		border-bottom: 1px solid #dddddd;
+		padding-right: 0;
+		margin-bottom: 1em;
+	}
+
+	.form-container form > #form > div:nth-child(2) {
+		padding-left: 0;
+	}
+
+	.form-container form > #form > div:nth-child(3) {
+		width: 100%;
+	}
+}
 
 /**
  * Ultra-specific forms
  */
-#form_registrationInfo_departureTime {
+#form_registrationInfo_departureTime, #form_registrationInfo_arrivalTime {
 	color: #404041;
 	margin-left: 0.5em;
 }
 
-#form_registrationInfo_departureTime_date:before {
-	content: "Date: ";
-}
-
-#form_registrationInfo_departureTime_time:before {
-	content: "Time: ";
-}
-
-#form_registrationInfo_departureTime_date select {
-	margin-right: 3%;
-	width: 22%;
-}
-
-#form_registrationInfo_departureTime_time select {
-	color: #404041;
+#form_registrationInfo_departureTime_date select, #form_registrationInfo_arrivalTime_date select {
 	width: 25%;
+}
+
+#form_registrationInfo_departureTime_time select, #form_registrationInfo_arrivalTime_time select {
+	color: #404041;
+	width: 20%;
 }
 
 #form-userpres div.ext {
