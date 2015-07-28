@@ -34,6 +34,14 @@ h2 {
 	line-height: 1.5em;
 }
 
+h3 {
+	margin: 0;
+	padding: 0;
+	font-size: 1.375em;
+	font-weight: 600;
+	line-height: 1.5em;
+}
+
 h4 {
 	margin: 0;
 	padding: 0;
@@ -87,7 +95,7 @@ p {
 
 	h2 { font-size: 1.4285em; }
 
-	.question-single-item h2 { font-size: 1.2857em; }
+	.question-single-item h2, h3 { font-size: 1.2857em; }
 
 	.box .label label { font-size: 1em; }
 
@@ -142,7 +150,7 @@ div#main {
 /**
  * Font colors
  */
-a, h1, h2, h4, p, td, th,
+a, h1, h2, h3, h4, p, td, th,
 .form-container label, .form-container input, .form-container select, .form-container textarea,
 .pres-list span {
 	color: #404041;
