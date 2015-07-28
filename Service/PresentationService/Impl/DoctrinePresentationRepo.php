@@ -252,10 +252,12 @@ class DoctrinePresentationRepo implements PresentationRepository {
       $presentation->setEnd($presentationEntity->getEnd());
       $presentation->setJoindInId($presentationEntity->getJoindInId());
       $presentation->setImageUrl($presentationEntity->getImage());
-      /*
-      $presentation->setEventId($presentationEntity->getEvent()->getId());
-      $presentation->setUserId($presentationEntity->getUser()->getId());
-      */
+      
+      if($presentationEntity->getEvent()->getId())
+        $presentation->setEventId($presentationEntity->getEvent()->getId());
+      if($presentationEntity->getUser()->getId())
+        $presentation->setUserId($presentationEntity->getUser()->getId());
+
       return $presentation;
     }
 }
