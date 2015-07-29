@@ -161,6 +161,7 @@ class UserController extends Controller {
       $form->handleRequest($request);
 
       if($form->isValid()){
+        $entity->setContent(strip_tags($entity->getContent()));
         $entity->setUser($user);
         $entity->setPresentation($presentation);
         $entity->setPublished(new \DateTime());
@@ -196,14 +197,23 @@ class UserController extends Controller {
       $form->handleRequest($request);
 
       if($form->isValid()){
+        $entity->setDescription(strip_tags($entity->getDescription()));
         $entity->setUser($user);
         $entity->setPresentation($presentation);
         $entity->setPublished(new \DateTime());
-        
+
         $entity->upload();
         $em->persist($entity);
         $em->flush();
-        return new JsonResponse(array('success' => true));
+        return new JsonResponse(array(
+            "content" => $entity->getDescription().'<br><img src="/bundles/livevoting/'.$entity->getPath().'" alt="'.$entity->getDescription().'">',
+            "published_at" => $entity->getPublished()->format(DATE_ISO8601),
+            "user_display_name" =>
+                $entity->getUser()->getEmail() ?
+                    substr($entity->getUser()->getEmail(), 0, strrpos($entity->getUser()->getEmail(), "@"))
+                    :
+                    $entity->getUser()->getUsername()
+        ));
       }
     }
 
