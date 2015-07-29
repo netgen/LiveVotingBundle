@@ -1,1 +1,23 @@
-<h3>You need to activate your link to be able to access this site. Check your email.</h3>
+{% extends 'LiveVotingBundle::base.html.twig' %}
+
+{% block title %}Error|LiveVoting{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
+{% endblock %}
+
+{% block body %}
+    <div>
+        <div class="alert alert-danger text-center" role="alert">
+            <i class="fa fa-exclamation-triangle fa-2x"></i> You need to activate your link to be able to access this site. Check your email.
+        </div>
+        <div>
+            <button class="btn btn-primary" onclick="history.back(-1)"><i class="fa fa-arrow-left"></i> Go Back</button>
+
+            <a href="/">
+                <button class="btn btn-primary" ><i class="fa fa-home"></i> Dashboard</button>
+            </a>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
+{% block title %}Users|LiveVoting{% endblock %}
+
 {% block mainHeading %}<h1>Users</h1>{% endblock %}
 
 {% block body %}
@@ -13,7 +15,7 @@
                 <thead>
                     <tr>
                         <th>User email</th>
-                        <th>User enabled</th>
+                        <th class="text-center">User enabled</th>
                         <th>Edit user</th>
                     </tr>
                 </thead>
@@ -21,7 +23,7 @@
                 {% for entity in entities %}
                     <tr>
                         <td>{{ entity.getEmail }}</td>
-                        <td>{{ entity.getEnabled ? '<i class="fa fa-lg fa-check"></i>' : '<i class="fa fa-lg fa-times"></i>' }}</td>
+                        <td class="text-center">{{ entity.getEnabled ? '<i class="fa fa-lg fa-check"></i> ' : '<i class="fa fa-lg fa-times"></i> ' }}</td>
                         <td>
                             <a href="{{ path('admin_user_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
                         </td>
@@ -34,9 +36,9 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
-            <a href="{{ path('admin_user_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i>New user</button></a>
-            <a href="{{ path('csv_export') }}"><button type="button" class="btn"><i class="fa fa-sign-out"></i>Export CSV</button></a>
-            <a href="{{ path('user_csv_import') }}"><button type="button" class="btn"><i class="fa fa-sign-in"></i>Import CSV</button></a>
+            <a href="{{ path('admin_user_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i> New user</button></a>
+            <a href="{{ path('csv_export') }}"><button type="button" class="btn"><i class="fa fa-sign-out"></i> Export CSV</button></a>
+            <a href="{{ path('user_csv_import') }}"><button type="button" class="btn"><i class="fa fa-sign-in"></i> Import CSV</button></a>
         </div>
     </div>
 {% endblock %}
