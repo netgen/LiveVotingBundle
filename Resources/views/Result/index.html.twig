@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
+{% block title %}FinalResult|Event|LiveVoting{% endblock %}
+
 {% block stylesheets %}
   <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
 {% endblock %}
@@ -32,12 +34,12 @@
       <h4>And the winner is:</h4>
       <div class="circle-container">
           <div class="alert alert-info" role="alert">
-              <span class="glyphicon glyphicon-star deg0"></span>
-              <span class="glyphicon glyphicon-star deg45"></span>
-              <span class="glyphicon glyphicon-star deg135"></span>
-              <span class="glyphicon glyphicon-star deg180"></span>
-              <span class="glyphicon glyphicon-star deg225"></span>
-              <span class="glyphicon glyphicon-star deg315"></span>
+              <span class="fa fa-star deg0"></span>
+              <span class="fa fa-star deg45"></span>
+              <span class="fa fa-star deg135"></span>
+              <span class="fa fa-star deg180"></span>
+              <span class="fa fa-star deg225"></span>
+              <span class="fa fa-star deg315"></span>
               <h2 class="winner"></h2>
           </div>
       </div>
@@ -72,7 +74,6 @@
 
       function endEverything(){
           $('#winner .winner').html(data['winner']['presenter']['name']+' '+data['winner']['presenter']['surname']);
-          //$(".circle-container").scrollTop($(".circle-container")[0].scrollHeight);
           setTimeout(function(){
               $('#winner').fadeIn(2000,
                   function(){

@@ -1,6 +1,7 @@
 {% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
-{% block title %}Admin Login{% endblock %}
+{% block title %}AdminLogin|LiveVoting{% endblock %}
+
 {% block mainHeading %}<h1 class="text-center">Netgen LiveVoting</h1>{% endblock %}
 
 {% block body %}
@@ -22,7 +23,7 @@
 
                 {% if error %}
                 <div class="alert alert-danger">
-                    Wrong entry. Please enter valid email.
+                    <i class="fa fa-exclamation-circle"></i> Wrong entry. Please enter valid username.
                 </div>
                 {% endif %}
             </div>
