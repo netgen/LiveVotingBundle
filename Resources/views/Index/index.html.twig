@@ -9,23 +9,23 @@
 {% block body %}
 	<div class="row">
 		{% if event.event %}
-		<div class="col-xs-12 box">
+		<div class="col-xs-12 box shadow">
 			<div class="row vertical-align-xs">
-				<div class="col-xs-4 col-sm-1 image">
-					<img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
+				<div class="col-xs-4 col-sm-1">
+					<img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
 				</div>
 				<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-					<div class="heading">
+					<div>
 						<h2>{{ event.getName }}</h2>
 					</div>
-					<div class="label">
-						<label>Lectures</label>
+					<div>
+						<label class="big">Lectures</label>
 					</div>
 				</div>
 				<div class="clearfix visible-xs"></div>
-				<div class="col-xs-12 col-sm-5 col-lg-4 ">
+				<div class="col-xs-12 col-sm-5 col-lg-4">
 					<div class="text-right actions">
-						<a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span class="hidden-sm">Events</span></a><!--
+						<a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span>Events</span></a><!--
 						-->{% if event.getAllowViewingResults %}
 						<a href="{{ path('result', {'event_id':event.getId}) }}" class="text-center"><i class="fa fa-bar-chart"></i><span>Live results</span></a>
 						{% endif %}
@@ -34,17 +34,17 @@
 			</div>
 		</div>
 		{% else %}
-		<div class="col-xs-12 box light" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
+		<div class="col-xs-12 box shadow text-shadow light" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
 			<div class="row vertical-align-xs">
-				<div class="col-xs-4 col-sm-1 image garbage">
-					<img src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
+				<div class="col-xs-4 col-sm-1 garbage">
+					<img class="image-full" src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
 				</div>
 				<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-					<div class="heading">
+					<div>
 						<h1>{{ event.getName }}</h1>
 					</div>
-					<div class="label">
-						<label>Lectures</label>
+					<div>
+						<label class="big">Lectures</label>
 					</div>
 				</div>
 				<div class="clearfix visible-xs"></div>
@@ -104,80 +104,78 @@
 		});
 	</script>
 	<script id="presentation" type="text/x-handlebars-template">
-		<div class="row pres voting-list-single">
-			<div class="col-xs-12">
-				<table class="pres-outer">
-					<tr>
-						<td class="pres-fixed">
+		<div class="row">
+	        <div class="col-xs-12 box shadow">
+	            <div class="row">
+	                <div class="col-xs-4 col-sm-1">
+	                    <div class="row">
+	                        <div class="col-xs-12">
+	                            <img class="image image-o" src="{{ asset('bundles/livevoting/img/') }}{% verbatim %}{{#if image}}presentations/{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
+	                        </div>
+	                    </div>
+	                    <div class="row">
+	                        <div class="col-xs-12 box-margin text-center">
+	                            <label class="text-strong">{{ '{{ presentationLocation }}' }}</label>
+	                            <p>{{ '{{ presentationBeginTime }}' }}</p>
+	                            <p>{{ '{{ presentationEndTime }}' }}</p>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-xs-8 col-sm-5 box-padding">
+	                    <h4>{{'{{presentationName}}'}}</h4>
+	                    <label>
+	                    	{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}
+		                    <a class="pres-desc-toggle"
+		                       data-expanded-text="Hide description"
+		                       data-collapsed-text="Show description"
+		                       data-toggle="collapse"
+		                       href="#pres-desc-container-{{ '{{ presentationId }}' }}"
+		                       aria-expanded="false" aria-controls="pres-desc-container">
+		                        Show description
+		                    </a>
+	                    </label>
+	                </div>
+	                <div class="cleafix visible-xs"></div>
+	                <div class="col-xs-12 col-sm-6">
+	                	<div class="row">
+			                <div class="col-xs-12 vote-question-container">
+			                    <form class="question-multiple vote-form cta cta-multiple cta-vote bg-pattern text-shadow" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
+			                    	<label class="no-shadow text-strong">Rate presentation</label>
+			                        <input class="cta-action small q5" type="submit" value='5'/><!--
+			                        --><input class="cta-action small q4" type="submit" value='4'/><!--
+			                        --><input class="cta-action small q3" type="submit" value='3'/><!--
+			                        --><input class="cta-action small q2" type="submit" value='2'/><!--
+			                        --><input class="cta-action small q1" type="submit" value='1'/>
+			                    </form>
+			                </div>
+			                <div class="clearfix"></div>
+							<div class="col-xs-12 pres-opinion cta cta-vote bg-pattern text-shadow">
+								<label class="no-shadow text-strong">Share Your opinion!</label>
+			                    <a class="cta-action small pres-desc-toggle"
+			                       data-expanded-text="Hide comments"
+			                       data-collapsed-text="View comments ({{ '{{ comments.length }}' }})"
+			                       data-toggle="collapse"
+			                       href="#comments-container-{{ '{{ presentationId}}' }}"
+			                       aria-expanded="false" aria-controls="pres-desc-container">
+			                        View comments ({{ '{{ comments.length }}' }})
+			                    </a>
+							</div>
+						</div>
+					</div>
+	            </div>
+	            <div id="pres-desc-container-{{ '{{ presentationId }}' }}" class="row collapse pres-desc-container">
+					<div class="col-xs-12 box-padding">
+						<p class="pres-desc-text">{{ '{{ presentationDescription }}' }}</p>
+					</div>
+				</div>
+	            <div class="row">
 
-							<img class="pres-img" src="{{ asset('bundles/livevoting/img/') }}{% verbatim %}{{#if image}}presentations/{{image}}{{else}}assets/presenter.svg{{/if}}{% endverbatim %}">
-						</td>
-						<td>
-							<table>
-								<tr>
-									<td class="pres-head">
-										<h2>{{ '{{presentationName}}' }}</h2>
-									</td>
-								</tr>
-								<tr>
-									<td class="pres-info">
-										<span>{{ '{{presenterName}}' }} {{ '{{presenterSurname}}' }}</span>
-										<span>
-                                            {{ '{{ presentationLocation }}' }}
-                                            <i class="fa fa-at"></i>
-                                            {{ '{{ presentationBeginTime }}' }} - {{ '{{ presentationEndTime }}' }}</span>
-										<span>
-                                            <a class="pres-desc-toggle"
-                                               data-expanded-text="Hide description"
-                                               data-collapsed-text="Show description"
-                                               data-toggle="collapse"
-                                               href="#pres-desc-container-{{ '{{ presentationId }}' }}"
-                                               aria-expanded="false" aria-controls="pres-desc-container">
-                                                Show description
-                                            </a>
-                                        </span>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div class="clearfix"></div>
-			<div id="pres-desc-container-{{ '{{ presentationId }}' }}" class="col-xs-12 collapse">
-				<div class="wrapper">
-					<p class="pres-desc-text">{{ '{{ presentationDescription }}' }}</p>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-			<div class="col-xs-12 col-sm-6 vote-question-container">
-				<form class="question-multiple vote-form" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
-					<label>Rate presentation</label>
-					    <input class="q5" type="submit" value='5'/><!--
-					--><input class="q4" type="submit" value='4'/><!--
-					--><input class="q3" type="submit" value='3'/><!--
-					--><input class="q2" type="submit" value='2'/><!--
-					--><input class="q1" type="submit" value='1'/>
-				</form>
-			</div>
-			<div class="clearfix visible-xs-block"></div>
-			<div class="col-xs-12 col-sm-6 pres-opinion">
-				<div>
-					<h3>Share Your opinion!</h3>
-                    <a class="pres-desc-toggle"
-                       data-expanded-text="Hide comments"
-                       data-collapsed-text="View comments ({{ '{{ comments.length }}' }})"
-                       data-toggle="collapse"
-                       href="#comments-container-{{ '{{ presentationId}}' }}"
-                       aria-expanded="false" aria-controls="pres-desc-container">
-                        View comments ({{ '{{ comments.length }}' }})
-                    </a>
-				</div>
-			</div>
+	            </div>
+	        </div>
 			<div class="clearfix"></div>
 			<div id="comments-container-{{ '{{ presentationId}}' }}" class="col-xs-12 collapse">
                 <div class="comments-section">
-                    <ul class="nav nav-tabs" role="tablist">
+                    <ul class="nav nav-tabs bg-pattern" role="tablist">
                         <li role="presentation" class="active" >
                             <a class="tab-button live-comments-tab-toggle" data-toggle="tab" href="#liveVotingComments-{{ '{{ presentationId }}' }}" aria-controls="live-voting-comments" role="tab">LiveVoting</a>
                         </li><!--
@@ -238,14 +236,13 @@
                     </div>
                 </div>
 			</div>
+	    </div>
 
-		</div>
-        <div class="clearfix"><br></div>
 	</script>
 
     <script id="comment-partial" type="text/x-handlebars-template">
         {% verbatim %}
-            <li class="media">
+            <li class="media box-padding">
                 <a class="pull-left" href="#">
                     {{#if user_gravatar }}
                         <img src="{{ user_gravatar }}" class="img-responsive img-circle">
@@ -254,15 +251,9 @@
                     {{/if }}
                 </a>
                 <div class="media-body">
-                    <div>
-                        <h4 class="text-uppercase">{{ user_display_name }}</h4>
-                        <ul class="list-inline">
-                            <li>{{formatRelative published_at }}</li>
-                        </ul>
-                        <p class="media-comment">
-                            {{{ content }}}
-                        </p>
-                    </div>
+                    <h4>{{ user_display_name }}</h4>
+                    <label>{{formatRelative published_at }}</label>
+                    <p>{{{ content }}}</p>
                 </div>
             </li>
         {% endverbatim %}

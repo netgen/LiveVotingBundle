@@ -52,8 +52,8 @@ label, .label {
 	h1 { font-size: 1.5714em; }
 	h2 { font-size: 1.4285em; }
 	.question-single-item h2, h3 { font-size: 1.2857em; }
-	.box .label label { font-size: 1em; }
 	.pres .pres-opinion h3, .box .full-description h3 { font-size: 1.1428em; }
+	.box .label label { font-size: 1em; }
 }
 
 /**
@@ -95,7 +95,7 @@ div#main {
 
 .bg-pattern { background: url('../img/assets/bg-pattern.png'); }
 .shadow { box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26); }
-.no-shadow { box-shadow: none; }
+.no-shadow { box-shadow: none; text-shadow: none; }
 
 .text-shadow { text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36); }
 .text-strong { font-weight: 600; }
