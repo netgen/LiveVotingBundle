@@ -90,6 +90,11 @@ p {
 	line-height: 1.5em;
 }
 
+.box .full-description h3 {
+	font-size: 1.125em;
+	font-weight: 600;
+}
+
 @media (max-width: 991px) {
 	h1 { font-size: 1.5714em; }
 
@@ -99,7 +104,7 @@ p {
 
 	.box .label label { font-size: 1em; }
 
-	.pres .question-multiple label, .pres .pres-opinion h3 { font-size: 1.1428em; }
+	.pres .question-multiple label, .pres .pres-opinion h3, .box .full-description h3 { font-size: 1.1428em; }
 }
 
 /**
