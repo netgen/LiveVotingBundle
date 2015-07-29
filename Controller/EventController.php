@@ -148,10 +148,18 @@ class EventController extends Controller
                       $image->getUser()->getUsername(),
               "user_gravatar" => $image->getUser()->getGravatar() ? "http://www.gravatar.com/avatar/".$image->getUser()->getGravatar() : null
           ));
-
         }
 
+        usort($comments, array($this, 'cmp'));
+
         return $comments;
+    }
+
+    public function cmp($a, $b){
+      if($a['published_at'] === $b['published_at'])
+        return 0;
+
+      return ($a['published_at'] < $b['published_at']) ? -1 : 1;
     }
 
     /**
