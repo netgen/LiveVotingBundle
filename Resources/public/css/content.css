@@ -151,18 +151,18 @@ div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
 	padding: 0 30px;
 }
 
-.dashboard-item, .dashboard-brake {
+.dashboard-item, .dashboard-break {
 	margin-top: 2em;
 	background-color: #ffffff;
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
 }
 
-.dashboard-brake {
+.dashboard-break {
 	padding: 4em;
 	height: 20em;
 }
 
-.dashboard-brake h1, .dashboard-brake label {
+.dashboard-break h1, .dashboard-break label {
 	color: #ffffff;
 	text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);
 }
