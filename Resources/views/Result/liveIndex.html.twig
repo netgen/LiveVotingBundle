@@ -56,16 +56,17 @@
   </div>
 
   <div class="row">
-    <div id="chartContainer" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 live-results"></div>
-  </div>  
+    <div id="chartContainer" class="col-xs-12 col-sm-8 col-sm-offset-2 live-results"></div>
+  </div>
 {% endblock %}
 
 {% block javascripts %}
   <script src="http://code.highcharts.com/highcharts.js"></script>
-
   <script type="text/javascript">
       var requestData, animation_data, chart;
       var event_id = {{ event.getId }};
+      var eventNameHighchart = "{{ event.getName }}";
+
       function cmp(v1, v2){
           if(v1.presentationValue<v2.presentationValue)return 1;
           if(v1.presentationValue>v2.presentationValue)return -1;
@@ -95,109 +96,6 @@
               setTimeout(load, 5000);
           });
       }
-
-
-      $(document).ready(function(){
-
-          chart = new Highcharts.Chart({
-              chart: {
-                  renderTo: 'chartContainer',
-                  //defaultSeriesType: 'bar',
-                  type: 'column',
-                  events: {
-                      load: function(){
-                          setTimeout(load, 1000);
-                      }
-                  },
-                  height: 480,
-                  spacingTop: 32,
-                  marginTop: 96,
-                  spacingBottom: 32,
-                  marginBottom: 96,
-                  //spacingLeft: 32,
-                  //marginLeft: 64,
-                  //spacingRight: 16,
-                  //marginRight: 32,
-                  style: {
-                    fontFamily: '"ronnia", sans-serif',
-                  }
-              },
-              plotOptions: {
-                  column:{
-                      colorByPoint: true
-                  }
-              },
-              colors: ["#6dbc45", "#1678b9", "#404041"],
-              title: {
-                  text: 'Live results: {{ event.getName }}',
-                  style: {
-                    "color" : "#404041",
-                    "font-weight" : "600",
-                    "font-size" : "2em"
-                  }
-              },
-              tooltip: {
-                enabled: false
-              },
-              xAxis: {
-                  type: 'String',
-                  tickPixelInterval: 5,
-                  lineColor: "#ffffff",
-                  lineWidth: 1,
-                  tickColor: "#ffffff",
-                  labels: {
-                    // align: "left",
-                    padding: 16,
-                    style: {
-                      "color" : "#404041",
-                      "font-size" : "14px",
-                      "font-weight" : "400",
-                    }
-                  }
-              },
-              yAxis: {
-                  minPadding: 0.1,
-                  maxPadding: 0.1,
-                  tickmarkPlacement: 'on',
-                  showFirstLabel: false, 
-                  min: 0,
-                  max: 5,
-                  title: {
-                      text: 'Average number of rating score',
-                      enabled: false
-                  },
-                  labels: {
-                    enabled: false,
-                    style: {
-                      "color" : "#404041",
-                      "font-size" : "18px",
-                      "font-weight" : "600"
-                    }
-                  },
-                  //gridLineColor: "#dddddd"
-                  gridLineColor: "#ffffff"
-              },
-              series: [
-                  {
-                      showInLegend: false,
-                      data:[],
-                      dataLabels: {
-                          enabled: true,
-                          rotation: 0,
-                          formatter: function() {
-                              return this.y;
-                          },
-                          inside: true,
-                          shadow: false,
-                          color: "#ffffff",
-                          //verticalAlign: "bottom",
-                          style: {
-                              fontSize: '20px'
-                          }
-                      }
-                  }]
-          });
-
-      });
   </script>
+  <script src="{{ asset('bundles/livevoting/js/highcharts.custom.js') }}"></script>
 {% endblock %}
