@@ -267,7 +267,7 @@
 
 		$('body').on('submit', '.commentPresentation', function(e){
 				e.preventDefault();
-                $(e.target).closest("col-xs-12").find("a .live-comments-tab-toggle").trigger('click');
+
 				var formData = new FormData(this);
 
 				$.ajax({
@@ -277,9 +277,9 @@
 						processData: false,
 						contentType: false,
 						success:function(data){
-                            $(e.target).closest(".col-xs-12")
-                                    .find(".live-voting-comments")
-                                    .append(commentTemplate(data));
+                var commentDiv =$(e.target).closest(".col-xs-12").find(".live-voting-comments");
+                        $(commentTemplate(data)).hide().appendTo(commentDiv).fadeIn(1000);
+												commentDiv.animate({scrollTop: commentDiv[0].scrollHeight}, 250, 'swing');
 						},
 						error: function(data){
 							alert('error');
@@ -299,7 +299,9 @@
 							processData: false,
 							contentType: false,
 							success:function(data){
-									alert('Thank you for uploading image!');
+								var commentDiv =$(e.target).closest(".col-xs-12").find(".live-voting-comments");
+												$(commentTemplate(data)).hide().appendTo(commentDiv).fadeIn(1000);
+												commentDiv.animate({scrollTop: commentDiv[0].scrollHeight}, 250, 'swing');
 							},
 							error: function(data){
 								alert('error');
