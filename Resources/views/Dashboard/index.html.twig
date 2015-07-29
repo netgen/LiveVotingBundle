@@ -109,11 +109,11 @@
 
     <div class="row" id="liveschedule"></div>
 
-    <div class="row">
+    <div class="row" id="dashboard-widgets">
         <div id="chartContainer" class="col-xs-12 col-sm-8 live-results"></div>
         <div class="clearfix visible-xs"></div>
         <div class="col-xs-12 col-sm-4 twitter">
-            <a class="twitter-timeline" href="https://twitter.com/hashtag/https://twitter.com/hashtag/netgentweets+OR+ezsummer+OR+phpsummer" data-widget-id="626365722931933184">#netgen #ezsummer #phpsummer
+            <a class="twitter-timeline" href="https://twitter.com/hashtag/https://twitter.com/hashtag/netgentweets+OR+ezsummer+OR+phpsummer" data-widget-id="626365722931933184" data-chrome="noborders transparent noheader nofooter">#netgen #ezsummer #phpsummer
                 Tweets</a>
             <script>!function (d, s, id) {
                     var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
@@ -329,10 +329,11 @@
                     <h3>{{'{{presentationName}}'}}</h3>
                     <label>{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}</label>
                 </div>
-            </div>
-            {% if app.user %}{% verbatim %}{{#if votingEnabled }}
+            </div>            
             <div class="row">
                 <div class="col-xs-12">
+                {#{% if app.user %}
+                    {% verbatim %}{{#if votingEnabled }}#}
                     <form class="question-multiple" action="{{ path('vote') }}/{{ '{{ id}}' }}" method="POST">
                         <input class="q5" type="submit" value='5'/><!--
                         --><input class="q4" type="submit" value='4'/><!--
@@ -340,9 +341,13 @@
                         --><input class="q2" type="submit" value='2'/><!--
                         --><input class="q1" type="submit" value='1'/>
                     </form>
+                    {#{{/if }}{% endverbatim %}{% else %}#}
+                    <div class="cta">
+                        <a class="cta" href="#">Vote</a>
+                    </div>
+                {#{% endif %}#}
                 </div>
             </div>
-            {{/if }}{% endverbatim %}{% endif %}
         </div>
     </script>
     <script type="text/javascript">

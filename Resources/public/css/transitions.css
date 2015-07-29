@@ -30,7 +30,8 @@
 }
 
 .form-container form button, .form-container form button:hover,
-form button, form button:hover, form button:focus {
+form button, form button:hover, form button:focus,
+div.cta a.cta, div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
 	transition: background-color 0.3s;
 	-webkit-transition: background-color 0.3s;
 	-moz-transition: background-color 0.3s;
