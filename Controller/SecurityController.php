@@ -58,6 +58,9 @@ class SecurityController extends Controller
           $return = $this->redirect($this->generateUrl('user_landing'));
           $return->headers->setCookie(new Cookie('userEditEnabled', '1', time()+60*60*24*90));
 
+          $presentations = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->findByUser($user);
+          $return->headers->setCookie(new Cookie('numOfPresentations', count($presentations), time()+60*60*24*90));
+
           $return->headers->setCookie(
               new Cookie(
                   'REMEMBERME',

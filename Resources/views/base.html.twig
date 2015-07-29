@@ -32,7 +32,7 @@
                             <div class="hidden-xs hidden-sm nav-ul">
                                 <a href="{{ path('root') }}">Dashboard</a><!--
                                 --><a href="{{ path('user_landing') }}">Events</a><!--
-                                {% if userPresentationsNum is defined and userPresentationsNum != 0 %}
+                                {% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 %}
                                 --><a href="{{ path('user_presentations') }}">My lectures</a><!--
                                 {% endif %}
                                 {% if(app.request.cookies.has('userEditEnabled')) %}
@@ -44,7 +44,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                     <li><a href="{{ path('root') }}">Dashboard</a></li>
                                     <li><a href="{{ path('user_landing') }}">Events</a></li>
-                                    {% if userPresentationsNum is defined and userPresentationsNum != 0 %}
+                                    {% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 %}
                                     <li><a href="{{ path('user_presentations') }}">My lectures</a></li>
                                     {% endif %}
                                     {% if(app.request.cookies.has('userEditEnabled')) %}
@@ -76,7 +76,7 @@
             </footer>
         </div>
     </div>
-    
+
     <script src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
     <script src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
     {% block javascripts %}{% endblock %}

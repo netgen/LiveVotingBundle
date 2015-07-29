@@ -39,12 +39,10 @@ class IndexController extends Controller
             ->setParameter('datetime', new \DateTime())
             ->getQuery()->getResult();
         $events = $this->sortEvents($events);
-        $presentations = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->findByUser($this->getUser());
         return $this->render('LiveVotingBundle:Index:landing.html.twig',
             array(
-              'events'=>$events,
-              'userPresentationsNum' => count($presentations)
-              )
+              'events'=>$events
+            )
         );
     }
 
