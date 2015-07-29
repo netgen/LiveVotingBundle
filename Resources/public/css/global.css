@@ -78,6 +78,12 @@ p {
 	font-size: 1em;
 }
 
+.dashboard-brake label {
+	font-weight: 600;
+	font-size: 1.25em;
+	line-height: 1.5em;
+}
+
 .box .label label {
 	font-weight: 300;
 	font-size: 1.125em;
