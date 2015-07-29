@@ -165,12 +165,19 @@
 			<div class="clearfix visible-xs-block"></div>
 			<div class="col-xs-12 col-sm-6 pres-opinion">
 				<div>
-					<h3 href="#">Share Your opinion!</h3>
-					<a href="#">View comments (0)</a>
+					<h3>Share Your opinion!</h3>
+                    <a class="pres-desc-toggle"
+                       data-expanded-text="Hide comments"
+                       data-collapsed-text="View comments ({{ '{{ comments.length }}' }})"
+                       data-toggle="collapse"
+                       href="#comments-container-{{ '{{ presentationId}}' }}"
+                       aria-expanded="false" aria-controls="pres-desc-container">
+                        View comments ({{ '{{ comments.length }}' }})
+                    </a>
 				</div>
 			</div>
 			<div class="clearfix"></div>
-			<div class="col-xs-12">
+			<div id="comments-container-{{ '{{ presentationId}}' }}" class="col-xs-12 collapse">
                 <div class="comments-section">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active" >
@@ -226,6 +233,7 @@
 			</div>
 
 		</div>
+        <div class="clearfix"><br></div>
 	</script>
 
     <script id="comment-partial" type="text/x-handlebars-template">
