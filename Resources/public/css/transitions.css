@@ -29,7 +29,8 @@
 	-o-transition: background-color 0.3s;
 }
 
-.form-container form button, .form-container form button:hover {
+.form-container form button, .form-container form button:hover,
+form button, form button:hover, form button:focus {
 	transition: background-color 0.3s;
 	-webkit-transition: background-color 0.3s;
 	-moz-transition: background-color 0.3s;
@@ -58,7 +59,8 @@ img.navbar-logo, img.navbar-logo:hover {
 	-o-transition: filter 0.5s;
 }
 
-.box .actions a > span, .box .actions a > i, .box .actions a:hover > span, .box .actions a:hover > i {
+.box .actions a > span, .box .actions a > i, .box .actions a:hover > span, .box .actions a:hover > i,
+.form-control, .form-control:focus {
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;

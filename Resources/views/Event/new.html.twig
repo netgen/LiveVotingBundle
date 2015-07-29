@@ -1,22 +1,20 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
 {% block title %}New|Event|LiveVoting{% endblock %}
+{% block mainHeading %}New event{% endblock %}
 
 {% block body -%}
-    <div class="panel panel-default panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Create new event</h3>
-      </div>
-      <div class="panel-body">
-      
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-lg-3">
         {{ form(form) }}
+      </div>
+  </div>
 
-      </div><br>
-        <a class="btn btn-large btn-primary btn-block" href="{{ path('admin_event') }}">
-            Back to the list
-        </a>
+  <div class="row secondary-footer">
+    <div class="col-xs-12">
+      <a href="{{path('admin_event')}}"><button type="button" class="btn">Back</button></a>
     </div>
-
+  </div>
     <script src='http://markusslima.github.io/bootstrap-filestyle/js/bootstrap-filestyle.min.js'></script>
     <script>
     	$(":file").filestyle({badge: false, buttonBefore: true, buttonText: "Upload image for event", buttonName: "btn-primary"});

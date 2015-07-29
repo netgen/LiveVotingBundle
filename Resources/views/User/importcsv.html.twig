@@ -2,14 +2,18 @@
 
 {% block title %}Import|Users|LiveVoting{% endblock %}
 
-{% block mainHeading %}<h1>Import CSV</h1>{% endblock %}
+{% block mainHeading %}Import CSV{% endblock %}
 
 {% block body -%}
-    {{ form(form) }}
+	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-lg-3">
+    		{{ form(form) }}
+    	</div>
+	</div>
 
 	<div class="row secondary-footer">
 		<div class="col-xs-12">
-			<a href="{{path('admin_user')}}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>Back</button></a>
+			<a href="{{path('admin_user')}}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i> Back</button></a>
 		</div>
 	</div>
 {% endblock %}

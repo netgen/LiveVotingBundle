@@ -2,11 +2,11 @@
 
 {% block title %}Users|LiveVoting{% endblock %}
 
-{% block mainHeading %}<h1>Users</h1>{% endblock %}
+{% block mainHeading %}Users{% endblock %}
 
 {% block body %}
     {% for flashMessage in app.Session.flashbag.get('message') %}
-      <h3>{{flashMessage}}</h3>
+    <div class="alert alert-danger">{{flashMessage}}</div>
     {% endfor %}
 
     <div class="row">

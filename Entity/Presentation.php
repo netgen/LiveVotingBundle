@@ -124,6 +124,10 @@ class Presentation
         return $this->id;
     }
 
+    public function setId($id){
+        return $this->id = $id;
+    }
+
     /**
      * Set presenterName
      *
@@ -509,7 +513,7 @@ class Presentation
     /**
      * Get presentationImages
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPresentationImages()
     {
