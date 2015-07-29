@@ -12,6 +12,7 @@ function brain(options_){
     var shadow = $('<div id="shadow"></div>');
     var loader = $('#circleG');
     var footer = new footerClass($('#footer'));
+    var container = $("#answerScreen");
 
     shadow.hide();
     Handlebars.registerHelper ('ifCond', function(v1, v2, options) {
@@ -22,38 +23,39 @@ function brain(options_){
     });
 
 
-    $('body').append(shadow);
+    container.append(shadow);
 
     showSpinner();
-    $('body').on('change', '.forma', function(e){e.preventDefault();});
+    container.on('change', '.question', function(e){e.preventDefault();});
 
 
-    $('body').on('click', '.forma button', function(e){
+    container.on('click', '.question', function(e){
         e.preventDefault();
         if(!canIAnswer) return;
-        var action = $(this).parent().parent().attr('action');
+        var action = $(this).closest("form").attr('action');
         var question_id = action.split('/').pop();
         var question = questions.getById(question_id);
+        var old_answer = question.getAnswer();
         var answer = $(this).attr('value');
         var rate = 'rate='+answer;
-            showSpinner();
-            $.ajax({
-                type: 'post',
-                'url': action,
-                'data': rate,
-                success: function(data){
-                    question.highlightMe();
-                    showFooter();
-                    footer.displayMessage(data['errorMessage']);
-                    question.setAnswer(answer);
-                    hideSpinner();
-                    setTimeout(hideFooter, 2000);
-                },
-                error: function(e){
-                    //fly out erro on footer
-                    hideSpinner();
-                }
-            });
+        question.setAnswer(answer);
+        $.ajax({
+            type: 'post',
+            'url': action,
+            'data': rate,
+            success: function(data){
+                question.highlightMe();
+                showFooter();
+                footer.displayMessage(data['errorMessage']);
+                hideSpinner();
+                setTimeout(hideFooter, 2000);
+            },
+            error: function(e){
+                question.setAnswer(old_answer);
+                //fly out erro on footer
+                hideSpinner();
+            }
+        });
     });
 
 
@@ -159,21 +161,42 @@ function brain(options_){
             delete data;
             data = newData;
             return status;
-        }
+        };
 
         this.getData = function(){
             return data;
-        }
+        };
+
         this.setAnswer = function(answer_number){
+            this.element.find('input').each(function(){
+                if(this.value == answer_number){
+                    $(this).addClass('active');
+                }else{
+                    $(this).removeClass('active');
+                }
+            });
             this.element.find('button').each(function(){
                 if(this.value == answer_number){
                     $(this).addClass('active');
                 }else{
-                      $(this).removeClass('active');
-                    
+                    $(this).removeClass('active');
+
                 }
             });
-        }
+        };
+
+        this.getAnswer = function () {
+            return this.element.find('.active').first().val();
+        };
+
+        this.hideAnswer = function (answer_number) {
+            this.element.find('input').each(function(){
+                $(this).removeClass('active');
+            });
+            this.element.find('button').each(function(){
+                $(this).removeClass('active');
+            })
+        };
 
 
         this.setEnabled = function(enabled_status){
