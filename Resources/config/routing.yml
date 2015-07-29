@@ -73,7 +73,7 @@ event_status:
 
 vote:
     path: /user/vote/{presentation_id}
-    defaults: {_controller: LiveVotingBundle:Vote:vote, presentation_id: -1}
+    defaults: {_controller: LiveVotingBundle:Vote:vote, presentation_id: null}
     requirements: { _method: post }
 
 result:
