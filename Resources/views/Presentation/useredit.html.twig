@@ -3,15 +3,13 @@
 {% block title %}Edit|Presentation|User|LiveVoting{% endblock %}
 
 {% block body -%}
-    {% if flashMessage is defined %}
+  {% for flashMessage in app.Session.flashbag.get('message') %}
     <div class="row flash-messages">
         <div class="col-xs-12">
-            {% for flashMessage in app.Session.flashbag.get('message') %}
-            <h3><i class="fa fa-lg fa-info-circle"></i>{{flashMessage}}</h3>
-            {% endfor %}
+          <h3><i class="fa fa-lg fa-info-circle"></i>{{flashMessage}}</h3>
         </div>
     </div>
-    {% endif %}
+  {% endfor %}
 
     <div class="row">
         <div id="form-userpres" class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-container">

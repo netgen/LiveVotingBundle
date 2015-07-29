@@ -27,15 +27,13 @@
         </div>
     </div>
 
-    {% if flashMessage is defined %}
-    <div class="row flash-messages">
-        <div class="col-xs-12">
-            {% for flashMessage in app.Session.flashbag.get('message') %}
+    {% for flashMessage in app.Session.flashbag.get('message') %}
+      <div class="row flash-messages">
+          <div class="col-xs-12">
             <h3><i class="fa fa-lg fa-info-circle"></i>{{flashMessage}}</h3>
-            {% endfor %}
-        </div>
-    </div>
-    {% endif %}
+          </div>
+      </div>
+    {% endfor %}
 
     <div class="row">
         {% for entity in entities %}
