@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
+{% block title %}UserLogin|LiveVoting{% endblock %}
+
 {% block body %}
         <div class="container">
             <div class="form-signin">
@@ -21,7 +23,7 @@
 
                 {% if error %}
                     <div class="alert alert-danger">
-                        Wrong entry. Please enter valid email.
+                        <i class="fa fa-exclamation-circle"></i> Wrong entry. Please enter valid email.
                     </div>
                 {% endif %}
 

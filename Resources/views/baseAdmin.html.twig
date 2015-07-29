@@ -16,7 +16,7 @@
 
 <body>
     <div id="admin-container">
-    	{% if app.user %}
+    	{% if app.user and is_granted('ROLE_ADMIN') %}
         <div class="container">
             <div class="row">
                 <div id="admin-header" class="col-xs-12">
@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
     <script src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
     {% block javascripts %}{% endblock %}
