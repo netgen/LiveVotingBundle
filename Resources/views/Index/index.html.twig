@@ -191,6 +191,10 @@
                                 {% verbatim %}
                                     {{#each comments }}
                                         {{>comment }}
+                                    {{else}}
+                                        <li>
+                                            <h4>No comments yet. Be first to comment!</h4>
+                                        </li>
                                     {{/each }}
                                 {% endverbatim %}
                             </ul>
@@ -222,7 +226,12 @@
                                 {% verbatim %}
                                     {{#each joindInComments }}
                                         {{>comment }}
+                                    {{else}}
+                                        <li>
+                                            <h4>No comments yet. Go on <a href="https://joind.in/talk/view/{{ joind_in_id }}" target="_blank">joind.in</a> and leave some comments!</h4>
+                                        </li>
                                     {{/each }}
+
                                 {% endverbatim %}
                             </ul>
                         </div>

@@ -332,20 +332,25 @@
             </div>            
             <div class="row">
                 <div class="col-xs-12">
-                {#{% if app.user %}
-                    {% verbatim %}{{#if votingEnabled }}#}
-                    <form class="question-multiple" action="{{ path('vote') }}/{{ '{{ id}}' }}" method="POST">
-                        <input class="q5" type="submit" value='5'/><!--
-                        --><input class="q4" type="submit" value='4'/><!--
-                        --><input class="q3" type="submit" value='3'/><!--
-                        --><input class="q2" type="submit" value='2'/><!--
-                        --><input class="q1" type="submit" value='1'/>
-                    </form>
-                    {#{{/if }}{% endverbatim %}{% else %}#}
+                {% if app.user %}
+                    {% verbatim %}
+                        {{#if votingEnabled }}
+                    {% endverbatim %}
+                            <form class="question-multiple" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
+                                <input class="q5" type="submit" value='5'/><!--
+                                --><input class="q4" type="submit" value='4'/><!--
+                                --><input class="q3" type="submit" value='3'/><!--
+                                --><input class="q2" type="submit" value='2'/><!--
+                                --><input class="q1" type="submit" value='1'/>
+                            </form>
+                    {% verbatim %}
+                        {{/if }}
+                    {% endverbatim %}
+                {% else %}
                     <div class="cta">
-                        <a class="cta" href="#">Vote</a>
+                        <a class="cta" href="{{ path('user_landing') }}">Vote</a>
                     </div>
-                {#{% endif %}#}
+                {% endif %}
                 </div>
             </div>
         </div>
