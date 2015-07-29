@@ -395,6 +395,8 @@
                                 for (var i = 0; i < data['presentations'].length; i++) {
                                     content.push(JSON.stringify(data['presentations'][i].id));
                                     console.log(data['presentations'][i]);
+                                    data['presentations'][i].begin.date = new Date(data['presentations'][i].begin.date);
+                                    data['presentations'][i].end.date = new Date(data['presentations'][i].end   .date);
                                     html = template(data['presentations'][i]);
 
                                     newDiv = document.createElement('div');
