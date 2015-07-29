@@ -90,17 +90,17 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-12 box light" style="background-image: url({{asset('bundles/livevoting/img/assets/master-event.png')}});">
+        <div class="col-xs-12 box light shadow text-shadow" style="background-image: url({{asset('bundles/livevoting/img/assets/master-event.png')}});">
           <div class="row vertical-align-xs">
-            <div class="col-xs-4 col-sm-1 image garbage">
-              <img src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
+            <div class="col-xs-4 col-sm-1 text-center garbage">
+              <img class="image-full" src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
             </div>
             <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-              <div class="heading">
+              <div>
                 <h1>Current happenings:</h1>
               </div>
-              <div class="label">
-                <label>Summer Camp</label>
+              <div>
+                <label class="big">Summer Camp</label>
               </div>
             </div>
           </div>
@@ -116,8 +116,8 @@
 
     <div class="row" id="liveschedule"></div>
 
-    <div class="row" id="dashboard-widgets">
-        <div id="chartContainer" class="col-xs-12 col-sm-8 live-results"></div>
+    <div class="row box shadow bg-pattern">
+        <div id="chartContainer" class="col-xs-12 col-sm-8"></div>
         <div class="clearfix visible-xs"></div>
         <div class="col-xs-12 col-sm-4 twitter">
             <a class="twitter-timeline" href="https://twitter.com/hashtag/https://twitter.com/hashtag/netgentweets+OR+ezsummer+OR+phpsummer" data-widget-id="626365722931933184" data-chrome="noborders transparent noheader nofooter">#netgen #ezsummer #phpsummer
@@ -316,24 +316,24 @@
 
     </script>
     <script id="live-schedule-template" type="text/x-handlebars-template">
-        <div class="col-xs-12 col-sm-4 dashboard-item">
+        <div class="col-xs-12 col-sm-4 box shadow">
             <div class="row">
                 <div class="col-xs-4">
                     <div class="row">
                         <div class="col-xs-12">
-                            <img class="pres-img" src="{{ asset('bundles/livevoting/img/') }}{% verbatim %}{{#if image}}presentations/{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
+                            <img class="image image-o" src="{{ asset('bundles/livevoting/img/') }}{% verbatim %}{{#if image}}presentations/{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xs-12 pres-info">
-                            <label>{{ '{{ hall }}' }}</label>
+                        <div class="col-xs-12 box-margin text-center">
+                            <label class="text-strong">{{ '{{ hall }}' }}</label>
                             <p>{{ '{{formatTime begin hour="numeric" minute="numeric"  }}' }}</p>
                             <p>{{ '{{formatTime end hour="numeric" minute="numeric"  }}' }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-8 pres-head">
-                    <h3>{{'{{presentationName}}'}}</h3>
+                <div class="col-xs-8 box-padding">
+                    <h4>{{'{{presentationName}}'}}</h4>
                     <label>{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}</label>
                 </div>
             </div>            
@@ -343,19 +343,19 @@
                     {% verbatim %}
                         {{#if votingEnabled }}
                     {% endverbatim %}
-                            <form class="question-multiple" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
-                                <input class="q5" type="submit" value='5'/><!--
-                                --><input class="q4" type="submit" value='4'/><!--
-                                --><input class="q3" type="submit" value='3'/><!--
-                                --><input class="q2" type="submit" value='2'/><!--
-                                --><input class="q1" type="submit" value='1'/>
+                            <form class="question-multiple cta cta-multiple shadow bg-pattern text-shadow" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
+                                <input class="cta-action q5" type="submit" value='5'/><!--
+                                --><input class="cta-action q4" type="submit" value='4'/><!--
+                                --><input class="cta-action q3" type="submit" value='3'/><!--
+                                --><input class="cta-action q2" type="submit" value='2'/><!--
+                                --><input class="cta-action q1" type="submit" value='1'/>
                             </form>
                     {% verbatim %}
                         {{/if }}
                     {% endverbatim %}
                 {% else %}
-                    <div class="cta">
-                        <a class="cta" href="{{ path('user_landing') }}">Vote</a>
+                    <div class="cta shadow bg-pattern text-shadow">
+                        <a class="cta-action" href="{{ path('user_landing') }}">Vote</a>
                     </div>
                 {% endif %}
                 </div>

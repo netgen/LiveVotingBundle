@@ -9,44 +9,44 @@
 
 {% block body %}
 	{% if event.event %}
-	<div class="col-xs-12 box">
+	<div class="col-xs-12 box shadow">
 		<div class="row vertical-align-xs">
-			<div class="col-xs-4 col-sm-1 image">
-				<img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
+			<div class="col-xs-4 col-sm-1 text-center">
+				<img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
 			</div>
 			<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-				<div class="heading">
+				<div>
 					<h2>{{ event.getName }}</h2>
 				</div>
-				<div class="label">
-					<label>Questions</label>
+				<div>
+					<label class="big">Questions</label>
 				</div>
 			</div>
 			<div class="clearfix visible-xs"></div>
 			<div class="col-xs-12 col-sm-5 col-lg-7">				
-				<div class="text-right actions">
+				<div class="text-right actions single-action">
 					<a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span class="hidden-sm">Events</span></a>
 				</div>				
 			</div>
 		</div>
 	</div>
 	{% else %}
-	<div class="col-xs-12 box light" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
+	<div class="col-xs-12 box light shadow text-shadow" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
 		<div class="row vertical-align-xs">
-			<div class="col-xs-4 col-sm-1 image garbage">
-				<img src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
+			<div class="col-xs-4 col-sm-1 garbage">
+				<img class="image-full" src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
 			</div>
 			<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-				<div class="heading">
+				<div>
 					<h1>{{ event.getName }}</h1>
 				</div>
-				<div class="label">
-					<label>Questions</label>
+				<div>
+					<label class="big">Questions</label>
 				</div>
 			</div>
 			<div class="clearfix visible-xs"></div>
 			<div class="col-xs-12 col-sm-5 col-lg-4">
-				<div class="text-right actions">
+				<div class="text-right actions single-action">
 					<a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span class="hidden-sm">Events</span></a>
 				</div>
 			</div>
@@ -76,16 +76,16 @@
 		<div class="col-xs-12 col-sm-6 question-single-item">
 			<div class="row">
 				<div class="col-xs-12 question-heading">
-					<div class="wrapper">
+					<div class="wrapper shadow box-padding">
 						<h2><i class="fa fa-question-circle"></i>{{ '{{question}}' }}</h2>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<form class="question-single" action="../answer/{{ '{{ questionId }}' }}" method="POST">
-                           <button class="yes question" type="submit" value='2'>Yes</button><!--
-						--><button class="no question" type="submit" value='1'>No</button>
+					<form class="question-single cta cta-duo shadow bg-pattern text-shadow" action="../answer/{{ '{{ questionId }}' }}" method="POST">
+                           <button class="cta-action yes question" type="submit" value='2'>Yes</button><!--
+						--><button class="cta-action no question" type="submit" value='1'>No</button>
 					</form>
 				</div>
 			</div>
@@ -96,19 +96,19 @@
 		<div class="col-xs-12 col-sm-6 question-single-item">
 			<div class="row">
 				<div class="col-xs-12 question-heading">
-					<div class="wrapper">
+					<div class="wrapper shadow box-padding">
 						<h2><i class="fa fa-question-circle"></i>{{ '{{question}}' }}</h2>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<form class="question-multiple" action="../answer/{{ '{{ questionId }}' }}" method="POST">
-						<input class="q5 question" type="submit" value='5'/><!--
-						--><input class="q4 question" type="submit" value='4'/><!--
-						--><input class="q3 question" type="submit" value='3'/><!--
-						--><input class="q2 question" type="submit" value='2'/><!--
-						--><input class="q1 question" type="submit" value='1'/>
+					<form class="question-multiple cta cta-multiple shadow bg-pattern text-shadow" action="../answer/{{ '{{ questionId }}' }}" method="POST">
+						<input class="cta-action q5 question" type="submit" value='5'/><!--
+						--><input class="cta-action q4 question" type="submit" value='4'/><!--
+						--><input class="cta-action q3 question" type="submit" value='3'/><!--
+						--><input class="cta-action q2 question" type="submit" value='2'/><!--
+						--><input class="cta-action q1 question" type="submit" value='1'/>
 					</form>
 				</div>
 			</div>

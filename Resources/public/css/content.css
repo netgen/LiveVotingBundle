@@ -3,42 +3,18 @@
  */
 .box {
 	margin-top: 2em;
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
 	background-color: #ffffff;
 }
 
-.box * {
-	color: #404041;
-}
+.box * { color: #404041; }
 
-.box.light {
-	background-color: #404041;
-}
+.box.light { background-color: #404041; }
+.box.light * { color: #ffffff; }
 
-.box.light * {
-	color: #ffffff;
-}
-
-.box .image {
-	text-align: center;	
-}
-
-.box .image > img {
-	height: 100%;
-	width: 100%;
-}
-
-.box .image.garbage > img {
-	opacity: 0.25;
-}
+.box .garbage > img { opacity: 0.25; }
 
 .box .text-wrapper {
 	padding: 0 1em;
-}
-
-.box .heading, .box .label, .box .label label {
-	margin: 0;
-	padding: 0;
 }
 
 .box .xs-description {
@@ -83,7 +59,6 @@
 
 .box .full-description {
 	padding: 0.9375em 1em 1em 1em;
-	background: url('../img/assets/bg-pattern.png');
 	border-top: 0.0625em solid #dddddd;
 }
 
@@ -96,6 +71,8 @@
 		border-top: 1px solid #dddddd;
 		padding: 1em 0;
 	}
+
+	.box .actions.single-action { text-align: center; }
 }
 
 
@@ -118,43 +95,66 @@
 /**
  * CTA
  */
-div.cta {
-	background: url('../img/assets/bg-pattern.png');
+.cta {
 	padding: 0.9375em 1em 1em 1em;
 	border-top: 0.0625em solid #dddddd;
 }
 
-div.cta a.cta {
+.cta .cta-action {
 	display: block;
 	margin: 0;
 	padding: 0.7em;
-	color: #ffffff;
 	font-weight: 600;
-	line-height: 1em;
 	font-size: 1.25em;
+	line-height: 1em;
 	text-align: center;
 	text-transform: uppercase;
-	text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);
+	text-decoration: none;
+	color: #ffffff;
+	border: none;
 	background-color: rgba(22, 120, 185, 0.9);
 }
 
-div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
-	background-color: rgba(64, 64, 65, 0.9);
+.cta .cta-action:hover, .cta .cta-action:focus, .cta .cta-action:active {
 	text-decoration: none;
+	color: #ffffff;
+	background-color: rgba(64, 64, 65, 0.9);
+}
+
+.cta-multiple input.cta-action { display: inline-block; width: 20%; }
+.cta-duo button.cta-action { display: inline-block; width: 50%; }
+
+.cta-duo button.yes.cta-action { background-color: rgba(108, 187, 68, 0.9); }
+.cta-duo button.no.cta-action { background-color: rgba(22, 120, 185, 0.9); }
+
+.cta-multiple input.q1.cta-action { background-color: rgba(22, 120, 185, 0.9); }
+.cta-multiple input.q2.cta-action { background-color: rgba(22, 120, 185, 0.8); }
+.cta-multiple input.q3.cta-action { background-color: rgba(65,154,127, 0.75); }
+.cta-multiple input.q4.cta-action { background-color: rgba(108, 187, 68, 0.8); }
+.cta-multiple input.q5.cta-action { background-color: rgba(108, 187, 68, 0.9); }
+
+.cta-multiple input.q1:hover, .cta-multiple input.q2:hover,
+.cta-multiple input.q3:hover, .cta-multiple input.q4:hover, .cta-multiple input.q5:hover,
+.cta-duo button.yes:hover, .cta-duo button.no:hover {
+	background-color: rgba(64, 64, 65, 0.9);
+}
+
+.cta-multiple input.active.cta-action, .cta-duo button.active.cta-action,
+.cta-multiple input.active.cta-action:hover, .cta-duo button.active.cta-action:hover,
+.cta-multiple input.active.cta-action:focus, .cta-duo button.active.cta-action:focus {
+	background-color: rgba(126, 126, 129, 0.9);
+	box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+	cursor: default;
 }
 
 
 /**
  * Dashboard
  */
-#liveschedule {
-	padding: 0 30px;
-}
-
 .dashboard-item, .dashboard-break {
 	margin-top: 2em;
 	background-color: #ffffff;
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+	/*box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);*/
 }
 
 .dashboard-break {
@@ -164,7 +164,7 @@ div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
 
 .dashboard-break h1, .dashboard-break label {
 	color: #ffffff;
-	text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);
+	/*text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);*/
 }
 
 .dashboard-item label {
@@ -189,22 +189,23 @@ div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
 .dashboard-item .pres-head, .dashboard-item .pres-info {
 	padding: 0.5em;
 }
-.dashboard-item .question-multiple {
-	box-shadow: none;
+
+#liveschedule {
+	padding: 0 30px;
 }
 
 @media (min-width: 768px) {
-	#liveschedule > div:nth-child(1) > .dashboard-item {
+	#liveschedule > div:nth-child(1) > div {
 		margin-left: -30px;
 		margin-right: 15px;
 	}
 
-	#liveschedule > div:nth-child(2) > .dashboard-item {
+	#liveschedule > div:nth-child(2) > div {
 		margin-left: 15px;
 		margin-right: 15px;
 	}
 
-	#liveschedule > div:nth-child(3) > .dashboard-item {
+	#liveschedule > div:nth-child(3) > div {
 		margin-left: 15px;
 		margin-right: -30px;
 	}
@@ -222,7 +223,7 @@ div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
 
 .pres .pres-outer {
 	background-color: #ffffff;
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+	/*box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);*/
 }
 
 .pres .pres-fixed {
@@ -285,8 +286,8 @@ div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
 }
 
 .pres .pres-opinion > div {
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
-	background: url('../img/assets/bg-pattern.png');
+	/*box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);*/
+	/*background: url('../img/assets/bg-pattern.png');*/
 	padding: 0.9375em 1em 1em 1em;
 	border-top: 0.0625em solid #dddddd;
 }
@@ -345,7 +346,7 @@ div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
 }
 
 .comments-section .tab-content {
-	background: url('../img/assets/bg-pattern.png');
+	/*background: url('../img/assets/bg-pattern.png');*/
 }
 
 .live-voting-comments li.media > a {
@@ -416,79 +417,30 @@ div#loader span {
  * Questions
  */
 .question-single-item {
-	margin: 2em 0 0 0;
-}
-
-.question-single-item:nth-child(odd) {
-	padding-right: 1em;
+	margin-top: 2em;
 }
 
 .question-single-item:nth-child(even) {
+	padding-right: 1em;
+}
+
+.question-single-item:nth-child(odd) {
 	padding-left: 1em;
 }
 
 .question-single-item h2 {
-	min-height: 5.3333em;
+	min-height: 4em;
 }
 
 .question-heading .wrapper {
 	background-color: #ffffff;
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
 }
 
 .question-heading i {
-	float: left;
+	font-size: 2em;
+	color: #404041;
 	margin-right: 0.25em;
-	vertical-align: middle;
-}
-
-.question-single, .question-multiple {
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
-	background: url('../img/assets/bg-pattern.png');
-	padding: 0.9375em 1em 1em 1em;
-	border-top: 0.0625em solid #dddddd;
-}
-
-.question-multiple input {
-	width: 20%;
-	text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);
-}
-
-.question-single button {
-	width: 50%;
-	text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);
-}
-
-.question-multiple input.q1 { background-color: rgba(22, 120, 185, 0.9); }
-.question-multiple input.q2 { background-color: rgba(22, 120, 185, 0.8); }
-.question-multiple input.q3 { background-color: rgba(65,154,127, 0.75); }
-.question-multiple input.q4 { background-color: rgba(108, 187, 68, 0.8); }
-.question-multiple input.q5 { background-color: rgba(108, 187, 68, 0.9); }
-
-.question-single button.yes {
-	background-color: rgba(108, 187, 68, 0.9);
-}
-
-.question-single button.no {
-	background-color: rgba(22, 120, 185, 0.9);
-}
-
-.question-multiple input.q1:hover,
-.question-multiple input.q2:hover,
-.question-multiple input.q3:hover,
-.question-multiple input.q4:hover,
-.question-multiple input.q5:hover,
-.question-single button.yes:hover,
-.question-single button.no:hover {
-	background-color: rgba(64, 64, 65, 0.9);
-}
-
-.question-multiple input.active, .question-single button.active,
-.question-multiple input.active:hover, .question-single button.active:hover,
-.question-multiple input.active:focus, .question-single button.active:focus {
-	background-color: rgba(126, 126, 129, 0.9);
-	box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
-	cursor: default;
+	float: left;
 }
 
 @media (max-width: 767px) {
@@ -496,22 +448,6 @@ div#loader span {
 		padding-left: 0 !important;
 		padding-right: 0 !important;
 	}
-}
-
-
-/**
- * Dashboard widgets
- */
-#dashboard-widgets {
-	margin-top: 2em;
-	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
-	background: url('../img/assets/bg-pattern.png');
-}
-
-/**
- * Live results
- */
-.live-results {
 }
 
 /**
@@ -546,6 +482,7 @@ div#loader span {
 	text-align: center;
 	text-transform: uppercase;
 	margin-bottom: 1.5em;
+	font-weight: 600;
 }
 
 .form-container form > #form > div:first-child, .form-container form > #form > div:nth-child(2) {

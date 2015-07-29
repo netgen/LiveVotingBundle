@@ -16,101 +16,44 @@ html > body {
 a {
 	font-size: 1em;
 	font-weight: 600;
+	line-height: 1.5em;
 }
 
-h1 {
+h1, h2, h3, h4, h5 {
 	margin: 0;
 	padding: 0;
-	font-size: 2em;
 	font-weight: 600;
 	line-height: 1.5em;
 }
 
-h2 {
-	margin: 0;
-	padding: 0;
-	font-size: 1.75em;
-	font-weight: 600;
-	line-height: 1.5em;
-}
-
-h3 {
-	margin: 0;
-	padding: 0;
-	font-size: 1.375em;
-	font-weight: 600;
-	line-height: 1.5em;
-}
-
-h4 {
-	margin: 0;
-	padding: 0;
-	font-size: 1.25em;
-	font-weight: 300;
-	line-height: 1.2em;
-}
+h1 { font-size: 2em; }
+h2 { font-size: 1.75em; }
+h3 { font-size: 1.5em; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1.125em; }
 
 p {
+	margin: 0;
 	max-width: 465px;
 	font-size: 1em;
 	font-weight: 300;
-	margin: 0 0 1.5em;
+	line-height: 1.5em;
 }
 
-.form-container label {
-	font-size: 1em;
-	line-height: 2em;
-}
-
-.question-single-item h2 {
-	font-size: 1.5em;
-	line-height: 1.3333em;
+label, .label {
 	margin: 0;
-	padding: 1.3333em 0.6666em;
-}
-
-.question-heading i {
-	font-size: 2.6666em;
-	line-height: 1em;
-}
-
-.box .label {
-	font-size: 1em;
-}
-
-.dashboard-brake label {
-	font-weight: 600;
-	font-size: 1.25em;
-	line-height: 1.5em;
-}
-
-.box .label label {
-	font-weight: 300;
-	font-size: 1.125em;
-	line-height: 1.25em;
-}
-
-.box .description {
-	font-weight: 300;
+	padding: 0;
 	font-size: 1em;
 	line-height: 1.5em;
-}
-
-.box .full-description h3 {
-	font-size: 1.125em;
-	font-weight: 600;
+	font-weight: 300;
 }
 
 @media (max-width: 991px) {
 	h1 { font-size: 1.5714em; }
-
 	h2 { font-size: 1.4285em; }
-
 	.question-single-item h2, h3 { font-size: 1.2857em; }
-
 	.box .label label { font-size: 1em; }
-
-	.pres .question-multiple label, .pres .pres-opinion h3, .box .full-description h3 { font-size: 1.1428em; }
+	.pres .pres-opinion h3, .box .full-description h3 { font-size: 1.1428em; }
 }
 
 /**
@@ -136,6 +79,14 @@ div#main {
 	padding: 0 1em 8em 1em;
 }
 
+@media (max-width: 767px) {
+	div#main { padding-bottom: 10em; }
+}
+
+
+/**
+ * Global classes
+ */
 .vertical-align {
 	display: flex;
 	align-items: center;
@@ -146,8 +97,59 @@ div#main {
 	display: block;
 }
 
-@media (max-width: 767px) {
-	div#main { padding-bottom: 10em; }
+.box-margin {
+	margin: 1em 0;
+}
+
+.box-padding {
+	padding: 1em;
+}
+
+.bg-pattern {
+	background: url('../img/assets/bg-pattern.png');
+}
+
+.shadow {
+	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+}
+
+.no-shadow {
+	box-shadow: none;
+}
+
+.text-shadow {
+	text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);
+}
+
+.text-strong {
+	font-weight: 600;
+}
+
+.text-normal {
+	font-weight: 300;
+}
+
+.big {
+	font-size: 1.25em;
+	line-height: 1.5em;
+}
+
+.bigger {
+	font-size: 1.5em;
+	line-height: 1.5em;
+}
+
+.image {
+	width: 80%;
+	margin: 10%;
+}
+
+.image-full {
+	width: 100%;
+}
+
+.image-o {
+	border-radius: 100%;
 }
 
 @media (min-width: 768px) {
@@ -162,9 +164,12 @@ div#main {
  * Font colors
  */
 a, h1, h2, h3, h4, p, td, th,
-.form-container label, .form-container input, .form-container select, .form-container textarea,
-.pres-list span {
+label, input, select, textarea, span {
 	color: #404041;
+}
+
+.blue {
+	color: #0199C6;
 }
 
 p.pres-desc-text {
@@ -187,6 +192,7 @@ p.pres-desc-text {
 	text-align: center;
 	text-transform: uppercase;
 	margin-bottom: 1.5em;
+	font-weight: 600;
 }
 
 /**
@@ -237,7 +243,7 @@ p.pres-desc-text {
 	text-decoration: none;
 }
 
-/* .box.light */
+/* Box Light */
 .box.light .actions a > span, .box.light .actions a > i {
 	color: #ffffff;
 	text-decoration: none;
@@ -253,7 +259,7 @@ p.pres-desc-text {
 	text-decoration: none;
 }
 
-.question-single button, .question-multiple input, .pres .pres-opinion a {
+.pres .pres-opinion a {
 	margin: 0;
 	padding: 0.7em;
 	border: none;
@@ -274,7 +280,7 @@ a, a:link, a:visited, a:active {
 	color: #0199C6;
 }
 
-#main-footer a, #main-footer a:link, #main-footer a:visited, #main-footer a:active {
+#main-footer a > span, #main-footer a > span:link, #main-footer a > span:visited, #main-footer a > span:active {
 	color: #ffffff;
 }
 
@@ -283,7 +289,7 @@ a:link:hover, a:hover, a:focus, a:link:focus {
 	text-decoration: underline;
 }
 
-#main-footer a:link:hover, #main-footer a:hover, #main-footer a:focus, #main-footer a:link:focus {
+#main-footer a > span:link:hover, #main-footer a > span:hover, #main-footer a > span:focus, #main-footer a > span:link:focus {
 	text-decoration: underline;
 	color: #0199C6;
 }

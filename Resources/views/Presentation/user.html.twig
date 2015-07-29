@@ -4,22 +4,22 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-xs-12 box light" style="background-image: url({{asset('bundles/livevoting/img/assets/lectures-bg.png')}});">
+        <div class="col-xs-12 box light shadow" style="background-image: url({{asset('bundles/livevoting/img/assets/lectures-bg.png')}});">
             <div class="row vertical-align-xs">
-                <div class="col-xs-4 col-sm-1 image">
-                    <img src="{{asset('bundles/livevoting/img/assets/clipboard.svg')}}">
+                <div class="col-xs-4 col-sm-1">
+                    <img class="image-full" src="{{asset('bundles/livevoting/img/assets/clipboard.svg')}}">
                 </div>
                 <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-                    <div class="heading">
+                    <div>
                         <h2>My lectures</h2>
                     </div>
-                    <div class="label">
-                        <label>Edit Your lectures</label>
+                    <div>
+                        <label class="big">Edit Your lectures</label>
                     </div>
                 </div>
                 <div class="clearfix visible-xs"></div>
                 <div class="col-xs-12 col-sm-5 col-lg-4">
-                    <div class="text-right actions">
+                    <div class="text-right actions single-action">
                         <a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span class="hidden-sm">Events</span></a>
                     </div>
                 </div>
@@ -37,13 +37,13 @@
 
     <div class="row">
         {% for entity in entities %}
-        <div class="col-xs-12 box">
+        <div class="col-xs-12 box shadow">
             <div class="row vertical-align-xs">
-                <div class="col-xs-4 col-sm-1 image">
-                    <img src="{{asset('bundles/livevoting/img/assets/presenter.svg')}}">
+                <div class="col-xs-4 col-sm-1">
+                    <img class="image image-o" src="{{asset('bundles/livevoting/img/assets/angry-che.png')}}">
                 </div>
                 <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-                    <div class="heading">
+                    <div>
                         <h2>{{ entity[0].presentationName }}</h2>
                     </div>
                     <div class="description hidden-xs">
@@ -56,14 +56,21 @@
                     <span>{{ entity[0].hall }} <i class="fa fa-at"></i> {{ entity[0].begin|date('H:m') }}</span>
                     <span>Date: {{ entity[0].begin|date('d. F') }}</span>
                 </div>
+                <div class="clearfix visible-xs"></div>
+                <div class="row">
+                    <div class="col-xs-12 visible-xs full-description">
+                        <h3>Lecture description</h3>
+                        <p>{{ entity[0].description }}</p>
+                    </div>
+                </div>
                 <div class="col-xs-12 col-sm-5 col-lg-4">
-                    <div class="text-right actions">
+                    <div class="text-right actions single-action">
                         <a href="{{ path('user_presentation_edit', { 'id': entity[0].id }) }}" class="text-center"><i class="fa fa-pencil"></i><span>Edit</span></a>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 full-description">
+                <div class="col-xs-12 hidden-xs full-description">
                     <h3>Lecture description</h3>
                     <p>{{ entity[0].description }}</p>
                 </div>

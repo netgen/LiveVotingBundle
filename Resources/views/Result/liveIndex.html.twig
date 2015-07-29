@@ -9,45 +9,45 @@
 {% block body %}
   <div class="row">
     {% if event.event %}
-    <div class="col-xs-12 box">
+    <div class="col-xs-12 box shadow">
       <div class="row vertical-align-xs">
-        <div class="col-xs-4 col-sm-1 image">
-          <img src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
+        <div class="col-xs-4 col-sm-1">
+          <img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
         </div>
         <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-          <div class="heading">
+          <div>
             <h2>{{ event.getName }}</h2>
           </div>
-          <div class="label">
-            <label>Results</label>
+          <div>
+            <label class="big">Results</label>
           </div>
         </div>
         <div class="clearfix visible-xs"></div>
         <div class="col-xs-12 col-sm-5 col-lg-4 ">        
-          <div class="text-right actions">
+          <div class="text-right actions single-action">
             <a href="{{ path('event', {'event_id':event.getId}) }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span>{{ event.getName }}</span></a>
           </div>        
         </div>
       </div>
     </div>
     {% else %}
-    <div class="col-xs-12 box light" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
+    <div class="col-xs-12 box light shadow text-shadow" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
       <div class="row vertical-align-xs">
-        <div class="col-xs-4 col-sm-1 image garbage">
-          <img src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
+        <div class="col-xs-4 col-sm-1 garbage">
+          <img class="image-full" src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
         </div>
         <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-          <div class="heading">
+          <div>
             <h1>{{ event.getName }}</h1>
           </div>
-          <div class="label">
-            <label>Results</label>
+          <div>
+            <label class="big">Results</label>
           </div>
         </div>
         <div class="clearfix visible-xs"></div>
         <div class="col-xs-12 col-sm-5 col-lg-4">
           <div class="text-right actions">
-            <a href="{{ path('event', {'event_id':event.getId}) }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span>{{ event.getName }}</span></a>
+            <a href="{{ path('event', {'event_id':event.getId}) }}" class="text-center single-action"><i class="fa fa-chevron-circle-left"></i><span>{{ event.getName }}</span></a>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@
   </div>
 
   <div class="row">
-    <div id="chartContainer" class="col-xs-12 col-sm-8 col-sm-offset-2 live-results"></div>
+    <div id="chartContainer" class="col-xs-12 col-sm-8 col-sm-offset-2 box shadow bg-pattern"></div>
   </div>
 {% endblock %}
 
