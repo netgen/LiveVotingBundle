@@ -309,72 +309,6 @@
 
     </script>
     <script id="live-schedule-template" type="text/x-handlebars-template">
-        <!--<div class="panel">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-lg-2 ">
-
-                        <div class="imgpresenter">
-                            <img class="pres-img" src="{{ asset('bundles/livevoting/img/') }}{% verbatim %}{{#if image}}presentations/{{image}}{{else}}assets/presenter.svg{{/if}}{% endverbatim %}">
-
-                        </div>
-                    </div>
-                    <div id="presentation-{{ '{{ id }}' }}" class="col-lg-7 text-left">
-                        <div class="prestitle my-repeat-animation">{{ '<div>{{presentationName}}</div>' }}
-                        </div>
-                        <div class="presname my-repeat-animation">{{ '<div>{{presenterName}} {{presenterSurname}}</div>' }}
-                        </div>
-
-                        <div class="vote">
-                            {% if app.user %}
-                                <form class="forma col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                                      action="{{ path('vote') }}/{{ '{{ id}}' }}" method="POST">
-
-                                    {% verbatim %}
-                                        {{#if votingEnabled }}
-                                        <span class='glyphicon glyphicon-thumbs-down'></span>
-                                        <div class="btn-group btn-group-lg">
-
-                                            <input type="submit" class='btn btn-default btn-sm' value='1'/>
-                                            <input type="submit" class='btn btn-default btn-sm' value='2'/>
-                                            <input type="submit" class='btn btn-default btn-sm' value='3'/>
-                                            <input type="submit" class='btn btn-default btn-sm' value='4'/>
-                                            <input type="submit" class='btn btn-default btn-sm' value='5'/>
-
-                                        </div>
-
-                                        <span class='glyphicon glyphicon-thumbs-up'></span>
-                                        <br>
-                                        {{/if }}
-                                    {% endverbatim %}
-
-                                </form>
-                            {% else %}
-                                <a href="{{ path('user_landing') }}">
-                                    <button type="button" class="btn btn-labeled btn-default">
-                              <span class="btn-label">
-                              <i class="glyphicon glyphicon-stats"></i>
-                              </span>Vote
-                                    </button>
-                                </a>
-                            {% endif %}
-                        </div>
-
-                    </div>
-
-                    <div class="container2">
-                        <div class="divider-vertical">
-                            <div class="col-lg-3 time">
-                                <div class="room">
-                                  <span class="glyphicon glyphicon-blackboard" aria-hidden="true">
-                                  </span><b>{{ '{{ hall }}' }}</b></div>
-                                <div>{{ '{{formatTime begin hour="numeric" minute="numeric"  }}' }} - {{ '{{formatTime end hour="numeric" minute="numeric"  }}' }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
         <div class="col-xs-12 col-sm-4 dashboard-item">
             <div class="row">
                 <div class="col-xs-4">
@@ -396,6 +330,7 @@
                     <label>{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}</label>
                 </div>
             </div>
+            {% if app.user %}{% verbatim %}{{#if votingEnabled }}
             <div class="row">
                 <div class="col-xs-12">
                     <form class="question-multiple" action="{{ path('vote') }}/{{ '{{ id}}' }}" method="POST">
@@ -403,10 +338,11 @@
                         --><input class="q4" type="submit" value='4'/><!--
                         --><input class="q3" type="submit" value='3'/><!--
                         --><input class="q2" type="submit" value='2'/><!--
-                        --><input class="q1" type="submit" value='1'/
+                        --><input class="q1" type="submit" value='1'/>
                     </form>
                 </div>
             </div>
+            {{/if }}{% endverbatim %}{% endif %}
         </div>
     </script>
     <script type="text/javascript">
