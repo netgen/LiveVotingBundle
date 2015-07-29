@@ -35,6 +35,7 @@ function brain(options_){
         var action = $(this).closest("form").attr('action');
         var question_id = action.split('/').pop();
         var question = questions.getById(question_id);
+        var old_answer = question.getAnswer();
         var answer = $(this).attr('value');
         var rate = 'rate='+answer;
         question.setAnswer(answer);
@@ -50,8 +51,7 @@ function brain(options_){
                 setTimeout(hideFooter, 2000);
             },
             error: function(e){
-                //question.hideAnswer(answer);
-                //question.setAnswer(old_answer);
+                question.setAnswer(old_answer);
                 //fly out erro on footer
                 hideSpinner();
             }
