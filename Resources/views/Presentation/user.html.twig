@@ -49,8 +49,7 @@
                         <h2>{{ entity[0].presentationName }}</h2>
                     </div>
                     <div class="description hidden-xs">
-                        <span>{{ entity[0].hall }}</div>
-                    <i class="fa fa-at"></i> {{ entity[0].begin|date('H:m') }}</span>
+                        <span>{{ entity[0].hall }} <i class="fa fa-at"></i> {{ entity[0].begin|date('H:m') }}</span>
                         <span>Date: {{ entity[0].begin|date('d. F') }}</span>
                     </div>
                 </div>
@@ -63,6 +62,12 @@
                     <div class="text-right actions">
                         <a href="{{ path('user_presentation_edit', { 'id': entity[0].id }) }}" class="text-center"><i class="fa fa-pencil"></i><span>Edit</span></a>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 full-description">
+                    <h3>Lecture description</h3>
+                    <p>{{ entity[0].description }}</p>
                 </div>
             </div>
         </div>

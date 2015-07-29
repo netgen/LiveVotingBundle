@@ -81,6 +81,16 @@
 	text-transform: uppercase;
 }
 
+.box .full-description {
+	padding: 0.9375em 1em 1em 1em;
+	background: url('../img/assets/bg-pattern.png');
+	border-top: 0.0625em solid #dddddd;
+}
+
+.box .full-description p {
+	margin: 0;
+}
+
 @media (max-width: 767px) {
 	.box .actions {
 		border-top: 1px solid #dddddd;
@@ -374,6 +384,14 @@ div#loader span {
 .question-single button.yes:hover,
 .question-single button.no:hover {
 	background-color: rgba(64, 64, 65, 0.9);
+}
+
+.question-multiple input.active, .question-single button.active,
+.question-multiple input.active:hover, .question-single button.active:hover,
+.question-multiple input.active:focus, .question-single button.active:focus {
+	background-color: rgba(126, 126, 129, 0.9);
+	box-shadow: inset 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
+	cursor: default;
 }
 
 @media (max-width: 767px) {
