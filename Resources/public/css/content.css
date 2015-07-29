@@ -167,7 +167,9 @@ div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
 }
 
 .dashboard-item .pres-img {
-	width: 100%;
+	width: 80%;
+	margin: 10%;
+	border-radius: 100%;
 }
 
 .dashboard-item .pres-info {
@@ -175,7 +177,7 @@ div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
 }
 
 .dashboard-item .pres-head, .dashboard-item .pres-info {
-	padding: 1em;
+	padding: 0.5em;
 }
 .dashboard-item .question-multiple {
 	box-shadow: none;
