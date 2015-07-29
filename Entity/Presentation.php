@@ -349,6 +349,9 @@ class Presentation
         return $this;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getEnd()
     {
         return $this->end;

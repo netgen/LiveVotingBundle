@@ -9,6 +9,7 @@
 
 namespace Netgen\LiveVotingBundle\Controller;
 
+use Netgen\LiveVotingBundle\Entity\Presentation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -44,6 +45,10 @@ class DashboardController extends Controller{
             WHERE :datetime > p.begin
               AND :datetime < p.end
           ")->setParameter('datetime', new \DateTime())->getArrayResult();
+      }
+      foreach($presentations as $presentation) {
+          $presentation['begin'] = $presentation['begin']->format(DATE_RFC850);
+          $presentation['end'] = $presentation['end']->format(DATE_RFC850);
       }
       $responseArray['presentations'] = $presentations;
       return new JsonResponse($responseArray);
@@ -99,4 +104,5 @@ class DashboardController extends Controller{
     }
     return ($a['average'] < $b['average']) ? 1 : -1;
   }
+
 }
