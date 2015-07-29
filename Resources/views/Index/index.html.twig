@@ -191,20 +191,20 @@
                             </ul>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active" >
-                                    <a href="#commentForm" aria-controls="comment" role="tab" data-toggle="tab">Comment</a>
+                                    <a href="#commentForm-{{ '{{presentationId}}' }}" aria-controls="comment" role="tab" data-toggle="tab">Comment</a>
                                 </li>
                                 <li role="presentation" >
-                                    <a href="#pictureForm" aria-controls="picture" role="tab" data-toggle="tab">Picture</a>
+                                    <a href="#pictureForm-{{ '{{presentationId}}' }}" aria-controls="picture" role="tab" data-toggle="tab">Picture</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade in active" id="commentForm">
+                                <div role="tabpanel" class="tab-pane fade in active" id="commentForm-{{ '{{presentationId}}' }}">
                                     {% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
                                     {{ form(
                                     form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'commentPresentation'}}
                                     ) }}
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="pictureForm">
+                                <div role="tabpanel" class="tab-pane fade" id="pictureForm-{{ '{{presentationId}}' }}">
                                     {% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
                                     {{ form(
                                     imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'imageUpload'}}
