@@ -11,7 +11,7 @@
 							<ul class="list-inline list-unstyled text-center">
 										<li>
 												<a href="{{ path('root') }}">
-													<img width="25" height="25" src="{{ asset('bundles/livevoting/img/kruzici.svg') }}" class="img-responsive" alt="logo">
+													<img width="25" height="25" src="{{ asset('bundles/livevoting/img/assets/small-logo.svg') }}" class="img-responsive" alt="logo">
 												</a>
 										</li>
 										<li class="text-center">
@@ -22,63 +22,138 @@
 					</div>
 			</div>
 
-			<div class="container">
-				<div id="prize-pool">
-
-				<div class="odometer">000</div>
-
-			<ul id='lista-pobjednika' class="list-group">
-				<script type="text/javascript"> var size = 0; var voteEmails = [];</script>
-				{% for voteEmail in votePool %}
-					<script> size++; voteEmails.push('{{voteEmail}}');</script>
-				{% endfor %}
-			</ul>
-
-			<button id="start" class="btn btn-success btn-lg"> Draw </button>
-
-			<h2 id="pobjednik"></h2>
-
-			<div id="draw-end-line"></div>
-		</div>
-	</div>
+			<div id="container" class="container">
+				<div class="prize-pool">
+                    <ul id='lista-pobjednika' class="list-group lottery">
+                        {#{% for voteEmail in votePool %}#}
+                            {#<li>{{ voteEmail }}</li>#}
+                        {#{% endfor %}#}
+                        <li>marin.petrunic@gmail.com</li>
+                        <li>marin.petrunic@gmail.com</li>
+                        <li>marin.pet@gmail.com</li>
+                    </ul>
+                    <button class="btn btn-primary resetButton">Reset</button>
+                    <button id='start' class='btn btn-success btn-lg start-lottery'> Draw </button>
+		        </div>
+	        </div>
 {% endblock %}
 
 {% block javascripts %}
-	<script src="{{ asset('bundles/livevoting/js/odometer.js')}}"></script>
-
 	<script type="text/javascript">
-		var rand = Math.floor((Math.random() * size));
+        jQuery(function() {
+            $.lottery = function(element, options) {
+                var state,
+                _this = this;
+                state = '';
+                this.timerHandle;
+                this.mainDiv = $("<div class='lottery-plugin' />");
+                this.previousIndex = -1;
+                this.settings = {};
+                this.items = {};
+                this.$element = $(element);
+                this.setState = function(_state) {
+                    return state = _state;
+                };
+                this.getState = function() {
+                    return state;
+                };
+                this.getSetting = function(key) {
+                    return this.settings[key];
+                };
+                this.callSettingFunction = function(name, args) {
+                    if (args == null) {
+                        args = [];
+                    }
+                    return this.settings[name].apply(this, args);
+                };
+                this.mixNames = function(interval) {
+                    var _this = this;
+                    if (this.timerHandle) {
+                        return console.log("Timer already running");
+                    } else {
+                        return this.timerHandle = window.setInterval(function() {
+                            var randomIndex;
+                            _this.mainDiv.empty().fadeOut(390);
+                            if (_this.previousIndex >= 0) {
+                                randomIndex = _this.previousIndex;
+                                while (randomIndex === _this.previousIndex) {
+                                    randomIndex = Math.floor(Math.random() * _this.listItems.length);
+                                }
+                            } else {
+                                randomIndex = Math.floor(Math.random() * _this.listItems.length);
+                            }
+                            _this.mainDiv.append($("<h2 class='lottery-option' >" + _this.listItems[randomIndex] + "</h2>")).fadeIn(0);
+                            _this.previousIndex = randomIndex;
+                            return console.log(randomIndex);
+                        }, 400);
+                    }
+                };
+                this.stopLottery = function() {
+                    console.log("Stop");
+                    if (typeof console.log === "function") {
+                        console.log("Ended");
+                    }
+                    window.clearInterval(this.timerHandle);
+                    var lottery_option = $('h2.lottery-option');
+                    var winner = lottery_option.text();
+                    lottery_option.text("Lucky winner is: "+winner);
+                    return lottery_option.css("color", "green");
+                };
+                this.startLottery = function() {
+                    var _this = this;
+                    $('.prize-pool').push("<div class='lottery'></div>");
+                    _this.$element = $('.lottery');
+                    this.$element.replaceWith(this.mainDiv);
+                    this.mixNames();
+                    return window.setTimeout(function() {
+                        return _this.stopLottery();
+                    }, 5000);
+                };
+                this.startButtonPressed = function() {
+                    return _this.startLottery();
+                };
 
-		$('#start').click(function (){
+                this.resetButtonPressed = function() {
+                    $('h2.lottery-option').remove();
+                    $('.prize-pool').push("<div class='lottery'></div>");
+                    _this.$element = $('.lottery');
+                    return _this.timerHandle = undefined;
+                };
 
-			document.getElementById('pobjednik').innerHTML = '';
-			$('.odometer').html(rand+1);
-
-			setTimeout(function(){
-
-				if(voteEmails[rand] == ''){
-					voteEmails[rand] = 'No email to display';
-				}
-
-				if (size > 0){
-					document.getElementById('pobjednik').innerHTML = 'Lucky winner is: ' + voteEmails[rand];
-					$('#lista-pobjednika').append('<li class="list-group-item">' + voteEmails[rand] + '</li>');
-					voteEmails.splice(rand, 1); //izbacuje se samo jedan glas iz poola, moguce da je isti mail vise puta ponovljen u poolu
-					size--;
-				}
-				else {alert('No more available votes in a pool!')}
-
-				var oldCounter = rand; //Change of value triggers odometer
-				while( rand == oldCounter ){
-					rand = Math.floor((Math.random() * size));
-					if ( (rand == 0) && (oldCounter == 0) ){
-						break;
-					}
-				}
-			}, 2100);
-
-
-		});
-
-	</script>
+                this.setupListeners = function() {
+                    $("button.resetButton").bind('click', this.resetButtonPressed);
+                    return $("button.start-lottery").bind('click', this.startButtonPressed);
+                };
+                this.init = function() {
+                    console.log("Init");
+                    var _this = this;
+                    this.settings = $.extend({}, this.defaults, options);
+                    this.setState('ready');
+                    this.listItems = [];
+                    $(this.$element).find("li").each(function(index, elem) {
+                        return _this.listItems.push($(elem).text());
+                    });
+                    this.$element.html($(""));
+                    return this.setupListeners();
+                };
+                this.init();
+                return this;
+            };
+            return $.lottery.prototype.defaults = $.fn.lottery = function(options) {
+                return this.each(function() {
+                    var plugin;
+                    if ($(this).data('lottery') === void 0) {
+                        plugin = new $.lottery(this, options);
+                        return $(this).data('lottery', plugin);
+                    }
+                });
+            };
+        });
+    </script>
+    <script type="text/javascript">
+        var lottery;
+        $( function() {
+            lottery = $( '.lottery' ).lottery();
+        } );
+    </script>
 {% endblock %}
