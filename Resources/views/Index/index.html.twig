@@ -61,15 +61,13 @@
 		{% endif %}
 	</div>
 
-    {% if flashMessage is defined %}
+	{% for flashMessage in app.Session.flashbag.get('message') %}
     <div class="row flash-messages">
         <div class="col-xs-12">
-            {% for flashMessage in app.Session.flashbag.get('message') %}
-            <h3><i class="fa fa-lg fa-info-circle"></i>{{flashMessage}}</h3>
-            {% endfor %}
+          <h3><i class="fa fa-lg fa-info-circle"></i>{{flashMessage}}</h3>
         </div>
     </div>
-    {% endif %}
+  {% endfor %}
 
 	<div id="voteScreen">
 	</div>

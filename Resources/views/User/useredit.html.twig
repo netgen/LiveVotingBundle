@@ -3,15 +3,13 @@
 {% block title %}Edit|User|LiveVoting{% endblock %}
 
 {% block body %}
-    {% if flashMessage is defined %}
-    <div class="row flash-messages">
-        <div class="col-xs-12">
             {% for flashMessage in app.Session.flashbag.get('message') %}
-            <h3><i class="fa fa-lg fa-info-circle"></i>{{flashMessage}}</h3>
+              <div class="row flash-messages">
+                  <div class="col-xs-12">
+                    <h3><i class="fa fa-lg fa-info-circle"></i>{{flashMessage}}</h3>
+                  </div>
+              </div>
             {% endfor %}
-        </div>
-    </div>
-    {% endif %}
 
     <div class="row">
         <div id="form-useredit" class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 form-container">
