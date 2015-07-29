@@ -5,27 +5,15 @@
 .navbar-header .dropdown-toggle, .navbar-header .dropdown-toggle:hover,
 .navbar-header .dropdown .dropdown-menu, .navbar-header .dropdown:hover .dropdown-menu,
 #main-footer a > span, #main-footer a > span:link, #main-footer a > span:visited, #main-footer a > span:active,
-#main-footer a > span:link:hover, #main-footer a > span:hover, #main-footer a > span:focus, #main-footer a > span:link:focus {
+#main-footer a > span:link:hover, #main-footer a > span:hover, #main-footer a > span:focus, #main-footer a > span:link:focus,
+.box .actions a > span, .box .actions a > i, .box .actions a:hover > span, .box .actions a:hover > i, .form-control, .form-control:focus {
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	-o-transition: all 0.3s;
 }
 
-.btn, .btn:hover {
-	transition: background-color 0.3s;
-	-webkit-transition: background-color 0.3s;
-	-moz-transition: background-color 0.3s;
-	-o-transition: background-color 0.3s;
-}
-
-.btn-event, .btn-event:hover {
-	transition: background-color 0.3s;
-	-webkit-transition: background-color 0.3s;
-	-moz-transition: background-color 0.3s;
-	-o-transition: background-color 0.3s;
-}
-
+.btn, .btn:hover, .btn-event, .btn-event:hover,
 .form-container form button, .form-container form button:hover,
 form button, form button:hover, form button:focus,
 div.cta a.cta, div.cta a.cta:hover, div.cta a.cta:focus, div.cta a.cta:active {
@@ -55,14 +43,6 @@ img.navbar-logo, img.navbar-logo:hover {
 	-webkit-transition: filter 0.5s;
 	-moz-transition: filter 0.5s;
 	-o-transition: filter 0.5s;
-}
-
-.box .actions a > span, .box .actions a > i, .box .actions a:hover > span, .box .actions a:hover > i,
-.form-control, .form-control:focus {
-	transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	-moz-transition: all 0.3s;
-	-o-transition: all 0.3s;
 }
 
 .question-multiple input.q1,

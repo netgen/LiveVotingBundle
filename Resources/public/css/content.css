@@ -151,10 +151,9 @@
 /**
  * Dashboard
  */
-.dashboard-item, .dashboard-break {
+.dashboard-break {
 	margin-top: 2em;
 	background-color: #ffffff;
-	/*box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);*/
 }
 
 .dashboard-break {
@@ -164,30 +163,6 @@
 
 .dashboard-break h1, .dashboard-break label {
 	color: #ffffff;
-	/*text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.36);*/
-}
-
-.dashboard-item label {
-	color: #404041;
-}
-
-.dashboard-item p {
-	text-align: center;
-	margin-bottom: 0;
-}
-
-.dashboard-item .pres-img {
-	width: 80%;
-	margin: 10%;
-	border-radius: 100%;
-}
-
-.dashboard-item .pres-info {
-	margin: 1em 0;
-}
-
-.dashboard-item .pres-head, .dashboard-item .pres-info {
-	padding: 0.5em;
 }
 
 #liveschedule {
@@ -223,7 +198,6 @@
 
 .pres .pres-outer {
 	background-color: #ffffff;
-	/*box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);*/
 }
 
 .pres .pres-fixed {
@@ -286,8 +260,6 @@
 }
 
 .pres .pres-opinion > div {
-	/*box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);*/
-	/*background: url('../img/assets/bg-pattern.png');*/
 	padding: 0.9375em 1em 1em 1em;
 	border-top: 0.0625em solid #dddddd;
 }
@@ -343,10 +315,6 @@
 	border: none;
 	color: #404041;
 	background-color: #fff;
-}
-
-.comments-section .tab-content {
-	/*background: url('../img/assets/bg-pattern.png');*/
 }
 
 .live-voting-comments li.media > a {
@@ -416,25 +384,12 @@ div#loader span {
 /**
  * Questions
  */
-.question-single-item {
-	margin-top: 2em;
-}
+.question-single-item { margin-top: 2em; }
+.question-single-item:nth-child(even) { padding-right: 1em; }
+.question-single-item:nth-child(odd) { padding-left: 1em; }
+.question-single-item h2 { min-height: 4em; }
 
-.question-single-item:nth-child(even) {
-	padding-right: 1em;
-}
-
-.question-single-item:nth-child(odd) {
-	padding-left: 1em;
-}
-
-.question-single-item h2 {
-	min-height: 4em;
-}
-
-.question-heading .wrapper {
-	background-color: #ffffff;
-}
+.question-heading .wrapper { background-color: #ffffff; }
 
 .question-heading i {
 	font-size: 2em;
@@ -450,18 +405,16 @@ div#loader span {
 	}
 }
 
+
 /**
  * Twitter
  */
-.twitter {	
-	padding-left: 5px;
-}
+.twitter { padding-left: 5px; }
 
 @media (min-width: 768px) {
-	.twitter {
-		border-left: 1px solid #dddddd;
-	}
+	.twitter { border-left: 1px solid #dddddd; }
 }
+
 
 /**
  * Forms
