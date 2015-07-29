@@ -1,10 +1,8 @@
 {% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
-{% block mainHeading %}<h1>Users</h1>{% endblock %}
-
 {% block body %}
     {% for flashMessage in app.Session.flashbag.get('message') %}
-      <h3>{{flashMessage}}</h3>
+    <div class="alert alert-danger">{{flashMessage}}</div>
     {% endfor %}
 
     <div class="row">
@@ -34,9 +32,9 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
-            <a href="{{ path('admin_user_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i>New user</button></a>
-            <a href="{{ path('csv_export') }}"><button type="button" class="btn"><i class="fa fa-sign-out"></i>Export CSV</button></a>
-            <a href="{{ path('user_csv_import') }}"><button type="button" class="btn"><i class="fa fa-sign-in"></i>Import CSV</button></a>
+            <a href="{{ path('admin_user_new') }}"><button type="button" class="btn">New user</button></a>
+            <a href="{{ path('csv_export') }}"><button type="button" class="btn">Export CSV</button></a>
+            <a href="{{ path('user_csv_import') }}"><button type="button" class="btn">Import CSV</button></a>
         </div>
     </div>
 {% endblock %}

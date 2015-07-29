@@ -15,15 +15,10 @@ class PresentationUserController extends Controller
     public function indexAction()
     {
         $user_id = $this->getUser()->getId();
-        //dump($user_id);die;
-
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('LiveVotingBundle:User')->find($user_id);
         $entities = $em->getRepository('LiveVotingBundle:Presentation')->findByUser($this->getUser());
-        //dump($entities);die;
         $that = $this;
-
-
         return $this->render('LiveVotingBundle:Presentation:user.html.twig', array(
             'entities' => array_map(
                 function ($ent) use ($that) {

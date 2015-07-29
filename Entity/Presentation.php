@@ -407,6 +407,7 @@ class Presentation
         if (null === $this->getImage()) {
             return;
         }
+        if(is_string($this->getImage())) return;
 
         // use the original file name here but you should
         // sanitize it at least to avoid any security issues

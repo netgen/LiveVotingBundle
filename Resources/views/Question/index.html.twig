@@ -1,82 +1,61 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
+
+{% block title %}Questions|LiveVoting{% endblock %}
+
+{% block mainHeading %}Questions for {{ event }}{% endblock %}
 
 {% block body -%}
-    <h1>Questions for {{ event }}</h1>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="records_list table">
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Question type</th>
+                        <th>View answers</th>
+                        <th>Edit question</th>
+                        <th>Delete question</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity[0].question }}</td>
+                        <td>{{ entity[0].questionType ? 'Answer (Yes-No)' : 'Voting (1-5)' }}</td>
+                        <td>
+                            {% if entity[0].answers|length > 0 %}
+                            <a  href="{{ path('admin_question_view_answers', { 'id': entity[0].id }) }}">
+                                <button class='btn btn-primary btn-success'> {{ entity[0].answers|length }} Answer(s)</button>
+                            </a>
+                            {% else %}
+                            <button class="btn disabled">{{ entity[0].answers|length }} Answers</button>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('admin_question_edit', { 'id': entity[0].id }) }}">
+                                <button type="button" class="btn">Edit</button>
+                            </a>
+                        </td>                
+                        <td>
+                            <a href="{{ path('admin_question_delete', { 'id': entity[0].id }) }}">
+                                <button type="button" class="btn">Delete</button>
+                            </a>
+                        </td>
 
-    <table class="records_list table table-hover table-striped">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Question</th>
-                <th>Question type</th>
-                <th>View answers</th>
-                <th>Edit question</th>
-                <th>Delete question</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><i class="fa fa-question-circle fa-3x"></i></td>
-                <td>{{ entity[0].question }}</td>
-                <td>{{ entity[0].questionType ? 'Answer (Yes-No)' : 'Voting (1-5)' }}</td>
-                <td>
-                    {% if entity[0].answers|length > 0 %}
-                        <a  href="{{ path('admin_question_view_answers', { 'id': entity[0].id }) }}">
-                            <button class='btn btn-primary btn-success'> {{ entity[0].answers|length }} Answer(s)</button>
-                        </a>
-                    {% else %}
-                        <button class='btn btn-primary btn-info disabled'">{{ entity[0].answers|length }} Answers</button>
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{ path('admin_question_edit', { 'id': entity[0].id }) }}">
-                        <button class="btn btn-primary"><i class="fa fa-edit"></i> Edit</button>
-                    </a>
-                </td>                
-                <td>
-                    <a href="{{ path('admin_question_delete', { 'id': entity[0].id }) }}">
-                        <button class="btn btn-danger" ><i class="fa fa-times"></i> Delete</button>
-                    </a>
-                </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-        <ul class="list-inline">
-        <li>
-            
-        </li>
-            <a  href="{{ path('admin_question_new',{ 'event_id':event.getId }) }}">
-                <button class="btn btn-primary"><i class="fa fa-plus"></i> Add new question</button>
-            </a>
-        <li>
-            <a href="{{ path('admin_event') }}">
-                <button class="btn btn-primary">Back to events</button>
-            </a>
-        </li>
-        {% if entities|length > 0 %}
-            <li>
-                <a  href="{{ path('admin_question_results',{ 'event_id':event.getId }) }}">
-                    <button class="btn btn-primary btn-warning">Average question results for this event</button>
-                </a>
-            </li>
-        {% endif %}
-
-        {% if status == 0 %}
-            <li>
-                <a  href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 1 }) }}">
-                    <button  class="btn btn-primary">Enable answering questions</button>
-                </a>
-            </li>
-        {% elseif status == 1 %}
-            <li>
-                <a href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 0 }) }}">
-                    <button class="btn btn-primary">Disable answering questions</button>
-                </a>
-            </li>
-        {% endif %}
-    </ul>
-    {% endblock %}
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('admin_event') }}"><button type="button" class="btn">Back</button></a>
+            <a href="{{ path('admin_question_new',{ 'event_id':event.getId }) }}"><button type="button" class="btn">New question</button></a>
+            <a href="{{ path('admin_question_results',{ 'event_id':event.getId }) }}"><button type="button" class="btn">Average results</button></a>
+            <a href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 1 }) }}"><button type="button" class="btn">Enable questions</button></a>
+            <a href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 0 }) }}"><button type="button" class="btn">Disable questions</button></a>
+        </div>
+    </div>
+{% endblock %}

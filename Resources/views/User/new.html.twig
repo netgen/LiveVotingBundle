@@ -1,13 +1,17 @@
 {% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
-{% block mainHeading %}<h1>New user</h1>{% endblock %}
+{% block mainHeading %}New user{% endblock %}
 
-{% block body -%}
-    {{ form(form) }}
+{% block body %}    
+	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-lg-3">
+    		{{ form(form) }}
+    	</div>
+	</div>
 
 	<div class="row secondary-footer">
 		<div class="col-xs-12">
-			<a href="{{path('admin_user')}}"><button type="button" class="btn"><i class="fa fa-chevron-left"></i>Back</button></a>
+			<a href="{{path('admin_user')}}"><button type="button" class="btn">Back</button></a>
 		</div>
 	</div>
 {% endblock %}

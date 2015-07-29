@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
+{% block title %}Presentations|User|LiveVoting{% endblock %}
+
 {% block body -%}
     <div class="row">
         <div class="col-xs-12 box light" style="background-image: url({{asset('bundles/livevoting/img/assets/lectures-bg.png')}});">
@@ -47,14 +49,15 @@
                         <h2>{{ entity[0].presentationName }}</h2>
                     </div>
                     <div class="description hidden-xs">
-                        <span>Elephant <i class="fa fa-at"></i> 12:30</span>
-                        <span>Date: 21. July</span>
+                        <span>{{ entity[0].hall }}</div>
+                    <i class="fa fa-at"></i> {{ entity[0].begin|date('H:m') }}</span>
+                        <span>Date: {{ entity[0].begin|date('d. F') }}</span>
                     </div>
                 </div>
                 <div class="clearfix visible-xs"></div>
                 <div class="col-xs-12 visible-xs xs-description">
-                    <span>Elephant <i class="fa fa-at"></i> 12:30</span>
-                    <span>Date: 21. July</span>
+                    <span>{{ entity[0].hall }} <i class="fa fa-at"></i> {{ entity[0].begin|date('H:m') }}</span>
+                    <span>Date: {{ entity[0].begin|date('d. F') }}</span>
                 </div>
                 <div class="col-xs-12 col-sm-5 col-lg-4">
                     <div class="text-right actions">

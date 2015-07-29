@@ -35,7 +35,8 @@ class EventController extends Controller
      * Returns json response object which contain event presentations data
      * @param $request Request
      * @param $event_id Event ID
-     * @return $response Event presentations in JSON
+     * @return JsonResponse $response Event presentations in JSON
+     * @throws \Netgen\LiveVotingBundle\Exception\JoindInClientException
      */
     public function eventStatusAction(Request $request, $event_id)
     {

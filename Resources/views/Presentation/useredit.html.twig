@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
+{% block title %}Edit|Presentation|User|LiveVoting{% endblock %}
+
 {% block body -%}
     {% if flashMessage is defined %}
     <div class="row flash-messages">
@@ -17,10 +19,7 @@
 
             <label>Edit presentation</label>
 
-            <div class="ext">
-                {{ form_label(edit_form.presentationName) }}
-                {{ form_widget(edit_form.presentationName) }}
-            </div>
+            <p>Presentation Name <input type="text" value="{{ entity.presentationName }}" disabled></p>
 
             <p>Presenter Name <input type="text" value="{{ entity.presenterName }}" disabled></p>
 

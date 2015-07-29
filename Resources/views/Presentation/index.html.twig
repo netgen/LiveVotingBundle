@@ -1,76 +1,67 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
+
+{% block title %}Presentations|LiveVoting{% endblock %}
+
+{% block mainHeading %}Presentations for event: {{ event.name }} - {{ event.stateName }}{% endblock %}
 
 {% block body -%}
-    <h1>Presentations for event: {{ event.name }} [{{ event.stateName }}]</h1>
-
     {% for flashMessage in app.Session.flashbag.get('message') %}
-      <h3>{{flashMessage}}</h3>
+    <div class="alert alert-danger">{{flashMessage}}</div>
     {% endfor %}
     
-    <table class="records_list table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Presentation name</th>
-                <th>Presenter name</th>
-                <th>Voting status</th>
-                <th>Joind.in Id</th>
-                <th>Edit presentation</th>
-                <th>Remove presentation</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr class="{{ entity[0].votingEnabled?'success':'danger' }}">
-                <td><img width="40px" src='{{ asset('bundles/livevoting/'~(entity[0].getImage ? entity[0].getWebPath: 'img/man1.png'))}}'/></td>
-                <td>{{ entity[0].presentationName }}</td>
-                <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>
-                <td>
-                    {{ form(entity[1]) }}
-                </td>
-                <td>{{ entity[0].joindInId }}</td>
-                <td>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="records_list table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Presentation name</th>
+                        <th>Presenter name</th>
+                        <th>Voting status</th>
+                        <th>Joind.in Id</th>
+                        <th>Edit presentation</th>
+                        <th>Remove presentation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><img width="40px" src='{{ asset('bundles/livevoting/'~(entity[0].getImage ? entity[0].getWebPath: 'img/man1.png'))}}'/></td>
+                        <td>{{ entity[0].presentationName }}</td>
+                        <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>
+                        <td>
+                            {{ form(entity[1]) }}
+                        </td>
+                        <td>{{ entity[0].joindInId }}</td>
+                        <td>
 
-                    <a class='btn btn-primary' href="{{ path('admin_presentation_edit', { 'id': entity[0].id }) }}">Edit</a>
-                </td>
-                <td>
-                    <a class="btn btn-danger" href="{{ path('admin_presentation_delete', { 'id': entity[0].id }) }}"> <span class="glyphicon glyphicon-remove"></span> Delete</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                            <a href="{{ path('admin_presentation_edit', { 'id': entity[0].id }) }}"><button type="button" class="btn">Edit</button></a>
+                        </td>
+                        <td>
+                            <a href="{{ path('admin_presentation_delete', { 'id': entity[0].id }) }}"><button type="button" class="btn">Delete</button></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-        <ul class="list-inline">
-            <li>
-                <a class="btn btn-primary" href="{{ path('admin_presentation_new', {'event_id':event.getId}) }}">
-                    Create a new presentation
-                </a>
-            </li>
-
-            <li>
-                <a class="btn btn-primary" href="{{ path('admin_event') }}">
-                    Back to events
-                </a>
-            </li>
-
-            <li class="pull-right">
-                <button type="button" id="publishPresentationButton" onclick="publishPresentations()" data-success-text="Publishing successful" data-loading-text="Publishing..." class="btn btn-primary" autocomplete="off">
-                    Publish presentations
-                </button>
-            </li>
-
-            <li class="pull-right" style="margin-top: 15px;">
-                <label>
-                    <select id="joind-events-select" class="form-control">
-                        {% for event in joindInEvents %}
-                            <option value="{{ event.joindInId }}">{{ event.name }}</option>
-                        {% endfor %}
-                    </select>
-                </label>
-            </li>
-    </ul>
-    {% endblock %}
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{ path('admin_event') }}"><button type="button" class="btn">Back</button></a>
+            <a href="{{ path('admin_presentation_new', {'event_id':event.getId}) }}"><button type="button" class="btn">Create new</button></a>
+            <button type="button" id="publishPresentationButton" onclick="publishPresentations()" data-success-text="Publishing successful" data-loading-text="Publishing..." class="btn" autocomplete="off">Publish presentations</button>
+            <label>
+                <select id="joind-events-select" class="form-control">
+                    {% for event in joindInEvents %}
+                        <option value="{{ event.joindInId }}">{{ event.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+    </div>
+{% endblock %}
 
 {% block javascripts %}
     <script type="text/javascript">
