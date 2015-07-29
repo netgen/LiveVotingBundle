@@ -46,9 +46,10 @@ class DashboardController extends Controller{
               AND :datetime < p.end
           ")->setParameter('datetime', new \DateTime())->getArrayResult();
       }
-      foreach($presentations as $presentation) {
-          $presentation['begin'] = $presentation['begin']->format(DATE_RFC850);
-          $presentation['end'] = $presentation['end']->format(DATE_RFC850);
+      foreach($presentations as $key => $presentation) {
+          $presentations[$key]["begin"] = $presentation['begin']->format(DATE_ISO8601);
+          $presentations[$key]['end'] = $presentation['end']->format(DATE_ISO8601);
+
       }
       $responseArray['presentations'] = $presentations;
       return new JsonResponse($responseArray);
