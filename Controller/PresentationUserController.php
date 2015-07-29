@@ -98,7 +98,7 @@ class PresentationUserController extends Controller
             $request->getSession()->getFlashBag()->add(
               'message', 'Your changes were saved.'
             );
-            return $this->redirect($this->generateUrl('user_presentations'/*, array('id' => $entity->->getId())*/));
+          return $this->redirect($this->generateUrl('user_presentation_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
