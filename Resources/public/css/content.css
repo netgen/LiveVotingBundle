@@ -267,23 +267,36 @@
 /**
  * Comments format
  */
-ul.media-list {
+.media-list {
 	background-color: #ffffff;
 }
 
-.live-voting-comments li.media {
+.live-voting-comments .media {
 	margin: 0 1em;
+	padding: 1em 0;
 	border-bottom: 0.0625em solid #dddddd;
 }
 
-.live-voting-comments li.media:last-child {
+.live-voting-comments .media:last-child {
 	border-bottom: none;
 }
 
-.live-voting-comments li.media > a {
-	margin: 1em 1em 1em 0;
+.live-voting-comments .media-user-image {
+	color: #404041;
 }
 
+.live-voting-comments .media-comment-container {
+	padding-left: 1em;
+}
+
+.live-voting-comments .media-comment-container h4 {
+	display: inline-block;
+	font-size: 1em;
+}
+
+.live-voting-comments .media-comment-container label {
+	color: #505051;
+}
 
 /**
  * Tables

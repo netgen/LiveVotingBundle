@@ -137,19 +137,14 @@ p.pres-desc-text {
 	color: #ffffff;
 }
 
-#form-useredit form > #form > div:first-child > label {
-	color: #ffffff;
-	background-color: #6dbc45;
-}
-
+#form-userpres form > label,
+#form-useredit form > #form > div:first-child > label,
 #form-useredit form > #form > div:nth-child(2) > label {
 	color: #ffffff;
 	background-color: #1678b9;
 }
 
 #form-userpres form > label {
-	color: #ffffff;
-	background-color: #6dbc45;
 	text-align: center;
 	text-transform: uppercase;
 	margin-bottom: 1.5em;

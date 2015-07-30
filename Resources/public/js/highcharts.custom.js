@@ -23,7 +23,7 @@ $(document).ready(function(){
                 colorByPoint: true
             }
         },
-        colors: ["#6dbc45", "#1678b9", "#404041"],
+        colors: ["#1678b9"],
         title: {
             text: 'Live results: ' + eventNameHighchart,
             style: {
@@ -38,7 +38,8 @@ $(document).ready(function(){
         xAxis: {
             type: 'String',
             tickPixelInterval: 5,
-            lineColor: "#ffffff",
+            // lineColor: "#ffffff",
+            lineColor: "#ddd",
             lineWidth: 1,
             tickColor: "#ffffff",
             labels: {
@@ -69,7 +70,7 @@ $(document).ready(function(){
                 "font-weight" : "600"
               }
             },
-            gridLineColor: "#ffffff"
+            gridLineColor: "#ddd"
         },
         series: [
             {

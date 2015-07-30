@@ -242,19 +242,21 @@
 
     <script id="comment-partial" type="text/x-handlebars-template">
         {% verbatim %}
-            <li class="media box-padding">
-                <a class="pull-left" href="#">
+            <li class="media">
+            	<div class="row">
+            		<div class="col-xs-2 col-sm-1 media-user-image">
                     {{#if user_gravatar }}
                         <img src="{{ user_gravatar }}" class="img-responsive img-circle">
                     {{else}}
-                        <i class="fa fa-user fa-5x"></i>
+                        <i class="fa fa-circle fa-5x"></i>
                     {{/if }}
-                </a>
-                <div class="media-body">
-                    <h4>{{ user_display_name }}</h4>
-                    <label>{{formatRelative published_at }}</label>
-                    <p>{{{ content }}}</p>
-                </div>
+            		</div>
+            		<div class="col-xs-10 col-sm-11 media-comment-container">
+						<h4>{{ user_display_name }}</h4>
+	                    <label>said {{formatRelative published_at }}</label>
+	                    <p>{{{ content }}}</p>
+            		</div>
+            	</div>
             </li>
         {% endverbatim %}
     </script>
