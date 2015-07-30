@@ -77,7 +77,7 @@
 			<div class="row">
 				<div class="col-xs-12 question-heading">
 					<div class="wrapper shadow box-padding">
-						<h2><i class="fa fa-question-circle"></i>{{ '{{question}}' }}</h2>
+						<h2><!--<i class="fa fa-question-circle"></i>-->{{ '{{question}}' }}</h2>
 					</div>
 				</div>
 			</div>
@@ -97,18 +97,18 @@
 			<div class="row">
 				<div class="col-xs-12 question-heading">
 					<div class="wrapper shadow box-padding">
-						<h2><i class="fa fa-question-circle"></i>{{ '{{question}}' }}</h2>
+						<h2><!--<i class="fa fa-question-circle"></i>-->{{ '{{question}}' }}</h2>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
 					<form class="question-multiple cta cta-multiple shadow bg-pattern text-shadow" action="../answer/{{ '{{ questionId }}' }}" method="POST">
-						<input class="cta-action q5 question" type="submit" value='5'/><!--
-						--><input class="cta-action q4 question" type="submit" value='4'/><!--
-						--><input class="cta-action q3 question" type="submit" value='3'/><!--
-						--><input class="cta-action q2 question" type="submit" value='2'/><!--
-						--><input class="cta-action q1 question" type="submit" value='1'/>
+						<button class="cta-action q5 question" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
+						--><button class="cta-action q4 question" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
+						--><button class="cta-action q3 question" type="submit" value='3'><i class="fa fa-lg fa-thumbs-up rotate-90"></i></button><!--
+						--><button class="cta-action q2 question" type="submit" value='2'><i class="fa fa-lg fa-thumbs-up rotate-135"></i></button><!--
+						--><button class="cta-action q1 question" type="submit" value='1'><i class="fa fa-lg fa-thumbs-up rotate-180"></i></button>
 					</form>
 				</div>
 			</div>
