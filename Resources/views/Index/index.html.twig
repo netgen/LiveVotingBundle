@@ -196,7 +196,7 @@
                                     {{/each }}
                                 {% endverbatim %}
                             </ul>
-                            <ul class="nav nav-tabs cta-discussion" role="tablist">
+                            <ul class="nav nav-tabs cta-discussion cta-discussion-type" role="tablist">
                                 <li role="presentation" class="active" >
                                     <a href="#commentForm-{{ '{{presentationId}}' }}" aria-controls="comment" role="tab" data-toggle="tab">Comment</a>
                                 </li>
@@ -204,7 +204,7 @@
                                     <a href="#pictureForm-{{ '{{presentationId}}' }}" aria-controls="picture" role="tab" data-toggle="tab">Picture</a>
                                 </li>
                             </ul>
-                            <div class="tab-content">
+                            <div class="tab-content cta-discussion cta-discussion-form">
                                 <div role="tabpanel" class="tab-pane fade in active" id="commentForm-{{ '{{presentationId}}' }}">
                                     {% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
                                     {{ form(

@@ -174,7 +174,8 @@ p.pres-desc-text {
 }
 
 .btn:hover, .btn:active, .btn:focus,
-.form-container form button:hover, .form-container form button:active, .form-container form button:focus {
+.form-container form button:hover, .form-container form button:active, .form-container form button:focus,
+#netgen_livevotingbundle_presentationcomment_submit:hover {
 	border: none;
 	background-color: #115c8d;
 	color: #ffffff;
