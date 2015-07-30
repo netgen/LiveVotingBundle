@@ -13,6 +13,15 @@
 
 .box .garbage > img { opacity: 0.25; }
 
+.box .icon i {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-size: 4em;
+	line-height: 1.5em;
+	background-color: rgba(64, 64, 65, 0.25);
+}
+
 .box .text-wrapper {
 	padding: 0 1em;
 }
@@ -178,19 +187,7 @@
 /**
  * Dashboard
  */
-.dashboard-break {
-	margin-top: 2em;
-	background-color: #ffffff;
-}
 
-.dashboard-break {
-	padding: 4em;
-	height: 20em;
-}
-
-.dashboard-break h1, .dashboard-break label {
-	color: #ffffff;
-}
 
 #liveschedule {
 	padding: 0 30px;
