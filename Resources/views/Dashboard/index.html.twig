@@ -239,6 +239,13 @@
                         $(this).removeClass('active');
                     }
                 });
+                this.element.find('.vote-option').each(function () {
+                    if (this.value == vote_number) {
+                        $(this).addClass('active');
+                    } else {
+                        $(this).removeClass('active');
+                    }
+                });
             };
 
 
@@ -392,9 +399,6 @@
         }
 
         function pequals(p, presentation) {
-            console.log("Comparing");
-            console.log(p);
-            console.log(presentation);
             if(p.id != presentation.id) return false;
             if(p.globalBrake != presentation.globalBrake) return false;
             if(p.begin != presentation.begin) return false;
@@ -411,7 +415,6 @@
                     dataType: "json",
                     success: function (data) {
                         if('presentations' in data) {
-                            console.log("Number of displayed presentations "+displayedPresentations.length);
                             if(displayedPresentations.length == 0) {
                                 var result = $.grep(data.presentations, function(e){
                                     return e.globalBrake;
@@ -436,8 +439,6 @@
                                     //removing expired presentations
                                     displayedPresentations.forEach(function(displayed_presentation, index, array) {
                                        if(!presentationInArray(displayed_presentation, data.presentations)) {
-                                           console.log("Removing");
-                                           console.log(displayed_presentation);
                                            $('#presentation-'+displayed_presentation.id).remove();
                                            array.splice(index, 1);
                                        }
@@ -445,8 +446,6 @@
                                     //adding presentations scheduled next
                                     data.presentations.forEach(function(presentation) {
                                         if(!presentationInArray(presentation, displayedPresentations)) {
-                                            console.log("Adding");
-                                            console.log(presentation);
                                             $(presentation_template(presentation)).hide().appendTo(srcDiv).fadeIn(1500);
                                             displayedPresentations.push(presentation);
                                         }

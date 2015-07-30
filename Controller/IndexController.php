@@ -10,6 +10,7 @@
 namespace Netgen\LiveVotingBundle\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Event;
+use Netgen\LiveVotingBundle\Entity\Presentation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class IndexController extends Controller
 {
+    private $has_voting = false;
     /**
      * Lists all Events on /user/ landing page
      * @return mixed
@@ -31,14 +33,29 @@ class IndexController extends Controller
     {
         $events = $this->getDoctrine()->getManager()
             ->createQueryBuilder("e")
-            ->select("e")
+            ->select("e, p")
             ->from("LiveVotingBundle:event", "e")
             ->where('e.begin < :datetime')
-            ->andWhere('e.end > :datetime')
             ->orderBy('e.event', 'ASC')
+            ->leftjoin('e.presentations', "p")
             ->setParameter('datetime', new \DateTime())
             ->getQuery()->getResult();
         $events = $this->sortEvents($events);
+        foreach($events as $key => $event) {
+            /**
+             * @var $event Event
+             */
+            $this->has_voting = false;
+            foreach($event->getPresentations() as $presentationKey => $presentation) {
+                /**
+                 * @var $presentation Presentation
+                 */
+                if($presentation->getVotingEnabled()) {
+                    $this->has_voting = true;
+                }
+            }
+            $events[$key]->hasVoting = $this->has_voting;
+        }
         return $this->render('LiveVotingBundle:Index:landing.html.twig',
             array(
               'events'=>$events
