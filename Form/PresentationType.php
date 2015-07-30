@@ -25,7 +25,7 @@ class PresentationType extends AbstractType
             ->add('hall', 'text' ,array('attr' => array('class' => 'form-control')))
             ->add('begin', 'datetime')
             ->add('end', 'datetime')
-            ->add('joind_in_id', 'text', array('attr' => array('class' => 'form-control', 'required' => false)))
+            ->add('joind_in_id', 'text', array('attr' => array('class' => 'form-control'), 'required' => false))
             //->add('event', 'entity', array('class'=>'Netgen\LiveVotingBundle\Entity\Event', 'disabled'=>true))
         ;
     }
