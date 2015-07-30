@@ -150,17 +150,13 @@
 	color: #404041 !important;
 }
 
-.cta-multiple .cta-action:last-child {
+.cta-multiple .cta-action:last-child, .cta-duo .cta-action:last-child {
 	border-right: 0.05em solid #dddddd;
 }
 
-.cta-duo .yes.cta-action:hover,
-.cta-duo .no.cta-action:hover,
-.cta-multiple .q1.cta-action:hover,
-.cta-multiple .q2.cta-action:hover,
-.cta-multiple .q3.cta-action:hover,
-.cta-multiple .q4.cta-action:hover,
-.cta-multiple .q5.cta-action:hover {
+.cta-duo .yes.cta-action:hover, .cta-duo .no.cta-action:hover,
+.cta-multiple .q1.cta-action:hover, .cta-multiple .q2.cta-action:hover, .cta-multiple .q3.cta-action:hover,
+.cta-multiple .q4.cta-action:hover, .cta-multiple .q5.cta-action:hover {
 	background-color: transparent;
 }
 
