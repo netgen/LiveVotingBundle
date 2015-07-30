@@ -339,12 +339,12 @@
             <div class="row">
                 <div class="col-xs-12">
                 {% if app.user %}
-                    <form class="question-multiple cta cta-multiple shadow bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
-                        <input class="cta-action vote-option q5" type="submit" value='5'/><!--
-                        --><input class="cta-action vote-option q4" type="submit" value='4'/><!--
-                        --><input class="cta-action vote-option q3" type="submit" value='3'/><!--
-                        --><input class="cta-action vote-option q2" type="submit" value='2'/><!--
-                        --><input class="cta-action vote-option q1" type="submit" value='1'/>
+                    <form class="question-multiple cta cta-multiple bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
+                        <button class="cta-action vote-option q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
+                        --><button class="cta-action vote-option q4" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
+                        --><button class="cta-action vote-option q3" type="submit" value='3'><i class="fa fa-lg fa-thumbs-up rotate-90"></i></button><!--
+                        --><button class="cta-action vote-option q2" type="submit" value='2'><i class="fa fa-lg fa-thumbs-up rotate-135"></i></button><!--
+                        --><button class="cta-action vote-option q1" type="submit" value='1'><i class="fa fa-lg fa-thumbs-up rotate-180"></i></button>
                     </form>
                 {% else %}
                     <div class="cta shadow bg-pattern text-shadow">
@@ -356,7 +356,7 @@
         </div>
     </script>
     <script id="global-brake-template" type="text/x-handlebars-template" >
-        <div id="presentation-{{ '{{ id }}' }}" class="col-xs-12 box light shadow text-shadow" style="background-image: url({{asset('bundles/livevoting/img/assets/lunch.png')}});">
+        <div id="presentation-{{ '{{ id }}' }}" class="col-xs-12 box light shadow text-shadow global-brake" style="background-image: url({{asset('bundles/livevoting/img/assets/lunch.png')}});">
             <div class="row vertical-align-xs">
                 <div class="col-xs-4 col-sm-1 text-center garbage icon">
                     <i class="fa fa-cutlery"></i>
