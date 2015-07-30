@@ -107,23 +107,6 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12 box light shadow text-shadow" style="background-image: url({{asset('bundles/livevoting/img/assets/lunch.png')}});">
-          <div class="row vertical-align-xs">
-            <div class="col-xs-4 col-sm-1 text-center garbage icon">
-                <i class="fa fa-cutlery"></i>
-            </div>
-            <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-              <div>
-                <h1>Lunch time!</h1>
-              </div>
-              <div>
-                <label class="big">12:00 - 14:00</label>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
 
     <div class="row" id="liveschedule"></div>
 
@@ -186,6 +169,10 @@
                 arr[id].handle();
             };
 
+            this.isEmpty = function() {
+                return arr;
+            };
+
 
             this.getById = function (id) {
                 return arr[id];
@@ -240,6 +227,10 @@
                 return data;
             };
 
+            this.getVote = function () {
+                return this.element.find('input[type=submit] .active').first().val();
+            };
+
             this.setVote = function (vote_number) {
                 this.element.find('input[type=submit]').each(function () {
                     if (this.value == vote_number) {
@@ -274,6 +265,7 @@
         function brain(options_) {
 
             var canIVote = true;
+            var body = $('body');
             presentations = new presentationsArray();
 
             Handlebars.registerHelper('ifCond', function (v1, v2, options) {
@@ -285,26 +277,21 @@
             HandlebarsIntl.registerWith(Handlebars);
 
 
-            $('#liveschedule').on('change', '.forma', function (e) {
+            body.on('change', '.question-multiple', function (e) {
                 e.preventDefault();
             });
 
 
-            $('#liveschedule').on('click', '.forma input', function (e) {
+            body.on('click', '.vote-option', function (e) {
                 e.preventDefault();
                 if (!canIVote)return;
-                var action = $(this).parent().parent().attr('action');
+                var action = $(this).closest('form').attr('action');
                 var presentation_id = action.split('/').pop();
                 var presentation = presentations.getById(presentation_id);
+                var old_vote = presentation.getVote();
                 var vote = $(this).attr('value');
                 var rate = 'rate=' + vote;
-                $(e.target).parent(".btn-group").find('input[type=submit]').each(function () {
-                    if (this.value == rate) {
-                        $(this).addClass('active');
-                    } else {
-                        $(this).removeClass('active');
-                    }
-                });
+                presentation.setVote(vote);
                 if(presentation.getData()['votingEnabled']==true){
                     $.ajax({
                         type: 'post',
@@ -314,6 +301,7 @@
 
                         },
                         error: function (e) {
+                            presentation.setVote(old_vote);
                         }
                     });
                 }
@@ -327,7 +315,7 @@
 
     </script>
     <script id="live-schedule-template" type="text/x-handlebars-template">
-        <div class="col-xs-12 col-sm-4 box shadow">
+        <div class="col-xs-12 col-sm-4 box shadow" id="presentation-{{ '{{ id }}' }}">
             <div class="row">
                 <div class="col-xs-4">
                     <div class="row">
@@ -351,19 +339,13 @@
             <div class="row">
                 <div class="col-xs-12">
                 {% if app.user %}
-                    {% verbatim %}
-                        {{#if votingEnabled }}
-                    {% endverbatim %}
-                            <form class="question-multiple cta cta-multiple shadow bg-pattern text-shadow" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
-                                <input class="cta-action q5" type="submit" value='5'/><!--
-                                --><input class="cta-action q4" type="submit" value='4'/><!--
-                                --><input class="cta-action q3" type="submit" value='3'/><!--
-                                --><input class="cta-action q2" type="submit" value='2'/><!--
-                                --><input class="cta-action q1" type="submit" value='1'/>
-                            </form>
-                    {% verbatim %}
-                        {{/if }}
-                    {% endverbatim %}
+                    <form class="question-multiple cta cta-multiple shadow bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
+                        <input class="cta-action vote-option q5" type="submit" value='5'/><!--
+                        --><input class="cta-action vote-option q4" type="submit" value='4'/><!--
+                        --><input class="cta-action vote-option q3" type="submit" value='3'/><!--
+                        --><input class="cta-action vote-option q2" type="submit" value='2'/><!--
+                        --><input class="cta-action vote-option q1" type="submit" value='1'/>
+                    </form>
                 {% else %}
                     <div class="cta shadow bg-pattern text-shadow">
                         <a class="cta-action" href="{{ path('user_landing') }}">Vote</a>
@@ -373,12 +355,53 @@
             </div>
         </div>
     </script>
+    <script id="global-brake-template" type="text/x-handlebars-template" >
+        <div id="presentation-{{ '{{ id }}' }}" class="col-xs-12 box light shadow text-shadow" style="background-image: url({{asset('bundles/livevoting/img/assets/lunch.png')}});">
+            <div class="row vertical-align-xs">
+                <div class="col-xs-4 col-sm-1 text-center garbage icon">
+                    <i class="fa fa-cutlery"></i>
+                </div>
+                <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
+                    <div>
+                        <h1>{{'{{presentationName}}'}}</h1>
+                    </div>
+                    <div>
+                        <label class="big">{{ '{{formatTime begin hour="numeric" minute="numeric"  }}' }} - {{ '{{formatTime end hour="numeric" minute="numeric"  }}' }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
     <script type="text/javascript">
-        var srcDiv = document.getElementById('liveschedule');
-        var content = [];
-        var divContent = [];
-        var source = document.getElementById('live-schedule-template').innerHTML;
-        var template = Handlebars.compile(source);
+        var srcDiv = '#liveschedule';
+        var displayedPresentations = [];
+        var presentation_template_html = document.getElementById('live-schedule-template').innerHTML;
+        var global_brake_template_html = document.getElementById('global-brake-template').innerHTML;
+        var presentation_template = Handlebars.compile(presentation_template_html);
+        var global_brake_tempalte = Handlebars.compile(global_brake_template_html);
+
+        function presentationInArray(presentation, presentationArray) {
+            var equals = false;
+            $.each(presentationArray, function(key, p) {
+                if(pequals(p, presentation)) {
+                    equals = true;
+                    return false;
+                }
+            });
+            return equals;
+        }
+
+        function pequals(p, presentation) {
+            console.log("Comparing");
+            console.log(p);
+            console.log(presentation);
+            if(p.id != presentation.id) return false;
+            if(p.globalBrake != presentation.globalBrake) return false;
+            if(p.begin != presentation.begin) return false;
+            if(p.end != presentation.end) return false;
+            if(p.presentationName != presentation.presentationName) return false;
+            return true;
+        }
 
         $(document).ready(function () {
             var ajaxFunction = function () {
@@ -387,45 +410,53 @@
                     url: '{{ path('dashboard_live_schedule') }}',
                     dataType: "json",
                     success: function (data) {
-                        if ('presentations' in data) {
-                            if (content.length === 0) {
-                                for (var i = 0; i < data['presentations'].length; i++) {
-                                    content.push(JSON.stringify(data['presentations'][i].id));
-                                    html = template(data['presentations'][i]);
-                                    newDiv = document.createElement('div');
-                                    newDiv.innerHTML = html;
-                                    divContent.push(srcDiv.appendChild(newDiv));
+                        if('presentations' in data) {
+                            console.log("Number of displayed presentations "+displayedPresentations.length);
+                            if(displayedPresentations.length == 0) {
+                                var result = $.grep(data.presentations, function(e){
+                                    return e.globalBrake;
+                                });
+                                if(result.length == 0) {
+                                    data['presentations'].forEach(function (presentation) {
+                                        $(presentation_template(presentation)).hide().appendTo(srcDiv).fadeIn(1500);
+                                        displayedPresentations.push(presentation);
+                                    });
+                                } else {
+                                    $(global_brake_tempalte(result[0])).hide().appendTo(srcDiv).fadeIn(1500);
+                                    displayedPresentations.push(result[0]);
                                 }
                                 setInterval(ajaxFunction, 10000);
                             } else {
-                                var givenData = [];
-                                for (var k = 0; k < data['presentations'].length; k++) {
-                                    givenData.push(JSON.stringify(data['presentations'][k].id));
-                                }
-
-                                for (var j = 0; j < content.length; j++) {
-                                    if (givenData.indexOf(content[j]) === -1) {
-                                        $(divContent[j]).fadeOut(2000, function () {
-                                            this.remove();
-                                        });
-                                        content.splice(j, 1);
-                                        divContent.splice(j, 1);
-                                        j--;
-                                    }
-                                }
-
-                                for (var j = 0; j < givenData.length; j++) {
-                                    if (content.indexOf(givenData[j]) === -1) {
-                                        content.push(givenData[j]);
-
-                                        html = template(data['presentations'][j]);
-
-                                        newDiv = document.createElement('div');
-                                        newDiv.innerHTML = html;
-
-                                        divContent.push(srcDiv.appendChild(newDiv));
-                                        $(divContent[j]).hide();
-                                        $(divContent[j]).fadeIn(2000);
+                                //searching for global brake presentation
+                                var result = $.grep(data.presentations, function(e){
+                                    return e.globalBrake;
+                                });
+                                if(result.length == 0) {
+                                    //no global brake presentation
+                                    //removing expired presentations
+                                    displayedPresentations.forEach(function(displayed_presentation, index, array) {
+                                       if(!presentationInArray(displayed_presentation, data.presentations)) {
+                                           console.log("Removing");
+                                           console.log(displayed_presentation);
+                                           $('#presentation-'+displayed_presentation.id).remove();
+                                           array.splice(index, 1);
+                                       }
+                                    });
+                                    //adding presentations scheduled next
+                                    data.presentations.forEach(function(presentation) {
+                                        if(!presentationInArray(presentation, displayedPresentations)) {
+                                            console.log("Adding");
+                                            console.log(presentation);
+                                            $(presentation_template(presentation)).hide().appendTo(srcDiv).fadeIn(1500);
+                                            displayedPresentations.push(presentation);
+                                        }
+                                    });
+                                } else {
+                                    if(!presentationInArray(result[0], displayedPresentations)) {
+                                        $(srcDiv).empty();
+                                        displayedPresentations = [];
+                                        $(global_brake_tempalte(result[0])).hide().appendTo(srcDiv).fadeIn(1500);
+                                        displayedPresentations.push(result[0]);
                                     }
                                 }
                             }
