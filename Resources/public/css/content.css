@@ -155,8 +155,9 @@
 }
 
 .cta-duo .yes.cta-action:hover, .cta-duo .no.cta-action:hover,
-.cta-multiple .q1.cta-action:hover, .cta-multiple .q2.cta-action:hover, .cta-multiple .q3.cta-action:hover,
-.cta-multiple .q4.cta-action:hover, .cta-multiple .q5.cta-action:hover {
+.cta-duo .yes.cta-action:focus, .cta-duo .no.cta-action:focus,
+.cta-multiple .q1.cta-action:hover, .cta-multiple .q2.cta-action:hover, .cta-multiple .q3.cta-action:hover, .cta-multiple .q4.cta-action:hover, .cta-multiple .q5.cta-action:hover,
+.cta-multiple .q1.cta-action:focus, .cta-multiple .q2.cta-action:focus, .cta-multiple .q3.cta-action:focus, .cta-multiple .q4.cta-action:focus, .cta-multiple .q5.cta-action:focus {
 	background-color: transparent;
 }
 
@@ -171,6 +172,11 @@
 
 .cta.cta-vote label {
 	.line-height: 2em;
+}
+
+.cta.cta-disabled .cta-action, .cta.cta-disabled .cta-action > i {
+	color: #dddddd !important;
+	cursor: default;
 }
 
 @media (min-width: 768px) {
@@ -234,38 +240,35 @@
 	border: 0.0625em solid #dddddd;
 }
 
-.comments-section .nav-tabs {
+.comments-section .nav.nav-tabs {
 	margin: 0;
-	padding: 1em 0 0 1em;
+	padding: 2em 1em 0 1em;
 	border-bottom: 0.0625em solid #dddddd;
 }
 
-.comments-section .nav-tabs li {
-	margin-bottom: 0;
+.comments-section .nav.nav-tabs li {
+	/*margin-bottom: 0;*/
 }
 
-.comments-section .nav-tabs a {
-	margin-right: 0;
+.comments-section .nav.nav-tabs > li > a {
+	margin: 0;
 	padding: 0.5em 1em;
-	border-radius: 0;
-	border: none;
-	font-size: 1em;
-	line-height: 1em;
-	color: #1678b9;
-	background-color: #fff;
+	background-color: transparent;
 }
 
-.comments-section .nav-tabs a:hover {
-	color: #115c8d;
-	background-color: #ecf0f5;
-	text-decoration: none;
+.comments-section .nav.nav-tabs > li > a:hover {
+	background-color: transparent;
 }
 
-.comments-section .nav-tabs li.active a, .comments-section .nav-tabs li.active a:hover {
-	border-radius: 0;
-	border: none;
+.comments-section > .nav.nav-tabs > .active > a {
+	margin-bottom: -0.0625em !important;
+	border-bottom: none;
 	color: #404041;
-	background-color: #fff;
+	background-color: #ffffff;
+}
+
+.comments-section > .nav.nav-tabs > .active > a:hover {
+	background-color: #ffffff;
 }
 
 
