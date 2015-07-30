@@ -6,17 +6,19 @@
 
 {% block body %}
     {% for flashMessage in app.Session.flashbag.get('message') %}
-    <div class="alert alert-danger">{{flashMessage}}</div>
+    <div class="alert alert-danger">
+        <div class="text">{{flashMessage}}</div>
+    </div>
     {% endfor %}
 
     <div class="row">
         <div class="col-xs-12">
-            <table class="records_list table">
+            <table class="records_list table margin-top">
                 <thead>
                     <tr>
-                        <th>User email</th>
-                        <th class="text-center">User enabled</th>
-                        <th>Edit user</th>
+                        <th>Email</th>
+                        <th class="text-center">Enabled</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +38,7 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
-            <a href="{{ path('admin_user_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i> New user</button></a>
+            <a href="{{ path('admin_user_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i> Add user</button></a>
             <a href="{{ path('csv_export') }}"><button type="button" class="btn"><i class="fa fa-sign-out"></i> Export CSV</button></a>
             <a href="{{ path('user_csv_import') }}"><button type="button" class="btn"><i class="fa fa-sign-in"></i> Import CSV</button></a>
         </div>
