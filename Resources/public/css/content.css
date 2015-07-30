@@ -170,11 +170,17 @@
 	cursor: default;
 }
 
+.cta-multiple .active.cta-action > i, .cta-duo .active.cta-action > i,
+.cta-multiple .active.cta-action:hover > i, .cta-duo .active.cta-action:hover > i,
+.cta-multiple .active.cta-action:focus > i, .cta-duo .active.cta-action:focus > i {
+	color: #ffffff !important;
+}
+
 .cta.cta-vote label {
 	.line-height: 2em;
 }
 
-.cta.cta-disabled .cta-action, .cta.cta-disabled .cta-action > i {
+.cta.cta-disabled .cta-action, .cta.cta-disabled .cta-action:hover, .cta.cta-disabled .cta-action.active > i, .cta.cta-disabled .cta-action.active > i:hover {
 	color: #dddddd !important;
 	cursor: default;
 }
@@ -305,6 +311,9 @@
 .live-voting-comments .media-comment-container label {
 	color: #505051;
 }
+
+
+
 
 /**
  * Tables
