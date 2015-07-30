@@ -15,20 +15,17 @@ class PresentationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('presenterName', 'text' ,array('attr' => array('class' => 'form-control')))
-            ->add('presenterSurname', 'text' ,array('attr' => array('class' => 'form-control')))
-            ->add('presentationName', 'text' ,array('attr' => array('class' => 'form-control')))
+            ->add('name', 'text' ,array('attr' => array('class' => 'form-control')))
             ->add('description', 'textarea' ,array('attr' => array('class' => 'form-control', 'rows' => "7")))
-            ->add('image', 'file', array(
+            ->add('image_url', 'file', array(
                 'data_class' => null,
                 'required' => false
             ))
-            ->add('globalBrake', 'checkbox', array('attr' => array('class' => 'form-control'), "label" => "Global break (lunch, pause, etc.)"))
+            ->add('globalBrake', 'checkbox', array('attr' => array('class' => 'form-control'), "label" => "Global break (lunch, pause, etc.)", 'required' => false))
             ->add('hall', 'text' ,array('attr' => array('class' => 'form-control')))
-            ->add('user', 'entity' ,array('attr' => array('class' => 'form-control'), 'class' => 'LiveVotingBundle:User', 'property' => 'email'))
-            ->add('begin')
-            ->add('end')
-            ->add('joind_in_id', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('begin', 'datetime')
+            ->add('end', 'datetime')
+            ->add('joind_in_id', 'text', array('attr' => array('class' => 'form-control', 'required' => false)))
             //->add('event', 'entity', array('class'=>'Netgen\LiveVotingBundle\Entity\Event', 'disabled'=>true))
         ;
     }
@@ -39,7 +36,7 @@ class PresentationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Netgen\LiveVotingBundle\Entity\Presentation',
+            'data_class' => 'Netgen\LiveVotingBundle\Service\PresentationService\Record\PresentationRecord',
             'attr' => array('style'=>'width:300px;margin-left:10px;', 'role'=>'form')
         ));
     }
