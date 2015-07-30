@@ -22,11 +22,15 @@ class DoctrinePresentationRepo implements PresentationRepository {
     private $em;
     private $presentationRepository;
     private $voteRepository;
+    private $userRepository;
+    private $eventRepository;
 
-    public function __construct(EntityManager $em, $presentationRepository, $voteRepository) {
+    public function __construct(EntityManager $em, $presentationRepository, $voteRepository, $userRepository, $eventRepository) {
         $this->em = $em;
         $this->presentationRepository = $presentationRepository;
         $this->voteRepository = $voteRepository;
+        $this->userRepository = $userRepository;
+        $this->eventRepository = $eventRepository;
     }
 
     /**
@@ -92,9 +96,16 @@ class DoctrinePresentationRepo implements PresentationRepository {
      */
     public function find($find_criteria = array())
     {
+      if(array_key_exists('event_id', $find_criteria)){
+        $event_id = $find_criteria['event_id'];
+        $event = $this->em->getRepository($this->eventRepository)->findOneById($event_id);
+        unset($find_criteria['event_id']);
+        $find_criteria['event'] = $event;
+      }
+
         $presentationEntities = $this->em->getRepository($this->presentationRepository)->findBy($find_criteria);
               if(!$presentationEntities)
-                throw new NotFoundHttpException('Presentation not found.');
+                throw new NotFoundHttpException('Presentation(s) not found.');
 
         $presentationObjects = array();
         foreach ($presentationEntities as $pres) {
@@ -148,11 +159,11 @@ class DoctrinePresentationRepo implements PresentationRepository {
         if(!$presentationEntity)
           throw new NotFoundHttpException('Presentation not found.');
 
-        $userEntity = $this->em->getRepository('LiveVotingBundle:User')->findOneById($user_id);
+        $userEntity = $this->em->getRepository($this->userRepository)->findOneById($user_id);
         if(!$userEntity)
           throw new NotFoundHttpException('User not found.');
 
-        $voteEntity = $this->em->getRepository('LiveVotingBundle:Vote')->findOneBy(array(
+        $voteEntity = $this->em->getRepository($this->voteRepository)->findOneBy(array(
             'user'=>$userEntity,
             'presentation'=>$presentationEntity
         ));
@@ -185,7 +196,7 @@ class DoctrinePresentationRepo implements PresentationRepository {
         if(!$presentationEntity)
           throw new NotFoundHttpException('Presentation not found.');
 
-        $user = $this->em->getRepository('LiveVotingBundle:User')->findOneById($user_id);
+        $user = $this->em->getRepository($this->userRepository)->findOneById($user_id);
 
         $vote = $this->em->getRepository($this->voteRepository)->findOneBy(array(
           'presentation' => $presentationEntity,
@@ -237,15 +248,15 @@ class DoctrinePresentationRepo implements PresentationRepository {
       $presentationEntity->setEnd($presentation->getEnd());
       $presentationEntity->setJoindInId($presentation->getJoindInId());
       $presentationEntity->setImage($presentation->getImageUrl());
-      $presentationEntity->setPresenterName('Marijo');
-      $presentationEntity->setPresenterSurname('Pavlov');
+      $presentationEntity->setPresenterName($presentation->presenterName);
+      $presentationEntity->setPresenterSurname($presentation->presenterSurname);
 
-      $event = $this->em->getRepository('LiveVotingBundle:Event')->findOneById($presentation->getId());
+      $event = $this->em->getRepository($this->eventRepository)->findOneById($presentation->getEventId());
 
       if($event)
         $presentationEntity->setEvent($event);
 
-      $user = $this->em->getRepository('LiveVotingBundle:User')->findOneById($presentation->getUserId());
+      $user = $this->em->getRepository($this->userRepository)->findOneById($presentation->getUserId());
 
       if($user)
         $presentationEntity->setUser($user);
@@ -265,6 +276,9 @@ class DoctrinePresentationRepo implements PresentationRepository {
       $presentation->setEnd($presentationEntity->getEnd());
       $presentation->setJoindInId($presentationEntity->getJoindInId());
       $presentation->setImageUrl($presentationEntity->getImage());
+
+      $presentation->presenterName = $presentationEntity->getPresenterName();
+      $presentation->presenterSurname = $presentationEntity->getPresenterSurname();
 
       if($presentationEntity->getEvent())
         $presentation->setEventId($presentationEntity->getEvent()->getId());
