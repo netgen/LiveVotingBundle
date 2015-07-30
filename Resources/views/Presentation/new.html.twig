@@ -7,11 +7,6 @@
     {{ form_start(form) }}
 
     <div class="form-group">
-        {{ form_label(form.presentationName) }}
-        {{ form_widget(form.presentationName) }}
-    </div>
-
-    <div class="form-group">
         {{ form_label(form.presenterName) }}
         {{ form_widget(form.presenterName) }}
     </div>
@@ -22,8 +17,12 @@
     </div>
 
     <div class="form-group">
-        {{ form_label(form.image) }}
-        {{ form_widget(form.image) }}
+        {{ form_widget(form.presentationRecord) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.user) }}
+        {{ form_widget(form.user) }}
     </div>
 
     {{ form_end(form) }}

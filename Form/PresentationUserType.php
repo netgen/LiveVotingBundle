@@ -20,7 +20,7 @@ class PresentationUserType extends AbstractType
     public function buildForm (FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('presentationName')
+            ->add('name')
             ->add('description')
         ;
     }
@@ -31,7 +31,7 @@ class PresentationUserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Netgen\LiveVotingBundle\Entity\Presentation',
+            'data_class' => 'Netgen\LiveVotingBundle\Service\PresentationService\Record\PresentationRecord',
             'attr' => array('class'=>'form-horizontal', 'role'=>'form')
         ));
     }

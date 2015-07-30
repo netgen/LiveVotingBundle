@@ -12,20 +12,22 @@
             <label>Edit presentation</label>
 
             <div class="ext">
-                {{ form_label(edit_form.presentationName) }}
-                {{ form_widget(edit_form.presentationName) }}
+                {{ form_label(edit_form.name) }}
+                {{ form_widget(edit_form.name) }}
             </div>
 
             <p>Presenter Name <input type="text" value="{{ entity.presenterName }}" disabled></p>
 
-            <p>Presenter Name <input type="text" value="{{ entity.presenterSurname }}" disabled></p>
+            <p>Presenter Surname <input type="text" value="{{ entity.presenterSurname }}" disabled></p>
 
             <div class="ext">
                 {{ form_label(edit_form.description) }}
                 {{ form_widget(edit_form.description) }}
             </div>
 
-            <p>Event <input type="text" value="{{ entity.event }}" disabled></p>
+            <p>Hall <input type="text" value="{{ entity.hall }}" disabled></p>
+
+            <p>Event <input type="text" value="{{ event.name }}" disabled></p>
 
             <p>Starts <input type="text" value="{{ entity.begin | date("i:H, m/d/Y") }}" disabled></p>
 

@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Netgen\LiveVotingBundle\Entity\Presentation;
 use Netgen\LiveVotingBundle\Form\PresentationUserType;
+use Netgen\LiveVotingBundle\Service\PresentationService\Record\PresentationRecord;
 
 
 class PresentationUserController extends Controller
@@ -19,7 +20,7 @@ class PresentationUserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('LiveVotingBundle:User')->find($user_id);
-        $entities = $em->getRepository('LiveVotingBundle:Presentation')->findByUser($this->getUser());
+        $entities = $this->get('live_voting.doctrine_presentation_repo')->find(array('user'=>$user));
         //dump($entities);die;
         $that = $this;
 
@@ -34,11 +35,11 @@ class PresentationUserController extends Controller
 
     }
 
-    public function createEnableDisableForm(Presentation $entity){
+    public function createEnableDisableForm(PresentationRecord $entity){
         $form = $this->createFormBuilder();
         $form->setMethod('PUT');
         $form->setAction($this->generateUrl('admin_presentation_vote_enable', array('id'=>$entity->getId())));
-        if($entity->getVotingEnabled()==False)
+        if($entity->isVotingEnabled()==False)
             $form->add('disable', 'submit',  array('label'=>'Disabled', 'attr'=>array('class'=>'btn btn-danger')));
         else
             $form->add('enable', 'submit',  array('label'=>'Enabled', 'attr'=>array('class'=>'btn btn-success')));
@@ -48,22 +49,19 @@ class PresentationUserController extends Controller
 
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Presentation entity.');
-        }
+        $entity = $this->get('live_voting.doctrine_presentation_repo')->findOne($id);
 
         $editForm = $this->createEditForm($entity);
+
+        $event = $this->getDoctrine()->getManager()->getRepository('LiveVotingBundle:Event')->findOneById($entity->getEventId());
 
         // Not needed in edit page
         $editForm->remove('votingEnabled');
 
         return $this->render('LiveVotingBundle:Presentation:useredit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
+            'event'       => $event
         ));
     }
 
@@ -72,7 +70,7 @@ class PresentationUserController extends Controller
      * @param Presentation $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Presentation $entity)
+    private function createEditForm(PresentationRecord $entity)
     {
         $form = $this->createForm(new PresentationUserType(), $entity, array(
             'action' => $this->generateUrl('user_presentation_update', array('id' => $entity->getId())),
@@ -86,19 +84,14 @@ class PresentationUserController extends Controller
     }
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $entity = $this->get('live_voting.doctrine_presentation_repo')->findOne($id);
 
-        $entity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Presentation entity.');
-        }
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $entity->upload();
-            $em->flush();
+            $this->get('live_voting.doctrine_presentation_repo')->update($entity);
 
             $request->getSession()->getFlashBag()->add(
               'message', 'Your changes were saved.'
