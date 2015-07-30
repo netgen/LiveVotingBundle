@@ -292,6 +292,7 @@
             body.on('click', '.vote-option', function (e) {
                 e.preventDefault();
                 if (!canIVote)return;
+                if($(this).closest('form').hasClass("cta-disabled")) return;
                 var action = $(this).closest('form').attr('action');
                 var presentation_id = action.split('/').pop();
                 var presentation = presentations.getById(presentation_id);
