@@ -129,12 +129,6 @@ h2 {
 
 
 /**
- * Tables
- */
-table.table {}
-
-
-/**
  * Forms
  */
 form {
@@ -201,6 +195,18 @@ form button, form button.btn {
 	text-transform: uppercase;
 }
 
+form button.btn-success {
+	background-color: #26bb16;
+}
+
+form button.btn-danger {
+	background-color: #bb5816;
+}
+
+form button.btn-success:hover, form button.btn-danger:hover {
+	background-color: #404041;
+}
+
 form button:hover, form button:focus {
 	background-color: #115c8d;
 }
@@ -228,16 +234,55 @@ form button:hover, form button:focus {
 	width: 30%;
 }
 
+#form_presentationRecord_begin_date_year,
+#form_presentationRecord_begin_date_month,
+#form_presentationRecord_begin_date_day,
+#form_presentationRecord_end_date_year,
+#form_presentationRecord_end_date_month,
+#form_presentationRecord_end_date_day {
+	display: inline-block;
+	width: 33.3333%;
+}
+
 #netgen_livevotingbundle_registration_arrivalTime_time select,
 #netgen_livevotingbundle_registration_departureTime_time select,
 #netgen_livevotingbundle_event_begin_time select,
 #netgen_livevotingbundle_event_end_time select,
 #netgen_livevotingbundle_presentation_begin_time select,
-#netgen_livevotingbundle_presentation_end_time select {
+#netgen_livevotingbundle_presentation_end_time select,
+#form_presentationRecord_begin_time_hour,
+#form_presentationRecord_begin_time_minute,
+#form_presentationRecord_end_time_hour,
+#form_presentationRecord_end_time_minute {
 	display: inline-block;
 	width: 25%;
 }
 
+/**
+ * Hardcore override
+ */
+#form_presentationRecord {
+	margin-left: 0 !important;
+	width: initial !important;
+}
+#form_presentationRecord_globalBrake {
+	width: initial;
+}
+
+
+/**
+ * Tables
+ */
+table#view-presentations form {
+	border: none;
+	background-color: transparent;
+}
+
+
+
+/**
+ * Prize draw
+ */
 .prize-draw-table label {
 	margin: 0;
 }
