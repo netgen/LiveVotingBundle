@@ -146,7 +146,7 @@ form button {
 	font-size: 0.875em;
 	font-weight: 600;
 	line-height: 1.8571em;
-	background-color: #0199C6;
+	background-color: #1678b9;
 	color: #FFF;
 	border: none;
 	border-radius: 0px;
@@ -154,7 +154,7 @@ form button {
 }
 
 form button:hover, form button:focus {
-	background-color: #015f7b;
+	background-color: #115c8d;
 }
 
 .form-control {

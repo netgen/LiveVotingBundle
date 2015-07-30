@@ -116,6 +116,11 @@ div#main {
 	}
 }
 
+.rotate-45 { transform: rotate(45deg); }
+.rotate-90 { transform: rotate(90deg); }
+.rotate-135 { transform: rotate(135deg); }
+.rotate-180 { transform: rotate(180deg); }
+
 /**
  * Font colors
  */
@@ -125,26 +130,21 @@ label, input, select, textarea, span {
 }
 
 .blue {
-	color: #0199C6;
+	color: #1678b9;
 }
 
 p.pres-desc-text {
 	color: #ffffff;
 }
 
-#form-useredit form > #form > div:first-child > label {
-	color: #ffffff;
-	background-color: #6dbc45;
-}
-
+#form-userpres form > label,
+#form-useredit form > #form > div:first-child > label,
 #form-useredit form > #form > div:nth-child(2) > label {
 	color: #ffffff;
 	background-color: #1678b9;
 }
 
 #form-userpres form > label {
-	color: #ffffff;
-	background-color: #6dbc45;
 	text-align: center;
 	text-transform: uppercase;
 	margin-bottom: 1.5em;
@@ -161,7 +161,7 @@ p.pres-desc-text {
 	font-size: 0.875em;
 	font-weight: 600;
 	line-height: 1.8571em;
-	background-color: #0199C6;
+	background-color: #1678b9;
 	color: #ffffff;
 	border: none;
     border-radius: 0;
@@ -176,7 +176,7 @@ p.pres-desc-text {
 .btn:hover, .btn:active, .btn:focus,
 .form-container form button:hover, .form-container form button:active, .form-container form button:focus {
 	border: none;
-	background-color: #015f7b;
+	background-color: #115c8d;
 	color: #ffffff;
 }
 
@@ -185,17 +185,17 @@ p.pres-desc-text {
 }
 
 .box .actions a > span, .box .actions a > i {
-	color: #0199c6;
+	color: #1678b9;
 	text-decoration: none;
 }
 
 .box .actions a:hover > span {
-	color: #015f7b;
+	color: #115c8d;
 	text-decoration: underline;
 }
 
 .box .actions a:hover > i {
-	color: #015f7b;
+	color: #115c8d;
 	text-decoration: none;
 }
 
@@ -233,7 +233,7 @@ p.pres-desc-text {
  * Links
  */
 a, a:link, a:visited, a:active {
-	color: #0199C6;
+	color: #1678b9;
 }
 
 #main-footer a > span, #main-footer a > span:link, #main-footer a > span:visited, #main-footer a > span:active {
@@ -241,11 +241,11 @@ a, a:link, a:visited, a:active {
 }
 
 a:link:hover, a:hover, a:focus, a:link:focus {
-	color: #015f7b;
+	color: #115c8d;
 	text-decoration: underline;
 }
 
 #main-footer a > span:link:hover, #main-footer a > span:hover, #main-footer a > span:focus, #main-footer a > span:link:focus {
 	text-decoration: underline;
-	color: #0199C6;
+	color: #1678b9;
 }
