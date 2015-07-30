@@ -104,8 +104,9 @@ class DoctrinePresentationRepo implements PresentationRepository {
       }
 
         $presentationEntities = $this->em->getRepository($this->presentationRepository)->findBy($find_criteria);
-              if(!$presentationEntities)
-                throw new NotFoundHttpException('Presentation(s) not found.');
+
+        /*if(!$presentationEntities)
+            throw new NotFoundHttpException('Presentation(s) not found.');*/
 
         $presentationObjects = array();
         foreach ($presentationEntities as $pres) {
