@@ -23,6 +23,11 @@ $(document).ready(function(){
                 colorByPoint: true
             }
         },
+        credits: {
+            enabled: false,
+            text: 'NetGen',
+            href: 'http://netgenlabs.com'
+        },
         colors: ["#1678b9"],
         title: {
             text: 'Live results: ' + eventNameHighchart,

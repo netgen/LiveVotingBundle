@@ -1,11 +1,11 @@
 {% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
 {% block title %}New|Questions|LiveVoting{% endblock %}
-{% block mainHeading %}New question{% endblock %}
+{% block mainHeading %}Add question{% endblock %}
 
 {% block body -%}
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-lg-3">
+    <div class="col-xs-12 col-sm-4 margin-top">
         {{ form_start(form) }}
         <div class="form-group">
             {{ form_label(form.question) }}

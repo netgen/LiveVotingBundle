@@ -195,15 +195,15 @@ form button, form button.btn {
 	text-transform: uppercase;
 }
 
-form button.btn-success {
+form button.btn-success, button.btn-success {
 	background-color: #26bb16;
 }
 
-form button.btn-danger {
+form button.btn-danger, button.btn-danger {
 	background-color: #bb5816;
 }
 
-form button.btn-success:hover, form button.btn-danger:hover {
+form button.btn-success:hover, button.btn-success:hover, form button.btn-danger:hover, button.btn-danger:hover {
 	background-color: #404041;
 }
 
@@ -311,5 +311,31 @@ table#view-presentations form {
 }
 
 .prize-pool h2.lottery-option {
+	color: #ffffff;
+}
+
+
+/**
+ * Final results
+ */
+#high, .highchart-container {
+	margin-top: 2em;
+	border: 0.0625em solid #dddddd;
+	background-color: #ffffff;
+}
+
+#winner {
+	margin-top: 2em;
+	padding: 2em;
+	border: 0.0625em solid #dddddd;
+	color: #ffffff;
+	background-color: rgba(187, 88, 22, 1);
+	text-align: center;
+	/*min-height: 22em;*/
+	box-shadow: inset 0 0 5px 1px #404041;
+}
+
+
+#winner h1, #winner h2 {
 	color: #ffffff;
 }

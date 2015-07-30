@@ -6,7 +6,7 @@
 
 {% block body -%}
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-12 margin-top">
             {% if type == 0 %}
             <h2>Average is: {{ prosjek }}</h2>
             {% else %}
@@ -16,12 +16,14 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <table class="records_list table">
-                <tbody>
+            <table class="records_list table margin-top">
+                <thead>
                     <tr>
                         <th>User</th>
                         <th>Answer</th>
                     </tr>
+                </thead>
+                <tbody>
                     <tr>
                     {% for key,answer in answers %}
                     <tr>
