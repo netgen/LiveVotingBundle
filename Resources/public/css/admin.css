@@ -16,13 +16,18 @@ ol, ol li {
 }
 
 div.alert.alert-danger {
-	padding: 1em;
-	margin: 0;
+	margin: 2em 0 0 0;
+	padding: 0;
 	border-radius: 0;
 	background-color: #ffffff;
 	border-color: #dddddd;
-	color: #404041;
 	text-align: center;
+}
+
+div.alert.alert-danger .text {
+	padding: 1em;
+	color: #ffffff;
+	background-color: rgba(187, 88, 22, 1);
 }
 
 h1 {
@@ -80,16 +85,13 @@ h2 {
 /**
  * Admin login
  */
-.form-signin {
+.form-signin form {
+	display: block;
 	margin-top: 2em;
 }
 
-.form-signin form {
-	display: block;
-}
-
 .form-signin input.form-control {
-	margin: 1.1428em 0px;
+	margin: 1.0714em 0px;
 	padding: 0.1428em 1em;
 	font-size: 0.875em;
 	line-height: 1.8571em;
@@ -106,8 +108,6 @@ h2 {
 form {
 	display: block;
 	color: #404041;
-	border-top: 1px solid #dddddd;
-	border-bottom: 1px solid #dddddd;
 	width: initial !important;
 	margin-left: 0px !important;
 }
