@@ -19,7 +19,7 @@
 	height: 100%;
 	font-size: 4em;
 	line-height: 1.5em;
-	background-color: rgba(64, 64, 65, 0.25);
+	/*background-color: rgba(64, 64, 65, 0.25);*/
 }
 
 .box .text-wrapper {
@@ -77,8 +77,18 @@
 
 @media (max-width: 767px) {
 	.box .actions {
-		border-top: 1px solid #dddddd;
 		padding: 1em 0;
+	}
+
+	.box .actions {
+		background: url('../img/assets/bg-pattern.png');
+		border-top: 1px solid #dddddd;
+	}
+
+	.box .actions.master {
+		border-top: none;
+		background: none;
+		background-color: rgba(64, 64, 65, 0.25);
 	}
 
 	.box .actions.single-action { text-align: center; }
@@ -361,6 +371,20 @@ ul.media-list.live-voting-comments {
 	background-color: #404041;
 }
 
+@media (max-width: 767px) {
+	.cta-discussion-type {
+		width: 100%;
+	}
+	.nav.nav-tabs.cta-discussion-type li {
+		display: inline-block;
+		width: 50%;
+		padding: 0.1875em 0;
+	}
+	.cta-discussion-form {
+		width: 100%;
+	}
+}
+
 #netgen_livevotingbundle_presentationcomment label {
 	display: none;
 }
@@ -454,7 +478,11 @@ div#loader span {
 .twitter { padding-left: 5px; }
 
 @media (min-width: 768px) {
-	.twitter { border-left: 1px solid #dddddd; }
+	.twitter { border: none; border-left: 1px solid #dddddd; }
+}
+
+@media (max-width: 767px) {
+	.twitter { border: none; border-top: 1px solid #dddddd; margin-top: 1em; }
 }
 
 
