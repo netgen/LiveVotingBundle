@@ -85,7 +85,7 @@ class DashboardController extends Controller{
       if($numOfUsers === 0)
         $presentation['average'] = 0;
       else
-        $presentation['average'] = $sum/$numOfUsers;
+        $presentation['average'] = round($sum/$numOfUsers, 2);
     }
 
     // Limit LiveResults to three presentations

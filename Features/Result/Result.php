@@ -56,7 +56,7 @@ class Result {
                 $tmp = $presentationResult[$vote->getPresentation()->getId()];
                 $tmp['numOfUsers']++;
                 $tmp['score'] += $vote->getRate();
-                $tmp['average'] = round($tmp['score']/$tmp['numOfUsers'], 5);
+                $tmp['average'] = round($tmp['score']/$tmp['numOfUsers'], 2);
                 $tmp1[$vote->getPresentation()->getId()]  = $tmp;
                 $presentationResult[$vote->getPresentation()->getId()] = $tmp;
             }
@@ -96,7 +96,7 @@ class Result {
                 $data['numOfUsers']++;
             }
             if($data['numOfUsers']){
-                $data['average'] = round($data['score']/$data['numOfUsers'], 5);
+                $data['average'] = round($data['score']/$data['numOfUsers'], 2);
                 $result['presentations'][] = array(
                 'presentation'=>array('name'=>$presentation->getPresentationName(), 'entity'=>$presentation),
                 'score'=>$data);
@@ -128,7 +128,7 @@ class Result {
                     $data['numOfUsers']++;
                 }
                 if($data['numOfUsers']){
-                    $data['average'] = round($data['score'] / $data['numOfUsers'], 5);
+                    $data['average'] = round($data['score'] / $data['numOfUsers'], 2);
                     $result['questions'][] = array(
                             'question' => array(
                                 'name' => $question->getQuestion(), 
