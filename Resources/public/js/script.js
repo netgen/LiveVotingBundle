@@ -29,7 +29,7 @@ function brain(options_){
     $('body').on('change', '.vote-form', function(e){e.preventDefault();});
 
 
-    $('body').on('click', '.vote-form input', function(e){
+    $('body').on('click', '.vote-form button', function(e){
         e.preventDefault();
         if(!canIVote)return;
         var action = $(this).closest("form").attr('action');
@@ -224,6 +224,13 @@ function brain(options_){
 
         this.setVote = function(vote_number){
             this.element.find('input[type=submit]').each(function(){
+                if(this.value == vote_number){
+                    $(this).addClass('active');
+                }else{
+                    $(this).removeClass('active');
+                }
+            });
+            this.element.find('button').each(function(){
                 if(this.value == vote_number){
                     $(this).addClass('active');
                 }else{
