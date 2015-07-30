@@ -23,6 +23,7 @@ class PresentationType extends AbstractType
                 'data_class' => null,
                 'required' => false
             ))
+            ->add('globalBrake', 'checkbox', array('attr' => array('class' => 'form-control'), "label" => "Global break (lunch, pause, etc.)"))
             ->add('hall', 'text' ,array('attr' => array('class' => 'form-control')))
             ->add('user', 'entity' ,array('attr' => array('class' => 'form-control'), 'class' => 'LiveVotingBundle:User', 'property' => 'email'))
             ->add('begin')
