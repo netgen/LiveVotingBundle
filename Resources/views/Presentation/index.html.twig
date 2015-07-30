@@ -8,7 +8,7 @@
     {% for flashMessage in app.Session.flashbag.get('message') %}
     <div class="alert alert-danger">{{flashMessage}}</div>
     {% endfor %}
-    
+
     <div class="row">
         <div class="col-xs-12">
             <table class="records_list table">
@@ -26,8 +26,8 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><img width="40px" src='{{ asset('bundles/livevoting/'~(entity[0].getImage ? entity[0].getWebPath: 'img/man1.png'))}}'/></td>
-                        <td>{{ entity[0].presentationName }}</td>
+                        <td><img width="40px" src='{{ asset('bundles/livevoting/img/man1.png') }}'/></td>
+                        <td>{{ entity[0].name }}</td>
                         <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>
                         <td>
                             {{ form(entity[1]) }}
