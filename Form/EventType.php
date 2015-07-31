@@ -32,6 +32,7 @@ class EventType extends AbstractType
             ))
             ->add('image', 'file', array(
                 'data_class' => null,
+                'label' => "Event image",
                 'required' => false,
                 'attr' => array('class'=> 'filestyle')
             ))

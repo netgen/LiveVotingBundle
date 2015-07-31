@@ -67,7 +67,7 @@ class PresentationAdminController extends Controller
         if ($form->isValid()) {
             $entity->presenterName = $form->getData()['presenterName'];
             $entity->presenterSurname = $form->getData()['presenterSurname'];
-            $entity->setUserId($form->getData()['user']->getId());
+            $entity->setUserId($form->getData()['user_id']->getId());
             $this->get('live_voting.doctrine_presentation_repo')->save($entity);
 
             if($form->getData()['presentationRecord']->getImageUrl())
@@ -97,10 +97,17 @@ class PresentationAdminController extends Controller
             ->add('presentationRecord', new PresentationType(), array('data'=>$entity))
             ->add('presenterName')
             ->add('presenterSurname')
-            ->add('user', 'entity', array(
-                  'class' => 'LiveVotingBundle:User',
-                  'property' => 'email',
-                ))
+            ->add('user_id', 'entity', array(
+              'attr' => array('class' => 'form-control'),
+              'label' => "Presenter",
+              'query_builder' => function(EntityRepository $repository) {
+                  return $repository->createQueryBuilder('u')->orderBy('u.email', 'ASC');
+              },
+              'class' => 'LiveVotingBundle:User',
+              'property' => 'email',
+              'required'    => false,
+              'empty_value' => '(Select user)',
+              'empty_data' => null))
             ->add('submit', 'submit', array('label' => 'Create'))
             ->setMethod('POST')
             ->setAction($this->generateUrl('admin_presentation_create', array('event_id'=>$entity->getEventId())));
