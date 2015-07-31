@@ -26,7 +26,7 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><img width="40px" src='{{ asset('bundles/livevoting/img/man1.png') }}'/></td>
+                        <td><img width="40px" src='{{ asset('bundles/livevoting/' ~ ((entity[0].getImageUrl) ? entity[0].getImageUrl : 'img/assets/angry-che.png')) }}'/></td>
                         <td>{{ entity[0].name }}</td>
                         <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>
                         <td>

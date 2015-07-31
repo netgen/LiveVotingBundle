@@ -248,7 +248,9 @@ class DoctrinePresentationRepo implements PresentationRepository {
       $presentationEntity->setBegin($presentation->getBegin());
       $presentationEntity->setEnd($presentation->getEnd());
       $presentationEntity->setJoindInId($presentation->getJoindInId());
-      $presentationEntity->setImage($presentation->getImageUrl());
+      if($presentation->getImageUrl()){
+        $presentationEntity->setImage($this->getImageUploadDir().'/'.$presentation->getImageUrl()->getClientOriginalName());
+      }
       $presentationEntity->setPresenterName($presentation->presenterName);
       $presentationEntity->setPresenterSurname($presentation->presenterSurname);
 
@@ -287,5 +289,13 @@ class DoctrinePresentationRepo implements PresentationRepository {
         $presentation->setUserId($presentationEntity->getUser()->getId());
 
       return $presentation;
+    }
+
+    public function getImageUploadDir(){
+      return 'img/presentations';
+    }
+
+    public function getImageUploadRootDir(){
+      return __DIR__.'/../../../../../../web/bundles/livevoting/'.$this->getImageUploadDir();
     }
 }

@@ -68,8 +68,10 @@ class PresentationAdminController extends Controller
             $entity->presenterName = $form->getData()['presenterName'];
             $entity->presenterSurname = $form->getData()['presenterSurname'];
             $entity->setUserId($form->getData()['user']->getId());
-
             $this->get('live_voting.doctrine_presentation_repo')->save($entity);
+
+            $form->getData()['presentationRecord']->getImageUrl()->move($this->get('live_voting.doctrine_presentation_repo')->getImageUploadRootDir(), $form->getData()['presentationRecord']->getImageUrl()->getClientOriginalName());
+
 
             $request->getSession()->getFlashBag()->add(
               'message', 'You have created new presentation.'
@@ -181,6 +183,9 @@ class PresentationAdminController extends Controller
             $entity->setUserId($editForm->getData()['user']->getId());
 
             $this->get('live_voting.doctrine_presentation_repo')->update($entity);
+
+            if($editForm->getData()['presentationRecord']->getImageUrl())
+              $editForm->getData()['presentationRecord']->getImageUrl()->move($this->get('live_voting.doctrine_presentation_repo')->getImageUploadRootDir(), $editForm->getData()['presentationRecord']->getImageUrl()->getClientOriginalName());
 
             $request->getSession()->getFlashBag()->add(
               'message', 'Your changes were saved.'
