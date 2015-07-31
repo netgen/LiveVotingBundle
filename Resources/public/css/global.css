@@ -198,20 +198,14 @@ p.pres-desc-text {
 	text-decoration: none !important;
 }
 
-.box .actions a > span, .box .actions a > i {
-	color: #1678b9;
-	text-decoration: none;
-}
+.box .actions a > span, .box .actions a > i { color: #1678b9; text-decoration: none; }
+.box .actions a.disabled > span, .box .actions a.disabled > i { cursor: default; color: rgba(64, 64, 65, 0.5); text-decoration: none; }
 
-.box .actions a:hover > span {
-	color: #115c8d;
-	text-decoration: underline;
-}
+.box .actions a:hover > span { color: #115c8d; text-decoration: underline; }
+.box .actions a:hover > i { color: #115c8d; text-decoration: none; }
 
-.box .actions a:hover > i {
-	color: #115c8d;
-	text-decoration: none;
-}
+.box .actions a.disabled:hover > span { cursor: default; color: rgba(64, 64, 65, 0.5); text-decoration: none; }
+.box .actions a.disabled:hover > i { cursor: default; color: rgba(64, 64, 65, 0.5); text-decoration: none; }
 
 /* Box Light */
 .box.light .actions a > span, .box.light .actions a > i {
