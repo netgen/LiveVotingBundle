@@ -11,12 +11,9 @@
 			<div class="prize-pool">
                 <h1><i id="lottery-diamond" class="fa fa-5x fa-diamond"></i></h1>
                 <ul id="lista-pobjednika" class="list-group lottery">
-                    {#{% for voteEmail in votePool %}#}
-                        {#<li>{{ voteEmail }}</li>#}
-                    {#{% endfor %}#}
-                    <li>marin.petrunic@gmail.com</li>
-                    <li>marin.petrunic@gmail.com</li>
-                    <li>marin.pet@gmail.com</li>
+                    {% for voteEmail in votePool %}
+                        <li>{{ voteEmail }}</li>
+                    {% endfor %}
                 </ul>
 	        </div>
         </div>
