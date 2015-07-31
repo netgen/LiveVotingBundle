@@ -24,8 +24,12 @@ class PresentationType extends AbstractType
             ))
             ->add('globalBrake', 'checkbox', array('attr' => array('class' => 'form-control'), "label" => "Global break (lunch, pause, etc.)", 'required' => false))
             ->add('hall', 'text' ,array('attr' => array('class' => 'form-control')))
-            ->add('begin', 'datetime')
-            ->add('end', 'datetime')
+            ->add('begin', 'datetime', array(
+                "years" => range(date('Y') - 0, date('Y') + 5)
+            ))
+            ->add('end', 'datetime', array(
+                "years" => range(date('Y') - 0, date('Y') + 5)
+            ))
             ->add('joind_in_id', 'text', array('attr' => array('class' => 'form-control'), 'required' => false))
             //->add('event', 'entity', array('class'=>'Netgen\LiveVotingBundle\Entity\Event', 'disabled'=>true))
         ;

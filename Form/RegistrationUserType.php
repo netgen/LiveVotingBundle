@@ -19,8 +19,12 @@ class RegistrationUserType extends AbstractType
                 'choices' => array('Beginner'=>'Beginner', 'Intermediate'=>'Intermediate', 'Advanced'=>'Advanced'),
                 'label' => 'Developer level'
             ))
-            ->add('arrivalTime')
-            ->add('departureTime')
+            ->add('arrivalTime', "datetime", array(
+                "years" => range(date('Y') - 0, date('Y') + 5)
+            ))
+            ->add('departureTime', "datetime", array(
+                "years" => range(date('Y') - 0, date('Y') + 5)
+            ))
         ;
     }
 
