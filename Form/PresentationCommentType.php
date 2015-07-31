@@ -15,7 +15,7 @@ class PresentationCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content')
+            ->add('content', "text" , array("attr" => array("placeholder" => "Write comment...")))
         ;
     }
 

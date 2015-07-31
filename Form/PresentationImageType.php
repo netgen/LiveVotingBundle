@@ -15,7 +15,7 @@ class PresentationImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description')
+            ->add('description', "text", array("attr" => array("placeholder" => "Write image description...")))
             ->add('file', 'file')
         ;
     }
