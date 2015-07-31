@@ -25,11 +25,13 @@ class ExportController extends Controller {
 
             $handle = fopen('php://output','w+');
 
-            fputcsv($handle, array('Email','Gender','Country','City','T-Shirt','Food preference'),';');
+            fputcsv($handle, array('Email', 'Hash', 'Gender','Country','City','T-Shirt','Food preference'),';');
             //$results = $this->connection->query('SELECT email, gender, country, city, tshirt, foodPreference FROM user');
             //$results->execute();
             foreach ($users as $user) {
-                fputcsv($handle, array($user->getEmail(),
+                fputcsv($handle, array(
+                    $user->getEmail(),
+                    md5($this->container->getParameter('email_hash_prefix').$user->getEmail()),
                     $user->getGender(),
                     $user->getCountry(),
                     $user->getCity(),
