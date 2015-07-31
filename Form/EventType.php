@@ -43,8 +43,12 @@ class EventType extends AbstractType
                 'required'    => false,
                 'empty_value' => '(Leave like this to remain master event)',
                 'empty_data' => null))
-            ->add('begin')
-            ->add('end')
+            ->add('begin', "datetime", array(
+                "years" => range(date('Y') - 0, date('Y') + 5),
+            ))
+            ->add('end', "datetime", array(
+                "years" => range(date('Y') - 0, date('Y') + 5)
+            ))
         ;
 
     }
