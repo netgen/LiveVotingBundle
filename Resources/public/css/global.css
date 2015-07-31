@@ -108,6 +108,19 @@ div#main {
 .image-full { width: 100%; }
 .image-o { border-radius: 100%; }
 
+.alert-danger {
+	color: #ffffff;
+	background-color: rgba(187, 88, 22, 1);
+	border-color: #dddddd;
+	text-align: center;
+}
+
+.no-comment {
+	line-height: 300px;
+	text-align: center;
+	color: rgba(64, 64, 65, 0.5);
+}
+
 @media (min-width: 768px) {
 	.vertical-align-xs {
 		display: flex;
@@ -249,4 +262,31 @@ a:link:hover, a:hover, a:focus, a:link:focus {
 #main-footer a > span:link:hover, #main-footer a > span:hover, #main-footer a > span:focus, #main-footer a > span:link:focus {
 	text-decoration: underline;
 	color: #1678b9;
+}
+
+
+
+/**
+ * Secondary footer
+ */
+.secondary-footer {
+	margin-top: 1.5em;
+}
+
+.secondary-footer i {
+	padding-right: 0.5em;
+}
+
+
+
+/**
+ * Checkmail error
+ */
+.checkmail {
+	margin-top: 2em;
+}
+
+.checkmail i {
+	vertical-align: middle;
+	padding-right: 0.25em;
 }

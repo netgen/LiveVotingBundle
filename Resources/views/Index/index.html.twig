@@ -191,7 +191,7 @@
                                         {{>comment }}
                                     {{else}}
                                         <li>
-                                            <h4 id="noCommentsHeading-{{ presentationId }}">No comments yet. Be first to comment!</h4>
+                                            <h4 id="noCommentsHeading-{{ presentationId }}" class="no-comment">No comments yet. Be first to comment!</h4>
                                         </li>
                                     {{/each }}
                                 {% endverbatim %}
@@ -226,7 +226,7 @@
                                         {{>comment }}
                                     {{else}}
                                         <li>
-                                            <h4>No comments yet. Go on <a href="https://joind.in/talk/view/{{ joind_in_id }}" target="_blank">joind.in</a> and leave some comments!</h4>
+                                            <h4 class="no-comment">No comments yet. Go on <a href="https://joind.in/talk/view/{{ joind_in_id }}" target="_blank">joind.in</a> and leave some comments!</h4>
                                         </li>
                                     {{/each }}
 
