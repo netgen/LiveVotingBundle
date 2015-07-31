@@ -2,6 +2,7 @@
 
 namespace Netgen\LiveVotingBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -22,8 +23,17 @@ class RegistrationType extends AbstractType
             ->add('arrivalTime')
             ->add('departureTime')
             ->add('event', null ,array('label'=>'Master Event'))
-            ->add('user')
-        ;
+            ->add('user', 'entity', array(
+                'attr' => array('class' => 'form-control'),
+                'label' => "User",
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->createQueryBuilder('u')->orderBy('u.email', 'ASC');
+                },
+                'class' => 'LiveVotingBundle:User',
+                'property' => 'email',
+                'required'    => false,
+                'empty_value' => '(Select user)',
+                'empty_data' => null));
     }
     
     /**
