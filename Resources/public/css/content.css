@@ -91,6 +91,10 @@
 	}
 
 	.box .actions.single-action { text-align: center; }
+
+	.box .text-wrapper.extra-margin {
+		margin-top: 1em;
+	}
 }
 
 
