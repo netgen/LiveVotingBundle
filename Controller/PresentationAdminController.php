@@ -70,7 +70,8 @@ class PresentationAdminController extends Controller
             $entity->setUserId($form->getData()['user']->getId());
             $this->get('live_voting.doctrine_presentation_repo')->save($entity);
 
-            $form->getData()['presentationRecord']->getImageUrl()->move($this->get('live_voting.doctrine_presentation_repo')->getImageUploadRootDir(), $form->getData()['presentationRecord']->getImageUrl()->getClientOriginalName());
+            if($form->getData()['presentationRecord']->getImageUrl())
+              $form->getData()['presentationRecord']->getImageUrl()->move($this->get('live_voting.doctrine_presentation_repo')->getImageUploadRootDir(), $form->getData()['presentationRecord']->getImageUrl()->getClientOriginalName());
 
 
             $request->getSession()->getFlashBag()->add(

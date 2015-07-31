@@ -110,7 +110,7 @@
 	                <div class="col-xs-4 col-sm-1">
 	                    <div class="row">
 	                        <div class="col-xs-12">
-	                            <img class="image image-o" src="{{ asset('bundles/livevoting/img/') }}{% verbatim %}{{#if image}}presentations/{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
+	                            <img class="image image-o" src="{{ asset('bundles/livevoting/') }}{% verbatim %}{{#if image}}{{image}}{{else}}img/assets/angry-che.png{{/if}}{% endverbatim %}">
 	                        </div>
 	                    </div>
 	                    <div class="row">
@@ -191,7 +191,7 @@
                                         {{>comment }}
                                     {{else}}
                                         <li>
-                                            <h4>No comments yet. Be first to comment!</h4>
+                                            <h4 id="noCommentsHeading-{{ presentationId }}">No comments yet. Be first to comment!</h4>
                                         </li>
                                     {{/each }}
                                 {% endverbatim %}
@@ -220,7 +220,7 @@
                             </div>
                         </div>
                         <div style="height: 300px;overflow-y: scroll" role="tabpanel" class="tab-pane fade joindin-comments-tab" id="joindInComments-{{ '{{ presentationId }}' }}">
-                            <ul class="media-list live-voting-comments">
+                            <ul class="media-list joindin-comments">
                                 {% verbatim %}
                                     {{#each joindInComments }}
                                         {{>comment }}
@@ -285,6 +285,14 @@
 						processData: false,
 						contentType: false,
 						success:function(data){
+								var id = this.url.split("/").pop();
+
+								if($("#noCommentsHeading-"+id).length){
+									$("#noCommentsHeading-"+id).fadeOut(1000, function(){
+										$(this).remove();
+									});
+								}
+
                 var commentDiv =$(e.target).closest(".col-xs-12").find(".live-voting-comments");
                         $(commentTemplate(data)).hide().appendTo(commentDiv).fadeIn(1000);
 												commentDiv.animate({scrollTop: commentDiv[0].scrollHeight}, 250, 'swing');
@@ -307,6 +315,14 @@
 							processData: false,
 							contentType: false,
 							success:function(data){
+								var id = this.url.split("/").pop();
+
+								if($("#noCommentsHeading-"+id).length){
+									$("#noCommentsHeading-"+id).fadeOut(1000, function(){
+										$(this).remove();
+									});
+								}
+
 								var commentDiv =$(e.target).closest(".col-xs-12").find(".live-voting-comments");
 												$(commentTemplate(data)).hide().appendTo(commentDiv).fadeIn(1000);
 												commentDiv.animate({scrollTop: commentDiv[0].scrollHeight}, 250, 'swing');

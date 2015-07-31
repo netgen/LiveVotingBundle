@@ -114,6 +114,9 @@ h2 {
 .form-signin form {
 	display: block;
 	margin-top: 2em;
+	padding: 0;
+	border: none;
+	background-color: transparent;
 }
 
 .form-signin input.form-control {
