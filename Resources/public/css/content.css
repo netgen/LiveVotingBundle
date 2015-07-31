@@ -294,6 +294,16 @@
 /**
  * Comments format
  */
+.live-voting-comments, .joindin-comments-tab {
+	height: 384px;
+}
+
+@media (max-width: 767px) {
+	.live-voting-comments, .joindin-comments-tab {
+		height: 168px;
+	}	
+}
+
 .media-list {
 	background-color: #ffffff;
 }

@@ -116,7 +116,7 @@ div#main {
 }
 
 .no-comment {
-	line-height: 300px;
+	padding-top: 2em;
 	text-align: center;
 	color: rgba(64, 64, 65, 0.5);
 }
