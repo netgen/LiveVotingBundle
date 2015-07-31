@@ -28,7 +28,7 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a target="_blank" href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">{{ entity.name }}</a></td>
+                        <td><a href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">{{ entity.name }}</a></td>
                         <td>{{ entity.stateName }}</td>
                         <td>
                             <a href="{{ path('admin_event_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
@@ -47,7 +47,7 @@
                                 <span class='glyphicon glyphicon-eye-{{ entity.allowViewingResults ? 'open':'close'  }}'></span>
                                 Live
                             </a>-->
-                            <a target="_blank" href="{{ path('result_view', { 'event_id': entity.id }) }}"><button type="button" class="btn">Final</button></a>
+                            <a href="{{ path('result_view', { 'event_id': entity.id }) }}"><button type="button" class="btn">Final</button></a>
                         </td>
 
                         <td>
