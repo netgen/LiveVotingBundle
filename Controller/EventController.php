@@ -74,8 +74,8 @@ class EventController extends Controller
                 {
                     $rate = $vote->getRate();
                 }
-                //$joindInComments = $client->obtainTalkComments($presentation->getJoindInId(), true);
-                $joindInComments = $client->obtainTalkComments(13579, true);
+                $joindInComments = $client->obtainTalkComments($presentation->getJoindInId(), true);
+//                $joindInComments = $client->obtainTalkComments(13579, true);
                 $tmp = $this->getPresentationArray($presentation, $rate, $joindInComments);
                 array_push($response['presentations'], $tmp);
             }
