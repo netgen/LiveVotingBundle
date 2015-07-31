@@ -4,7 +4,14 @@
 
 {% block mainHeading %}New user{% endblock %}
 
-{% block body %}    
+{% block body %}
+
+{% for flashMessage in app.Session.flashbag.get('error') %}
+<div class="alert alert-danger">
+		<div class="text">{{flashMessage}}</div>
+</div>
+{% endfor %}
+
 	<div class="row">
 		<div class="col-xs-12 col-sm-4 margin-top">
     		{{ form(form) }}
