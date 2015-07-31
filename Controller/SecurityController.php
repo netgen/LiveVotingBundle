@@ -89,6 +89,9 @@ class SecurityController extends Controller
      * @return mixed
      */
     public function adminLoginAction(Request $request){
+        if($this->get('security.context')->isGranted('ROLE_ADMIN'))
+          return $this->redirect($this->generateUrl('admin_index'));
+
         $error = $this->checkLoginError($request);
 
         return $this->render(
