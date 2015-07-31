@@ -48,6 +48,14 @@ class UserAdminController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            if($em->getRepository('LiveVotingBundle:User')->findOneByEmail($user->getEmail())){
+              $request->getSession()->getFlashBag()->add(
+                'error', 'That user already exists.'
+              );
+
+              return $this->redirect($this->generateUrl('admin_user_new'));
+            }
+
             $em->persist($user);
             $em->flush();
 
