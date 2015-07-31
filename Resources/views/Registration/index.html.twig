@@ -1,23 +1,26 @@
 {% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
 {% block title %}Registrations|LiveVoting{% endblock %}
+{% block mainHeading %}Registrations{% endblock %}
 
 {% block body %}
     {% for flashMessage in app.Session.flashbag.get('message') %}
-    <div class="alert alert-danger">{{flashMessage}}</div>
+    <div class="alert alert-danger">
+        <div class="text">{{flashMessage}}</div>
+    </div>
     {% endfor %}
 
     <div class="row">
         <div class="col-xs-12">
-            <table class="records_list table">
+            <table class="records_list table margin-top">
                 <thead>
                     <tr>
                         <!--<th>Id</th>-->
                         <th>User email</th>
                         <th>Registered for</th>
                         <th>Developer level</th>
-                        <th>Arrivaltime</th>
-                        <th>Departuretime</th>
+                        <th>Arrival time</th>
+                        <th>Departure time</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -42,7 +45,7 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
-            <a href="{{ path('registration_new') }}"><button type="button" class="btn">New registration</button></a>
+            <a href="{{ path('registration_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i> Add registration</button></a>
         </div>
     </div>
 {% endblock %}

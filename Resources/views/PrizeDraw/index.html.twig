@@ -1,53 +1,43 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
 {% block title %}PrizePool|LiveVoting{% endblock %}
 
+{% block mainHeading %}Prize Draw{% endblock %}
+
 {% block body %}
-	<div class="navbar navbar-default navbar-collapse">
-			<div class="container">
-					<div class="navbar-header">
-							<ul class="list-inline list-unstyled text-center">
-										<li>
-												<a href="{{ path('root') }}">
-													<img width="25" height="25" src="{{ asset('bundles/livevoting/img/assets/small-logo.svg') }}" class="img-responsive" alt="logo">
-												</a>
-										</li>
-										<li class="text-center">
-												<h2>Netgen LiveVoting prize draw</h2>
-										</li>
-								</ul>
-						</div>
-					</div>
-			</div>
-
-	<div class="container">
-
-			<form action ="{{ path('admin_prize_draw_generate') }}" method="POST">
-			<table class="records_list table">
-					<thead>
+	<div class="row">
+		<div class="col-xs-12 col-sm-8 col-md-6 margin-top">
+			<form action="{{ path('admin_prize_draw_generate') }}" method="POST">
+				<table class="records_list table">
+						<thead>
 							<tr>
-									<th>Event name</th>
-									<th>Include in draw</th>
+								<th>Event name</th>
+								<th>Include in draw</th>
 							</tr>
-					</thead>
-
-					<tbody class="prize-draw-table">
-					{% for event in events %}
+						</thead>
+						<tbody class="prize-draw-table">
+						{% for event in events %}
 						<tr>
 							<td>{{ event.getName }}</td>
 							<td>
 								<div class="checkbox">
-										<label class="small">
-											<input type="checkbox" name="check_list[]" value="{{ event.getId }}"> Add event in a drawing pool
-										</label>
+									<label class="small">
+										<input type="checkbox" name="check_list[]" value="{{ event.getId }}"> Add event in a drawing pool
+									</label>
 								</div>
 							</td>
 						</tr>
-					{% endfor %}
-					</tbody>
-			</table>
+						{% endfor %}
+						</tbody>
+				</table>
+				<button type="submit" class="btn">Generate draw pool</button>
+			</form>
+		</div>
+	</div>
 
-			<button type="submit" class="btn btn-primary pull-right">Generate draw pool</button>
-		</form>
+	<div class="row secondary-footer">
+		<div class="col-xs-12">
+			<a href="{{path('admin_event')}}"><button type="button" class="btn">Back</button></a>
+		</div>
 	</div>
 {% endblock %}

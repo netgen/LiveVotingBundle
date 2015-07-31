@@ -7,14 +7,14 @@
 {% block body -%}
     <div class="row">
         <div class="col-xs-12">
-            <table class="records_list table">
+            <table class="records_list table margin-top">
                 <thead>
                     <tr>
                         <th>Question</th>
-                        <th>Question type</th>
+                        <th>Type</th>
                         <th>View answers</th>
-                        <th>Edit question</th>
-                        <th>Delete question</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,7 +25,7 @@
                         <td>
                             {% if entity[0].answers|length > 0 %}
                             <a  href="{{ path('admin_question_view_answers', { 'id': entity[0].id }) }}">
-                                <button class='btn btn-primary btn-success'> {{ entity[0].answers|length }} Answer(s)</button>
+                                <button class="btn"> {{ entity[0].answers|length }} Answer(s)</button>
                             </a>
                             {% else %}
                             <button class="btn disabled">{{ entity[0].answers|length }} Answers</button>
@@ -38,7 +38,7 @@
                         </td>                
                         <td>
                             <a href="{{ path('admin_question_delete', { 'id': entity[0].id }) }}">
-                                <button type="button" class="btn">Delete</button>
+                                <button type="button" class="btn icon"><i class="fa fa-lg fa-times"></i></button>
                             </a>
                         </td>
 
@@ -51,11 +51,12 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
-            <a href="{{ path('admin_event') }}"><button type="button" class="btn">Back</button></a>
-            <a href="{{ path('admin_question_new',{ 'event_id':event.getId }) }}"><button type="button" class="btn">New question</button></a>
             <a href="{{ path('admin_question_results',{ 'event_id':event.getId }) }}"><button type="button" class="btn">Average results</button></a>
-            <a href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 1 }) }}"><button type="button" class="btn">Enable questions</button></a>
-            <a href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 0 }) }}"><button type="button" class="btn">Disable questions</button></a>
+            <a href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 1 }) }}"><button type="button" class="btn btn-success">Enable questions</button></a>
+            <a href="{{ path('admin_question_enableDisable',{ 'event_id':event.getId, 'status': 0 }) }}"><button type="button" class="btn btn-danger">Disable questions</button></a>
+            <div class="clearfix"></div>
+            <a href="{{ path('admin_event') }}"><button type="button" class="btn">Back</button></a>
+            <a href="{{ path('admin_question_new',{ 'event_id':event.getId }) }}"><button type="button" class="btn"><i class="fa fa-plus"></i> Add question</button></a>
         </div>
     </div>
 {% endblock %}

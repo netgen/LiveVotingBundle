@@ -1,37 +1,31 @@
-{% extends 'LiveVotingBundle::base.html.twig' %}
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
 {% block title %}Result|Questions|LiveVoting{% endblock %}
+
+{% block mainHeading %}Question results: {{event.getName}}{% endblock %}
 
 {% block stylesheets %}
   <link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
 {% endblock %}
 
 {% block body %}
-  <div class="navbar navbar-default navbar-collapse">
-      <div class="container">
-          <div class="navbar-header">
-              <ul class="list-inline list-unstyled text-center">
-                  <li>
-                      <a href="{{ path('root') }}">
-                        <img width="25" height="25" src="{{ asset('bundles/livevoting/img/assets/small-logo.svg') }}" class="img-responsive" alt="logo">
-                      </a>
-                  </li>
-                  <li>
-                      <h3>Netgen Question Results for event: {{ event.getName }}</h3>
-                  </li>
-              </ul>
-          </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="container_voting" class="highchart-container"></div>
       </div>
-  </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="container_yes_no" class="highchart-container"></div>
+      </div>
+    </div>
 
-  <div id="container_voting" style="width:100%; height:400px;"></div>
-
-  <div id="container_yes_no" style="width:100%; height:400px;"></div>
-
-    <a  href="{{ path('admin_question', {'event_id':event.id}) }}">
-        <button class="btn btn-primary"><i class="fa fa-arrow-left"></i> Questions List</button>
-    </a>
-
+    <div class="row secondary-footer">
+      <div class="col-xs-12">
+        <a href="{{ path('admin_question', {'event_id':event.id}) }}"><button type="button" class="btn">Back</button></a>
+      </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -104,162 +98,203 @@
 
       //voting 1 - 5 questions chart
       $(document).ready(function(){
-          chart_voting = new Highcharts.Chart({
-              chart: {
-                  renderTo: 'container_voting',
-                  defaultSeriesType: 'bar',
-                  events: {
-                      load: function(){
-                          setTimeout(load_voting, 1000);
-                      }
-                  }
-              },
-              credits: {
-                  text: 'Netgenlabs',
-                  href: 'http://netgenlabs.com'
-              },
-              plotOptions: {
-                  column:{
-                      colorByPoint: true
-                  }
-              },
-              title: {
-                  text: 'Answers 1-5'
-              },
-              xAxis: {
-                  type: 'String',
-                  tickPixelInterval: 5
-              },
-              yAxis: {
-                  minPadding: 0.1,
-                  maxPadding: 0.1,
-                  tickmarkPlacement: 'on',
-                  min: 0,
-                  max: 5,
-                  title: {
-                      text: 'Average number of rating score'
-                  }
-              },
-              noData: {
+        chart_voting = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container_voting',
+                type: 'bar',
+                events: {
+                    load: function(){
+                        setTimeout(load_voting, 1000);
+                    }
+                },
+                height: 480,
+                spacingTop: 32,
+                marginTop: 96,
+                style: {
+                  fontFamily: '"ronnia", sans-serif',
+                }
+            },
+            plotOptions: {
+                column:{
+                    colorByPoint: true
+                }
+            },
+            credits: {
+                enabled: false,
+                text: 'NetGen',
+                href: 'http://netgenlabs.com'
+            },
+            colors: ["#1678b9"],
+            title: {
+                text: 'Answers 1-5',
+                style: {
+                  "color" : "#404041",
+                  "font-weight" : "600",
+                  "font-size" : "2em"
+                }
+            },
+            tooltip: {
+              enabled: false
+            },
+            xAxis: {
+                type: 'String',
+                tickPixelInterval: 5,
+                // lineColor: "#ffffff",
+                lineColor: "#ddd",
+                lineWidth: 1,
+                tickColor: "#ffffff",
+                labels: {
+                  padding: 16,
                   style: {
-                      fontWeight: 'bold',
-                      fontSize: '17px'
+                    "color" : "#404041",
+                    "font-size" : "14px",
+                    "font-weight" : "400",
                   }
-              },
-              series: [
-                  {
-                      showInLegend: false,
-                      data:[],
-                      color: '#7BC043',
-                      dataLabels: {
-                          enabled: true,
-                          rotation: 0,
-                          color: '#000000',
-                          formatter: function() {
-                              return this.y;
-                          },
-                          style: {
-                              fontSize: '14px'
-                          }
-                      }
-                  }]
-          });
+                }
+            },
+            yAxis: {
+                minPadding: 0.1,
+                maxPadding: 0.1,
+                tickmarkPlacement: 'on',
+                showFirstLabel: false, 
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Average number of rating score',
+                    enabled: false
+                },
+                labels: {
+                  enabled: false,
+                  style: {
+                    "color" : "#404041",
+                    "font-size" : "18px",
+                    "font-weight" : "600"
+                  }
+                },
+                gridLineColor: "#ddd"
+            },
+            series: [
+                {
+                    showInLegend: false,
+                    data:[],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        formatter: function() {
+                            return this.y;
+                        },
+                        inside: true,
+                        shadow: false,
+                        color: "#ffffff",
+                        style: {
+                            fontSize: '20px'
+                        }
+                    }
+                }]
+        });
 
-          if (!chart_voting.hasData()) {
-              chart_voting.hideNoData();
-              chart_voting.showNoData("No data to display.");
-          }
-
+        if (!chart_voting.hasData()) {
+            chart_voting.hideNoData();
+            chart_voting.showNoData("No data to display.");
+        }
       });
 
       //yes - no questions chart
       $(document).ready(function(){
-          chart_yes_no = new Highcharts.Chart({
-              chart: {
-                  renderTo: 'container_yes_no',
-                  defaultSeriesType: 'bar',
-                  color: '#FF0000',
-                  events: {
-                      load: function(){
-                          setTimeout(load_yes_no, 1000);
-                      }
-                  }
-              },
-
-              credits: {
-                  text: 'Netgenlabs',
-                  href: 'http://netgenlabs.com'
-              },
-              plotOptions: {
-                  column:{
-                      colorByPoint: true
-                  },
-                  series: {
-                      stacking: 'female'
-                  }
-              },
-              legend: {
-                  reversed: true
-              },
-              title: {
-                  text: 'Yes-No answers (%)'
-              },
-              xAxis: {
-                  type: 'String',
-                  tickPixelInterval: 5
-              },
-              yAxis: {
-                  minPadding: 0.1,
-                  maxPadding: 0.1,
-                  tickmarkPlacement: 'on',
-                  min: 0,
-                  max: 100,
-                  title: {
-                      text: 'Average Yes-No asnwers percentage'
-                  }
-              },
-              noData: {
+        chart_yes_no = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container_yes_no',
+                type: 'bar',
+                events: {
+                    load: function(){
+                        setTimeout(load_yes_no, 1000);
+                    }
+                },
+                height: 480,
+                spacingTop: 32,
+                marginTop: 96,
+                style: {
+                  fontFamily: '"ronnia", sans-serif',
+                }
+            },
+            plotOptions: {
+                column:{
+                    colorByPoint: true
+                }
+            },
+            credits: {
+                enabled: false,
+                text: 'NetGen',
+                href: 'http://netgenlabs.com'
+            },
+            colors: ["#1678b9"],
+            title: {
+                text: 'Yes - No answers (%)',
+                style: {
+                  "color" : "#404041",
+                  "font-weight" : "600",
+                  "font-size" : "2em"
+                }
+            },
+            tooltip: {
+              enabled: false
+            },
+            xAxis: {
+                type: 'String',
+                tickPixelInterval: 5,
+                // lineColor: "#ffffff",
+                lineColor: "#ddd",
+                lineWidth: 1,
+                tickColor: "#ffffff",
+                labels: {
+                  padding: 16,
                   style: {
-                      fontWeight: 'bold',
-                      fontSize: '17px'
+                    "color" : "#404041",
+                    "font-size" : "14px",
+                    "font-weight" : "400",
                   }
-              },
-              series: [
-                  {
-                      showInLegend: false,
-                      data:[],
-                      name: 'No',
-                      color: '#E34F4F',
-                      dataLabels: {
-                          enabled: true,
-                          rotation: 0,
-                          color: '#000000',
-                          formatter: function() {
-                              return this.y;
-                          },
-                          style: {
-                              fontSize: '14px'
-                          }
-                      }
-                  },
-                  {
-                      showInLegend: false,
-                      data:[],
-                      name: 'Yes',
-                      color: '#0199C6',
-                      dataLabels: {
-                          enabled: true,
-                          rotation: 0,
-                          color: '#000000',
-                          formatter: function() {
-                              return this.y;
-                          },
-                          style: {
-                              fontSize: '14px'
-                          }
-                      }
-                  }]
-          });
+                }
+            },
+            yAxis: {
+                minPadding: 0.1,
+                maxPadding: 0.1,
+                tickmarkPlacement: 'on',
+                showFirstLabel: false, 
+                min: 0,
+                max: 5,
+                title: {
+                    text: 'Average number of rating score',
+                    enabled: false
+                },
+                labels: {
+                  enabled: false,
+                  style: {
+                    "color" : "#404041",
+                    "font-size" : "18px",
+                    "font-weight" : "600"
+                  }
+                },
+                gridLineColor: "#ddd"
+            },
+            series: [
+                {
+                    showInLegend: false,
+                    data:[],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        formatter: function() {
+                            return this.y;
+                        },
+                        inside: true,
+                        shadow: false,
+                        color: "#ffffff",
+                        style: {
+                            fontSize: '20px'
+                        }
+                    }
+                }]
+        });
 
           if (!chart_yes_no.hasData()) {
               chart_yes_no.hideNoData();

@@ -2,22 +2,27 @@
 
 {% block title %}Events|LiveVoting{% endblock %}
 
+{% block mainHeading %}Events{% endblock %}
+
 {% block body -%}
     {% for flashMessage in app.Session.flashbag.get('message') %}
-    <div class="alert alert-danger">{{flashMessage}}</div>
+    <div class="alert alert-danger">
+        <div class="text">{{flashMessage}}</div>
+    </div>
     {% endfor %}
 
     <div class="row">
         <div class="col-xs-12">
-            <table class="records_list table">
+            <table class="records_list table margin-top">
                 <thead>
                     <tr>
-                        <th>Event name</th>
-                        <th>Event state</th>
-                        <th>Edit event</th>
-                        <th class="text-center">View presentations</th>
-                        <th>View questions</th>
-                        <th>View results</th>
+                        <th>Name</th>
+                        <th>State</th>
+                        <th>Edit</th>
+                        <th class="text-center">Presentations</th>
+                        <th>Questions</th>
+                        <th>Results</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +51,7 @@
                         </td>
 
                         <td>
-                            <a href="{{ path('admin_event_delete', { 'id': entity.id }) }}"><button type="button" class="btn">Delete</button></a>
+                            <a href="{{ path('admin_event_delete', { 'id': entity.id }) }}"><button type="button" class="btn icon"><i class="fa fa-lg fa-times"></i></button></a>
                         </td>
 
                     </tr>
@@ -58,8 +63,8 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
-            <a href="{{ path('admin_event_new') }}"><button type="button" class="btn">New event</button></a>
-            <a href="{{ path('admin_prize_draw') }}"><button type="button" class="btn">Prize draw</button></a>
+            <a href="{{ path('admin_event_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i> Add event</button></a>
+            <a href="{{ path('admin_prize_draw') }}"><button type="button" class="btn"><i class="fa fa-diamond"></i> Prize draw</button></a>
         </div>
     </div>
 {% endblock %}

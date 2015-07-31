@@ -39,7 +39,7 @@
         <div id="main" class="container">
         	<div class="row admin-heading">
         		<div class="col-xs-12">
-        			<h1>{% block mainHeading %}{% endblock %}</h1>
+        			<h1 {% block headingSpecialClass %}{% endblock %}>{% block mainHeading %}{% endblock %}</h1>
         		</div>
         	</div>
             {% block body %}{% endblock %}

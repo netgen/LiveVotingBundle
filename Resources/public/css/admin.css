@@ -7,22 +7,36 @@
 	position: relative;
 }
 
+div#main {
+	padding-bottom: 6em;
+}
+
 .admin-heading {
 	margin-top: 2em;
 }
 
+.margin-top {
+	margin-top: 1.5em !important;
+}
+
 ol, ol li {
+	line-height: 2em;
 	color: #404041;
 }
 
 div.alert.alert-danger {
-	padding: 1em;
-	margin: 0;
+	margin: 2em 0 0 0;
+	padding: 0;
 	border-radius: 0;
 	background-color: #ffffff;
 	border-color: #dddddd;
-	color: #404041;
 	text-align: center;
+}
+
+div.alert.alert-danger .text {
+	padding: 1em;
+	color: #ffffff;
+	background-color: rgba(187, 88, 22, 1);
 }
 
 h1 {
@@ -32,6 +46,23 @@ h1 {
 h2 {
 	font-size: 1.25em;
 	margin: 0.8em 0;
+}
+
+.btn {
+	margin: 0.5714em 0;
+	margin-right: 0.5714em;
+}
+
+.btn.icon {
+	background-color: transparent;
+	color: #1678b9;
+}
+
+@media (max-width: 767px) {
+	.btn {
+		width: 100%;
+		margin-right: 0;
+	}
 }
 
 /**
@@ -61,7 +92,7 @@ h2 {
 }
 
 .secondary-footer {
-	margin-top: 1em;
+	margin-top: 1.5em;
 }
 
 .secondary-footer i {
@@ -80,16 +111,13 @@ h2 {
 /**
  * Admin login
  */
-.form-signin {
+.form-signin form {
+	display: block;
 	margin-top: 2em;
 }
 
-.form-signin form {
-	display: block;
-}
-
 .form-signin input.form-control {
-	margin: 1.1428em 0px;
+	margin: 1.0714em 0px;
 	padding: 0.1428em 1em;
 	font-size: 0.875em;
 	line-height: 1.8571em;
@@ -105,11 +133,16 @@ h2 {
  */
 form {
 	display: block;
-	color: #404041;
-	border-top: 1px solid #dddddd;
-	border-bottom: 1px solid #dddddd;
 	width: initial !important;
 	margin-left: 0px !important;
+	padding: 0 1.5em;
+	border: 1px solid #dddddd;
+	color: #404041;
+	background-color: #ffffff;
+}
+
+form:nth-child(2) {
+	border-top: none;
 }
 
 form div {
@@ -122,7 +155,7 @@ form div > div > div {
 
 form label {
 	display: inline-block;
-	margin: 1em 0 0 0;
+	margin: 1.5em 0 0 0;
 	font-size: 1em;
 	font-weight: 600;
 	line-height: 1.5em;
@@ -133,13 +166,22 @@ form select, form input[type="text"], form input[type="email"] {
 	width: 100%;
 }
 
+form input[type="text"], form input[type="email"] {
+	padding: 0.1428em 1em;
+	font-size: 0.875em;
+	line-height: 1.8571em;
+	border: 1px solid #dddddd;
+	border-radius: 0;
+	background-color: #ffffff;
+}
+
 form input[type="checkbox"] {
 	display: inline-block;
 	float: right;
 	margin-top: 1.25em;
 }
 
-form button {
+form button, form button.btn {
 	width: 100%;
 	margin: 1.1428em 0px;
 	padding: 0.2142em 1em;
@@ -151,6 +193,18 @@ form button {
 	border: none;
 	border-radius: 0px;
 	text-transform: uppercase;
+}
+
+form button.btn-success, button.btn-success {
+	background-color: #26bb16;
+}
+
+form button.btn-danger, button.btn-danger {
+	background-color: #bb5816;
+}
+
+form button.btn-success:hover, button.btn-success:hover, form button.btn-danger:hover, button.btn-danger:hover {
+	background-color: #404041;
 }
 
 form button:hover, form button:focus {
@@ -180,12 +234,108 @@ form button:hover, form button:focus {
 	width: 30%;
 }
 
+#form_presentationRecord_begin_date_year,
+#form_presentationRecord_begin_date_month,
+#form_presentationRecord_begin_date_day,
+#form_presentationRecord_end_date_year,
+#form_presentationRecord_end_date_month,
+#form_presentationRecord_end_date_day {
+	display: inline-block;
+	width: 33.3333%;
+}
+
 #netgen_livevotingbundle_registration_arrivalTime_time select,
 #netgen_livevotingbundle_registration_departureTime_time select,
 #netgen_livevotingbundle_event_begin_time select,
 #netgen_livevotingbundle_event_end_time select,
 #netgen_livevotingbundle_presentation_begin_time select,
-#netgen_livevotingbundle_presentation_end_time select {
+#netgen_livevotingbundle_presentation_end_time select,
+#form_presentationRecord_begin_time_hour,
+#form_presentationRecord_begin_time_minute,
+#form_presentationRecord_end_time_hour,
+#form_presentationRecord_end_time_minute {
 	display: inline-block;
 	width: 25%;
+}
+
+/**
+ * Hardcore override
+ */
+#form_presentationRecord {
+	margin-left: 0 !important;
+	width: initial !important;
+}
+#form_presentationRecord_globalBrake {
+	width: initial;
+}
+
+
+/**
+ * Tables
+ */
+table#view-presentations form {
+	border: none;
+	background-color: transparent;
+}
+
+
+
+/**
+ * Prize draw
+ */
+.prize-draw-table label {
+	margin: 0;
+}
+
+.prize-draw-table .checkbox input[type="checkbox"] {
+	top: -0.8823em;
+}
+
+.prize-pool {
+	margin: 6em 0;
+	padding: 4em 2em;
+	border: 0.0625em solid #dddddd;
+	color: #ffffff;
+	background-color: rgba(187, 88, 22, 1);
+	text-align: center;
+	min-height: 22em;
+	box-shadow: inset 0 0 5px 1px #404041;
+}
+
+.prize-pool h1 {
+	color: rgba(255, 255, 255, 0.25);
+	margin-bottom: 2em;
+}
+
+.prize-pool #lottery-diamond {
+}
+
+.prize-pool h2.lottery-option {
+	color: #ffffff;
+}
+
+
+/**
+ * Final results
+ */
+#high, .highchart-container {
+	margin-top: 2em;
+	border: 0.0625em solid #dddddd;
+	background-color: #ffffff;
+}
+
+#winner {
+	margin-top: 2em;
+	padding: 2em;
+	border: 0.0625em solid #dddddd;
+	color: #ffffff;
+	background-color: rgba(187, 88, 22, 1);
+	text-align: center;
+	/*min-height: 22em;*/
+	box-shadow: inset 0 0 5px 1px #404041;
+}
+
+
+#winner h1, #winner h2 {
+	color: #ffffff;
 }

@@ -68,9 +68,9 @@ nav.navbar img.navbar-logo {
 	border: none;
 	border-radius: 0;
 	box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.26);
-	font-size: 1em;
+	font-size: 1.5em;
 	line-height: 1.5em;
-	text-align: right;
+	text-align: center;
 	width: 12em;
 	text-transform: uppercase;
 }
@@ -100,5 +100,32 @@ nav.navbar img.navbar-logo {
 @media (min-width: 768px) and (max-width: 991px) {
 	.navbar-header .dropdown-menu {
 		width: 50vw;
+		top: initial;
+		right: initial;
+	}
+}
+
+@media (max-width: 767px) {
+	div#global-container {
+		padding-top: 6em;
+	}
+
+	nav.navbar.navbar-fixed-top {
+		height: 6em;
+		min-height: 6em;
+		margin: 0;
+		padding: 0;
+		background-color: #ffffff;
+		border-bottom: 1px solid #dddddd;
+	}
+
+	nav.navbar img.navbar-logo {
+		height: 4em;
+		margin: 1em 0;
+	}
+
+	.navbar-header .dropdown-toggle {
+		margin: 0.25em 0;
+		font-size: 4em;
 	}
 }
