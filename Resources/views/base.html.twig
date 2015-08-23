@@ -36,15 +36,18 @@
                                 <img src="{{ asset('bundles/livevoting/img/assets/small-logo.svg')}}" class="visible-xs navbar-logo">
                             </a>
                         </div>
-                        <div class="navbar-header col-xs-6 text-right">
+                            <div class="navbar-header col-xs-6 text-right">
                             {% if app.user %}
-                            <div class="hidden-xs hidden-sm nav-ul">
-                                <a href="{{ path('root') }}">Dashboard</a><!--
+                                <div class="hidden-xs hidden-sm nav-ul">
+                                   <a href="{{ path('root') }}">Dashboard</a><!--
                                 --><a href="{{ path('user_landing') }}">Events</a><!--
-                                {% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 %}
+                                {% if is_granted ('ROLE_ADMIN') %}
+                                --><a href="{{ path('admin_index') }}">Admin Interface</a><!--
+                                {% endif %}
+                                {% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 and not is_granted ('ROLE_ADMIN')%}
                                 --><a href="{{ path('user_presentations') }}">My lectures</a><!--
                                 {% endif %}
-                                {% if(app.request.cookies.has('userEditEnabled')) %}
+                                {% if(app.request.cookies.has('userEditEnabled')) and not is_granted ('ROLE_ADMIN')%}
                                 --><a href="{{ path('user_edit') }}">Edit my info</a><!--
                                 {% endif %}-->
                             </div>
@@ -53,10 +56,13 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                     <li><a href="{{ path('root') }}">Dashboard</a></li>
                                     <li><a href="{{ path('user_landing') }}">Events</a></li>
-                                    {% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 %}
+                                    {% if is_granted ('ROLE_ADMIN') %}
+                                    <li><a href="{{ path('admin_index') }}">Admin Interface</a></li>
+                                    {% endif %}
+                                    {% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 and not is_granted ('ROLE_ADMIN')%}
                                     <li><a href="{{ path('user_presentations') }}">My lectures</a></li>
                                     {% endif %}
-                                    {% if(app.request.cookies.has('userEditEnabled')) %}
+                                    {% if(app.request.cookies.has('userEditEnabled')) and not is_granted ('ROLE_ADMIN')%}
                                     <li><a href="{{ path('user_edit') }}">Edit my info</a></li>
                                     {% endif %}
                                 </ul>

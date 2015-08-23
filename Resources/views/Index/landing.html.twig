@@ -18,19 +18,25 @@
 				<div>
 					<h2>{{ event.getName }}</h2>
 				</div>
+				{% if is_granted('ROLE_ADMIN') %}
+				<div>
+					<label style="font-weight:bold; color:grey" class="big">View event details</label>
+				</div>
+				{%  else %}
 				<div>
 					<label class="big"><a href="{{path('event', {'event_id':event.getId})}}">View event details</a></label>
 				</div>
+				{%  endif %}
 			</div>
 			<div class="clearfix visible-xs"></div>
 			<div class="col-xs-12 col-sm-5 col-lg-4">				
 				<div class="text-right actions"><!--
-					{% if event.hasVoting %}--><a href="{{path('event', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-thumbs-o-up"></i><span>Vote</span></a><!--{% else %}-->
+					{% if event.hasVoting and not is_granted('ROLE_ADMIN') %}--><a href="{{path('event', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-thumbs-o-up"></i><span>Vote</span></a><!--{% else %}-->
 					<a class="text-center disabled"><i class="fa fa-thumbs-o-up"></i><span>Vote</span></a>{% endif %}<!--
 					{% if event.getAllowViewingResults %}
 					--><a href="{{path('result', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-bar-chart"></i><span>Results</span></a><!--{% else %}--><a class="text-center disabled"><i class="fa fa-bar-chart"></i><span>Results</span></a><!--
 					{% endif %}
-					{% if event.questions|length > 0 %}
+					{% if event.questions|length > 0 and not is_granted('ROLE_ADMIN') %}
 					--><a href="{{path('question', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-question"></i><span>{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}</span></a><!--{% else %}--><a class="text-center disabled"><i class="fa fa-question"></i><span>Questions</span></a>
 					<!--{% endif %}-->
 				</div>				

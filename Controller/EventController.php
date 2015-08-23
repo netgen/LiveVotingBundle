@@ -171,10 +171,17 @@ class EventController extends Controller
     {
         $session = $request->getSession();
         $session->start();
-        $sessionId = $session->getId();
+        /*$sessionId = $session->getId();
         $userByToken = $this->get('security.context')->getToken()->getUser();
-        $userId = $userByToken->getId();
-        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN'))
+        {
+            $userId = $userByToken->getId();
+            $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
+        }
+        else
+        {
+            throw $this->createAccessDeniedException('Not a regular user');
+        }*/
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
         if(!$event) {
             throw $this->createNotFoundException('The event does not exist!');

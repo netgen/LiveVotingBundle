@@ -48,19 +48,19 @@ class UserAdminController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if($em->getRepository('LiveVotingBundle:User')->findOneByEmail($user->getEmail())){
-              $request->getSession()->getFlashBag()->add(
-                'error', 'That user already exists.'
-              );
+            if ($em->getRepository('LiveVotingBundle:User')->findOneByEmail($user->getEmail())) {
+                $request->getSession()->getFlashBag()->add(
+                    'error', 'That user already exists.'
+                );
 
-              return $this->redirect($this->generateUrl('admin_user_new'));
+                return $this->redirect($this->generateUrl('admin_user_new'));
             }
 
             $em->persist($user);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add(
-              'message', 'You have added new user.'
+                'message', 'You have added new user.'
             );
 
             return $this->redirect($this->generateUrl('admin_user'));
@@ -68,7 +68,7 @@ class UserAdminController extends Controller
 
         return $this->render('LiveVotingBundle:User:new.html.twig', array(
             'user' => $user,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -95,11 +95,11 @@ class UserAdminController extends Controller
     public function newAction()
     {
         $entity = new User();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('LiveVotingBundle:User:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -120,26 +120,27 @@ class UserAdminController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render('LiveVotingBundle:User:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'entity' => $entity,
+            'edit_form' => $editForm->createView()
         ));
     }
 
     /**
-    * Creates a form to edit a User entity.
-    * @param User $entity The entity
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a User entity.
+     * @param User $entity The entity
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(User $entity)
     {
         $form = $this->createForm(new UserDataType(), $entity, array(
             'action' => $this->generateUrl('admin_user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('Enabled', 'checkbox', array('required'=>false, 'label'=>'Enabled'));
+        $form->add('Enabled', 'checkbox', array('required' => false, 'label' => 'Enabled'));
         $form->add('submit', 'submit', array('label' => 'Update'));
         return $form;
     }
+
     /**
      * Edits an existing User entity.
      */
@@ -156,103 +157,159 @@ class UserAdminController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid())
-        {
+        if ($editForm->isValid()) {
             $entity->setEmail($entity->getEmail());
             $em->flush();
             $request->getSession()->getFlashBag()->add(
-              'message', 'Your changes were saved.'
+                'message', 'Your changes were saved.'
             );
 
             return $this->redirect($this->generateUrl('admin_user'));
         }
 
         return $this->render('LiveVotingBundle:Event:user.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'entity' => $entity,
+            'edit_form' => $editForm->createView()
         ));
     }
 
-    public function enableDisableAction(){
+    public function enableDisableAction()
+    {
         // unfinished
     }
 
     // TODO: Implement later if neede1d
-    private function createEnableDisableForm(Event $event){
+    private function createEnableDisableForm(Event $event)
+    {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_event_enabledisable', array('event_id' => $event->getId())))
             ->setMethod('PUT')
             ->add('enabledisable', 'submit')
-            ->getForm()
-        ;
+            ->getForm();
     }
 
-    public function importCsvAction(){
-      $form = $this->createFormBuilder()
-        ->setAction($this->generateUrl('user_csv_process_import'))
-        ->setMethod('POST')
-        ->add('attachment', 'file')
-        ->add('submit', 'submit', array('label' => 'Upload csv'))
-        ->getForm();
-      return $this->render(
-        'LiveVotingBundle:User:importcsv.html.twig',
-        array(
-          'form' => $form->createView()
-        )
-      );
+    public function importCsvAction()
+    {
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('user_csv_process_import'))
+            ->setMethod('POST')
+            ->add('attachment', 'file')
+            ->add('submit', 'submit', array('label' => 'Upload csv'))
+            ->getForm();
+        return $this->render(
+            'LiveVotingBundle:User:importcsv.html.twig',
+            array(
+                'form' => $form->createView()
+            )
+        );
     }
 
-    public function processImportCsvAction(Request $request){
-      $form = $this->createFormBuilder()
-        ->setAction($this->generateUrl('user_csv_process_import'))
-        ->setMethod('POST')
-        ->add('attachment', 'file')
-        ->add('submit', 'submit', array('label' => 'Upload csv'))
-        ->getForm();
+    public function processImportCsvAction(Request $request)
+    {
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('user_csv_process_import'))
+            ->setMethod('POST')
+            ->add('attachment', 'file')
+            ->add('submit', 'submit', array('label' => 'Upload csv'))
+            ->getForm();
 
 
+        $form->handleRequest($request);
 
-      $form->handleRequest($request);
+        if ($form->isValid()) {
+            $file = $form['attachment']->getData();
 
-      if($form->isValid()){
-        $file = $form['attachment']->getData();
+            if (($handle = fopen($file, "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
 
-        if (($handle = fopen($file, "r")) !== FALSE) {
-            while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    for ($i = 0; $i < count($data); $i++) {
+                        if (filter_var($data[$i], FILTER_VALIDATE_EMAIL)) {
+                            $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->findByEmail($data[$i]);
 
-                for($i=0;$i<count($data);$i++){
-                  if(filter_var($data[$i], FILTER_VALIDATE_EMAIL)){
-                    $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->findByEmail($data[$i]);
+                            if (!$user) {
+                                $newUser = new User();
+                                $newUser->setEmail($data[$i]);
+                                $idd = uniqid(rand(), true);
+                                $newUser->setId($idd);
+                                $newUser->setUsername($idd);
+                                $newUser->setPassword('1');
+                                $newUser->setEnabled(true);
 
-                    if(!$user){
-                      $newUser = new User();
-                      $newUser->setEmail($data[$i]);
-                      $idd = uniqid(rand(), true);
-                      $newUser->setId($idd);
-                      $newUser->setUsername($idd);
-                      $newUser->setPassword('1');
-                      $newUser->setEnabled(true);
-
-                      $em = $this->getDoctrine()->getManager();
-                      $em->persist($newUser);
-                      $em->flush();
+                                $em = $this->getDoctrine()->getManager();
+                                $em->persist($newUser);
+                                $em->flush();
+                            }
+                        }
                     }
-                  }
                 }
+                fclose($handle);
+                $request->getSession()->getFlashBag()->add(
+                    'message', 'You have added new user(s) from csv file.'
+                );
             }
-            fclose($handle);
-            $request->getSession()->getFlashBag()->add(
-              'message', 'You have added new user(s) from csv file.'
-            );
+            return $this->redirect($this->generateUrl('admin_user'));
         }
-        return $this->redirect($this->generateUrl('admin_user'));
-      }
 
-      return $this->render(
-        'LiveVotingBundle:User:importcsv.html.twig',
-        array(
-          'form' => $form->createView()
-        )
-      );
+        return $this->render(
+            'LiveVotingBundle:User:importcsv.html.twig',
+            array(
+                'form' => $form->createView()
+            )
+        );
+    }
+
+    public function loginEmailAction(Request $request)
+    {
+        $users = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->findAll();
+        foreach ($users as $user) {
+            $user_email = $user->getEmail();
+            $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Say hello to SummerCamp2015!')
+                ->setFrom('summercamp@netgen.hr')
+                ->setTo($user_email)
+                ->setBody(
+                    $this->renderView(
+                        'LiveVotingBundle:Email:login.html.twig',
+                        array('emailHash' => $emailHash)
+                    ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
+        }
+        $request->getSession()->getFlashBag()->add(
+            'message', 'Emails have been sent to all users.'
+        );
+        return $this->redirect($this->generateUrl('admin_user'));
+    }
+
+    public function oneUserLoginEmailAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('LiveVotingBundle:User')->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
+
+        $user_email = $user->getEmail();
+        $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Say hello to SummerCamp2015!')
+            ->setFrom('summercamp@netgen.hr')
+            ->setTo($user_email)
+            ->setBody(
+                $this->renderView(
+                    'LiveVotingBundle:Email:login.html.twig',
+                    array('emailHash' => $emailHash)
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
+        $request->getSession()->getFlashBag()->add(
+            'message', 'Email has been sent to '.$user_email
+        );
+        return $this->redirect($this->generateUrl('admin_user'));
     }
 }

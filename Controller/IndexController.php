@@ -34,7 +34,7 @@ class IndexController extends Controller
         $events = $this->getDoctrine()->getManager()
             ->createQueryBuilder("e")
             ->select("e, p")
-            ->from("LiveVotingBundle:event", "e")
+            ->from("LiveVotingBundle:Event", "e")
             ->where('e.begin < :datetime')
             ->orderBy('e.event', 'ASC')
             ->leftjoin('e.presentations', "p")

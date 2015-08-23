@@ -188,3 +188,15 @@ dashboard_presentations:
 dashboard_live_schedule:
   path: /dashboard/liveschedule
   defaults: {_controller: LiveVotingBundle:Dashboard:getLiveSchedule}
+
+#EMAIL LOGIN#
+email_login:
+    path: /login/
+
+send_email_login:
+    path: /admin/user/send_email_login
+    defaults: {_controller: LiveVotingBundle:UserAdmin:loginEmail}
+
+send_one_email_login:
+    path: /admin/user/send_one_email_login/{id}
+    defaults: {_controller: LiveVotingBundle:UserAdmin:oneUserLoginEmail, id: null }
