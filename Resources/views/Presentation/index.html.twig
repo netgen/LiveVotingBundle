@@ -71,8 +71,11 @@
             button.button('loading');
             button.prop("disabled",true);
             $.ajax({
-                type: 'post',
-                'url': "/admin/events/{{ event.id }}/presentations/publish",
+                headers: {
+                    'Authorization': 'Bearer {{ joind_in_access_token }}'
+                },
+                'type': 'post',
+                'url': '{{ url('admin_presentation_publish', {'event_id': event.id}) }}',
                 'data': {joindEvent: $("#joind-events-select").val()},
                 success: function (data) {
                     button.button('success');

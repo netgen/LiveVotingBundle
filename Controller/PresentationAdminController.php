@@ -271,22 +271,21 @@ class PresentationAdminController extends Controller
              * @var $presentation Presentation
              */
             if($presentation->getGlobalBrake()) continue;
-            if($presentation->getJoindInId() == null) continue;
-            try{
-                /**
-                 * @var $publishedPresentation Presentation
-                 */
-                $publishedPresentation = $client->publishPresentation($request->get("joindEvent"), $presentation);
-                $presentation.setJoindInId($publishedPresentation.getJoindInId());
-            } catch(JoindInClientException $e) {
-                return new JsonResponse(array("error" => $e->getMessage()), 500 );
+            if($presentation->getJoindInId() == null)
+            {
+                try {
+                    /**
+                     * @var $publishedPresentation Presentation
+                     */
+                    $publishedPresentation = $client->publishPresentation($request->get("joindEvent"), $presentation);
+                    $presentation . setJoindInId($publishedPresentation . getJoindInId());
+                } catch (JoindInClientException $e) {
+                    return new JsonResponse(array("error" => $e->getMessage()), 500);
+                }
+                $em->persist($presentation);
             }
-            $em->persist($presentation);
         }
         $em->flush();
         return new JsonResponse(array("succesful" => true));
     }
-
-
-
 }
