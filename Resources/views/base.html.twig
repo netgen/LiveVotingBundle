@@ -47,8 +47,8 @@
                                 {% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 and not is_granted ('ROLE_ADMIN')%}
                                 --><a href="{{ path('user_presentations') }}">My lectures</a><!--
                                 {% endif %}
-                                {% if(app.request.cookies.has('userEditEnabled')) and not is_granted ('ROLE_ADMIN')%}
-                                --><a href="{{ path('user_edit') }}">Edit my info</a><!--
+                                --><!--{% if(app.request.cookies.has('userEditEnabled')) and not is_granted ('ROLE_ADMIN')%}
+                                <a href="{{ path('user_edit') }}">Edit my info</a>--><!--
                                 {% endif %}-->
                             </div>
                             <div class="visible-xs visible-sm dropdown">

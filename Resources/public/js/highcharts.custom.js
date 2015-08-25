@@ -30,7 +30,7 @@ $(document).ready(function(){
         },
         colors: ["#1678b9"],
         title: {
-            text: 'Live results: ' + eventNameHighchart,
+            text: eventNameHighchart,
             style: {
               "color" : "#404041",
               "font-weight" : "600",
