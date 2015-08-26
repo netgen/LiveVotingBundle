@@ -17,6 +17,7 @@ use Netgen\LiveVotingBundle\Entity\Vote;
 use Netgen\LiveVotingBundle\Entity\Answer;
 use Netgen\LiveVotingBundle\Exception\JsonException;
 use Netgen\LiveVotingBundle\Service\JoindInClient\JoindInClient;
+use Netgen\LiveVotingBundle\Service\PresentationService\Impl\DoctrinePresentationRepo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -107,8 +108,8 @@ class EventController extends Controller
             'presentationDescription' => $presentation->getDescription(),
             'votingEnabled' => $presentation->getVotingEnabled(),
             'presentationLocation' => $presentation->getHall(),
-            'presentationBeginTime' => $presentation->getBegin()->format("H:m"),
-            'presentationEndTime' => $presentation->getEnd()->format("H:m"),
+            'presentationBeginTime' => $presentation->getBegin()->format("H:i"),
+            'presentationEndTime' => $presentation->getEnd()->format("H:i"),
             'image' =>  $presentation->getImage(),
             'presenterRate' => $rate,
             'comments' => $this->getCommentsArray($presentation->getPresentationComments(), $presentation->getPresentationImages()),
