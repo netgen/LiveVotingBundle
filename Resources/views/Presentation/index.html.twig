@@ -52,9 +52,9 @@
             <button type="button" id="publishPresentationButton" onclick="publishPresentations()" data-success-text="Publishing successful" data-loading-text="Publishing..." class="btn" autocomplete="off">Publish presentations</button>
             <label>
                 <select id="joind-events-select" class="form-control">
-                    {% for event in joindInEvents %}
-                        <option value="{{ event.joindInId }}">{{ event.name }}</option>
-                    {% endfor %}
+                    {#{% for event in joindInEvents %}
+                        <!--<option value="{{ event.joindInId }}">{{ event.name }}</option>-->
+                    {% endfor %}#}
                 </select>
             </label>
             <div class="clearfix"></div>
