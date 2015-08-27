@@ -265,8 +265,8 @@ class UserAdminController extends Controller
             $user_email = $user->getEmail();
             $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
             $message = \Swift_Message::newInstance()
-                ->setSubject('Say hello to SummerCamp2015!')
-                ->setFrom('summercamp@netgen.hr')
+                ->setSubject('Summer Camp workshop voting')
+                ->setFrom('info@netgen.hr')
                 ->setTo($user_email)
                 ->setBody(
                     $this->renderView(
@@ -296,8 +296,8 @@ class UserAdminController extends Controller
         $user_email = $user->getEmail();
         $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
         $message = \Swift_Message::newInstance()
-            ->setSubject('Say hello to SummerCamp2015!')
-            ->setFrom('summercamp@netgen.hr')
+            ->setSubject('Summer Camp workshop voting')
+            ->setFrom('info@netgen.hr')
             ->setTo($user_email)
             ->setBody(
                 $this->renderView(
