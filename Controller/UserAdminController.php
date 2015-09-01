@@ -265,12 +265,12 @@ class UserAdminController extends Controller
             $user_email = $user->getEmail();
             $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
             $message = \Swift_Message::newInstance()
-                ->setSubject('Say hello to SummerCamp2015!')
-                ->setFrom('summercamp@netgen.hr')
+                ->setSubject('PHP & eZ Publish Summer Camp 2015 - Questionnaire')
+                ->setFrom('info@netgen.hr')
                 ->setTo($user_email)
                 ->setBody(
                     $this->renderView(
-                        'LiveVotingBundle:Email:login.html.twig',
+                        'LiveVotingBundle:Email:questions.html.twig',
                         array('emailHash' => $emailHash)
                     ),
                     'text/html'
@@ -296,12 +296,12 @@ class UserAdminController extends Controller
         $user_email = $user->getEmail();
         $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
         $message = \Swift_Message::newInstance()
-            ->setSubject('Say hello to SummerCamp2015!')
-            ->setFrom('summercamp@netgen.hr')
+            ->setSubject('PHP & eZ Publish Summer Camp 2015 - Questionnaire')
+            ->setFrom('info@netgen.hr')
             ->setTo($user_email)
             ->setBody(
                 $this->renderView(
-                    'LiveVotingBundle:Email:login.html.twig',
+                    'LiveVotingBundle:Email:questions.html.twig',
                     array('emailHash' => $emailHash)
                 ),
                 'text/html'

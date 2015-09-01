@@ -26,12 +26,12 @@ class ActivationEmailsCommand extends ContainerAwareCommand
             $user_email = $user->getEmail();
             $emailHash = md5($this->getContainer()->getParameter('email_hash_prefix') . $user_email);
             $message = \Swift_Message::newInstance()
-                ->setSubject('Say hello to SummerCamp2015!')
-                ->setFrom('summercamp@netgen.hr')
+                ->setSubject('PHP & eZ Publish Summer Camp 2015 - Questionnaire')
+                ->setFrom('info@netgen.hr')
                 ->setTo($user_email)
                 ->setBody(
                     $this->getContainer()->get('templating')->render(
-                        'LiveVotingBundle:Email:login.html.twig',
+                        'LiveVotingBundle:Email:questions.html.twig',
                         array('emailHash' => $emailHash)
                     ),
                     'text/html'

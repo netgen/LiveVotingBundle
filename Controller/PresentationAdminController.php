@@ -38,8 +38,8 @@ class PresentationAdminController extends Controller
         /**
          * @var $client JoindInClient
          */
-        /*$client = $this->get('live_voting.joind_in_client');
-        $joindInEvents = $client->obtainUserEvents(27355, true);*/
+        $client = $this->get('live_voting.joind_in_client');
+        $joindInEvents = $client->obtainUserEvents(27355, true);
         $that = $this;
         return $this->render('LiveVotingBundle:Presentation:index.html.twig', array(
             'entities' => array_map(
@@ -47,7 +47,7 @@ class PresentationAdminController extends Controller
                    return array($ent, $that->createEnableDisableForm($ent)->createView());
                 }, $entities),
             'event' => $event,
-            /*'joindInEvents' => $joindInEvents*/
+            'joindInEvents' => $joindInEvents
         ));
     }
 
