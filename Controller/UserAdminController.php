@@ -258,12 +258,85 @@ class UserAdminController extends Controller
         );
     }
 
-    public function loginEmailAction(Request $request)
+    public function loginEmailAction(Request $request, $typeOf)
     {
         $users = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->findAll();
         foreach ($users as $user) {
             $user_email = $user->getEmail();
             $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
+            if ($typeOf === '0')
+            {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Say hello to Summer Camp 2015!')
+                    ->setFrom('info@netgen.hr')
+                    ->setTo($user_email)
+                    ->setBody(
+                        $this->renderView(
+                            'LiveVotingBundle:Email:login.html.twig',
+                            array('emailHash' => $emailHash)
+                        ),
+                        'text/html'
+                    );
+            }
+            else if ($typeOf === '1')
+            {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('PHP & eZ Publish Summer Camp 2015 - Questionnaire')
+                    ->setFrom('info@netgen.hr')
+                    ->setTo($user_email)
+                    ->setBody(
+                        $this->renderView(
+                            'LiveVotingBundle:Email:questions.html.twig',
+                            array('emailHash' => $emailHash)
+                        ),
+                        'text/html'
+                    );
+            }
+
+            $this->get('mailer')->send($message);
+        }
+        if ($typeOf === '0')
+        {
+            $request->getSession()->getFlashBag()->add(
+                'message', 'Activations have been sent to all users.'
+            );
+        }
+        else if ($typeOf === '1')
+        {
+            $request->getSession()->getFlashBag()->add(
+                'message', 'Questionnaires have been sent to all users.'
+            );
+        }
+        return $this->redirect($this->generateUrl('admin_user'));
+    }
+
+    public function oneUserLoginEmailAction(Request $request, $id, $typeOf)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('LiveVotingBundle:User')->find($id);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
+        $user_email = $user->getEmail();
+        $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
+        if ($typeOf === '0')
+        {
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Say hello to Summer Camp 2015!')
+                ->setFrom('info@netgen.hr')
+                ->setTo($user_email)
+                ->setBody(
+                    $this->renderView(
+                        'LiveVotingBundle:Email:login.html.twig',
+                        array('emailHash' => $emailHash)
+                    ),
+                    'text/html'
+                );
+        }
+        else if ($typeOf === '1')
+        {
             $message = \Swift_Message::newInstance()
                 ->setSubject('PHP & eZ Publish Summer Camp 2015 - Questionnaire')
                 ->setFrom('info@netgen.hr')
@@ -275,41 +348,24 @@ class UserAdminController extends Controller
                     ),
                     'text/html'
                 );
-            $this->get('mailer')->send($message);
-        }
-        $request->getSession()->getFlashBag()->add(
-            'message', 'Emails have been sent to all users.'
-        );
-        return $this->redirect($this->generateUrl('admin_user'));
-    }
-
-    public function oneUserLoginEmailAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $user = $em->getRepository('LiveVotingBundle:User')->find($id);
-
-        if (!$user) {
-            throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $user_email = $user->getEmail();
-        $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
-        $message = \Swift_Message::newInstance()
-            ->setSubject('PHP & eZ Publish Summer Camp 2015 - Questionnaire')
-            ->setFrom('info@netgen.hr')
-            ->setTo($user_email)
-            ->setBody(
-                $this->renderView(
-                    'LiveVotingBundle:Email:questions.html.twig',
-                    array('emailHash' => $emailHash)
-                ),
-                'text/html'
-            );
+
         $this->get('mailer')->send($message);
-        $request->getSession()->getFlashBag()->add(
-            'message', 'Email has been sent to '.$user_email
-        );
+        if ($typeOf === '0')
+        {
+            $request->getSession()->getFlashBag()->add(
+                'message', 'Activation has been sent to '.$user_email
+            );
+        }
+        else if ($typeOf === '1')
+        {
+            $request->getSession()->getFlashBag()->add(
+                'message', 'Questionnaire has been sent to '.$user_email
+            );
+        }
+
+
         return $this->redirect($this->generateUrl('admin_user'));
     }
 }

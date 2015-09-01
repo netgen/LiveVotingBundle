@@ -194,9 +194,9 @@ email_login:
     path: /login/
 
 send_email_login:
-    path: /admin/user/send_email_login
-    defaults: {_controller: LiveVotingBundle:UserAdmin:loginEmail}
+    path: /admin/user/send_email_login/{typeOf}
+    defaults: {_controller: LiveVotingBundle:UserAdmin:loginEmail, typeOf: null}
 
 send_one_email_login:
-    path: /admin/user/send_one_email_login/{id}
-    defaults: {_controller: LiveVotingBundle:UserAdmin:oneUserLoginEmail, id: null }
+    path: /admin/user/send_one_email_login/{typeOf}/{id}
+    defaults: {_controller: LiveVotingBundle:UserAdmin:oneUserLoginEmail, id: null, typeOf: null }
