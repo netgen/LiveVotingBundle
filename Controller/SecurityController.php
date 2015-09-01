@@ -23,7 +23,7 @@ class SecurityController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function userLoginAction(Request $request, $activateHash)
+    public function userLoginAction(Request $request, $activateHash, $typeOf)
     {
       if($activateHash === null){
         return $this->redirect($this->generateUrl('root'));
@@ -55,7 +55,14 @@ class SecurityController extends Controller
           $expires = time() + 60*60*24*183;
           $value = $this->generateCookieValue(get_class($user), $user->getUsername(), $expires, $user->getPassword());
 
-          $return = $this->redirect($this->generateUrl(/*user_landing*/'question', array('event_id' => '17')));
+          if ($typeOf === '0')
+          {
+              $return = $this->redirect($this->generateUrl('user_landing'));
+          }
+          else if ($typeOf === '1')
+          {
+              $return = $this->redirect($this->generateUrl('question', array('event_id' => '17')));
+          }
           $return->headers->setCookie(new Cookie('userEditEnabled', '1', time()+60*60*24*90));
 
           $presentations = $this->getDoctrine()->getRepository('LiveVotingBundle:Presentation')->findByUser($user);

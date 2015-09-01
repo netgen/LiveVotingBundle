@@ -155,8 +155,8 @@ admin_presentation_publish:
 
 #USER LOGIN ROUTING#
 user_login:
-    path:    /login/{activateHash}
-    defaults: { _controller: LiveVotingBundle:Security:userLogin, activateHash: null }
+    path:    /login/{activateHash}/{typeOf}
+    defaults: { _controller: LiveVotingBundle:Security:userLogin, activateHash: null, typeOf: null }
 
 user_login_check:
     path:    /login_check
