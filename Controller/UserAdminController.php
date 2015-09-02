@@ -350,7 +350,6 @@ class UserAdminController extends Controller
                 );
         }
 
-
         $this->get('mailer')->send($message);
         if ($typeOf === '0')
         {
