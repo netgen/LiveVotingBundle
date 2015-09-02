@@ -42,7 +42,7 @@ class ActivationEmailsCommand extends ContainerAwareCommand
 
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Say hello to Summer Camp 2015!')
-                    ->setFrom('info@netgen.hr')
+                    ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
                     ->setTo($user_email)
                     ->setBody(
                         $this->getContainer()->get('templating')->render(
@@ -63,8 +63,8 @@ class ActivationEmailsCommand extends ContainerAwareCommand
                 $emailHash = md5($this->getContainer()->getParameter('email_hash_prefix') . $user_email);
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('PHP & eZ Publish Summer Camp 2015 - Questionnaire')
-                    ->setFrom('info@netgen.hr')
+                    ->setSubject('Questionnaire')
+                    ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
                     ->setTo($user_email)
                     ->setBody(
                         $this->getContainer()->get('templating')->render(

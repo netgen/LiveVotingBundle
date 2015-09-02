@@ -268,7 +268,7 @@ class UserAdminController extends Controller
             {
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Say hello to Summer Camp 2015!')
-                    ->setFrom('info@netgen.hr')
+                    ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
                     ->setTo($user_email)
                     ->setBody(
                         $this->renderView(
@@ -281,8 +281,8 @@ class UserAdminController extends Controller
             else if ($typeOf === '1')
             {
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('PHP & eZ Publish Summer Camp 2015 - Questionnaire')
-                    ->setFrom('info@netgen.hr')
+                    ->setSubject('Questionnaire')
+                    ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
                     ->setTo($user_email)
                     ->setBody(
                         $this->renderView(
@@ -325,7 +325,7 @@ class UserAdminController extends Controller
         {
             $message = \Swift_Message::newInstance()
                 ->setSubject('Say hello to Summer Camp 2015!')
-                ->setFrom('info@netgen.hr')
+                ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
                 ->setTo($user_email)
                 ->setBody(
                     $this->renderView(
@@ -338,8 +338,8 @@ class UserAdminController extends Controller
         else if ($typeOf === '1')
         {
             $message = \Swift_Message::newInstance()
-                ->setSubject('PHP & eZ Publish Summer Camp 2015 - Questionnaire')
-                ->setFrom('info@netgen.hr')
+                ->setSubject('Questionnaire')
+                ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
                 ->setTo($user_email)
                 ->setBody(
                     $this->renderView(
