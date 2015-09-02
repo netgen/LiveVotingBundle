@@ -20,6 +20,7 @@
                         <th class="text-center">Enabled</th>
                         <th>Edit</th>
                         <th>Activation Email</th>
+                        <th>Questionnaire Email</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +32,10 @@
                             <a href="{{ path('admin_user_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
                         </td>
                         <td>
-                            <a href="{{ path('send_one_email_login', { 'id': entity.id }) }}"><button type="button" class="btn">Send Activation Email</button></a>
+                            <a href="{{ path('send_one_email_login', { 'id': entity.id, 'typeOf': 0}) }}"><button type="button" class="btn">Send Activation Email</button></a>
+                        </td>
+                        <td>
+                            <a href="{{ path('send_one_email_login', { 'id': entity.id, 'typeOf': 1}) }}"><button type="button" class="btn">Send Questionnaire Email</button></a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -45,7 +49,8 @@
             <a href="{{ path('admin_user_new') }}"><button type="button" class="btn"><i class="fa fa-plus"></i> Add user</button></a>
             <a href="{{ path('csv_export') }}"><button type="button" class="btn"><i class="fa fa-sign-out"></i> Export CSV</button></a>
             <a href="{{ path('user_csv_import') }}"><button type="button" class="btn"><i class="fa fa-sign-in"></i> Import CSV</button></a>
-            <a href="{{ path('send_email_login') }}"><button type="button" class="btn"><i class="fa fa-mail-forward"></i> Send activation email to all users</button></a>
+            <a href="{{ path('send_email_login',{'typeOf': 0}) }}"><button type="button" class="btn"><i class="fa fa-mail-forward"></i> Send activation email to all users</button></a>
+            <a href="{{ path('send_email_login',{'typeOf': 1}) }}"><button type="button" class="btn"><i class="fa fa-mail-forward"></i> Send questionnaire email to all users</button></a>
         </div>
     </div>
 {% endblock %}
