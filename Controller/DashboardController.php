@@ -9,6 +9,7 @@
 
 namespace Netgen\LiveVotingBundle\Controller;
 
+use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Presentation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,8 +20,26 @@ class DashboardController extends Controller{
 
   public function indexAction(){
 
+    // Fetch first current ongoing event
+    $event = $this->getDoctrine()->getManager()->createQuery(
+        'SELECT e
+            FROM LiveVotingBundle:Event e
+            WHERE :datetime > e.begin
+              AND :datetime < e.end
+              AND e.event IS NULL
+            ')->setParameter('datetime', new \DateTime())->getResult();
+
+    if (is_array($event) && $event[0] instanceof Event) {
+      $name = $event[0]->getName();
+    } else {
+      $name = null;
+    }
+
     return $this->render(
-      'LiveVotingBundle:Dashboard:index.html.twig'
+        'LiveVotingBundle:Dashboard:index.html.twig',
+        array(
+          'name' => $name
+        )
     );
   }
 
