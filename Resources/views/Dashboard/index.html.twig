@@ -100,7 +100,7 @@
                 <h1>Current happenings:</h1>
               </div>
               <div>
-                <label class="big">Summer Camp</label>
+                <label class="big">{% if name | default("No current events") %}{{ name }}{% endif %}</label>
               </div>
             </div>
           </div>
@@ -348,9 +348,11 @@
             <div class="row">
                 <div class="col-xs-12">
                 {% if app.user and is_granted('ROLE_ADMIN')%}
+                    {#
                     <div class="cta shadow bg-pattern text-shadow">
                         <div style="background-color:grey" class="cta-action">Admin Cannot Vote</div>
                     </div>
+                    #}
                 {% elseif app.user %}
                     <form class="question-multiple cta cta-multiple bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
                         <button class="cta-action vote-option q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
