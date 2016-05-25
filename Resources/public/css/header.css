@@ -44,14 +44,14 @@ nav.navbar img.navbar-logo {
 	font-weight: 600;
 	line-height: 1em;
 	background-color: transparent;
-	color: #1678b9;
+	color: #E6008A;
 	border: none;
     border-radius: 0;
     text-transform: uppercase;
 }
 
 .navbar-header .dropdown-toggle:hover {
-	color: #115c8d;
+	color: #E6008A;
 }
 
 .navbar-header .dropdown-toggle:active, .navbar-header .dropdown-toggle:focus {
@@ -86,7 +86,7 @@ nav.navbar img.navbar-logo {
 }
 
 .navbar-header .dropdown-menu a:hover {
-	color: #1678b9;
+	color: #E6008A	;
 	background-color: transparent;
 }
 

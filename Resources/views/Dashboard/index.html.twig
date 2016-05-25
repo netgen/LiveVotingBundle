@@ -116,24 +116,30 @@
         <div class="clearfix visible-xs"></div>
         <div class="col-xs-12 col-sm-4 twitter">
             <ul style="overflow-y: scroll;" class="media-list live-voting-comments">
-            {% for comment in comments %}
-                <li class="media">
-                    <div class="row">
-                        <div class="col-xs-2 col-sm-1 media-user-image">
-                            {% if comment.user_gravatar %}
-                                <img src="{{ comment.user_gravatar }}" class="img-responsive img-circle">
-                            {% else %}
-                                <img src="{{asset('bundles/livevoting/img/assets/angry-che.png')}}" class="img-responsive img-circle">
-                            {% endif %}
-                        </div>
-                        <div class="col-xs-10 col-sm-11 media-comment-container">
-                            <h4>{{ comment.user_display_name }}</h4>
-                            <label>{{ comment.published_at|date("F jS \\a\\t g:ia") }}</label>
-                            <p>{{ comment.content }}</p>
-                        </div>
-                    </div>
+                {% if comments is empty %}
+                <li>
+                    <h4 class="no-comment">No comments yet.</h4>
                 </li>
-            {% endfor %}
+                {% else %}
+                    {% for comment in comments %}
+                    <li class="media">
+                        <div class="row">
+                            <div class="col-xs-2 col-sm-1 media-user-image">
+                                {% if comment.user_gravatar %}
+                                    <img src="{{ comment.user_gravatar }}" class="img-responsive img-circle">
+                                {% else %}
+                                    <img src="{{asset('bundles/livevoting/img/assets/angry-che.png')}}" class="img-responsive img-circle">
+                                {% endif %}
+                            </div>
+                            <div class="col-xs-10 col-sm-11 media-comment-container">
+                                <h4>{{ comment.user_display_name }}</h4>
+                                <label>{{ comment.published_at|date("F jS \\a\\t g:ia") }}</label>
+                                <p>{{ comment.content }}</p>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                {% endif %}
             </ul>
         </div>
     </div>

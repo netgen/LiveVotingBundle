@@ -65,7 +65,7 @@ html, body {
 }
 
 html > body {
-    color: #206CA8;
+    color: #E6008A;
     background-color: #ECF0F5;
 }
 
@@ -174,7 +174,7 @@ p.pres-desc-text {
 	font-size: 0.875em;
 	font-weight: 600;
 	line-height: 1.8571em;
-	background-color: #1678b9;
+	background-color: #E6008A;
 	color: #ffffff;
 	border: none;
     border-radius: 0;
@@ -241,7 +241,7 @@ p.pres-desc-text {
  * Links
  */
 a, a:link, a:visited, a:active {
-	color: #1678b9;
+	color: #E6008A;
 }
 
 #main-footer a > span, #main-footer a > span:link, #main-footer a > span:visited, #main-footer a > span:active {
@@ -249,7 +249,7 @@ a, a:link, a:visited, a:active {
 }
 
 a:link:hover, a:hover, a:focus, a:link:focus {
-	color: #115c8d;
+	color: #E6008A;
 	text-decoration: underline;
 }
 

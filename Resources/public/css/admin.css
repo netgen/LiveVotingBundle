@@ -55,7 +55,7 @@ h2 {
 
 .btn.icon {
 	background-color: transparent;
-	color: #1678b9;
+	color: #E6008A;
 }
 
 @media (max-width: 767px) {
@@ -183,7 +183,7 @@ form button, form button.btn {
 	font-size: 0.875em;
 	font-weight: 600;
 	line-height: 1.8571em;
-	background-color: #1678b9;
+	background-color: #E6008A;
 	color: #FFF;
 	border: none;
 	border-radius: 0px;
