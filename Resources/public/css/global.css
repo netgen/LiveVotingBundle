@@ -143,7 +143,7 @@ label, input, select, textarea, span {
 }
 
 .blue {
-	color: #1678b9;
+	color: #E6008A;
 }
 
 p.pres-desc-text {
@@ -154,7 +154,7 @@ p.pres-desc-text {
 #form-useredit form > #form > div:first-child > label,
 #form-useredit form > #form > div:nth-child(2) > label {
 	color: #ffffff;
-	background-color: #1678b9;
+	background-color: #E6008A;
 }
 
 #form-userpres form > label {
@@ -190,7 +190,7 @@ p.pres-desc-text {
 .form-container form button:hover, .form-container form button:active, .form-container form button:focus,
 #netgen_livevotingbundle_presentationcomment_submit:hover {
 	border: none;
-	background-color: #115c8d;
+	background-color: #E6008A;
 	color: #ffffff;
 }
 
@@ -198,11 +198,11 @@ p.pres-desc-text {
 	text-decoration: none !important;
 }
 
-.box .actions a > span, .box .actions a > i { color: #1678b9; text-decoration: none; }
+.box .actions a > span, .box .actions a > i { color: #E6008A; text-decoration: none; }
 .box .actions a.disabled > span, .box .actions a.disabled > i { cursor: default; color: rgba(64, 64, 65, 0.5); text-decoration: none; }
 
-.box .actions a:hover > span { color: #115c8d; text-decoration: underline; }
-.box .actions a:hover > i { color: #115c8d; text-decoration: none; }
+.box .actions a:hover > span { color: #E6008A; text-decoration: underline; }
+.box .actions a:hover > i { color: #E6008A; text-decoration: none; }
 
 .box .actions a.disabled:hover > span { cursor: default; color: rgba(64, 64, 65, 0.5); text-decoration: none; }
 .box .actions a.disabled:hover > i { cursor: default; color: rgba(64, 64, 65, 0.5); text-decoration: none; }
@@ -255,7 +255,7 @@ a:link:hover, a:hover, a:focus, a:link:focus {
 
 #main-footer a > span:link:hover, #main-footer a > span:hover, #main-footer a > span:focus, #main-footer a > span:link:focus {
 	text-decoration: underline;
-	color: #1678b9;
+	color: #E6008A;
 }
 
 
