@@ -110,23 +110,34 @@
 
     <div class="row" id="liveschedule"></div>
 
+
     <div class="row box shadow bg-pattern">
         <div id="chartContainer" class="col-xs-12 col-sm-8"></div>
         <div class="clearfix visible-xs"></div>
         <div class="col-xs-12 col-sm-4 twitter">
-            <a class="twitter-timeline" href="https://twitter.com/hashtag/https://twitter.com/hashtag/netgentweets+OR+ezsummer+OR+phpsummer" data-widget-id="626365722931933184" data-chrome="noborders transparent noheader nofooter">#ezsummer #phpsummer #ezsummercamp #phpsummercamp
-                Tweets</a>
-            <script>!function (d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-                    if (!d.getElementById(id)) {
-                        js = d.createElement(s);
-                        js.id = id;
-                        js.src = p + "://platform.twitter.com/widgets.js";
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }
-                }(document, "script", "twitter-wjs");</script>
+            <ul style="overflow-y: scroll;" class="media-list live-voting-comments">
+            {% for comment in comments %}
+                <li class="media">
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-1 media-user-image">
+                            {% if comment.user_gravatar %}
+                                <img src="{{ comment.user_gravatar }}" class="img-responsive img-circle">
+                            {% else %}
+                                <img src="{{asset('bundles/livevoting/img/assets/angry-che.png')}}" class="img-responsive img-circle">
+                            {% endif %}
+                        </div>
+                        <div class="col-xs-10 col-sm-11 media-comment-container">
+                            <h4>{{ comment.user_display_name }}</h4>
+                            <label>{{ comment.published_at|date("F jS \\a\\t g:ia") }}</label>
+                            <p>{{ comment.content }}</p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+            </ul>
         </div>
     </div>
+
 {% endblock %}
 
 {% block javascripts %}

@@ -11,6 +11,7 @@ namespace Netgen\LiveVotingBundle\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Presentation;
+use Netgen\LiveVotingBundle\Entity\PresentationComment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,7 +21,7 @@ class DashboardController extends Controller{
 
   public function indexAction(){
 
-    // Fetch first current ongoing event
+    // Fetch first current ongoing master event
     $event = $this->getDoctrine()->getManager()->createQuery(
         'SELECT e
             FROM LiveVotingBundle:Event e
@@ -29,16 +30,74 @@ class DashboardController extends Controller{
               AND e.event IS NULL
             ')->setParameter('datetime', new \DateTime())->getResult();
 
-    if (is_array($event) && $event[0] instanceof Event) {
-      $name = $event[0]->getName();
+    if (is_array($event) && !empty($event)) {
+      if (reset($event) instanceof Event) {
+        $name = $event[0]->getName();
+      } else {
+        $name = null;
+      }
     } else {
       $name = null;
+    }
+
+    // Fetch first ongoing event
+    $event = $this->getDoctrine()->getManager()->createQuery(
+        'SELECT e
+            FROM LiveVotingBundle:Event e
+            WHERE :datetime > e.begin
+              AND :datetime < e.end
+              AND e.event IS NOT null
+            ')->setParameter('datetime', new \DateTime())->getResult();
+
+    if (is_array($event) && !empty($event)) {
+      if (reset($event) instanceof Event) {
+        // Fetch event presentations
+        $presentations = $this->getDoctrine()
+            ->getRepository('LiveVotingBundle:Presentation')
+            ->findBy(array('event'=>$event));
+
+        $presentationIds = array();
+        /** @var Presentation $presentation */
+        foreach ($presentations as $presentation) {
+          $presentationIds[] = $presentation->getId();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        // Fetch 5 last presentations comments
+        $presentationComments = $em->createQuery(
+            'SELECT c
+            FROM LiveVotingBundle:PresentationComment c
+            WHERE c.presentation IN (' . implode(',', array_map('intval', $presentationIds)) . ')
+            ORDER BY c.published DESC'
+        )->setMaxResults(5)->getResult();
+
+        $comments = array();
+        /** @var PresentationComment $comment */
+        foreach($presentationComments as $comment) {
+          array_push($comments, array(
+              "content" => $comment->getContent(),
+              "published_at" => $comment->getPublished()->format(DATE_ISO8601),
+              "user_display_name" =>
+                  $comment->getUser()->getEmail() ?
+                      substr($comment->getUser()->getEmail(), 0, strrpos($comment->getUser()->getEmail(), "@"))
+                      :
+                      $comment->getUser()->getUsername(),
+              "user_gravatar" => $comment->getUser()->getGravatar() ? "http://www.gravatar.com/avatar/".$comment->getUser()->getGravatar() : null
+          ));
+        }
+      } else {
+        $comments = array();
+      }
+    } else {
+      $comments = array();
     }
 
     return $this->render(
         'LiveVotingBundle:Dashboard:index.html.twig',
         array(
-          'name' => $name
+            'name' => $name,
+            'comments' => $comments
         )
     );
   }
