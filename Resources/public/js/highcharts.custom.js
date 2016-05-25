@@ -28,7 +28,7 @@ $(document).ready(function(){
             text: 'NetGen',
             href: 'http://netgenlabs.com'
         },
-        colors: ["#1678b9"],
+        colors: ["#E6008A"],
         title: {
             text: eventNameHighchart,
             style: {
