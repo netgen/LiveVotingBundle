@@ -49,6 +49,7 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
+            {#
             <button type="button" id="publishPresentationButton" onclick="publishPresentations()" data-success-text="Publishing successful" data-loading-text="Publishing..." class="btn" autocomplete="off">Publish presentations</button>
             <label>
                 <select id="joind-events-select" class="form-control">
@@ -57,6 +58,7 @@
                     {% endfor %}
                 </select>
             </label>
+            #}
             <div class="clearfix"></div>
             <a href="{{ path('admin_event') }}"><button type="button" class="btn">Back</button></a>
             <a href="{{ path('admin_presentation_new', {'event_id':event.getId}) }}"><button type="button" class="btn"><i class="fa fa-plus"></i> Add presentation</button></a>

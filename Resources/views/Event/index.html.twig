@@ -20,7 +20,7 @@
                         <th>State</th>
                         <th>Edit</th>
                         <th class="text-center">Presentations</th>
-                        <th>Questions</th>
+                        {#<th>Questions</th>#}
                         <th>Results</th>
                         <th>Delete</th>
                     </tr>
@@ -38,9 +38,11 @@
                             <a href="{{ path('admin_presentation', { 'event_id': entity.id }) }}"><button type="button" class="btn">View</button></a>
                         </td>
 
+                        {#
                         <td>
                             <a href="{{ path('admin_question', { 'event_id': entity.id }) }}">Questions ({{ entity.getQuestions()|length }})</a>
                         </td>
+                        #}
 
                         <td>
                             <!--<a class='{{ entity.allowViewingResults ? 'btn-success':'btn-warning'  }}' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">
