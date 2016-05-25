@@ -96,7 +96,7 @@ class PresentationAdminController extends Controller
       $form = $this->createFormBuilder()
             ->add('presentationRecord', new PresentationType(), array('data'=>$entity))
             ->add('presenterName')
-            ->add('presenterSurname')
+            ->add('presenterSurname', null,array('required' => false))
             ->add('user_id', 'entity', array(
               'attr' => array('class' => 'form-control'),
               'label' => "Presenter",
@@ -126,7 +126,7 @@ class PresentationAdminController extends Controller
       $form = $this->createFormBuilder()
             ->add('presentationRecord', new PresentationType(), array('data'=>$entity))
             ->add('presenterName', 'text', array('data' => $entity->presenterName))
-            ->add('presenterSurname', 'text', array('data' => $entity->presenterSurname))
+            ->add('presenterSurname', 'text', array('data' => $entity->presenterSurname, 'required' => false))
             ->add('user', 'entity', array(
               'class' => 'LiveVotingBundle:User',
               'property' => 'email',
