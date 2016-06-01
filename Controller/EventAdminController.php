@@ -197,7 +197,13 @@ class EventAdminController extends Controller
 
             $entity->setStateValue(time() + intval($editForm->get('numberOfSeconds')->getData()));
             $entity->upload();
-            if($entity->getImage() == null) $entity->setImage($old_image);
+
+            /** @var Event $data */
+            $data = $editForm->getData();
+            if ($data->getImage() == null) {
+                $entity->setImage($old_image);
+            }
+
             $em->flush();
 
             $request->getSession()->getFlashBag()->add(

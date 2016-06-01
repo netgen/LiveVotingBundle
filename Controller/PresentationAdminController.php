@@ -13,6 +13,7 @@ use Netgen\LiveVotingBundle\Entity\Presentation;
 use Netgen\LiveVotingBundle\Exception\JoindInClientException;
 use Netgen\LiveVotingBundle\Form\PresentationType;
 use Netgen\LiveVotingBundle\Service\JoindInClient\JoindInClient;
+use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -193,8 +194,11 @@ class PresentationAdminController extends Controller
 
             $this->get('live_voting.doctrine_presentation_repo')->update($entity);
 
-            if($editForm->getData()['presentationRecord']->getImageUrl())
-              $editForm->getData()['presentationRecord']->getImageUrl()->move($this->get('live_voting.doctrine_presentation_repo')->getImageUploadRootDir(), $editForm->getData()['presentationRecord']->getImageUrl()->getClientOriginalName());
+            if(!empty($editForm->getData()['presentationRecord']->getImageUrl())) {
+                $editForm->getData()['presentationRecord']->getImageUrl()->move($this->get('live_voting.doctrine_presentation_repo')->getImageUploadRootDir(), $editForm->getData()['presentationRecord']->getImageUrl()->getClientOriginalName());
+            } else {
+
+            }
 
             $request->getSession()->getFlashBag()->add(
               'message', 'Your changes were saved.'

@@ -248,10 +248,13 @@ class DoctrinePresentationRepo implements PresentationRepository {
       $presentationEntity->setBegin($presentation->getBegin());
       $presentationEntity->setEnd($presentation->getEnd());
       $presentationEntity->setJoindInId($presentation->getJoindInId());
+
+      //dump($presentation->getImageUrl());die;
+
       if(is_a($presentation->getImageUrl(), 'Symfony\Component\HttpFoundation\File\UploadedFile')){
         $presentationEntity->setImage($this->getImageUploadDir().'/'.$presentation->getImageUrl()->getClientOriginalName());
       }else{
-        $presentationEntity->setImage($presentation->getImageUrl());
+        //$presentationEntity->setImage($presentation->getImageUrl());
       }
       $presentationEntity->setPresenterName($presentation->presenterName);
       $presentationEntity->setPresenterSurname($presentation->presenterSurname);
