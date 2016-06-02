@@ -34,7 +34,7 @@
                             <a href="{{ path('root')}}">
                                 <h1 class="hidden-xs navbar-logo">SeaSunSalsa</h1>
                                 <h1 class="visible-xs navbar-logo">SeaSunSalsa</h1>
-                                <label class="big">{% if name | default("No current events") %}{{ name }}{% endif %}</label>
+                                <label class="big">{% if name is defined and name is not empty%}{{ name }}{% endif %}</label>
                             </a>
                         </div>
                             <div class="navbar-header col-xs-6 text-right">
