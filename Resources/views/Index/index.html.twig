@@ -159,11 +159,11 @@
 								<label class="no-shadow text-strong">Share Your opinion!</label>
 			                    <a class="cta-action small pres-desc-toggle"
 			                       data-expanded-text="Hide comments"
-			                       data-collapsed-text="View comments ({{ '{{ comments.length }}' }})"
+			                       data-collapsed-text="Add comments ({{ '{{ comments.length }}' }})"
 			                       data-toggle="collapse"
 			                       href="#comments-container-{{ '{{ presentationId}}' }}"
 			                       aria-expanded="false" aria-controls="pres-desc-container">
-			                        View comments ({{ '{{ comments.length }}' }})
+			                        Add comments ({{ '{{ comments.length }}' }})
 			                    </a>
 							</div>
 						</div>
@@ -206,9 +206,11 @@
                                 <li role="presentation" class="active" >
                                     <a href="#commentForm-{{ '{{presentationId}}' }}" aria-controls="comment" role="tab" data-toggle="tab">Comment</a>
                                 </li>
+								{#
                                 <li role="presentation" >
                                     <a href="#pictureForm-{{ '{{presentationId}}' }}" aria-controls="picture" role="tab" data-toggle="tab">Picture</a>
                                 </li>
+                                #}
                             </ul>
                             <div class="tab-content cta-discussion cta-discussion-form">
                                 <div role="tabpanel" class="tab-pane fade in active" id="commentForm-{{ '{{presentationId}}' }}">
