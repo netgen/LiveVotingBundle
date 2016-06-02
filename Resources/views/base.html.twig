@@ -39,8 +39,8 @@
                             <div class="navbar-header col-xs-6 text-right">
                             {% if app.user %}
                                 <div class="hidden-xs hidden-sm nav-ul">
-                                <a href="{{ path('root') }}">Dashboard</a>
-                                <a href="{{ path('user_landing') }}">Events</a>
+                                <a href="{{ path('root') }}">Current Happenings</a>
+                                <a href="{{ path('user_landing') }}">Rate Workshops</a>
                                 {% if is_granted ('ROLE_ADMIN') %}
                                 <a href="{{ path('admin_index') }}">Admin Interface</a>
                                 {% endif %}
