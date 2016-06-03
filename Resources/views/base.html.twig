@@ -32,8 +32,8 @@
                     <div class="col-xs-12">
                         <div class="navbar-header col-xs-6">
                             <a href="{{ path('root')}}">
-                                <h1 class="hidden-xs navbar-logo">SeaSunSalsa</h1>
-                                <h1 class="visible-xs navbar-logo">SeaSunSalsa</h1>
+                                <h1 class="hidden-xs navbar-logo">Event Rating - Sensusal Summer Days</h1>
+                               {# <h1 class="visible-xs navbar-logo">SeaSunSalsa</h1> #}
                                 <label class="big">{% if name is defined and name is not empty%}{{ name }}{% endif %}</label>
                             </a>
                         </div>
@@ -75,7 +75,7 @@
             </div>
         </nav>
 
-        <div id="main" class="container">
+        <div id="main">
             {% block body %}{% endblock %}
         </div>
     </div>

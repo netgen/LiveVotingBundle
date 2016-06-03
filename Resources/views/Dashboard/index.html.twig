@@ -152,6 +152,8 @@
     {#<script src="https://cdn.polyfill.io/v1/polyfill.min.js"></script>#}
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars/dist/handlebars.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl/dist/handlebars-intl.min.js') }}" ></script>
+    <script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery.matchHeight.js') }}" ></script>
+
     <script type="text/javascript">
         var eventNameHighchart = "Top 3 rated sessions";
 
@@ -168,6 +170,7 @@
                     'VOTE': '/user/vote/'
                 }
             });
+
         });
         function presentationsArray() {
             var arr = {};
@@ -337,6 +340,7 @@
                 }
             });
 
+
             var run = function () {
             };
 
@@ -346,7 +350,7 @@
     </script>
     <script id="live-schedule-template" type="text/x-handlebars-template">
 
-        <div class="col-xs-12 col-sm-4 box shadow" id="presentation-{{ '{{ id }}' }}">
+        <div class="col-xs-12 col-md-4 col-lg-15 box shadow presbox" data-mh="presentations" id="presentation-{{ '{{ id }}' }}">
             <div class="row">
                 <div class="col-xs-4">
                     <div class="row">
@@ -500,6 +504,8 @@
                                 presentations.add(presentation);
                             });
                         }
+
+                        $('.presbox').matchHeight();
                     }
                 });
             };
