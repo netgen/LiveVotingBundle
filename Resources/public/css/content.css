@@ -177,8 +177,7 @@
 .cta-multiple .active.cta-action, .cta-duo .active.cta-action,
 .cta-multiple .active.cta-action:hover, .cta-duo .active.cta-action:hover,
 .cta-multiple .active.cta-action:focus, .cta-duo .active.cta-action:focus {
-	color: #ffffff !important;
-	background-color: rgba(64, 64, 65, 0.75);
+	color: rgb(230, 0, 138) !important;
 	border-color: transparent;
 	cursor: default;
 }
@@ -186,7 +185,7 @@
 .cta-multiple .active.cta-action > i, .cta-duo .active.cta-action > i,
 .cta-multiple .active.cta-action:hover > i, .cta-duo .active.cta-action:hover > i,
 .cta-multiple .active.cta-action:focus > i, .cta-duo .active.cta-action:focus > i {
-	color: #ffffff !important;
+	color: inherit;
 }
 
 .cta.cta-vote label {
@@ -632,4 +631,22 @@ div#loader span {
 
 #form-userpres p > input {
 	font-weight: 300;
+}
+
+/**
+ * Star rating
+ */
+
+i.star:hover { transform: rotate(-15deg) scale(1.3); }
+
+i.star:before {
+	content: '\f006';
+	font-family: FontAwesome;
+}
+.active > i.star:before {
+	content: '\f005';
+}
+
+button:focus,button:active {
+	outline: none !important;
 }
