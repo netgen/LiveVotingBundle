@@ -145,6 +145,7 @@
 	                <div class="col-xs-12 col-sm-6">
 	                	<div class="row">
 			                <div class="col-xs-12 vote-question-container">
+								{#
 			                    <form class="question-multiple vote-form cta cta-multiple cta-vote bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
 			                    	<label class="no-shadow text-strong">Rate presentation</label>
 			                        <button class="cta-action q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
@@ -153,7 +154,18 @@
 						--><button class="cta-action q2" type="submit" value='2'><i class="fa fa-lg fa-thumbs-up rotate-135"></i></button><!--
 						--><button class="cta-action q1" type="submit" value='1'><i class="fa fa-lg fa-thumbs-up rotate-180"></i></button>
 			                    </form>
-			                </div>
+								#}
+
+								<form class="question-multiple vote-form cta cta-multiple cta-vote bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
+									<label class="no-shadow text-strong">Rate presentation</label>
+									<button class="cta-action vote-option q5 star" type="submit" value='1' name="star"><i class="fa fa-lg fa-star-o star"></i></button><!--
+                        --><button class="cta-action vote-option q4 star" type="submit" value='2'><i class="fa fa-lg fa-star-o star"></i></button><!--
+                        --><button class="cta-action vote-option q3 star" type="submit" value='3'><i class="fa fa-lg fa-star-o star"></i></button><!--
+                        --><button class="cta-action vote-option q2 star" type="submit" value='4'><i class="fa fa-lg fa-star-o star"></i></button><!--
+                        --><button class="cta-action vote-option q1 star" type="submit" value='5'><i class="fa fa-lg fa-star-o star"></i></button>
+								</form>
+
+							</div>
 			                <div class="clearfix"></div>
 							<div class="col-xs-12 pres-opinion cta cta-vote bg-pattern text-shadow">
 								<label class="no-shadow text-strong">Share Your opinion!</label>
