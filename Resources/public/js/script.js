@@ -34,9 +34,7 @@ function brain(options_){
         if(!canIVote)return;
         var action = $(this).closest("form").attr('action');
         var presentation_id = action.split('/').pop();
-        console.log("Presentation id "+presentation_id);
         var presentation = presentations.getById(presentation_id);
-        console.log(presentation);
         var vote = $(this).attr('value');
         var rate = 'rate='+vote;
         if(presentation.getData()['votingEnabled']==true){
@@ -232,7 +230,7 @@ function brain(options_){
             });
             this.element.find('button').each(function(){
                 if(this.value == vote_number){
-                    $(this).addClass('active');
+                    $(this).addClass('active').prevAll().addClass('active');
                 }else{
                     $(this).removeClass('active');
                 }
