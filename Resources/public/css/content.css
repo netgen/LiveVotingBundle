@@ -399,13 +399,22 @@ a.navbar-logo:hover {
 	padding-left: 1em;
 }
 
+.highcharts-axis-labels.highcharts-xaxis-labels {
+	margin-top:20px !important;
+}
+
 .live-voting-comments .media-comment-container h4 {
 	display: inline-block;
-	font-size: 1em;
+	font-size: 1.4em;
 }
 
 .live-voting-comments .media-comment-container label {
 	color: #505051;
+	font-size: 1em;
+}
+
+.live-voting-comments .media-comment-container p {
+	font-size: 1.2em;
 }
 
 /**

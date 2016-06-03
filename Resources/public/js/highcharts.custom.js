@@ -48,10 +48,12 @@ $(document).ready(function(){
             lineWidth: 1,
             tickColor: "#ffffff",
             labels: {
+              useHTML: true,  
               padding: 16,
               style: {
                 "color" : "#404041",
-                "font-size" : "14px",
+                "margin-top" : "18px",
+                "font-size" : "22px",
                 "font-weight" : "400",
               }
             }
