@@ -202,11 +202,31 @@ class EventController extends Controller
 
         $imageForm->add('submit', 'submit', array('label' => 'Comment'));
 
+        // Fetch first current ongoing master event
+        $eventMaster = $this->getDoctrine()->getManager()->createQuery(
+            'SELECT e
+            FROM LiveVotingBundle:Event e
+            WHERE :datetime > e.begin
+              AND :datetime < e.end
+              AND e.event IS NULL
+            ')->setParameter('datetime', new \DateTime())->getResult();
+
+        if (is_array($eventMaster) && !empty($eventMaster)) {
+            if (reset($eventMaster) instanceof Event) {
+                $name = $eventMaster[0]->getName();
+            } else {
+                $name = null;
+            }
+        } else {
+            $name = null;
+        }
+
         return $this->render('LiveVotingBundle:Index:index.html.twig',
                 array(
-                  'event' => $event,
-                  'form' => $form->createView(),
-                  'imageForm' => $imageForm->createView()
+                    'event' => $event,
+                    'form' => $form->createView(),
+                    'imageForm' => $imageForm->createView(),
+                    'name' => $name
                 )
             );
     }

@@ -56,9 +56,30 @@ class IndexController extends Controller
             }
             $events[$key]->hasVoting = $this->has_voting;
         }
+
+        // Fetch first current ongoing master event
+        $event = $this->getDoctrine()->getManager()->createQuery(
+            'SELECT e
+            FROM LiveVotingBundle:Event e
+            WHERE :datetime > e.begin
+              AND :datetime < e.end
+              AND e.event IS NULL
+            ')->setParameter('datetime', new \DateTime())->getResult();
+
+        if (is_array($event) && !empty($event)) {
+            if (reset($event) instanceof Event) {
+                $name = $event[0]->getName();
+            } else {
+                $name = null;
+            }
+        } else {
+            $name = null;
+        }
+
         return $this->render('LiveVotingBundle:Index:landing.html.twig',
             array(
-              'events'=>$events
+                'events'=>$events,
+                'name' => $name
             )
         );
     }
