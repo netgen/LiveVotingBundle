@@ -233,7 +233,7 @@
                 });
                 this.element.find('.vote-option').each(function () {
                     if (this.value == vote_number) {
-                        $(this).addClass('active');
+                        $(this).addClass('active').prevAll().addClass('active');
                     } else {
                         $(this).removeClass('active');
                     }
@@ -285,11 +285,14 @@
                 e.preventDefault();
                 if (!canIVote)return;
                 if($(this).closest('form').hasClass("cta-disabled")) return;
+                console.log(this);
                 var action = $(this).closest('form').attr('action');
+                console.log(action);
                 var presentation_id = action.split('/').pop();
                 var presentation = presentations.getById(presentation_id);
                 var old_vote = presentation.getVote();
                 var vote = $(this).attr('value');
+                console.log(vote);
                 var rate = 'rate=' + vote;
                 presentation.setVote(vote);
                 if(presentation.getData()['votingEnabled']==true){
@@ -346,6 +349,7 @@
                     </div>
                     #}
                 {% elseif app.user %}
+                    {#
                     <form class="question-multiple cta cta-multiple bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
                         <button class="cta-action vote-option q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
                         --><button class="cta-action vote-option q4" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
@@ -353,6 +357,16 @@
                         --><button class="cta-action vote-option q2" type="submit" value='2'><i class="fa fa-lg fa-thumbs-up rotate-135"></i></button><!--
                         --><button class="cta-action vote-option q1" type="submit" value='1'><i class="fa fa-lg fa-thumbs-up rotate-180"></i></button>
                     </form>
+                    #}
+                    <form class="question-multiple cta cta-multiple bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
+                        <button class="cta-action vote-option q5 star" type="submit" value='1' name="star"><i class="fa fa-lg fa-star-o star"></i></button><!--
+                        --><button class="cta-action vote-option q4 star" type="submit" value='2'><i class="fa fa-lg fa-star-o star"></i></button><!--
+                        --><button class="cta-action vote-option q3 star" type="submit" value='3'><i class="fa fa-lg fa-star-o star"></i></button><!--
+                        --><button class="cta-action vote-option q2 star" type="submit" value='4'><i class="fa fa-lg fa-star-o star"></i></button><!--
+                        --><button class="cta-action vote-option q1 star" type="submit" value='5'><i class="fa fa-lg fa-star-o star"></i></button>
+                    </form>
+
+
                 {% else %}
                     {#
                     <div class="cta shadow bg-pattern text-shadow">
