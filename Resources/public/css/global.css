@@ -50,11 +50,17 @@ label, .label {
 
 @media (max-width: 991px) {
 	h1 { font-size: 1.5714em; }
+}
+
+@media (max-width: 991px) {
+	h1 { font-size: 1.5714em; }
 	h2 { font-size: 1.4285em; }
 	.question-single-item h2, h3 { font-size: 1.2857em; }
 	.pres .pres-opinion h3, .box .full-description h3 { font-size: 1.1428em; }
 	.box .label label { font-size: 1em; }
 }
+
+
 
 /**
  * Global settings
@@ -66,7 +72,7 @@ html, body {
 
 html > body {
     color: #E6008A;
-    background-color: #ECF0F5;
+    background: url('../img/assets/bg-pattern.png');
 }
 
 div#global-container {
@@ -117,6 +123,7 @@ div#main {
 
 .no-comment {
 	padding-top: 2em;
+	padding-bottom: 2em;
 	text-align: center;
 	color: rgba(64, 64, 65, 0.5);
 }
@@ -147,7 +154,7 @@ label, input, select, textarea, span {
 }
 
 p.pres-desc-text {
-	color: #ffffff;
+	margin-top:20px;
 }
 
 #form-userpres form > label,

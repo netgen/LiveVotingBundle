@@ -131,22 +131,15 @@
 	                    <h4>{{'{{presentationName}}'}}</h4>
 	                    <label>
 	                    	{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}
-		                    <a class="pres-desc-toggle"
-		                       data-expanded-text="Hide description"
-		                       data-collapsed-text="Show description"
-		                       data-toggle="collapse"
-		                       href="#pres-desc-container-{{ '{{ presentationId }}' }}"
-		                       aria-expanded="false" aria-controls="pres-desc-container">
-		                        Show description
-		                    </a>
 	                    </label>
+	                    <p class="pres-desc-text">{{ '{{ presentationDescription }}' }}</p>
 	                </div>
 	                <div class="cleafix visible-xs"></div>
 	                <div class="col-xs-12 col-sm-6">
 	                	<div class="row">
 			                <div class="col-xs-12 vote-question-container">
 								{#
-			                    <form class="question-multiple vote-form cta cta-multiple cta-vote bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
+			                    <form class="question-multiple vote-form cta cta-multiple cta-vote text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
 			                    	<label class="no-shadow text-strong">Rate presentation</label>
 			                        <button class="cta-action q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
 						--><button class="cta-action q4" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
@@ -156,7 +149,7 @@
 			                    </form>
 								#}
 
-								<form class="question-multiple vote-form cta cta-multiple cta-vote bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
+								<form class="question-multiple vote-form cta cta-multiple cta-vote text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
 									<label class="no-shadow text-strong">Rate presentation</label>
 									<button class="cta-action vote-option q5 star" type="submit" value='1' name="star"><i class="fa fa-lg fa-star-o star"></i></button><!--
                         --><button class="cta-action vote-option q4 star" type="submit" value='2'><i class="fa fa-lg fa-star-o star"></i></button><!--
@@ -167,7 +160,7 @@
 
 							</div>
 			                <div class="clearfix"></div>
-							<div class="col-xs-12 pres-opinion cta cta-vote bg-pattern text-shadow">
+							<div class="col-xs-12 pres-opinion cta cta-vote text-shadow">
 								<label class="no-shadow text-strong">Share Your opinion!</label>
 			                    <a class="cta-action small pres-desc-toggle"
 			                       data-expanded-text="Hide comments"
@@ -181,11 +174,7 @@
 						</div>
 					</div>
 	            </div>
-	            <div id="pres-desc-container-{{ '{{ presentationId }}' }}" class="row collapse pres-desc-container">
-					<div class="col-xs-12 box-padding">
-						<p class="pres-desc-text">{{ '{{ presentationDescription }}' }}</p>
-					</div>
-				</div>
+	            
 	            <div class="row">
 
 	            </div>
@@ -193,28 +182,17 @@
 			<div class="clearfix"></div>
 			<div id="comments-container-{{ '{{ presentationId}}' }}" class="col-xs-12 collapse">
                 <div class="comments-section">
-                    <ul class="nav nav-tabs bg-pattern" role="tablist">
+                    {#<ul class="nav nav-tabs bg-pattern" role="tablist">
                         <li role="presentation" class="active" >
                             <a class="tab-button live-comments-tab-toggle" data-toggle="tab" href="#liveVotingComments-{{ '{{ presentationId }}' }}" aria-controls="live-voting-comments" role="tab">Summer Camp</a>
                         </li><!--
                         <li role="presentation" >
                             <a class="tab-button joindin-comments-tab-toggle" data-toggle="tab" href="#joindInComments-{{ '{{ presentationId }}' }}" aria-controls="joind-in-comments" role="tab" >Joind.in</a>
                         </li>-->
-                    </ul>
+                    </ul>#}
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="liveVotingComments-{{ '{{ presentationId }}' }}">
-                            <ul style="overflow-y: scroll;" class="media-list live-voting-comments">
-                                {% verbatim %}
-                                    {{#each comments }}
-                                        {{>comment }}
-                                    {{else}}
-                                        <li>
-                                            <h4 id="noCommentsHeading-{{ presentationId }}" class="no-comment">No comments yet. Be first to comment!</h4>
-                                        </li>
-                                    {{/each }}
-                                {% endverbatim %}
-                            </ul>
-                            <ul class="nav nav-tabs cta-discussion cta-discussion-type bg-pattern" role="tablist">
+                        	<ul class="nav nav-tabs cta-discussion cta-discussion-type bg-pattern" role="tablist">
                                 <li role="presentation" class="active" >
                                     <a href="#commentForm-{{ '{{presentationId}}' }}" aria-controls="comment" role="tab" data-toggle="tab">Comment</a>
                                 </li>
@@ -224,7 +202,7 @@
                                 </li>
                                 #}
                             </ul>
-                            <div class="tab-content cta-discussion cta-discussion-form">
+                        	<div class="tab-content cta-discussion cta-discussion-form">
                                 <div role="tabpanel" class="tab-pane fade in active" id="commentForm-{{ '{{presentationId}}' }}">
                                     {% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
                                     {{ form(
@@ -238,6 +216,19 @@
                                     ) }}
                                 </div>
                             </div>
+                            <ul style="overflow-y: scroll;" class="media-list live-voting-comments">
+                                {% verbatim %}
+                                    {{#each comments }}
+                                        {{>comment }}
+                                    {{else}}
+                                        <li>
+                                            <h4 id="noCommentsHeading-{{ presentationId }}" class="no-comment">No comments yet. Be first to comment!</h4>
+                                        </li>
+                                    {{/each }}
+                                {% endverbatim %}
+                            </ul>
+                            
+                            
                         </div>
                         <div style="overflow-y: scroll;" role="tabpanel" class="tab-pane fade joindin-comments-tab" id="joindInComments-{{ '{{ presentationId }}' }}">
                             <ul class="media-list joindin-comments">
@@ -289,7 +280,7 @@
                 $(e.target).text($(e.target).data("collapsed-text"));
             } else {
                 $(e.target).text($(e.target).data("expanded-text"));
-            }
+            }           
         });
 
 

@@ -112,7 +112,7 @@
     <div class="row" id="liveschedule"></div>
 
 
-    <div class="row box shadow bg-pattern">
+    <div class="row box shadow bg-pattern bottomzone">
         <div id="chartContainer" class="col-xs-12 col-sm-8"></div>
         <div class="clearfix visible-xs"></div>
         <div class="col-xs-12 col-sm-4 twitter">
@@ -350,56 +350,58 @@
     </script>
     <script id="live-schedule-template" type="text/x-handlebars-template">
 
-        <div class="col-xs-12 col-md-4 col-lg-15 box shadow presbox" data-mh="presentations" id="presentation-{{ '{{ id }}' }}">
-            <div class="row">
-                <div class="col-xs-4">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <img class="image image-o" src="{{ asset('bundles/livevoting/') }}{% verbatim %}{{#if image}}{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
+        <div class="col-xs-12 col-sm-6 col-lg-4 col-xl-15 preswrap" data-mh="presentations" id="presentation-{{ '{{ id }}' }}">
+            <div class="box shadow">
+                <div class="row presbox">
+                    <div class="col-xs-4">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <img class="image image-o" src="{{ asset('bundles/livevoting/') }}{% verbatim %}{{#if image}}{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-8 box-padding">
-                    <h4>{{'{{presentationName}}'}}</h4>
-                    <label>{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                {% if app.user and is_granted('ROLE_ADMIN')%}
-                    {#
-                    <div class="cta shadow bg-pattern text-shadow">
-                        <div style="background-color:grey" class="cta-action">Admin Cannot Vote</div>
+                    <div class="col-xs-8 box-padding">
+                        <h4>{{'{{presentationName}}'}}</h4>
+                        <label>{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}</label>
                     </div>
-                    #}
-                {% elseif app.user %}
-                    {#
-                    <form class="question-multiple cta cta-multiple bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
-                        <button class="cta-action vote-option q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
-                        --><button class="cta-action vote-option q4" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
-                        --><button class="cta-action vote-option q3" type="submit" value='3'><i class="fa fa-lg fa-thumbs-up rotate-90"></i></button><!--
-                        --><button class="cta-action vote-option q2" type="submit" value='2'><i class="fa fa-lg fa-thumbs-up rotate-135"></i></button><!--
-                        --><button class="cta-action vote-option q1" type="submit" value='1'><i class="fa fa-lg fa-thumbs-up rotate-180"></i></button>
-                    </form>
-                    #}
-                    <form class="question-multiple cta cta-multiple bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
-                        <button class="cta-action vote-option q5 star" type="submit" value='1' name="star"><i class="fa fa-lg fa-star-o star"></i></button><!--
-                        --><button class="cta-action vote-option q4 star" type="submit" value='2'><i class="fa fa-lg fa-star-o star"></i></button><!--
-                        --><button class="cta-action vote-option q3 star" type="submit" value='3'><i class="fa fa-lg fa-star-o star"></i></button><!--
-                        --><button class="cta-action vote-option q2 star" type="submit" value='4'><i class="fa fa-lg fa-star-o star"></i></button><!--
-                        --><button class="cta-action vote-option q1 star" type="submit" value='5'><i class="fa fa-lg fa-star-o star"></i></button>
-                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                    {% if app.user and is_granted('ROLE_ADMIN')%}
+                        {#
+                        <div class="cta shadow text-shadow">
+                            <div style="background-color:grey" class="cta-action">Admin Cannot Vote</div>
+                        </div>
+                        #}
+                    {% elseif app.user %}
+                        {#
+                        <form class="question-multiple cta cta-multiple text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
+                            <button class="cta-action vote-option q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
+                            --><button class="cta-action vote-option q4" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
+                            --><button class="cta-action vote-option q3" type="submit" value='3'><i class="fa fa-lg fa-thumbs-up rotate-90"></i></button><!--
+                            --><button class="cta-action vote-option q2" type="submit" value='2'><i class="fa fa-lg fa-thumbs-up rotate-135"></i></button><!--
+                            --><button class="cta-action vote-option q1" type="submit" value='1'><i class="fa fa-lg fa-thumbs-up rotate-180"></i></button>
+                        </form>
+                        #}
+                        <form class="question-multiple cta cta-multiple text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
+                            <button class="cta-action vote-option q5 star" type="submit" value='1' name="star"><i class="fa fa-lg fa-star-o star"></i></button><!--
+                            --><button class="cta-action vote-option q4 star" type="submit" value='2'><i class="fa fa-lg fa-star-o star"></i></button><!--
+                            --><button class="cta-action vote-option q3 star" type="submit" value='3'><i class="fa fa-lg fa-star-o star"></i></button><!--
+                            --><button class="cta-action vote-option q2 star" type="submit" value='4'><i class="fa fa-lg fa-star-o star"></i></button><!--
+                            --><button class="cta-action vote-option q1 star" type="submit" value='5'><i class="fa fa-lg fa-star-o star"></i></button>
+                        </form>
 
 
-                {% else %}
-                    {#
-                    <div class="cta shadow bg-pattern text-shadow">
-                        <a class="cta-action" href="{{ path('user_landing') }}">Vote</a>
+                    {% else %}
+                        {#
+                        <div class="cta shadow bg-pattern text-shadow">
+                            <a class="cta-action" href="{{ path('user_landing') }}">Vote</a>
+                        </div>
+                        #}
+                    {% endif %}
                     </div>
-                    #}
-                {% endif %}
                 </div>
-            </div>
+            </div>    
         </div>
     </script>
     <script id="global-brake-template" type="text/x-handlebars-template" >

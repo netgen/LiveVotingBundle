@@ -27,17 +27,16 @@
 <body>
     <div id="global-container">
         <nav class="navbar navbar-fixed-top" role="navigation">
-            <div class="container">
+            <div class="header-container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="navbar-header col-xs-6">
-                            <a href="{{ path('root')}}">
-                                <h1 class="hidden-xs navbar-logo">Event Rating - Sensusal Summer Days</h1>
+                        <div class="navbar-header col-md-6 col-sm-6 col-xs-10">
+                            <a class="navbar-logo" href="{{ path('root')}}">
+                                <h1>Event Rating{% if name is defined and name is not empty%} <span class="separator">-</span> <span class="eventname">{{ name }}</span>{% endif %}</h1>
                                {# <h1 class="visible-xs navbar-logo">SeaSunSalsa</h1> #}
-                                <label class="big">{% if name is defined and name is not empty%}{{ name }}{% endif %}</label>
                             </a>
                         </div>
-                            <div class="navbar-header col-xs-6 text-right">
+                            <div class="navbar-header col-md-6 col-sm-6 col-xs-2 text-right">
                             {% if app.user %}
                                 <div class="hidden-xs hidden-sm nav-ul">
                                 <a href="{{ path('root') }}">Current Happenings</a>
