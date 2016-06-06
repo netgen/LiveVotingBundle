@@ -115,6 +115,7 @@
     <div class="row box shadow bg-pattern bottomzone">
         <div id="chartContainer" class="col-xs-12 col-sm-8"></div>
         <div class="clearfix visible-xs"></div>
+        {#
         <div class="col-xs-12 col-sm-4 twitter">
             <ul style="overflow-y: scroll;" class="media-list live-voting-comments">
                 {% if comments is empty %}
@@ -143,6 +144,41 @@
                 {% endif %}
             </ul>
         </div>
+        #}
+
+        <div class="col-xs-12 col-sm-4 twitter" id="latest-comments-container">
+            <ul style="overflow-y: scroll;" class="media-list live-voting-comments">
+                <script id="latest-comments" type="text/x-handlebars-template">
+                    {% verbatim %}
+                    {{#comments}}
+                {% endverbatim %}
+                    <li class="media">
+                        <div class="row">
+                            <div class="col-xs-2 col-sm-1 media-user-image">
+                                {% verbatim %}
+                                    {{#if user_gravatar}}
+                                        <img src="{{user_gravatar}}'" class="img-responsive img-circle">
+                                    {{else}}
+                                    {% endverbatim %}
+                                <img src="{{asset('bundles/livevoting/img/assets/angry-che.png')}}" class="img-responsive img-circle">
+                                {% verbatim %}
+                                    {{/if}}
+                                    {% endverbatim %}
+                            </div>
+                            <div class="col-xs-10 col-sm-11 media-comment-container">
+                                <h4>{{'{{user_display_name}}'}}</h4>
+                                <label>{{'{{published_at}}'}}</label>
+                                <p>{{'{{content}}'}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    {% verbatim %}
+                    {{/comments}}
+                {% endverbatim %}
+                </script>
+            </ul>
+        </div>
+
     </div>
 
 {% endblock %}
@@ -170,6 +206,35 @@
                     'VOTE': '/user/vote/'
                 }
             });
+
+            var source = $("#latest-comments").html();
+            var template = Handlebars.compile(source);
+
+            $.getJSON( "comments/5", function( data ) {
+                console.log(data);
+                $("#latest-comments-container").html(template(data));
+
+            });
+
+            function LoadComments()
+            {
+                var container = $("#latest-comments-container");
+
+                container.children().fadeOut(1500).promise().then(function() {
+                    container.html('').hide();
+                    $.getJSON( "comments/5", function( data ) {
+                        console.log(data);
+                        container.html(template(data));
+                    }).always(function() {
+                        container.fadeIn(1500);
+                    }).fail(function() {
+                        container.html('<div>Loading comments</div>');
+                    });
+                });
+            }
+
+            setInterval( LoadComments, 10000 );
+
 
         });
         function presentationsArray() {

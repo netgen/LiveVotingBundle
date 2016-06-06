@@ -200,3 +200,7 @@ send_email_login:
 send_one_email_login:
     path: /admin/user/send_one_email_login/{typeOf}/{id}
     defaults: {_controller: LiveVotingBundle:UserAdmin:oneUserLoginEmail, id: null, typeOf: null }
+
+latest_comments:
+    path: /comments/{number}
+    defaults: { _controller: LiveVotingBundle:Comments:getComment, number: 5}
