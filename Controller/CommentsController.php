@@ -51,17 +51,24 @@ class CommentsController extends Controller
                 $comments['comments'] = array();
                 /** @var PresentationComment $comment */
                 foreach($presentationComments as $comment) {
+                    $message = $comment->getContent();
+                    if (strlen($message) > 140) {
+                        $message = substr($message, 0, 140) . '...';
+                    }
+
+                    $username = $comment->getUser()->getEmail() ?
+                        substr($comment->getUser()->getEmail(), 0, strrpos($comment->getUser()->getEmail(), "@"))
+                        :
+                        $comment->getUser()->getUsername();
                     array_push($comments['comments'], array(
-                        "content" => $comment->getContent(),
-                        "published_at" => $comment->getPublished()->format('F jS \\a\\t g:ia'),
-                        "user_display_name" =>
-                            $comment->getUser()->getEmail() ?
-                                substr($comment->getUser()->getEmail(), 0, strrpos($comment->getUser()->getEmail(), "@"))
-                                :
-                                $comment->getUser()->getUsername(),
-                        "user_gravatar" => $comment->getUser()->getGravatar() ? "http://www.gravatar.com/avatar/".$comment->getUser()->getGravatar() : null
+                        "content" => $message,
+                        "user_display_name" => $username,
+                        "first_character" => substr($username, 0, 1),
+                        "presentation" => $comment->getPresentation()->getPresentationName()
                     ));
                 }
+
+
             } else {
                 $comments = array();
             }
