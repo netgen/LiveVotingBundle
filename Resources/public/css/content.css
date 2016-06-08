@@ -1,4 +1,5 @@
 a.navbar-logo h1 {
+	font-size: 2.4em;
 	line-height: 64px;
 	color:#E6008A;
 }
@@ -25,10 +26,66 @@ a.navbar-logo h1 {
 	span.eventname {display:block;}
 }
 
+.preswrap h4 {
+    font-size: 1.6em;
+    line-height: 1.2em;
+}
 
+.preswrap label {
+    font-size: 1.3em;
+    line-height: 1.2em;
+    margin-top:10px;
+}
+
+.latest {
+	margin:20px auto;
+	text-align: center;
+	font-size: 32px;
+}
 
 a.navbar-logo:hover {
 	text-decoration: none;
+}
+
+.highcharts-axis-labels.highcharts-xaxis-labels {
+ position:relative !important;
+ margin-top: -110px !important;
+ display:block !important;
+ z-index:5000;
+}
+
+
+
+.highcharts-axis-labels.highcharts-xaxis-labels span {
+	display:inline-block !important;
+	width:33% !important;
+	white-space: normal !important;
+	width:100%;
+	text-overflow:unset;
+	position: relative !important;
+	top:0 !important;
+	left:0 !important;
+	transform-origin: initial !important;
+	text-align:center;
+	vertical-align: top;
+}
+
+.element {
+    position: absolute;
+    font-family: "ronnia",sans-serif;
+    font-size: 22px;
+    white-space: normal;
+    color: rgb(64, 64, 65);
+    cursor: default;
+    margin-top: 0px;
+    font-weight: 400;
+    margin-left: 0px;
+    left: 743.333px;
+    top: 351px;
+    transform: rotate(0deg);
+    transform-origin: 50% 20px 0px;
+    text-overflow: clip;
+    opacity: 1;
 }
 
 /**
@@ -74,6 +131,51 @@ a.navbar-logo:hover {
 	display: block;
 	margin: 1em;
 	color: #ffffff;
+}
+
+
+
+.media-user-image {
+  position: relative;
+  text-align:center;
+  background-color:#E6008A;
+  border-radius:50%;
+}
+
+.media-user-image:before{
+  content: "";
+	display: block;
+	padding-top: 100%; 	/* initial ratio of 1:1*/
+}
+.media-user-image span {
+	position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+  	display:flex;
+  	align-items:center;
+  text-align:center;
+	justify-content:center;
+	color:#FFF;
+	font-size:22px;
+	line-height: 29px;
+	text-transform: uppercase;	
+}
+/*
+.media-user-image span {
+	background-color:#E6008A;
+	display:block;
+	text-align:center;
+	border-radius:50%;
+	color:#FFF;
+	font-size:22px;
+	line-height: 29px;
+	text-transform: uppercase;	
+}
+*/
+.media-comment-container {
+	padding-left:15px;
 }
 
 .box .xs-description span i {
@@ -400,9 +502,7 @@ a.navbar-logo:hover {
 	padding-left: 1em;
 }
 
-.highcharts-axis-labels.highcharts-xaxis-labels {
-	margin-top:20px !important;
-}
+
 
 .live-voting-comments .media-comment-container h4 {
 	display: inline-block;
@@ -575,7 +675,11 @@ div#loader span {
 /**
  * Twitter
  */
-.twitter { padding-left: 5px; }
+.twitter {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
 
 @media (min-width: 768px) {
 	.twitter { border: none; border-left: 1px solid #dddddd; }

@@ -34,12 +34,14 @@ $(document).ready(function(){
             style: {
               "color" : "#404041",
               "font-weight" : "600",
-              "font-size" : "2em"
+              "margin-top" : "18px",
+              "font-size" : "32px"
             }
         },
         tooltip: {
           enabled: false
         },
+
         xAxis: {
             type: 'String',
             tickPixelInterval: 5,
@@ -55,6 +57,7 @@ $(document).ready(function(){
                 "margin-top" : "18px",
                 "font-size" : "22px",
                 "font-weight" : "400",
+                "width" : "100%",
               }
             }
         },
@@ -93,7 +96,7 @@ $(document).ready(function(){
                     shadow: false,
                     color: "#ffffff",
                     style: {
-                        fontSize: '20px'
+                        fontSize: '40px'
                     }
                 }
             }]
