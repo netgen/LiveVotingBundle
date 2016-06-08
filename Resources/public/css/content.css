@@ -1,11 +1,11 @@
 a.navbar-logo h1 {
-	font-size: 2.4em;
+	font-size: 2.3em;
 	line-height: 64px;
 	color:#E6008A;
 }
 
 @media (max-width: 1200px) {
-	h1 {
+	a.navbar-logo h1 {
 	    font-size: 1.6em;
 	}
 }
@@ -176,6 +176,18 @@ a.navbar-logo:hover {
 */
 .media-comment-container {
 	padding-left:15px;
+}
+
+.media-comment-container h4 {
+	display:inline-block; padding-right:5px;
+}
+
+.media-comment-container span {
+	
+}
+
+.media-comment-container p {
+	padding-top:10px;
 }
 
 .box .xs-description span i {
@@ -686,7 +698,7 @@ div#loader span {
 }
 
 @media (max-width: 767px) {
-	.twitter { border: none; border-top: 1px solid #dddddd; margin-top: 1em; }
+	.twitter { border: none; border-top: 1px solid #dddddd; margin-top: 1em; padding-top: 1.5em; }
 }
 
 
