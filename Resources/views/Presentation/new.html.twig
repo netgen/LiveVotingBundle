@@ -7,17 +7,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-4 margin-top">
             {{ form_start(form) }}
-            <div class="form-group">
-                {{ form_label(form.presenterName) }}
-                {{ form_widget(form.presenterName) }}
-            </div>
-            <div class="form-group">
-                {{ form_label(form.presenterSurname) }}
-                {{ form_widget(form.presenterSurname) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.presentationRecord) }}
-            </div>
+            {{ form_widget(form) }}
             {{ form_end(form) }}
         </div>
     </div>

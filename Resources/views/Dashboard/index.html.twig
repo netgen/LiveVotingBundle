@@ -150,25 +150,26 @@
         <div class="col-xs-12 col-sm-4 twitter" id="latest-comments-container">
             <ul style="overflow-y: scroll;" class="media-list live-voting-comments">
                 <script id="latest-comments" type="text/x-handlebars-template">
-                    {% verbatim %}
-                        {{#comments}}
-                    {% endverbatim %}
-                        <li class="media">
-                            <div class="row">
-                                <div class="col-xs-2 col-sm-1 media-user-image">
-                                    <span class="username-first-character">{{'{{first_character}}'}}</span>
+                    <ul style="overflow-y: scroll;" class="media-list live-voting-comments">
+                        {% verbatim %}
+                            {{#comments}}
+                        {% endverbatim %}
+                            <li class="media">
+                                <div class="row">
+                                    <div class="col-xs-2 col-sm-1 media-user-image">
+                                        <span class="username-first-character">{{'{{first_character}}'}}</span>
+                                    </div>
+                                    <div class="col-xs-10 col-sm-11 media-comment-container">
+                                        <h4>{{'{{user_display_name}}'}}</h4><span>on {{'{{presentation}}'}}</span>
+                                        <p>{{'{{content}}'}}</p>
+                                    </div>
                                 </div>
-                                <div class="col-xs-10 col-sm-11 media-comment-container">
-                                    <h4>{{'{{user_display_name}}'}}</h4><span>on {{'{{presentation}}'}}</span>
-                                    <p>{{'{{content}}'}}</p>
-                                </div>
-                            </div>
-                        </li>
-                    {% verbatim %}
-                        {{/comments}}
-                {% endverbatim %}
+                            </li>
+                        {% verbatim %}
+                                {{/comments}}
+                        {% endverbatim %}
+                    </ul>
                 </script>
-            </ul>
         </div>
 
     </div>
@@ -413,7 +414,7 @@
                     <div class="col-xs-4">
                         <div class="row">
                             <div class="col-xs-12">
-                                <img class="image image-o" src="{{ asset('bundles/livevoting/') }}{% verbatim %}{{#if image}}{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
+                                <img class="image image-o" src="{{ asset('bundles/livevoting/img/presentations/') }}{% verbatim %}{{#if image}}{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
                             </div>
                         </div>
                     </div>

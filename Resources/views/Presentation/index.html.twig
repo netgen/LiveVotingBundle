@@ -20,20 +20,20 @@
                         <th>Presentation</th>
                         <th>Presenter</th>
                         <th>Voting status</th>
-                        <th>Joind.in</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
+
                 {% for entity in entities %}
                     <tr>
-                        <td><img width="40px" class="image-o" src='{{ asset('bundles/livevoting/' ~ ((entity[0].getImageUrl) ? entity[0].getImageUrl : 'img/assets/angry-che.png')) }}'/></td>
+                        {#<td><img width="40px" class="image-o" src='{{ asset('bundles/livevoting/' ~ ((entity[0].getImageUrl) ? entity[0].getImageUrl : 'img/assets/angry-che.png')) }}'/></td>				<img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">#}
+                        <td><img width="40px" class="image-o" src="{{asset('bundles/livevoting/')}}{{ entity[0].getImage ? entity[0].getWebPath : 'img/assets/angry-che.png'}}"/></td>
 
-                        <td>{{ entity[0].name }}</td>
+                        <td>{{ entity[0].presentationName }}</td>
                         <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>
                         <td>{{ form(entity[1]) }}</td>
-                        <td>{{ entity[0].joindInId }}</td>
                         <td>
                             <a href="{{ path('admin_presentation_edit', { 'id': entity[0].id }) }}"><button type="button" class="btn">Edit</button></a>
                         </td>
