@@ -88,8 +88,10 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl.min.js') }}" ></script>
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+	{#<script src="https://cdn.polyfill.io/v1/polyfill.min.js"></script>#}
+	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars/dist/handlebars.min.js') }}" ></script>
+	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl/dist/handlebars-intl.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
 	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
@@ -262,11 +264,10 @@
             <li class="media">
             	<div class="row">
             		<div class="col-xs-2 col-sm-1 media-user-image">
-						<span>{{{trimString user_display_name}}}</span>
+						<span class="username-first-character">{{{trimString user_display_name}}}</span>
 					</div>
             		<div class="col-xs-10 col-sm-11 media-comment-container">
 						<h4>{{ user_display_name }}</h4>
-	                    <label>said {{formatRelative published_at }}</label>
 	                    <p>{{{ content }}}</p>
             		</div>
             	</div>
