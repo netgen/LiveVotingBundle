@@ -27,7 +27,7 @@
 					<div class="text-right actions single-action">
 						<a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span>Events</span></a><!--
 						-->{% if event.getAllowViewingResults %}
-						<a href="{{ path('result', {'event_id':event.getId}) }}" class="text-center"><i class="fa fa-bar-chart"></i><span>Live results</span></a>
+						{#<a href="{{ path('result', {'event_id':event.getId}) }}" class="text-center"><i class="fa fa-bar-chart"></i><span>Live results</span></a>#}
 						{% endif %}
 					</div>
 				</div>

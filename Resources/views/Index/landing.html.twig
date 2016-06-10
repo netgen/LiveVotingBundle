@@ -16,7 +16,11 @@
 	<div class="col-xs-12 box shadow">
 		<div class="row vertical-align-xs">
 			<div class="col-xs-4 col-sm-1 text-center">
-				<img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
+				{% if event.getImage is not empty %}
+					<img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
+				{% else %}
+
+				{% endif %}
 			</div>
 			<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper extra-margin">
 				<div>
@@ -27,9 +31,11 @@
 					<label style="font-weight:bold; color:grey" class="big">View event details</label>
 				</div>
 				{%  else %}
+				{#
 				<div>
 					<label class="big"><a href="{{path('event', {'event_id':event.getId})}}">View event details</a></label>
 				</div>
+				#}
 				{%  endif %}
 			</div>
 			<div class="clearfix visible-xs"></div>
@@ -38,7 +44,7 @@
 					{% if event.hasVoting and not is_granted('ROLE_ADMIN') %}--><a href="{{path('event', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-thumbs-o-up"></i><span>Vote</span></a><!--{% else %}-->
 					<a class="text-center disabled"><i class="fa fa-thumbs-o-up"></i><span>Vote</span></a>{% endif %}<!--
 					{% if event.getAllowViewingResults %}
-					--><a href="{{path('result', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-bar-chart"></i><span>Results</span></a><!--{% else %}--><a class="text-center disabled"><i class="fa fa-bar-chart"></i><span>Results</span></a><!--
+					-->{#<a href="{{path('result', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-bar-chart"></i><span>Results</span></a><!--{% else %}--><a class="text-center disabled"><i class="fa fa-bar-chart"></i><span>Results</span></a>#}<!--
 					{% endif %}
 					{% if event.questions|length > 0 and not is_granted('ROLE_ADMIN') %}
 					-->{#<a href="{{path('question', {'event_id':event.getId})}}" class="text-center"><i class="fa fa-question"></i><span>{{ event.questions|length }} {{ event.questions|length > 1 ? 'questions' : 'question' }}</span></a><!--{% else %}--><a class="text-center disabled"><i class="fa fa-question"></i><span>Questions</span></a>#}
