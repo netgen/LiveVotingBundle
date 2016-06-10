@@ -108,6 +108,9 @@
         </div>
     </div>
     #}
+    <div class="row">
+        <h1 align="center">Current Workshops</h1>
+    </div>
 
     <div class="row" id="liveschedule"></div>
 
@@ -213,13 +216,13 @@
             {
                 var container = $("#latest-comments-container");
 
-                container.children().fadeOut(1500).promise().then(function() {
+                container.children().fadeOut(500).promise().then(function() {
                     container.html('').hide();
                     $.getJSON( "comments/5", function( data ) {
                         console.log(data);
                         container.html(template(data));
                     }).always(function() {
-                        container.fadeIn(1500);
+                        container.fadeIn(500);
                     }).fail(function() {
                         container.html('<div>Loading comments</div>');
                     });
@@ -587,7 +590,8 @@
                     var sortMe = [], presentationNames = [], presentationValues = [];//, counter = 0;
                     for (var i in data['presentations']) {
                         var pres = {};
-                        pres.presentationName = data['presentations'][i]['presentationName'];
+                        pres.presentationName = data['presentations'][i]['presentationName'] + "<br /><b>" + data['presentations'][i]['presenterName'] + "\n" + data['presentations'][i]['presenterSurname'] + "</b>";
+                        console.log(data['presentations'][i]);
                         // Check if page is not loaded. If yes set all values to zero so that chart animates
                         if (firstLoad === true) {
                             pres.presentationValue = 0;

@@ -39,8 +39,8 @@
                             <div class="navbar-header col-md-6 col-sm-6 col-xs-2 text-right">
                             {% if app.user %}
                                 <div class="hidden-xs hidden-sm nav-ul">
-                                <a href="{{ path('root') }}">Current Happenings</a>
-                                <a href="{{ path('user_landing') }}">Rate Workshops</a>
+                                <a href="{{ path('root') }}">Current Workshops</a>
+                                <a href="{{ path('user_landing') }}">Rate All Workshops</a>
                                 {% if is_granted ('ROLE_ADMIN') %}
                                 <a href="{{ path('admin_index') }}">Admin Interface</a>
                                 {% endif %}
@@ -54,8 +54,8 @@
                             <div class="visible-xs visible-sm dropdown">
                                 <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-bars"></i></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="{{ path('root') }}">Dashboard</a></li>
-                                    <li><a href="{{ path('user_landing') }}">Events</a></li>
+                                    <li><a href="{{ path('root') }}">Current Workshops</a></li>
+                                    <li><a href="{{ path('user_landing') }}">Rate All Workshops</a></li>
                                     {% if is_granted ('ROLE_ADMIN') %}
                                     <li><a href="{{ path('admin_index') }}">Admin Interface</a></li>
                                     {% endif %}
