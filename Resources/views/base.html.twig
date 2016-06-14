@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/content.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/transitions.css') }}">
+
 </head>
 
 <body>
@@ -39,13 +40,13 @@
                             <div class="navbar-header col-md-6 col-sm-6 col-xs-2 text-right">
                             {% if app.user %}
                                 <div class="hidden-xs hidden-sm nav-ul">
-                                <a href="{{ path('root') }}">Current Workshops</a>
+                                <a href="{{ path('root') }}">Ongoing Workshops</a>
                                 <a href="{{ path('user_landing') }}">Rate All Workshops</a>
                                 {% if is_granted ('ROLE_ADMIN') %}
                                 <a href="{{ path('admin_index') }}">Admin Interface</a>
                                 {% endif %}
                                 <!--{% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 and not is_granted ('ROLE_ADMIN')%}
-                                <a href="{{ path('user_presentations') }}">My lectures</a>
+                                <a href="{{ path('user_presentations') }}">My Workshops</a>
                                 {% endif %}
                                 {% if(app.request.cookies.has('userEditEnabled')) and not is_granted ('ROLE_ADMIN')%}
                                 <a href="{{ path('user_edit') }}">Edit my info</a>
@@ -54,13 +55,13 @@
                             <div class="visible-xs visible-sm dropdown">
                                 <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-bars"></i></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="{{ path('root') }}">Current Workshops</a></li>
+                                    <li><a href="{{ path('root') }}">Ongoing Workshops</a></li>
                                     <li><a href="{{ path('user_landing') }}">Rate All Workshops</a></li>
                                     {% if is_granted ('ROLE_ADMIN') %}
                                     <li><a href="{{ path('admin_index') }}">Admin Interface</a></li>
                                     {% endif %}
                                     <!--{% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 and not is_granted ('ROLE_ADMIN')%}
-                                    <li><a href="{{ path('user_presentations') }}">My lectures</a></li>
+                                    <li><a href="{{ path('user_presentations') }}">My Workshops</a></li>
                                     {% endif %}
                                     {% if(app.request.cookies.has('userEditEnabled')) and not is_granted ('ROLE_ADMIN')%}
                                     <li><a href="{{ path('user_edit') }}">Edit my info</a></li>

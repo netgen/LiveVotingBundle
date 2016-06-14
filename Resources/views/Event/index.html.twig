@@ -20,6 +20,8 @@
                         <th>State</th>
                         <th>Edit</th>
                         <th class="text-center">Presentations</th>
+                        <th>Total Votes</th>
+                        <th>Distinct Users</th>
                         {#<th>Questions</th>#}
                         <th>Results</th>
                         <th>Delete</th>
@@ -37,6 +39,18 @@
                         <td class="text-center">
                             <a href="{{ path('admin_presentation', { 'event_id': entity.id }) }}"><button type="button" class="btn">View</button></a>
                         </td>
+
+                        <td>
+                            {{ voteStats[entity.id]['count'] }}
+                        </td>
+                        <td>
+                            {% if voteStats[entity.id]['distinct_user'] is defined %}
+                                {{ voteStats[entity.id]['distinct_user'] }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </td>
+
 
                         {#
                         <td>

@@ -109,7 +109,7 @@
     </div>
     #}
     <div class="row">
-        <h1 align="center">Current Workshops</h1>
+        <h1 align="center">Ongoing Workshops</h1>
     </div>
 
     <div class="row" id="liveschedule"></div>
@@ -191,6 +191,9 @@
 
         $(document).ready(function () {
 
+            console.log($.ready(1000));
+
+
             new brain({
                 'STATES': {
                     'PRE': {'TIMEOUT': 0},
@@ -206,7 +209,7 @@
             var source = $("#latest-comments").html();
             var template = Handlebars.compile(source);
 
-            $.getJSON( "comments/5", function( data ) {
+            $.getJSON( "comments/3", function( data ) {
                 console.log(data);
                 $("#latest-comments-container").html(template(data));
 
@@ -218,7 +221,7 @@
 
                 container.children().fadeOut(500).promise().then(function() {
                     container.html('').hide();
-                    $.getJSON( "comments/5", function( data ) {
+                    $.getJSON( "comments/3", function( data ) {
                         console.log(data);
                         container.html(template(data));
                     }).always(function() {

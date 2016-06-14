@@ -30,8 +30,31 @@ class EventAdminController extends Controller
 
         $entities = $em->getRepository('LiveVotingBundle:Event')->findAll();
 
+        $voteStatistics = array();
+        foreach ($entities as $entity) {
+            $votes = $em->getRepository('LiveVotingBundle:Vote')->findByEvent($entity);
+            $voteStatistics[$entity->getId()]['count'] = count($votes);
+
+        }
+
+        $stmt = $this->getDoctrine()
+            ->getConnection()
+            ->prepare('select event_id, count(distinct user_id) as vote_count
+                    from vote
+                    group by event_id;
+                ');
+        $stmt->execute();
+
+        $res = $stmt->fetchAll();
+
+        foreach ($res as $result) {
+            $voteStatistics[$result['event_id']]['distinct_user'] = $result['vote_count'];
+        }
+        
+
         return $this->render('LiveVotingBundle:Event:index.html.twig', array(
             'entities' => $entities,
+            'voteStats' => $voteStatistics
         ));
     }
 
