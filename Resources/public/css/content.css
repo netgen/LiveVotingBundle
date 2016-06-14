@@ -89,6 +89,10 @@ a.navbar-logo:hover {
     opacity: 1;
 }
 
+.highcharts-title
+ {
+ 	margin-top:14px !important;
+ }
 #main h1 {
 	margin:0.3em 0;
 	color: #E6008A;

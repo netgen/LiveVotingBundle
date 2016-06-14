@@ -30,11 +30,11 @@ $(document).ready(function(){
         },
         colors: ["#E6008A"],
         title: {
+            useHTML: true,
             text: eventNameHighchart,
             style: {
               "color" : "#E6008A",
               "font-weight" : "600",
-              "margin-top" : "20px",
               "font-size" : "32px",
               "line-height" : "28px"
             }
