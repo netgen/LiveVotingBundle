@@ -29,10 +29,13 @@
 {% endblock %}
 
 {% block javascripts %}
-  <script src="http://code.highcharts.com/highcharts.js"></script>
-  <script src="http://code.highcharts.com/modules/no-data-to-display.js"></script>
+    {#<script src="http://code.highcharts.com/highcharts.js"></script>#}
+    <script src="{{ asset('bundles/livevoting/js/highcharts.js') }}"></script>
+    {#<script src="http://code.highcharts.com/modules/no-data-to-display.js"></script>#}
+    <script src="{{ asset('bundles/livevoting/js/no-data-to-display.js') }}"></script>
 
-  <script>
+
+    <script>
       var requestData, animation_data, chart;
       var event_id = {{ event.getId }};
       function cmp(v1, v2){

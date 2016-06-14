@@ -61,41 +61,42 @@
 {% endblock %}
 
 {% block javascripts %}
-  <script src="http://code.highcharts.com/highcharts.js"></script>
-  <script type="text/javascript">
-      var requestData, animation_data, chart;
-      var event_id = {{ event.getId }};
-      var eventNameHighchart = 'Live results: ' + "{{ event.getName }}";
+    {#<script src="http://code.highcharts.com/highcharts.js"></script>#}
+    <script src="{{ asset('bundles/livevoting/js/highcharts.js') }}"></script>
+      <script type="text/javascript">
+          var requestData, animation_data, chart;
+          var event_id = {{ event.getId }};
+          var eventNameHighchart = 'Live results: ' + "{{ event.getName }}";
 
-      function cmp(v1, v2){
-          if(v1.presentationValue<v2.presentationValue)return 1;
-          if(v1.presentationValue>v2.presentationValue)return -1;
-          return 0;
-      }
-      function load(){
-          $.getJSON('{{ live_results_url }}', function(data){
-              if('presentations' in data){
-                  var sortMe = [], presentationNames = [], presentationValues = [];//, counter = 0;
-                  for(var i in data['presentations']){
-                      var pres = {};
-                      pres.presentationName = data['presentations'][i]['presentation']['name'];
-                      pres.presentationValue = data['presentations'][i]['score']['average'];
-                      sortMe.push(pres);
+          function cmp(v1, v2){
+              if(v1.presentationValue<v2.presentationValue)return 1;
+              if(v1.presentationValue>v2.presentationValue)return -1;
+              return 0;
+          }
+          function load(){
+              $.getJSON('{{ live_results_url }}', function(data){
+                  if('presentations' in data){
+                      var sortMe = [], presentationNames = [], presentationValues = [];//, counter = 0;
+                      for(var i in data['presentations']){
+                          var pres = {};
+                          pres.presentationName = data['presentations'][i]['presentation']['name'];
+                          pres.presentationValue = data['presentations'][i]['score']['average'];
+                          sortMe.push(pres);
+                      }
+                      sortMe.sort(cmp);
+                      for(var i in sortMe){
+                          //if( counter < 3 ){
+                              presentationNames.push(sortMe[i].presentationName);
+                              presentationValues.push(sortMe[i].presentationValue);
+                              //counter++;
+                          //}
+                      }
+                      chart.xAxis[0].update({categories: presentationNames}, true);
+                      chart.series[0].setData(presentationValues, true, true, true);
                   }
-                  sortMe.sort(cmp);
-                  for(var i in sortMe){
-                      //if( counter < 3 ){
-                          presentationNames.push(sortMe[i].presentationName);
-                          presentationValues.push(sortMe[i].presentationValue);
-                          //counter++;
-                      //}
-                  }
-                  chart.xAxis[0].update({categories: presentationNames}, true);
-                  chart.series[0].setData(presentationValues, true, true, true);
-              }
-              setTimeout(load, 5000);
-          });
-      }
-  </script>
-  <script src="{{ asset('bundles/livevoting/js/highcharts.custom.js') }}"></script>
+                  setTimeout(load, 5000);
+              });
+          }
+      </script>
+      <script src="{{ asset('bundles/livevoting/js/highcharts.custom.js') }}"></script>
 {% endblock %}

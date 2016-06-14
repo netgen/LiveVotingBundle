@@ -32,7 +32,8 @@
 {% endblock %}
 
 {% block javascripts %}
-  <script src="http://code.highcharts.com/highcharts.js"></script>
+    {#<script src="http://code.highcharts.com/highcharts.js"></script>#}
+    <script src="{{ asset('bundles/livevoting/js/highcharts.js') }}"></script>
 
   <script type="text/javascript">
       var requestData, animation_data, chart, data;
