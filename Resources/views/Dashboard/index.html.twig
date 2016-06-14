@@ -181,7 +181,6 @@
 
 {% block javascripts %}
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
-    {#<script src="https://cdn.polyfill.io/v1/polyfill.min.js"></script>#}
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars/dist/handlebars.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl/dist/handlebars-intl.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery.matchHeight.js') }}" ></script>
@@ -190,9 +189,6 @@
         var eventNameHighchart = "Top 3 rated workshops today";
 
         $(document).ready(function () {
-
-            console.log($.ready(1000));
-
 
             new brain({
                 'STATES': {
@@ -210,7 +206,6 @@
             var template = Handlebars.compile(source);
 
             $.getJSON( "comments/3", function( data ) {
-                console.log(data);
                 $("#latest-comments-container").html(template(data));
 
             });
@@ -222,7 +217,6 @@
                 container.children().fadeOut(500).promise().then(function() {
                     container.html('').hide();
                     $.getJSON( "comments/3", function( data ) {
-                        console.log(data);
                         container.html(template(data));
                     }).always(function() {
                         container.fadeIn(500);
@@ -236,6 +230,7 @@
 
 
         });
+
         function presentationsArray() {
             var arr = {};
             var notify = [];
@@ -304,7 +299,8 @@
                 } else if (newData['votingEnabled'] == true && data['votingEnabled'] == false) {
                     status = true;
                 }
-                delete data;
+                //delete data;
+
                 data = newData;
                 return false;
             };
@@ -359,7 +355,7 @@
 
             var canIVote = true;
             var body = $('body');
-            presentations = new presentationsArray();
+            var presentations = new presentationsArray();
 
             Handlebars.registerHelper('ifCond', function (v1, v2, options) {
                 if (v1 == v2) {
@@ -379,14 +375,11 @@
                 e.preventDefault();
                 if (!canIVote)return;
                 if($(this).closest('form').hasClass("cta-disabled")) return;
-                console.log(this);
                 var action = $(this).closest('form').attr('action');
-                console.log(action);
                 var presentation_id = action.split('/').pop();
                 var presentation = presentations.getById(presentation_id);
                 var old_vote = presentation.getVote();
                 var vote = $(this).attr('value');
-                console.log(vote);
                 var rate = 'rate=' + vote;
                 presentation.setVote(vote);
                 if(presentation.getData()['votingEnabled']==true){
@@ -578,7 +571,10 @@
             ajaxFunction();
         });
     </script>
-    <script src="http://code.highcharts.com/highcharts.js"></script>
+    {#<script src="http://code.highcharts.com/highcharts.js"></script>#}
+    <script src="{{ asset('bundles/livevoting/js/highcharts.js') }}"></script>
+
+
     <!-- Rendering charts -->
     <script type="text/javascript">
         var requestData, animation_data, chart;
@@ -594,7 +590,6 @@
                     for (var i in data['presentations']) {
                         var pres = {};
                         pres.presentationName = data['presentations'][i]['presentationName'] + "<br /><b>" + data['presentations'][i]['presenterName'] + "\n" + data['presentations'][i]['presenterSurname'] + "</b>";
-                        console.log(data['presentations'][i]);
                         // Check if page is not loaded. If yes set all values to zero so that chart animates
                         if (firstLoad === true) {
                             pres.presentationValue = 0;
