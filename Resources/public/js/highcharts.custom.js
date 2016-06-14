@@ -32,10 +32,11 @@ $(document).ready(function(){
         title: {
             text: eventNameHighchart,
             style: {
-              "color" : "#404041",
+              "color" : "#E6008A",
               "font-weight" : "600",
-              "margin-top" : "18px",
-              "font-size" : "32px"
+              "margin-top" : "20px",
+              "font-size" : "32px",
+              "line-height" : "28px"
             }
         },
         tooltip: {

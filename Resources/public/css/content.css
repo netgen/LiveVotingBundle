@@ -1,5 +1,5 @@
 a.navbar-logo h1 {
-	font-size: 2.3em;
+	font-size: 2.1em;
 	line-height: 64px;
 	color:#E6008A;
 }
@@ -37,10 +37,11 @@ a.navbar-logo h1 {
     margin-top:10px;
 }
 
-.latest {
+h3.latest {
 	margin:20px auto;
 	text-align: center;
 	font-size: 32px;
+	color:#E6008A;
 }
 
 a.navbar-logo:hover {
@@ -88,6 +89,11 @@ a.navbar-logo:hover {
     opacity: 1;
 }
 
+#main h1 {
+	margin:0.3em 0;
+	color: #E6008A;
+}
+
 /**
  * Box container
  */
@@ -95,7 +101,7 @@ a.navbar-logo:hover {
 	background-color: #ffffff;
 	position: relative;
 	height: 100%;
-	margin-top:2em;
+	margin-bottom:2em;
 }
 
 .box * { color: #404041; }
