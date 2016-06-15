@@ -324,8 +324,8 @@ class UserAdminController extends Controller
         if ($typeOf === '0')
         {
             $message = \Swift_Message::newInstance()
-                ->setSubject('Say hello to Summer Camp 2015!')
-                ->setFrom(array('info@netgen.hr' => 'CSSF & SSD 2016 workshops voting'))
+                ->setSubject('CSSF & SSD 2016 workshops voting')
+                ->setFrom(array('info@salsa-adria.hr' => 'CSSF & SSD 2016 workshops voting'))
                 ->setTo($user_email)
                 ->setBody(
                     $this->renderView(
@@ -338,8 +338,8 @@ class UserAdminController extends Controller
         else if ($typeOf === '1')
         {
             $message = \Swift_Message::newInstance()
-                ->setSubject('Questionnaire')
-                ->setFrom(array('info@netgen.hr' => 'CSSF & SSD 2016 workshops voting'))
+                ->setSubject('CSSF & SSD 2016 workshops voting')
+                ->setFrom(array('info@salsa-adria.hr' => 'CSSF & SSD 2016 workshops voting'))
                 ->setTo($user_email)
                 ->setBody(
                     $this->renderView(
