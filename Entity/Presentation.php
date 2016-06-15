@@ -393,14 +393,14 @@ class Presentation
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        return __DIR__.'/../../../../web/bundles/livevoting/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'img/presentations';
+        return 'img';
     }
 
 
@@ -417,7 +417,7 @@ class Presentation
 
         // move takes the target directory and then the
         // target filename to move to
-        $new_name = $this->getPresentationName().'.'.$this->getImage()->guessExtension();
+        $new_name = 'Presentation ' . $this->getPresentationName().'.'.$this->getImage()->guessExtension();
         $this->getImage()->move(
             $this->getUploadRootDir(),
             $new_name
