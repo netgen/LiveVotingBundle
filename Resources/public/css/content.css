@@ -55,7 +55,9 @@ a.navbar-logo:hover {
  z-index:5000;
 }
 
-
+	.visible-xl {
+		display:none !important;
+	}
 
 .highcharts-axis-labels.highcharts-xaxis-labels span {
 	display:inline-block !important;
@@ -286,6 +288,10 @@ a.navbar-logo:hover {
 	.col-xl-15 {
 		width: 20%;
 		float: left;
+	}
+
+	.visible-xl {
+		display:block !important;
 	}
 }
 
