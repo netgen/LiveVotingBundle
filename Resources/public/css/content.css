@@ -293,6 +293,10 @@ a.navbar-logo:hover {
 	.visible-xl {
 		display:block !important;
 	}
+
+	.visible-lg {
+		display:none !important;
+	}
 }
 
 @media (max-width: 767px) {
