@@ -363,8 +363,8 @@
                 }
                 return options.inverse(this);
             });
+            
             HandlebarsIntl.registerWith(Handlebars);
-
 
             body.on('change', '.question-multiple', function (e) {
                 e.preventDefault();
@@ -460,6 +460,15 @@
                 </div>
             </div>    
         </div>
+
+        {% verbatim %}
+            {{#if kifla }}
+        {% endverbatim %}
+            <div>KIFLA</div>
+        {% verbatim %}
+            {{/if}}
+        {% endverbatim %}
+
     </script>
     <script id="global-brake-template" type="text/x-handlebars-template" >
         <div id="presentation-{{ '{{ id }}' }}" class="col-xs-12 box light shadow text-shadow global-brake" style="background-image: url({{asset('bundles/livevoting/img/assets/lunch.png')}});">
@@ -519,9 +528,17 @@
                                     return e.globalBrake;
                                 });
                                 if(result.length == 0) {
+                                    var counter = 1;
                                     data['presentations'].forEach(function (presentation) {
+                                        if (counter % 5 === 0) {
+                                            presentation['kifla'] = true;
+                                        } else {
+                                            presentation['kifla'] = false;
+                                        }
+                                        console.log(presentation);
                                         $(presentation_template(presentation)).hide().appendTo(srcDiv).fadeIn(1500);
                                         displayedPresentations.push(presentation);
+                                        counter++;
                                     });
                                 } else {
                                     $(global_brake_tempalte(result[0])).hide().appendTo(srcDiv).fadeIn(1500);
