@@ -344,7 +344,7 @@ class Event
 
         // move takes the target directory and then the
         // target filename to move to
-        $new_name = 'Event' . ' ' . $this->getId() . ' ' .time() . $this->getImage()->guessExtension();
+        $new_name = 'Event' . ' ' . $this->getId() . ' ' . time() . '.' . $this->getImage()->guessExtension();
         $this->getImage()->move(
             $this->getUploadRootDir(),
             $new_name

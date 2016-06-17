@@ -417,7 +417,7 @@ class Presentation
 
         // move takes the target directory and then the
         // target filename to move to
-        $new_name = 'Presentation' . ' ' . $this->getId() . ' ' . time() . $this->getImage()->guessExtension();
+        $new_name = 'Presentation' . ' ' . $this->getId() . ' ' . time() . '.' .$this->getImage()->guessExtension();
         $this->getImage()->move(
             $this->getUploadRootDir(),
             $new_name
