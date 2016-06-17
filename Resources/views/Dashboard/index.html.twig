@@ -462,9 +462,25 @@
         </div>
 
         {% verbatim %}
-            {{#if kifla }}
+            {{#if kifla-xl }}
         {% endverbatim %}
-            <div>KIFLA</div>
+            <div class="clearfix visible-xl"></div>
+        {% verbatim %}
+            {{/if}}
+        {% endverbatim %}
+
+        {% verbatim %}
+            {{#if kifla-lg }}
+        {% endverbatim %}
+            <div class="clearfix visible-lg"></div>
+        {% verbatim %}
+            {{/if}}
+        {% endverbatim %}
+
+        {% verbatim %}
+            {{#if kifla-sm }}
+        {% endverbatim %}
+            <div class="clearfix visible-sm"></div>
         {% verbatim %}
             {{/if}}
         {% endverbatim %}
@@ -531,9 +547,19 @@
                                     var counter = 1;
                                     data['presentations'].forEach(function (presentation) {
                                         if (counter % 5 === 0) {
-                                            presentation['kifla'] = true;
+                                            presentation['kifla-xl'] = true;
                                         } else {
-                                            presentation['kifla'] = false;
+                                            presentation['kifla-xl'] = false;
+                                        }
+                                        if (counter % 3 === 0) {
+                                            presentation['kifla-lg'] = true;
+                                        } else {
+                                            presentation['kifla-lg'] = false;
+                                        }
+                                        if (counter % 2 === 0) {
+                                            presentation['kifla-sm'] = true;
+                                        } else {
+                                            presentation['kifla-sm'] = false;
                                         }
                                         console.log(presentation);
                                         $(presentation_template(presentation)).hide().appendTo(srcDiv).fadeIn(1500);
