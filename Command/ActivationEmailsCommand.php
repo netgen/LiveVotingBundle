@@ -52,8 +52,9 @@ class ActivationEmailsCommand extends ContainerAwareCommand
                         'text/html'
                     );
 
-                $this->getContainer()->get('mailer')->send($message);
-                $output->writeln('Mail sent to' . $user->getEmail());
+                $output->writeln( $this->getContainer()->get('mailer')->send($message) );
+
+                $output->writeln('Mail sent to: ' . $user->getEmail());
                 $num++;
             }
             $output->writeln('Activation mails have been sent to '.$num.' users');
