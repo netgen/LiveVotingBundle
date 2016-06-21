@@ -34,6 +34,9 @@ class ActivationEmailsCommand extends ContainerAwareCommand
     {
         $users = $this->getContainer()->get('doctrine')->getRepository('LiveVotingBundle:User')->findAll();
         $num = 0;
+
+        $notSend = array();
+
         if ($input->getOption('activation'))
         {
             foreach ($users as $user) {
@@ -52,12 +55,21 @@ class ActivationEmailsCommand extends ContainerAwareCommand
                         'text/html'
                     );
 
-                $output->writeln( $this->getContainer()->get('mailer')->send($message) );
-
-                $output->writeln('Mail sent to: ' . $user->getEmail());
+                try {
+                    $status = $this->getContainer()->get('mailer')->send($message, $notSend);
+                } catch (\Exception $e)
+                {
+                    dump($e);
+                }
+                if ($status == 1) {
+                    $output->writeln('Mail not sent to ' . $user_email);
+                } else {
+                    $output->writeln('Mail sent to: ' . $user_email);
+                }
                 $num++;
             }
             $output->writeln('Activation mails have been sent to '.$num.' users');
+            var_dump($notSend);
         }
         else if ($input->getOption('questions'))
         {
