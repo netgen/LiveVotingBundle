@@ -25,9 +25,10 @@ class UserAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('LiveVotingBundle:User')->findAll();
-
+        
         return $this->render('LiveVotingBundle:User:index.html.twig', array(
             'entities' => $entities,
+            'count' => count($entities)
         ));
     }
 
