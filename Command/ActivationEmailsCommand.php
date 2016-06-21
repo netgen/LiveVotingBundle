@@ -41,8 +41,8 @@ class ActivationEmailsCommand extends ContainerAwareCommand
                 $emailHash = md5($this->getContainer()->getParameter('email_hash_prefix') . $user_email);
 
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Say hello to Summer Camp 2015!')
-                    ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
+                    ->setSubject('CSSF & SSD 2016 workshops voting')
+                    ->setFrom(array('info@salsa-adria.hr' => 'CSSF & SSD 2016 workshops voting'))
                     ->setTo($user_email)
                     ->setBody(
                         $this->getContainer()->get('templating')->render(
@@ -51,7 +51,9 @@ class ActivationEmailsCommand extends ContainerAwareCommand
                         ),
                         'text/html'
                     );
+
                 $this->getContainer()->get('mailer')->send($message);
+                $output->writeln('Mail sent to' . $user->getEmail());
                 $num++;
             }
             $output->writeln('Activation mails have been sent to '.$num.' users');
