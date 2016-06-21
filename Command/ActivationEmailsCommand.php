@@ -37,6 +37,10 @@ class ActivationEmailsCommand extends ContainerAwareCommand
 
         $notSend = array();
 
+        $context = $this->getContainer()->get('router')->getContext();
+        $context->setHost('rate.seasunsalsa.com');
+        $context->setScheme('http');
+
         if ($input->getOption('activation'))
         {
             foreach ($users as $user) {
