@@ -55,18 +55,14 @@ class ActivationEmailsCommand extends ContainerAwareCommand
                         'text/html'
                     );
 
-                try {
-                    $status = $this->getContainer()->get('mailer')->send($message, $notSend);
-                } catch (\Exception $e)
-                {
-                    dump($e);
-                }
+                $status = $this->getContainer()->get('mailer')->send($message, $notSend);
+
                 if ($status == 1) {
                     $output->writeln('Mail not sent to ' . $user_email);
                 } else {
+                    $num++;
                     $output->writeln('Mail sent to: ' . $user_email);
                 }
-                $num++;
             }
             $output->writeln('Activation mails have been sent to '.$num.' users');
             var_dump($notSend);
