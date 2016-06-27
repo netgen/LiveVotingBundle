@@ -32,7 +32,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    {#<script src="http://code.highcharts.com/highcharts.js"></script>#}
     <script src="{{ asset('bundles/livevoting/js/highcharts.js') }}"></script>
 
   <script type="text/javascript">
@@ -52,14 +51,13 @@
               avg = parseFloat(animation_data[index][i]['average']);
               data.push(avg);
           }
-
           chart.series[0].setData(data);
           setTimeout(function(){requestData(index+1)}, 1000);
 
-      }
+      };
 
       function endEverything(){
-          $('#winner .winner').html(data['winner']['presenter']['name']+' '+data['winner']['presenter']['surname']);
+          $('#winner .winner').html(data['winner']['presenter']['name']+' '+data['winner']['presenter']['surname'] + "<br />" + data['winner']['presentation']);
           setTimeout(function(){
               $('#winner').fadeIn(2000,
                   function(){
@@ -78,7 +76,10 @@
           var data = [];
           var categories = [];
           for(var ii in animation_data[0]){
-              categories.push(animation_data[0][ii]['presenter']['name']+' '+animation_data[0][ii]['presenter']['surname']);
+              var presenterName = animation_data[0][ii]['presenter']['name'] ? animation_data[0][ii]['presenter']['name'] : "";
+              var presenterSurname = animation_data[0][ii]['presenter']['surname'] ? animation_data[0][ii]['presenter']['surname'] : "";
+              var presentationName = animation_data[0][ii]['presentation'] ? animation_data[0][ii]['presentation'] : "";
+              categories.push(presentationName + "<br /><b>" + presenterName + "\n" + presenterSurname + "</b>");
               data.push(0);
           }
           chart.xAxis[0].update({categories: categories}, true);
