@@ -102,6 +102,7 @@ class DashboardController extends Controller{
                     ->findByPresentation($presentation['id']);
       $numOfUsers = 0;
       $sum = 0;
+      $presentation['votes'] = count($votes);
       foreach ($votes as $vote) {
         $numOfUsers++;
         $sum += $vote->getRate();

@@ -23,8 +23,8 @@ class ResultAdminController extends Controller{
      * @param Event ID $event_id
      * @return mixed
      */
-    public function ViewResultsAction(Request $request, $event_id){
-
+    public function ViewResultsAction(Request $request, $event_id)
+    {
         $results = $this->get('live_voting.result')->getResults($event_id);
         return $this->render('LiveVotingBundle:Result:index.html.twig', array(
             'animation_data' => json_encode($results),

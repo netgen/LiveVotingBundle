@@ -79,7 +79,8 @@
               var presenterName = animation_data[0][ii]['presenter']['name'] ? animation_data[0][ii]['presenter']['name'] : "";
               var presenterSurname = animation_data[0][ii]['presenter']['surname'] ? animation_data[0][ii]['presenter']['surname'] : "";
               var presentationName = animation_data[0][ii]['presentation'] ? animation_data[0][ii]['presentation'] : "";
-              categories.push(presentationName + "<br /><b>" + presenterName + "\n" + presenterSurname + "</b>");
+              var votes = animation_data[0][ii]['votes'];
+              categories.push(presentationName + "<br /><b>" + presenterName + "\n" + presenterSurname + "</b>" + "<br>" + votes + " votes");
               data.push(0);
           }
           chart.xAxis[0].update({categories: categories}, true);

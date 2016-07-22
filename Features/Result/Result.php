@@ -72,6 +72,40 @@ class Result {
             }
         }
 
+        $presentations = $this->em
+            ->createQuery("
+            SELECT p
+            FROM LiveVotingBundle:Presentation p
+            JOIN LiveVotingBundle:Event e
+            WHERE p.event = e
+             AND e = :event
+            ")->setParameter('event', $event_id)->getArrayResult();
+
+        foreach ($presentations as &$presentation) {
+            $votes = $this->em->getRepository('LiveVotingBundle:Vote')
+                ->findByPresentation($presentation['id']);
+            $numOfUsers = 0;
+            $sum = 0;
+            $presentation['votes'] = count($votes);
+            foreach ($votes as $vote) {
+                $numOfUsers++;
+                $sum += $vote->getRate();
+            }
+            if($numOfUsers === 0)
+                $presentation['average'] = 0;
+            else
+                $presentation['average'] = round($sum/$numOfUsers, 2);
+        }
+
+        foreach ($animation_data[0] as &$data)
+        {
+            foreach ($presentations as &$presentation) {
+                if (strcmp($data['presentation'], $presentation['presentationName']) == 0) {
+                    $data['votes'] = $presentation['votes'];
+                }
+            }
+        }
+
         $result['animation_data']=$animation_data;
         return $result;
     }
