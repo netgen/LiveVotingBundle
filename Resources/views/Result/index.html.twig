@@ -52,7 +52,7 @@
               data.push(avg);
           }
           chart.series[0].setData(data);
-          setTimeout(function(){requestData(index+1)}, 1000);
+          setTimeout(function(){requestData(index+1)}, 1);
 
       };
 
@@ -85,7 +85,7 @@
           }
           chart.xAxis[0].update({categories: categories}, true);
           chart.series[0].setData(data);
-          setTimeout(function(){requestData(0)}, 1000);
+          setTimeout(function(){requestData(0)}, 10);
       }
 
 
@@ -103,7 +103,7 @@
                   type: 'column',
                   events: {
                       load: function(){
-                          setTimeout(setPresentationData, 1000);
+                          setTimeout(setPresentationData, 10);
                       }
                   },
                   height: 480,
