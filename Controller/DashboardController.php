@@ -29,8 +29,12 @@ class DashboardController extends Controller{
               AND e.event IS NULL
             ')->setParameter('datetime', new \DateTime())->getResult();
 
-    if (is_array($event) && $event[0] instanceof Event) {
-      $name = $event[0]->getName();
+    if (is_array($event) && isset($event[0])) {
+      if ($event[0] instanceof Event) {
+        $name = $event[0]->getName();
+      } else {
+        $name = null;
+      }
     } else {
       $name = null;
     }
