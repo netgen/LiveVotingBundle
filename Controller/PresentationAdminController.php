@@ -194,7 +194,8 @@ class PresentationAdminController extends Controller
 
             $this->get('live_voting.doctrine_presentation_repo')->update($entity);
 
-            if(!empty($editForm->getData()['presentationRecord']->getImageUrl())) {
+            $imageUrl = $editForm->getData()['presentationRecord']->getImageUrl();
+            if(!empty($imageUrl)) {
                 $editForm->getData()['presentationRecord']->getImageUrl()->move($this->get('live_voting.doctrine_presentation_repo')->getImageUploadRootDir(), $editForm->getData()['presentationRecord']->getImageUrl()->getClientOriginalName());
             } else {
 
