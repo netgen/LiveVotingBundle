@@ -267,8 +267,8 @@ class UserAdminController extends Controller
             if ($typeOf === '0')
             {
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Say hello to Summer Camp 2015!')
-                    ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
+                    ->setSubject('Say hello to Web Summer Camp!')
+                    ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
                     ->setTo($user_email)
                     ->setBody(
                         $this->renderView(
@@ -282,7 +282,7 @@ class UserAdminController extends Controller
             {
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Questionnaire')
-                    ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
+                    ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
                     ->setTo($user_email)
                     ->setBody(
                         $this->renderView(
@@ -324,8 +324,8 @@ class UserAdminController extends Controller
         if ($typeOf === '0')
         {
             $message = \Swift_Message::newInstance()
-                ->setSubject('Say hello to Summer Camp 2015!')
-                ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
+                ->setSubject('Say hello to Web Summer Camp!')
+                ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
                 ->setTo($user_email)
                 ->setBody(
                     $this->renderView(
@@ -339,7 +339,7 @@ class UserAdminController extends Controller
         {
             $message = \Swift_Message::newInstance()
                 ->setSubject('Questionnaire')
-                ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
+                ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
                 ->setTo($user_email)
                 ->setBody(
                     $this->renderView(
