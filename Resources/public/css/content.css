@@ -177,7 +177,9 @@
 .cta-multiple .active.cta-action, .cta-duo .active.cta-action,
 .cta-multiple .active.cta-action:hover, .cta-duo .active.cta-action:hover,
 .cta-multiple .active.cta-action:focus, .cta-duo .active.cta-action:focus {
-	color: rgb(230, 0, 138) !important;
+	color: #FFFFFF !important;
+ 	/*background-color: rgba(64, 64, 65, 0.75); */
+	background-color: #FF9C5B;
 	border-color: transparent;
 	cursor: default;
 }
@@ -300,7 +302,7 @@
 @media (max-width: 767px) {
 	.live-voting-comments, .joindin-comments-tab {
 		height: 168px;
-	}	
+	}
 }
 
 .media-list {
