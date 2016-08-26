@@ -285,14 +285,11 @@
                 e.preventDefault();
                 if (!canIVote)return;
                 if($(this).closest('form').hasClass("cta-disabled")) return;
-                console.log(this);
                 var action = $(this).closest('form').attr('action');
-                console.log(action);
                 var presentation_id = action.split('/').pop();
                 var presentation = presentations.getById(presentation_id);
                 var old_vote = presentation.getVote();
                 var vote = $(this).attr('value');
-                console.log(vote);
                 var rate = 'rate=' + vote;
                 presentation.setVote(vote);
                 if(presentation.getData()['votingEnabled']==true){
