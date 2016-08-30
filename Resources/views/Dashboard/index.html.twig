@@ -89,27 +89,6 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-xs-12 box light shadow text-shadow" style="background-image: url({{asset('bundles/livevoting/img/assets/master-event.png')}});">
-          <div class="row vertical-align-xs">
-            <div class="col-xs-4 col-sm-1 text-center">
-              <img class="image-full" src="{{asset('bundles/livevoting/img/assets/summer-camp-logo.svg')}}">
-            </div>
-            <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper extra-margin">
-              <div>
-                <h1>Current happenings:</h1>
-              </div>
-              <div>
-                <label class="big">{% if name | default("No current events") %}{{ name }}{% endif %}</label>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-
-
-    <div class="row" id="liveschedule"></div>
-
     <div class="row box shadow bg-pattern">
         <div id="chartContainer" class="col-xs-12 col-sm-8"></div>
         <div class="clearfix visible-xs"></div>
@@ -126,6 +105,8 @@
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars/dist/handlebars.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl/dist/handlebars-intl.min.js') }}" ></script>
     <script type="text/javascript">
+        $('.footer-wrapper').hide();
+
         var eventNameHighchart = "Top 3 rated sessions";
 
         $(document).ready(function () {
@@ -313,175 +294,6 @@
             run();
         }
 
-    </script>
-    <script id="live-schedule-template" type="text/x-handlebars-template">
-
-        <div class="col-xs-12 col-sm-4 box shadow" id="presentation-{{ '{{ id }}' }}">
-            <div class="row">
-                <div class="col-xs-4">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <img class="image image-o" src="{{ asset('bundles/livevoting/') }}{% verbatim %}{{#if image}}{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 box-margin text-center">
-                            <label class="text-strong">{{ '{{ hall }}' }}</label>
-                            <p>{{ '{{formatTime begin hour="numeric" minute="numeric"  }}' }}</p>
-                            <p>{{ '{{formatTime end hour="numeric" minute="numeric"  }}' }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-8 box-padding">
-                    <h4>{{'{{presentationName}}'}}</h4>
-                    <label>{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                {% if app.user and is_granted('ROLE_ADMIN')%}
-                    {#
-                    <div class="cta shadow bg-pattern text-shadow">
-                        <div style="background-color:grey" class="cta-action">Admin Cannot Vote</div>
-                    </div>
-                    #}
-                {% elseif app.user %}
-                    {#
-                    <form class="question-multiple cta cta-multiple bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
-                        <button class="cta-action vote-option q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
-                        --><button class="cta-action vote-option q4" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
-                        --><button class="cta-action vote-option q3" type="submit" value='3'><i class="fa fa-lg fa-thumbs-up rotate-90"></i></button><!--
-                        --><button class="cta-action vote-option q2" type="submit" value='2'><i class="fa fa-lg fa-thumbs-up rotate-135"></i></button><!--
-                        --><button class="cta-action vote-option q1" type="submit" value='1'><i class="fa fa-lg fa-thumbs-up rotate-180"></i></button>
-                    </form>
-                    #}
-                    <form class="question-multiple cta cta-multiple bg-pattern text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
-                        <button class="cta-action vote-option q5 star" type="submit" value='1' name="star"><i class="fa fa-lg fa-star-o star"></i></button><!--
-                        --><button class="cta-action vote-option q4 star" type="submit" value='2'><i class="fa fa-lg fa-star-o star"></i></button><!--
-                        --><button class="cta-action vote-option q3 star" type="submit" value='3'><i class="fa fa-lg fa-star-o star"></i></button><!--
-                        --><button class="cta-action vote-option q2 star" type="submit" value='4'><i class="fa fa-lg fa-star-o star"></i></button><!--
-                        --><button class="cta-action vote-option q1 star" type="submit" value='5'><i class="fa fa-lg fa-star-o star"></i></button>
-                    </form>
-
-
-                {% else %}
-                    {#
-                    <div class="cta shadow bg-pattern text-shadow">
-                        <a class="cta-action" href="{{ path('user_landing') }}">Vote</a>
-                    </div>
-                    #}
-                {% endif %}
-                </div>
-            </div>
-        </div>
-    </script>
-    <script id="global-brake-template" type="text/x-handlebars-template" >
-        <div id="presentation-{{ '{{ id }}' }}" class="col-xs-12 box light shadow text-shadow global-brake" style="background-image: url({{asset('bundles/livevoting/img/assets/lunch.png')}});">
-            <div class="row vertical-align-xs">
-                <div class="col-xs-4 col-sm-1 text-center garbage icon">
-                    <i class="fa fa-cutlery"></i>
-                </div>
-                <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper">
-                    <div>
-                        <h1>{{'{{presentationName}}'}}</h1>
-                    </div>
-                    <div>
-                        <label class="big">{{ '{{formatTime begin hour="numeric" minute="numeric"  }}' }} - {{ '{{formatTime end hour="numeric" minute="numeric"  }}' }}</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </script>
-    <script type="text/javascript">
-        var srcDiv = '#liveschedule';
-        var displayedPresentations = [];
-        var presentation_template_html = document.getElementById('live-schedule-template').innerHTML;
-        var global_brake_template_html = document.getElementById('global-brake-template').innerHTML;
-        var presentation_template = Handlebars.compile(presentation_template_html);
-        var global_brake_tempalte = Handlebars.compile(global_brake_template_html);
-
-        function presentationInArray(presentation, presentationArray) {
-            var equals = false;
-            $.each(presentationArray, function(key, p) {
-                if(pequals(p, presentation)) {
-                    equals = true;
-                    return false;
-                }
-            });
-            return equals;
-        }
-
-        function pequals(p, presentation) {
-            if(p.id != presentation.id) return false;
-            if(p.globalBrake != presentation.globalBrake) return false;
-            if(p.begin != presentation.begin) return false;
-            if(p.end != presentation.end) return false;
-            if(p.presentationName != presentation.presentationName) return false;
-            return true;
-        }
-
-        $(document).ready(function () {
-            var ajaxFunction = function () {
-                $.ajax({
-                    type: "GET",
-                    url: '{{ path('dashboard_live_schedule') }}',
-                    dataType: "json",
-                    success: function (data) {
-                        if('presentations' in data) {
-                            if(displayedPresentations.length == 0) {
-                                var result = $.grep(data.presentations, function(e){
-                                    return e.globalBrake;
-                                });
-                                if(result.length == 0) {
-                                    data['presentations'].forEach(function (presentation) {
-                                        $(presentation_template(presentation)).hide().appendTo(srcDiv).fadeIn(1500);
-                                        displayedPresentations.push(presentation);
-                                    });
-                                } else {
-                                    $(global_brake_tempalte(result[0])).hide().appendTo(srcDiv).fadeIn(1500);
-                                    displayedPresentations.push(result[0]);
-                                }
-                                setInterval(ajaxFunction, 10000);
-                            } else {
-                                //searching for global brake presentation
-                                var result = $.grep(data.presentations, function(e){
-                                    return e.globalBrake;
-                                });
-                                if(result.length == 0) {
-                                    //no global brake presentation
-                                    //removing expired presentations
-                                    displayedPresentations.forEach(function(displayed_presentation, index, array) {
-                                       if(!presentationInArray(displayed_presentation, data.presentations)) {
-                                           $('#presentation-'+displayed_presentation.id).remove();
-                                           array.splice(index, 1);
-                                       }
-                                    });
-                                    //adding presentations scheduled next
-                                    data.presentations.forEach(function(presentation) {
-                                        if(!presentationInArray(presentation, displayedPresentations)) {
-                                            $(presentation_template(presentation)).hide().appendTo(srcDiv).fadeIn(1500);
-                                            displayedPresentations.push(presentation);
-                                        }
-                                    });
-                                } else {
-                                    if(!presentationInArray(result[0], displayedPresentations)) {
-                                        $(srcDiv).empty();
-                                        displayedPresentations = [];
-                                        $(global_brake_tempalte(result[0])).hide().appendTo(srcDiv).fadeIn(1500);
-                                        displayedPresentations.push(result[0]);
-                                    }
-                                }
-                            }
-                            presentations = new presentationsArray();
-                            data['presentations'].forEach(function (presentation) {
-                                presentations.add(presentation);
-                            });
-                        }
-                    }
-                });
-            };
-            ajaxFunction();
-        });
     </script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <!-- Rendering charts -->
