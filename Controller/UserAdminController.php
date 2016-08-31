@@ -267,7 +267,7 @@ class UserAdminController extends Controller
             if ($typeOf === '0')
             {
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Say hello to Web Summer Camp!')
+                    ->setSubject('Web Summer Camp workshop voting')
                     ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
                     ->setTo($user_email)
                     ->setBody(
@@ -324,7 +324,7 @@ class UserAdminController extends Controller
         if ($typeOf === '0')
         {
             $message = \Swift_Message::newInstance()
-                ->setSubject('Say hello to Web Summer Camp!')
+                ->setSubject('Web Summer Camp workshop voting')
                 ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
                 ->setTo($user_email)
                 ->setBody(
