@@ -89,7 +89,7 @@ function brain(options_){
             }
             globalState = state;
             setTimeout(run, 5000);
-        }); 
+        });
     }
 
     function handleNewQuestions(data){
@@ -135,9 +135,9 @@ function brain(options_){
 
         this.init = function(newData){
             this.setData(newData);
-            if(data.question_type == 1) 
+            if(data.question_type == 1)
                 this.element = $(template_yes_no(data));
-            else 
+            else
                 this.element = $(template_1_5(data));
 
             //if(canIAnswer == false){
@@ -168,19 +168,15 @@ function brain(options_){
         };
 
         this.setAnswer = function(answer_number){
-            this.element.find('input').each(function(){
-                if(this.value == answer_number){
-                    $(this).addClass('active');
-                }else{
-                    $(this).removeClass('active');
-                }
-            });
             this.element.find('button').each(function(){
-                if(this.value == answer_number){
+                if (this.value == answer_number) {
                     $(this).addClass('active');
-                }else{
-                    $(this).removeClass('active');
 
+                    if ($(this).hasClass('star')) {
+                        $(this).prevAll().addClass('active');
+                    }
+                } else {
+                    $(this).removeClass('active');
                 }
             });
         };
@@ -328,4 +324,3 @@ function brain(options_){
     run();
 
 }
-
