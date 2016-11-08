@@ -318,19 +318,41 @@ class UserAdminController extends Controller
         );
     }
 
-    public function loginEmailAction(Request $request, $typeOf)
+    public function loginEmailAction(Request $request, $typeOf, $eventId)
     {
-        $users = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->findAll();
+        $userEventAssociations = $this->getDoctrine()->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(
+            array('eventId' => $eventId)
+        );
+
+        $userIds = array();
+
+        $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($eventId);
+
+        $emailSubject = $event->getEmailSubject();
+        $emailText = $event->getEmailText();
+
+
+        foreach ($userEventAssociations as $userEventAssociation)
+        {
+            $userIds[] = $userEventAssociation->getUserId();
+        }
+
+        $users = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->findBy(
+            array(
+                'id' => $userIds
+            )
+        );
+
         foreach ($users as $user) {
             $user_email = $user->getEmail();
             $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
             if ($typeOf === '0') {
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Web Summer Camp workshop voting')
+                    ->setSubject($emailSubject ? $emailSubject : 'Web Summer Camp workshop voting')
                     ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
                     ->setTo($user_email)
                     ->setBody(
-                        $this->renderView(
+                        $emailText ? $emailText : $this->renderView(
                             'LiveVotingBundle:Email:login.html.twig',
                             array('emailHash' => $emailHash)
                         ),
