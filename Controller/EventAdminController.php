@@ -115,9 +115,14 @@ class EventAdminController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
+        $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(array(
+            'eventId' => $id
+        ));
+
         return $this->render('LiveVotingBundle:Event:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
+            'user_count'  => count($userEventAssociations)
         ));
     }
 
@@ -149,6 +154,8 @@ class EventAdminController extends Controller
         $form->add('allowViewingResults', 'checkbox', array('required' => false, 'label' => 'Results available for public: '));
         $form->add('questionStatus', 'checkbox', array('mapped'=> false, 'required'=>false, 'label'=>'Questions enabled for this event: ', 'attr' => array('checked' => $questionStatus)));
         $form->add('numberOfSeconds', 'number', array('mapped'=> false, 'required'=>false, 'label'=>'Seconds until event ends: ', 'attr' => array('class'=> 'form-control')));
+        $form->add('emailSubject', 'text', array( 'label' => 'Email subject', 'attr' => array('class' => 'form-control')));
+        $form->add('emailText', 'textarea', array('label' => 'Email text', 'attr' => array('class' => 'form-control')));
         $form->add('submit', 'submit', array('label' => 'Update event', 'attr' => array('class' => 'btn btn-large btn-primary')));
         return $form;
     }
