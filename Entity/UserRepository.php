@@ -31,9 +31,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             throw new UsernameNotFoundException($message, 0, $e);
         }
 
-        //var_dump($user); die;
         return $user;
-        //var_dump($user); die;
     }
 
     public function refreshUser(UserInterface $user)
