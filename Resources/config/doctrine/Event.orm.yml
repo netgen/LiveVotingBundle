@@ -28,6 +28,14 @@ Netgen\LiveVotingBundle\Entity\Event:
             type: datetime
         end:
             type: datetime
+        emailSubject:
+            type: string
+            length: 255
+            column: email_subject
+        emailText:
+            type: string
+            length: 255
+            column: email_text
     oneToMany:
         presentations:
             targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
