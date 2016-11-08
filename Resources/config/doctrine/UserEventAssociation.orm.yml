@@ -1,0 +1,17 @@
+Netgen\LiveVotingBundle\Entity\UserEventAssociation:
+    type: entity
+    table: user_event_association
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        userId:
+            column: user_id
+            type: string
+        eventId:
+            column: event_id
+            type: integer
+    lifecycleCallbacks: {  }
