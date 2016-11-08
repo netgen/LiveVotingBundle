@@ -5,10 +5,30 @@
 {% block mainHeading %}Edit user{% endblock %}
 
 {% block body %}
+
+	{% for flashMessage in app.Session.flashbag.get('message') %}
+		<div class="alert alert-danger">
+			<div class="text">{{flashMessage}}</div>
+		</div>
+	{% endfor %}
+
 	<div class="row">
 		<div class="col-xs-12 col-sm-4 margin-top">
     		{{ form(edit_form, {'attr':{'class':'form-horizontal'}}) }}
     	</div>
+		<div class="col-xs-12 col-sm-4 margin-top">
+			{{ form(user_event_association_form, {'attr':{'class':'form-horizontal'}}) }}
+
+			{% if associated_events is not null %}
+			Associated Events:
+
+			<ul>
+				{% for associated_event in associated_events %}
+					<li><a href="{{ path('admin_event_edit', {id: associated_event.id}) }}">{{ associated_event.name }}</a> <a href="{{ path('admin_user_event_association_remove', {userId: user_id, eventId: associated_event.id}) }}" title="Remove this event"><button type="button" class="btn icon"><i class="fa fa-lg fa-times"></i></button></a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</div>
 	</div>
 
 	<div class="row secondary-footer">
