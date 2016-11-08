@@ -213,6 +213,11 @@ class UserAdminController extends Controller
             ->setAction($this->generateUrl('user_csv_process_import'))
             ->setMethod('POST')
             ->add('attachment', 'file')
+            ->add('event', 'entity', array(
+                'class' => 'Netgen\LiveVotingBundle\Entity\Event',
+                'label' => 'Assign To Event',
+                'required' => true
+            ))
             ->add('submit', 'submit', array('label' => 'Upload csv'))
             ->getForm();
         return $this->render(
@@ -229,6 +234,11 @@ class UserAdminController extends Controller
             ->setAction($this->generateUrl('user_csv_process_import'))
             ->setMethod('POST')
             ->add('attachment', 'file')
+            ->add('event', 'entity', array(
+                'class' => 'Netgen\LiveVotingBundle\Entity\Event',
+                'label' => 'Assign To Event',
+                'required' => true
+            ))
             ->add('submit', 'submit', array('label' => 'Upload csv'))
             ->getForm();
 
@@ -237,6 +247,10 @@ class UserAdminController extends Controller
 
         if ($form->isValid()) {
             $file = $form['attachment']->getData();
+
+            $event = $form['event']->getData();
+
+            $userEventAssociationEntityRepository = $this->getDoctrine()->getRepository('LiveVotingBundle:UserEventAssociation');
 
             if (($handle = fopen($file, "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
@@ -256,7 +270,34 @@ class UserAdminController extends Controller
 
                                 $em = $this->getDoctrine()->getManager();
                                 $em->persist($newUser);
+
+                                $userEventAssociation = new UserEventAssociation();
+
+                                $userEventAssociation->setUserId($newUser->getId());
+                                $userEventAssociation->setEventId($event->getId());
+
+                                $em->persist($userEventAssociation);
+
                                 $em->flush();
+                            }
+                            else
+                            {
+                                $userEventAssociation = $userEventAssociationEntityRepository->findBy(array(
+                                    'userId' => $user->getId(),
+                                    'eventId' => $event->getId()
+                                ));
+
+                                if ( count($userEventAssociation) == 0 )
+                                {
+                                    $userEventAssociation = new UserEventAssociation();
+
+                                    $userEventAssociation->setUserId($user->getId());
+                                    $userEventAssociation->setEventId($event->getId());
+
+                                    $em = $this->getDoctrine()->getManager();
+                                    $em->persist($userEventAssociation);
+                                    $em->flush();
+                                }
                             }
                         }
                     }
