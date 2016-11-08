@@ -2,6 +2,9 @@
 
 namespace Netgen\LiveVotingBundle\Controller;
 
+use Netgen\LiveVotingBundle\Entity\Event;
+use Netgen\LiveVotingBundle\Entity\UserEventAssociation;
+use Netgen\LiveVotingBundle\Event\UserEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -117,11 +120,28 @@ class UserAdminController extends Controller
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(array('userId' => $id));
+
+        $associatedEventIds = array();
+
+        if (count($userEventAssociations) > 0) {
+            foreach ($userEventAssociations as $userEventAssociation) {
+                $associatedEventIds[] = $userEventAssociation->getEventId();
+            }
+        }
+
+        $associatedEvents = $em->getRepository('LiveVotingBundle:Event')->findBy(array('id' => $associatedEventIds));
+
+        $editForm = $this->createEditForm($entity, count($associatedEventIds) > 0 ? $associatedEvents : null);
+
+        $userEventAssociationAddForm = $this->userEventAssociationAddForm($id);
 
         return $this->render('LiveVotingBundle:User:edit.html.twig', array(
+            'user_id' => $id,
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
+            'edit_form' => $editForm->createView(),
+            'associated_events' => count($associatedEventIds) > 0 ? $associatedEvents : null,
+            'user_event_association_form' => $userEventAssociationAddForm->createView()
         ));
     }
 
@@ -130,7 +150,7 @@ class UserAdminController extends Controller
      * @param User $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(User $entity)
+    private function createEditForm(User $entity, $associatedEvents = null)
     {
         $form = $this->createForm(new UserDataType(), $entity, array(
             'action' => $this->generateUrl('admin_user_update', array('id' => $entity->getId())),
@@ -264,8 +284,7 @@ class UserAdminController extends Controller
         foreach ($users as $user) {
             $user_email = $user->getEmail();
             $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
-            if ($typeOf === '0')
-            {
+            if ($typeOf === '0') {
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Web Summer Camp workshop voting')
                     ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
@@ -277,9 +296,7 @@ class UserAdminController extends Controller
                         ),
                         'text/html'
                     );
-            }
-            else if ($typeOf === '1')
-            {
+            } else if ($typeOf === '1') {
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Questionnaire')
                     ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
@@ -295,14 +312,11 @@ class UserAdminController extends Controller
 
             $this->get('mailer')->send($message);
         }
-        if ($typeOf === '0')
-        {
+        if ($typeOf === '0') {
             $request->getSession()->getFlashBag()->add(
                 'message', 'Activations have been sent to all users.'
             );
-        }
-        else if ($typeOf === '1')
-        {
+        } else if ($typeOf === '1') {
             $request->getSession()->getFlashBag()->add(
                 'message', 'Questionnaires have been sent to all users.'
             );
@@ -321,8 +335,7 @@ class UserAdminController extends Controller
         }
         $user_email = $user->getEmail();
         $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
-        if ($typeOf === '0')
-        {
+        if ($typeOf === '0') {
             $message = \Swift_Message::newInstance()
                 ->setSubject('Web Summer Camp workshop voting')
                 ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
@@ -334,9 +347,7 @@ class UserAdminController extends Controller
                     ),
                     'text/html'
                 );
-        }
-        else if ($typeOf === '1')
-        {
+        } else if ($typeOf === '1') {
             $message = \Swift_Message::newInstance()
                 ->setSubject('Questionnaire')
                 ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
@@ -351,20 +362,86 @@ class UserAdminController extends Controller
         }
 
         $this->get('mailer')->send($message);
-        if ($typeOf === '0')
-        {
+        if ($typeOf === '0') {
             $request->getSession()->getFlashBag()->add(
-                'message', 'Activation has been sent to '.$user_email
+                'message', 'Activation has been sent to ' . $user_email
             );
-        }
-        else if ($typeOf === '1')
-        {
+        } else if ($typeOf === '1') {
             $request->getSession()->getFlashBag()->add(
-                'message', 'Questionnaire has been sent to '.$user_email
+                'message', 'Questionnaire has been sent to ' . $user_email
             );
         }
 
 
         return $this->redirect($this->generateUrl('admin_user'));
+    }
+
+    public function userEventAssociationAddForm($userId)
+    {
+        $form = $this->createForm(
+            'live_voting_user_event_add_form',
+            array(
+                'user_id' => $userId
+            ),
+            array(
+                'action' => $this->generateUrl('admin_user_event_association_add', array('userId' => $userId)),
+                'method' => 'POST',
+            )
+        );
+        $form->add('submit', 'submit', array('label' => 'Add'));
+        return $form;
+    }
+
+    public function userEventAssociationAddAction(Request $request, $userId)
+    {
+        $userEventAssociationAddForm = $this->userEventAssociationAddForm($userId);
+
+        $userEventAssociationAddForm->handleRequest($request);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $userEventAssociationEntityRepository = $this->getDoctrine()->getRepository('LiveVotingBundle:UserEventAssociation');
+
+        $event = $userEventAssociationAddForm->get('event')->getData();
+
+        $userEventAssociation = $userEventAssociationEntityRepository->findBy(array(
+            'userId' => $userId,
+            'eventId' => $event->getId()
+        ));
+
+        if (count($userEventAssociation) == 0)
+        {
+            $userEventAssociation = new UserEventAssociation();
+
+            $userEventAssociation->setEventId($event->getId());
+            $userEventAssociation->setUserId($userId);
+
+            $entityManager->persist($userEventAssociation);
+            $entityManager->flush($userEventAssociation);
+        }
+
+        $url = $this->generateUrl('admin_user_edit', array('id' => $userId));
+
+        $request->getSession()->getFlashBag()->add(
+            'message', 'You have assigned the user to a new event.'
+        );
+
+        return $this->redirect($url);
+    }
+
+    public function userEventAssociationRemoveAction(Request $request, $userId, $eventId)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $userEventAssociation = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findOneBy(array('userId' => $userId, 'eventId' => $eventId));
+
+        $em->remove($userEventAssociation);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add(
+            'message', 'You have removed an event from this user.'
+        );
+
+        return $this->redirect($this->generateUrl('admin_user_edit', array('id' => $userId)));
     }
 }
