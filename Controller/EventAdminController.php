@@ -9,6 +9,7 @@
 
 namespace Netgen\LiveVotingBundle\Controller;
 
+use Netgen\LiveVotingBundle\Event\UpdateOnEventEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Netgen\LiveVotingBundle\Entity\Event;
@@ -54,7 +55,7 @@ class EventAdminController extends Controller
             $em->flush();
 
             $request->getSession()->getFlashBag()->add(
-              'message', 'Your have added new event.'
+              'message', 'You have added a new event.'
             );
 
             return $this->redirect($this->generateUrl('admin_event'));
@@ -230,7 +231,7 @@ class EventAdminController extends Controller
      * Deletes an existing Event entity.
      * @param $id Event ID
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -241,8 +242,20 @@ class EventAdminController extends Controller
             throw $this->createNotFoundException('Event is already removed.');
         }
 
+        $eventDispatcher = $this->get('event_dispatcher');
+        $updateOnEventEvent = new UpdateOnEventEvent($id);
+
+        $eventDispatcher->dispatch(
+            'live_voting.on_event_delete',
+            $updateOnEventEvent
+        );
+
         $em->remove($entity);
         $em->flush();
+
+        $request->getSession()->getFlashBag()->add(
+            'message', 'You have removed an event.'
+        );
 
         return $this->redirect($this->generateUrl('admin_event'));
     }
