@@ -26,6 +26,7 @@
                         <th>Edit</th>
                         <th>Activation Email</th>
                         <th>Questionnaire Email</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +42,9 @@
                         </td>
                         <td>
                             <a href="{{ path('send_one_email_login', { 'id': entity.id, 'typeOf': 1}) }}"><button type="button" class="btn">Send Questionnaire Email</button></a>
+                        </td>
+                        <td>
+                            <a href="{{ path('admin_user_delete', { 'id': entity.id }) }}"><button type="button" class="btn icon"><i class="fa fa-lg fa-times"></i></button></a>
                         </td>
                     </tr>
                 {% endfor %}
