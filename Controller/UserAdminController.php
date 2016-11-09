@@ -4,6 +4,7 @@ namespace Netgen\LiveVotingBundle\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\UserEventAssociation;
+use Netgen\LiveVotingBundle\Event\UpdateOnUserEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -348,11 +349,11 @@ class UserAdminController extends Controller
             $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
             if ($typeOf === '0') {
                 $message = \Swift_Message::newInstance()
-                    ->setSubject($emailSubject ? $emailSubject : 'Web Summer Camp workshop voting')
+                    ->setSubject($emailSubject !== '' ? $emailSubject : 'Web Summer Camp workshop voting')
                     ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
                     ->setTo($user_email)
                     ->setBody(
-                        $emailText ? $emailText : $this->renderView(
+                        $emailText !== '' ? $emailText : $this->renderView(
                             'LiveVotingBundle:Email:login.html.twig',
                             array('emailHash' => $emailHash)
                         ),
@@ -388,6 +389,7 @@ class UserAdminController extends Controller
 
     public function oneUserLoginEmailAction(Request $request, $id, $typeOf)
     {
+
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('LiveVotingBundle:User')->find($id);
@@ -395,47 +397,107 @@ class UserAdminController extends Controller
         if (!$user) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
-        $user_email = $user->getEmail();
-        $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
-        if ($typeOf === '0') {
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Web Summer Camp workshop voting')
-                ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
-                ->setTo($user_email)
-                ->setBody(
-                    $this->renderView(
-                        'LiveVotingBundle:Email:login.html.twig',
-                        array('emailHash' => $emailHash)
-                    ),
-                    'text/html'
-                );
-        } else if ($typeOf === '1') {
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Questionnaire')
-                ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
-                ->setTo($user_email)
-                ->setBody(
-                    $this->renderView(
-                        'LiveVotingBundle:Email:questions.html.twig',
-                        array('emailHash' => $emailHash)
-                    ),
-                    'text/html'
-                );
+
+        $accessibleUserEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(
+            array(
+                'userId' => $id
+            )
+        );
+
+        $form = null;
+        $message = null;
+
+        if (count($accessibleUserEventAssociations) > 0)
+        {
+            $accessibleUserEventIds = array_map(
+                function(UserEventAssociation $userEventAssociation){
+                    return $userEventAssociation->getEventId();
+                },
+                $accessibleUserEventAssociations
+            );
+
+            $accessibleEvents = $em->getRepository('LiveVotingBundle:Event')->findBy(
+                array(
+                    'id' => $accessibleUserEventIds
+                )
+            );
+
+            $form = $this->createForm(
+                'live_voting_user_send_one_login_email',
+                array('user_id' => $id, 'accessible_events' => $accessibleEvents),
+                array(
+                    'action' => $this->generateUrl('send_one_email_login', array('id' => $id, 'typeOf' => $typeOf)),
+                    'method' => 'POST'
+                )
+            );
+
+            $form->add('submit', 'submit', array('label' => 'Send'));
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted())
+            {
+                $formData = $form->getData();
+
+                /** @var Event $selectedEvent */
+                $selectedEvent = $formData['event'];
+
+                $emailSubject = $selectedEvent->getEmailSubject();
+                $emailText = $selectedEvent->getEmailText();
+
+                $user_email = $user->getEmail();
+                $emailHash = md5($this->container->getParameter('email_hash_prefix') . $user_email);
+                if ($typeOf === '0') {
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject($emailSubject !== '' ? $emailSubject : 'Web Summer Camp workshop voting')
+                        ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
+                        ->setTo($user_email)
+                        ->setBody(
+                            $emailText !== '' ? $emailText :
+                            $this->renderView(
+                                'LiveVotingBundle:Email:login.html.twig',
+                                array('emailHash' => $emailHash)
+                            ),
+                            'text/html'
+                        );
+                } else if ($typeOf === '1') {
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('Questionnaire')
+                        ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
+                        ->setTo($user_email)
+                        ->setBody(
+                            $this->renderView(
+                                'LiveVotingBundle:Email:questions.html.twig',
+                                array('emailHash' => $emailHash)
+                            ),
+                            'text/html'
+                        );
+                }
+
+                $this->get('mailer')->send($message);
+                if ($typeOf === '0') {
+                    $request->getSession()->getFlashBag()->add(
+                        'message', 'Activation has been sent to ' . $user_email
+                    );
+                } else if ($typeOf === '1') {
+                    $request->getSession()->getFlashBag()->add(
+                        'message', 'Questionnaire has been sent to ' . $user_email
+                    );
+                }
+
+                return $this->redirect($this->generateUrl('admin_user'));
+            }
+        }
+        else
+        {
+            $message = 'No events are available to this user. Please assign one to send an email.';
         }
 
-        $this->get('mailer')->send($message);
-        if ($typeOf === '0') {
-            $request->getSession()->getFlashBag()->add(
-                'message', 'Activation has been sent to ' . $user_email
-            );
-        } else if ($typeOf === '1') {
-            $request->getSession()->getFlashBag()->add(
-                'message', 'Questionnaire has been sent to ' . $user_email
-            );
-        }
-
-
-        return $this->redirect($this->generateUrl('admin_user'));
+        return $this->render('LiveVotingBundle:User:one_login_send.html.twig', array(
+            'send_form' => $form ? $form->createView() : $form,
+            'message' => $message,
+            'type_of' => $typeOf
+        ));
     }
 
     public function userEventAssociationAddForm($userId)
@@ -505,5 +567,35 @@ class UserAdminController extends Controller
         );
 
         return $this->redirect($this->generateUrl('admin_user_edit', array('id' => $userId)));
+    }
+
+    public function deleteAction(Request $request, $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $entity = $entityManager->getRepository('LiveVotingBundle:User')->find($id);
+
+        if (!$entity)
+        {
+            throw $this->createNotFoundException('User is already removed.');
+        }
+
+        $eventDispatcher = $this->get('event_dispatcher');
+
+        $updateOnUserEvent = new UpdateOnUserEvent($id);
+
+        $eventDispatcher->dispatch(
+            'live_voting.on_user_delete',
+            $updateOnUserEvent
+        );
+
+        $entityManager->remove($entity);
+        $entityManager->flush();
+
+        $request->getSession()->getFlashBag()->add(
+            'message', 'You have removed a user.'
+        );
+
+        return $this->redirect($this->generateUrl('admin_user'));
     }
 }
