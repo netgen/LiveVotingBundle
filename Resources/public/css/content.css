@@ -652,3 +652,15 @@ i.star:before {
 button:focus,button:active {
 	outline: none !important;
 }
+
+ul.table-list
+{
+	list-style-type: none;
+	padding-left: 0;
+	font-size: 0.8em;
+}
+
+th.event-column
+{
+	width: 30%;
+}
