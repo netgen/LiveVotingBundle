@@ -10,7 +10,6 @@ parameters:
     live_voting.memcached_presentation_repo.class: Netgen\LiveVotingBundle\Service\PresentationService\Impl\MemcachedPresentationRepo
     live_voting.user_event.add_form.class: Netgen\LiveVotingBundle\Form\UserEventAssociationType
     live_voting.user_event.send_one_login.class: Netgen\LiveVotingBundle\Form\OneUserEventLoginType
-    live_voting.user_event_listener.class: Netgen\LiveVotingBundle\Event\UserEventListener
 services:
 #    live_voting.example:
 #        class: %live_voting.example.class%
@@ -50,12 +49,3 @@ services:
         class: '%live_voting.user_event.send_one_login.class%'
         tags:
             - {name: form.type}
-
-    # EVENT LISTENERS #
-    live_voting.user_event_listener:
-        class: '%live_voting.user_event_listener.class%'
-        arguments:
-            - '@doctrine.orm.entity_manager'
-        tags:
-            - {name: kernel.event_listener, event: 'live_voting.on_event_delete', method: 'onEventDelete'}
-            - {name: kernel.event_listener, event: 'live_voting.on_user_delete', method: 'onUserDelete'}
