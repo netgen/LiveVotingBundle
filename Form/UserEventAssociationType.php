@@ -9,13 +9,20 @@ class UserEventAssociationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $entityDefinitionArray = array(
+            'class' => 'Netgen\LiveVotingBundle\Entity\Event',
+            'label' => 'Assign To Event',
+            'required' => false,
+            'attr' => array('class' => 'form-control')
+        );
+
+        if ( array_key_exists( 'choices', $options['data'] ) )
+        {
+            $entityDefinitionArray['choices'] = $options['data']['choices'];
+        }
+
         $builder
-            ->add('event', 'entity', array(
-                'class' => 'Netgen\LiveVotingBundle\Entity\Event',
-                'label' => 'Assign To Event',
-                'required' => false,
-                'attr' => array('class'=> 'form-control')
-            ))
+            ->add('event', 'entity', $entityDefinitionArray )
             ->add('user', 'hidden', array(
                 'data' => $options['data']['user_id']
             ));
