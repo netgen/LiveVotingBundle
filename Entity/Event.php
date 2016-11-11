@@ -75,12 +75,29 @@ class Event
     private $emailText;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $events;
+
+    /**
+     * @var \Netgen\LiveVotingBundle\Entity\Event
+     */
+    private $event;
+
+    /**
+     * @var UserEventAssociation[]
+     */
+    private $userAssociations;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->presentations = new ArrayCollection();
         $this->questions = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->userAssociations = new ArrayCollection();
     }
 
     /**
@@ -405,20 +422,6 @@ class Event
         // set the path property to the filename where you've saved the file
         $this->image = $new_name;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $events;
-
-    /**
-     * @var \Netgen\LiveVotingBundle\Entity\Event
-     */
-    private $event;
-
-    public function __constructor(){
-        $this->events = new ArrayCollection();
-    }
-
 
     /**
      * Add events
@@ -577,5 +580,10 @@ class Event
     public function setEmailText($emailText)
     {
         $this->emailText = $emailText;
+    }
+
+    public function getUserAssociations()
+    {
+        return $this->userAssociations;
     }
 }

@@ -85,6 +85,11 @@ class User implements UserInterface
     private $presentationImages;
 
     /**
+     * @var UserEventAssociation[]
+     */
+    private $eventAssociations;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -92,6 +97,7 @@ class User implements UserInterface
         $this->registrations = new ArrayCollection();
         $this->presentations = new ArrayCollection();
         $this->presentationComments = new ArrayCollection();
+        $this->eventAssociations = new ArrayCollection();
     }
 
     /**
@@ -483,5 +489,10 @@ class User implements UserInterface
     public function getPresentationImages()
     {
         return $this->presentationImages;
+    }
+
+    public function getEventAssociations()
+    {
+        return $this->eventAssociations;
     }
 }

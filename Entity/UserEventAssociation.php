@@ -13,14 +13,14 @@ class UserEventAssociation
     private $id;
 
     /**
-     * @var integer
+     * @var User
      */
-    private $userId;
+    private $user;
 
     /**
-     * @var integer
+     * @var Event
      */
-    private $eventId;
+    private $event;
 
 
     /**
@@ -34,15 +34,12 @@ class UserEventAssociation
     }
 
     /**
-     * Set userId
-     *
-     * @param integer $userId
-     *
-     * @return UserEventAssociation
+     * @param User $user
+     * @return $this
      */
-    public function setUserId($userId)
+    public function setUser(User $user)
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
@@ -52,33 +49,26 @@ class UserEventAssociation
      *
      * @return integer
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 
     /**
-     * Set eventId
-     *
-     * @param integer $eventId
-     *
-     * @return UserEventAssociation
+     * @param Event $event
+     * @return $this
      */
-    public function setEventId($eventId)
+    public function setEvent(Event $event)
     {
-        $this->eventId = $eventId;
+        $this->event = $event;
 
         return $this;
     }
 
-    /**
-     * Get eventId
-     *
-     * @return integer
-     */
-    public function getEventId()
+
+    public function getEvent()
     {
-        return $this->eventId;
+        return $this->event;
     }
 }
 
