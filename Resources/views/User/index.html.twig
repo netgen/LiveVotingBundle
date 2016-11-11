@@ -37,7 +37,7 @@
                         <td>
                             <ul class="table-list">
                                 {% for eventAssociation in entity.getEventAssociations %}
-                                    <li><a href="{{ path('admin_event_edit', { 'id': eventAssociation.getEvent.id }) }}">{{ eventAssociation.getEvent.getName }}</a></li>
+                                    <li><a href="{{ path('admin_presentation', { 'event_id': eventAssociation.getEvent.id }) }}">{{ eventAssociation.getEvent.getName }}</a></li>
                                 {% endfor %}
                             </ul>
                         </td>

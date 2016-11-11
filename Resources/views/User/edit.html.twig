@@ -24,7 +24,7 @@
 
 			<ul>
 				{% for associated_event in associated_events %}
-					<li><a href="{{ path('admin_event_edit', {id: associated_event.id}) }}">{{ associated_event.name }}</a> <a href="{{ path('admin_user_event_association_remove', {userId: user_id, eventId: associated_event.id}) }}" title="Remove this event"><button type="button" class="btn icon"><i class="fa fa-lg fa-times"></i></button></a></li>
+					<li><a href="{{ path('admin_presentation', { 'event_id': associated_event.id }) }}">{{ associated_event.name }}</a> <a href="{{ path('admin_user_event_association_remove', {userId: user_id, eventId: associated_event.id}) }}" title="Remove this event"><button type="button" class="btn icon"><i class="fa fa-lg fa-times"></i></button></a></li>
 				{% endfor %}
 			</ul>
 			{% endif %}
