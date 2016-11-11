@@ -43,12 +43,15 @@ class UserAdminController extends Controller
         $user = new User();
         $form = $this->createCreateForm($user);
         $form->handleRequest($request);
+        $eventData = $form->get('event')->getData();
+
         $idd = uniqid(rand(), true);
         $user->setId($idd);
         $user->setUsername($idd);
         $user->setPassword('1');
 
         if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             if ($em->getRepository('LiveVotingBundle:User')->findOneByEmail($user->getEmail())) {
                 $request->getSession()->getFlashBag()->add(
@@ -59,6 +62,13 @@ class UserAdminController extends Controller
             }
 
             $em->persist($user);
+
+            $userEventAssociation = new UserEventAssociation();
+            $userEventAssociation->setUser($user);
+            $userEventAssociation->setEvent($eventData);
+
+            $em->persist($userEventAssociation);
+
             $em->flush();
 
             $request->getSession()->getFlashBag()->add(
@@ -81,10 +91,27 @@ class UserAdminController extends Controller
      */
     private function createCreateForm(User $entity)
     {
-        $form = $this->createForm(new UserType(), $entity, array(
+        $rootEvents = $this->extractRootEvents();
+
+        $form = $this->createForm(
+            new UserType(),
+            $entity,
+            array(
             'action' => $this->generateUrl('admin_user_create'),
             'method' => 'POST',
         ));
+
+        $form->add(
+            'event',
+            'entity',
+            array(
+                'class' => 'Netgen\LiveVotingBundle\Entity\Event',
+                'label' => 'Assign To Event',
+                'required' => true,
+                'mapped' => false,
+                'choices' => $rootEvents
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -208,6 +235,8 @@ class UserAdminController extends Controller
 
     public function importCsvAction()
     {
+        $rootEvents = $this->extractRootEvents();
+
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('user_csv_process_import'))
             ->setMethod('POST')
@@ -215,7 +244,8 @@ class UserAdminController extends Controller
             ->add('event', 'entity', array(
                 'class' => 'Netgen\LiveVotingBundle\Entity\Event',
                 'label' => 'Assign To Event',
-                'required' => true
+                'required' => true,
+                'choices' => $rootEvents
             ))
             ->add('submit', 'submit', array('label' => 'Upload csv'))
             ->getForm();
@@ -248,8 +278,6 @@ class UserAdminController extends Controller
             $file = $form['attachment']->getData();
 
             $event = $form['event']->getData();
-
-            $userEventAssociationEntityRepository = $this->getDoctrine()->getRepository('LiveVotingBundle:UserEventAssociation');
 
             if (($handle = fopen($file, "r")) !== FALSE) {
                 while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
@@ -497,14 +525,17 @@ class UserAdminController extends Controller
 
     public function userEventAssociationAddForm($userId)
     {
+        $rootEvents = $this->extractRootEvents();
+
         $form = $this->createForm(
             'live_voting_user_event_add_form',
             array(
-                'user_id' => $userId
+                'user_id' => $userId,
+                'choices' => $rootEvents
             ),
             array(
                 'action' => $this->generateUrl('admin_user_event_association_add', array('userId' => $userId)),
-                'method' => 'POST',
+                'method' => 'POST'
             )
         );
         $form->add('submit', 'submit', array('label' => 'Add'));
@@ -590,5 +621,25 @@ class UserAdminController extends Controller
         );
 
         return $this->redirect($this->generateUrl('admin_user'));
+    }
+
+    public function extractRootEvents()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityRepository = $entityManager->getRepository('LiveVotingBundle:Event');
+
+        $events = $entityRepository->findAll();
+
+        $rootEvents = array();
+
+        foreach($events as $event)
+        {
+            if ($event->getEvents()->count() > 0)
+            {
+                $rootEvents[] = $event;
+            }
+        }
+
+        return $rootEvents;
     }
 }
