@@ -115,13 +115,9 @@ class EventAdminController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        $userAssociations = $entity->getUserAssociations();
-
-
         return $this->render('LiveVotingBundle:Event:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'user_count'  => $userAssociations->count()
+            'edit_form'   => $editForm->createView()
         ));
     }
 
