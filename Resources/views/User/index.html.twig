@@ -22,7 +22,8 @@
                 <thead>
                     <tr>
                         <th>Email</th>
-                        <th class="text-center">Enabled</th>
+                        <th class="event-column">Events</th>
+                        <th>Enabled</th>
                         <th>Edit</th>
                         <th>Activation Email</th>
                         <th>Questionnaire Email</th>
@@ -33,15 +34,22 @@
                 {% for entity in entities %}
                     <tr>
                         <td>{{ entity.getEmail }}</td>
+                        <td>
+                            <ul class="table-list">
+                                {% for eventAssociation in entity.getEventAssociations %}
+                                    <li><a href="{{ path('admin_event_edit', { 'id': eventAssociation.getEvent.id }) }}">{{ eventAssociation.getEvent.getName }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </td>
                         <td class="text-center">{{ entity.getEnabled ? '<i class="fa fa-lg fa-check"></i> ' : '<i class="fa fa-lg fa-times"></i> ' }}</td>
                         <td>
                             <a href="{{ path('admin_user_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
                         </td>
                         <td>
-                            <a href="{{ path('send_one_email_login', { 'id': entity.id, 'typeOf': 0}) }}"><button type="button" class="btn">Send Activation Email</button></a>
+                            <a href="{{ path('send_one_email_login', { 'id': entity.id, 'typeOf': 0}) }}"><button type="button" class="btn icon" title="Send email login to this user"><i class="fa fa-lg fa-envelope"></i></button></a>
                         </td>
                         <td>
-                            <a href="{{ path('send_one_email_login', { 'id': entity.id, 'typeOf': 1}) }}"><button type="button" class="btn">Send Questionnaire Email</button></a>
+                            <a href="{{ path('send_one_email_login', { 'id': entity.id, 'typeOf': 1}) }}"><button type="button" class="btn icon" title="Send email questionnaire to this user"><i class="fa fa-lg fa-question-circle"></i></button></a>
                         </td>
                         <td>
                             <a href="{{ path('admin_user_delete', { 'id': entity.id }) }}"><button type="button" class="btn icon"><i class="fa fa-lg fa-times"></i></button></a>
