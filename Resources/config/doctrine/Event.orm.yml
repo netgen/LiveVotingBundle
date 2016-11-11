@@ -53,6 +53,9 @@ Netgen\LiveVotingBundle\Entity\Event:
             targetEntity: Netgen\LiveVotingBundle\Entity\Registration
             mappedBy: event
             orphanRemoval: true
+        userAssociations:
+            targetEntity: Netgen\LiveVotingBundle\Entity\UserEventAssociation
+            mappedBy: event
     manyToOne:
         event:
             targetEntity: Netgen\LiveVotingBundle\Entity\Event

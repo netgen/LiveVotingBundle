@@ -57,6 +57,9 @@ Netgen\LiveVotingBundle\Entity\User:
         presentationImages:
             targetEntity: Netgen\LiveVotingBundle\Entity\PresentationImage
             mappedBy: user
+        eventAssociations:
+            targetEntity: Netgen\LiveVotingBundle\Entity\UserEventAssociation
+            mappedBy: user
 
 #        vote:
 #            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
