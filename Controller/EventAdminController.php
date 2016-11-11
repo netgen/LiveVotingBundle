@@ -9,7 +9,6 @@
 
 namespace Netgen\LiveVotingBundle\Controller;
 
-use Netgen\LiveVotingBundle\Event\UpdateOnEventEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Netgen\LiveVotingBundle\Entity\Event;
@@ -116,14 +115,13 @@ class EventAdminController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(array(
-            'eventId' => $id
-        ));
+        $userAssociations = $entity->getUserAssociations();
+
 
         return $this->render('LiveVotingBundle:Event:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'user_count'  => count($userEventAssociations)
+            'user_count'  => $userAssociations->count()
         ));
     }
 
@@ -241,14 +239,6 @@ class EventAdminController extends Controller
         {
             throw $this->createNotFoundException('Event is already removed.');
         }
-
-        $eventDispatcher = $this->get('event_dispatcher');
-        $updateOnEventEvent = new UpdateOnEventEvent($id);
-
-        $eventDispatcher->dispatch(
-            'live_voting.on_event_delete',
-            $updateOnEventEvent
-        );
 
         $em->remove($entity);
         $em->flush();
