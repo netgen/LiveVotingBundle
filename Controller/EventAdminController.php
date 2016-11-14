@@ -77,7 +77,7 @@ class EventAdminController extends Controller
             $em->flush();
 
             $request->getSession()->getFlashBag()->add(
-              'message', 'Your have added new event.'
+              'message', 'You have added a new event.'
             );
 
             return $this->redirect($this->generateUrl('admin_event'));
@@ -172,6 +172,8 @@ class EventAdminController extends Controller
         $form->add('allowViewingResults', 'checkbox', array('required' => false, 'label' => 'Results available for public: '));
         $form->add('questionStatus', 'checkbox', array('mapped'=> false, 'required'=>false, 'label'=>'Questions enabled for this event: ', 'attr' => array('checked' => $questionStatus)));
         $form->add('numberOfSeconds', 'number', array('mapped'=> false, 'required'=>false, 'label'=>'Seconds until event ends: ', 'attr' => array('class'=> 'form-control')));
+        $form->add('emailSubject', 'text', array( 'label' => 'Email subject', 'attr' => array('class' => 'form-control')));
+        $form->add('emailText', 'textarea', array('label' => 'Email text', 'attr' => array('class' => 'form-control')));
         $form->add('submit', 'submit', array('label' => 'Update event', 'attr' => array('class' => 'btn btn-large btn-primary')));
         return $form;
     }
@@ -246,7 +248,7 @@ class EventAdminController extends Controller
      * Deletes an existing Event entity.
      * @param $id Event ID
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -259,6 +261,10 @@ class EventAdminController extends Controller
 
         $em->remove($entity);
         $em->flush();
+
+        $request->getSession()->getFlashBag()->add(
+            'message', 'You have removed an event.'
+        );
 
         return $this->redirect($this->generateUrl('admin_event'));
     }

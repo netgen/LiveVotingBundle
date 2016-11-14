@@ -22,31 +22,30 @@
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/content.css') }}">
     <link rel="stylesheet" href="{{ asset('bundles/livevoting/css/transitions.css') }}">
-
 </head>
 
 <body>
     <div id="global-container">
         <nav class="navbar navbar-fixed-top" role="navigation">
-            <div class="header-container">
+            <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="navbar-header col-md-6 col-sm-6 col-xs-10">
-                            <a class="navbar-logo" href="{{ path('root')}}">
-                                <h1>Event Rating{% if name is defined and name is not empty%} <span class="separator">-</span> <span class="eventname">{{ name }}</span>{% endif %}</h1>
-                               {# <h1 class="visible-xs navbar-logo">SeaSunSalsa</h1> #}
+                        <div class="navbar-header col-xs-6">
+                            <a href="{{ path('root')}}">
+                                <img src="{{ asset('bundles/livevoting/img/assets/logo_color.svg') }}" class="hidden-xs navbar-logo">
+                                <img src="{{ asset('bundles/livevoting/img/assets/logo_color_no_text.svg')}}" class="visible-xs navbar-logo">
                             </a>
                         </div>
-                            <div class="navbar-header col-md-6 col-sm-6 col-xs-2 text-right">
+                            <div class="navbar-header col-xs-6 text-right">
                             {% if app.user %}
                                 <div class="hidden-xs hidden-sm nav-ul">
-                                <a href="{{ path('root') }}">Ongoing Workshops</a>
-                                <a href="{{ path('user_landing') }}">Rate All Workshops</a>
+                                <a href="{{ path('root') }}">Dashboard</a>
+                                <a href="{{ path('user_landing') }}">Events</a>
                                 {% if is_granted ('ROLE_ADMIN') %}
                                 <a href="{{ path('admin_index') }}">Admin Interface</a>
                                 {% endif %}
                                 <!--{% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 and not is_granted ('ROLE_ADMIN')%}
-                                <a href="{{ path('user_presentations') }}">My Workshops</a>
+                                <a href="{{ path('user_presentations') }}">My lectures</a>
                                 {% endif %}
                                 {% if(app.request.cookies.has('userEditEnabled')) and not is_granted ('ROLE_ADMIN')%}
                                 <a href="{{ path('user_edit') }}">Edit my info</a>
@@ -55,13 +54,13 @@
                             <div class="visible-xs visible-sm dropdown">
                                 <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-bars"></i></button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li><a href="{{ path('root') }}">Ongoing Workshops</a></li>
-                                    <li><a href="{{ path('user_landing') }}">Rate All Workshops</a></li>
+                                    <li><a href="{{ path('root') }}">Dashboard</a></li>
+                                    <li><a href="{{ path('user_landing') }}">Events</a></li>
                                     {% if is_granted ('ROLE_ADMIN') %}
                                     <li><a href="{{ path('admin_index') }}">Admin Interface</a></li>
                                     {% endif %}
                                     <!--{% if app.request.cookies.has('numOfPresentations') and app.request.cookies.get('numOfPresentations') > 0 and not is_granted ('ROLE_ADMIN')%}
-                                    <li><a href="{{ path('user_presentations') }}">My Workshops</a></li>
+                                    <li><a href="{{ path('user_presentations') }}">My lectures</a></li>
                                     {% endif %}
                                     {% if(app.request.cookies.has('userEditEnabled')) and not is_granted ('ROLE_ADMIN')%}
                                     <li><a href="{{ path('user_edit') }}">Edit my info</a></li>
@@ -75,25 +74,26 @@
             </div>
         </nav>
 
-        <div id="main">
+        <div id="main" class="container">
             {% block body %}{% endblock %}
+        </div>
+
+        <div class="footer-wrapper">
+            <footer id="main-footer" class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-2 col-lg-3 col-lg-offset-3">
+                        <a href="http://www.netgenlabs.com" target="_blank" class="text-center"><img width="32" height="32" alt="Netgen" src="{{ asset('bundles/livevoting/img/assets/small-logo-white.svg')}}"><span>netgenlabs.com</span></a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="https://github.com/netgen/livevotingbundle" target="_blank" class="text-center"><i class="fa fa-2x fa-github"></i><span>GitHub project</span></a>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 
     <script src="{{ asset('bundles/livevoting/js/jquery-2.1.1.js') }}"></script>
     <script src="{{ asset('bundles/livevoting/js/bootstrap.min.js') }}"></script>
     {% block javascripts %}{% endblock %}
-    
-    <script>
-     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-     ga('create', 'UA-12074194-4', 'auto');
-     ga('send', 'pageview');
-
-    </script>
-
 </body>
 </html>

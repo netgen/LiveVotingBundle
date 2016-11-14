@@ -503,8 +503,8 @@ a.navbar-logo:hover {
 
 @media (max-width: 767px) {
 	.live-voting-comments, .joindin-comments-tab {
-		height: auto;
-	}	
+		height: 168px;
+	}
 }
 
 .media-list {
@@ -865,4 +865,16 @@ i.star:before {
 
 button:focus,button:active {
 	outline: none !important;
+}
+
+ul.table-list
+{
+	list-style-type: none;
+	padding-left: 0;
+	font-size: 0.8em;
+}
+
+th.event-column
+{
+	width: 30%;
 }

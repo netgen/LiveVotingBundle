@@ -79,7 +79,7 @@ class ActivationEmailsCommand extends ContainerAwareCommand
 
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Questionnaire')
-                    ->setFrom(array('info@netgen.hr' => 'PHP/eZ Publish Summer Camp 2015'))
+                    ->setFrom(array('info@netgen.hr' => 'Web Summer Camp'))
                     ->setTo($user_email)
                     ->setBody(
                         $this->getContainer()->get('templating')->render(

@@ -8,31 +8,44 @@ parameters:
     live_voting.joind_in_client.class: Netgen\LiveVotingBundle\Service\JoindInClient\JoindInClient
     live_voting.doctrine_presentation_repo.class: Netgen\LiveVotingBundle\Service\PresentationService\Impl\DoctrinePresentationRepo
     live_voting.memcached_presentation_repo.class: Netgen\LiveVotingBundle\Service\PresentationService\Impl\MemcachedPresentationRepo
+    live_voting.user_event.add_form.class: Netgen\LiveVotingBundle\Form\UserEventAssociationType
+    live_voting.user_event.send_one_login.class: Netgen\LiveVotingBundle\Form\OneUserEventLoginType
 services:
 #    live_voting.example:
 #        class: %live_voting.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
     live_voting.result:
-          class: %live_voting.result.class%
-          arguments: [@doctrine.orm.entity_manager, event_id]
+        class: '%live_voting.result.class%'
+        arguments: ['@doctrine.orm.entity_manager', event_id]
     live_voting.handleRequest:
-          class: %live_voting.handleRequest.class%
+        class: '%live_voting.handleRequest.class%'
     live_voting_question.result:
-          class: %live_voting_question.result.class%
-          arguments: [@doctrine.orm.entity_manager, event_id]
+        class: '%live_voting_question.result.class%'
+        arguments: ['@doctrine.orm.entity_manager', event_id]
     live_voting_question.handleRequest:
-          class: %live_voting_question.handleRequest.class%
+        class: '%live_voting_question.handleRequest.class%'
     live_voting_question_yesNo.result:
-          class: %live_voting_question.result.class%
-          arguments: [@doctrine.orm.entity_manager, event_id]
+        class: '%live_voting_question.result.class%'
+        arguments: ['@doctrine.orm.entity_manager', event_id]
     live_voting_question_yesNo.handleRequest:
-          class: %live_voting_question.handleRequest.class%
+        class: '%live_voting_question.handleRequest.class%'
     live_voting.joind_in_client:
-          class: %live_voting.joind_in_client.class%
-          arguments: ["https://api.joind.in/v2.1", @buzz, "%joind_in_access_token%"]
+        class: '%live_voting.joind_in_client.class%'
+        arguments: ["https://api.joind.in/v2.1", @buzz, "%joind_in_access_token%"]
     live_voting.doctrine_presentation_repo:
-          class: %live_voting.doctrine_presentation_repo.class%
-          arguments: [@doctrine.orm.entity_manager, "LiveVotingBundle:Presentation", "LiveVotingBundle:Vote", "LiveVotingBundle:User", "LiveVotingBundle:Event"]
+        class: '%live_voting.doctrine_presentation_repo.class%'
+        arguments: ['@doctrine.orm.entity_manager', "LiveVotingBundle:Presentation", "LiveVotingBundle:Vote", "LiveVotingBundle:User", "LiveVotingBundle:Event"]
     live_voting.memcached_presentation_repo:
-          class: %live_voting.memcached_presentation_repo.class%
-          arguments: []
+        class: '%live_voting.memcached_presentation_repo.class%'
+        arguments: []
+
+    # FORMS #
+
+    live_voting_user_event_add_form:
+        class: '%live_voting.user_event.add_form.class%'
+        tags:
+            - {name: form.type}
+    live_voting_user_send_one_login_email:
+        class: '%live_voting.user_event.send_one_login.class%'
+        tags:
+            - {name: form.type}

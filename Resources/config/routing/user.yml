@@ -20,6 +20,21 @@ admin_user_update:
     defaults: { _controller: "LiveVotingBundle:UserAdmin:update" }
     requirements: { _method: post|put }
 
+admin_user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:delete"}
+
+#USER EVENT ASSOCIATION#
+
+admin_user_event_association_add:
+    path: /userevent/add/{userId}
+    defaults: {_controller: "LiveVotingBundle:UserAdmin:userEventAssociationAdd"}
+    requirements: {_method: post}
+
+admin_user_event_association_remove:
+    path: /{userId}/event/{eventId}/remove
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:userEventAssociationRemove" }
+
 
 #admin_event_enabledisable:
 #   path:     /enableDisable

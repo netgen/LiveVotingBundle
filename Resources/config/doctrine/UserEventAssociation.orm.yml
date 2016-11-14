@@ -1,0 +1,25 @@
+Netgen\LiveVotingBundle\Entity\UserEventAssociation:
+    type: entity
+    table: user_event_association
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        event:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Event
+            joinColumn:
+                name: event_id
+                referencedColumnId: id
+                onDelete: CASCADE
+                nullable: false
+        user:
+            targetEntity: Netgen\LiveVotingBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnId: id
+                onDelete: CASCADE
+                nullable: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,27 @@
+{% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
+
+{% block title %}Users|LiveVoting|Send one email{% endblock %}
+
+{% block mainHeading %}Send One Email {% if type_of == 0 %}Login{% elseif type_of == 1 %}Questionnaire{% endif %} To User{% endblock %}
+
+{% block body %}
+    {% if message is not null %}
+        <div class="alert alert-danger">
+            <div class="text">{{message}}</div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 margin-top">
+            {% if send_form is not null %}
+                {{ form(send_form, {'attr':{'class':'form-horizontal'}}) }}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row secondary-footer">
+        <div class="col-xs-12">
+            <a href="{{path('admin_user')}}"><button type="button" class="btn">Back</button></a>
+        </div>
+    </div>
+{% endblock %}

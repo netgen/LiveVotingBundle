@@ -2,69 +2,103 @@
 
 namespace Netgen\LiveVotingBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
- * @ORM\Entity
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="Netgen\LiveVotingBundle\Entity\UserRepository")
+ * Class User
+ * @package Netgen\LiveVotingBundle\Entity
  */
-
 class User implements UserInterface
 {
     /**
-    * @var string
-    * @ORM\Column(type="string")
-    * @ORM\Id
-    *
-    */
+     * @var int
+     */
     private $id;
 
     /**
-     * @var string
-     * @ORM\Column(name="'email'", type="string")
+     * @var null|string
      */
-
     private $email = null;
 
     /**
-     *
-     * @ORM\Column(type="string")
-     * @var string
+     * @var null|string
      */
     private $password = null;
 
     /**
-     *
-     * @ORM\Column(type="boolean")
-     * @var enabled
+     * @var bool
      */
     private $enabled = true;
 
     /**
-     * Set id
-     *
-     * @param string $id
-     * @return User
+     * @var string
      */
-
     private $gender;
 
+    /**
+     * @var string
+     */
     private $country;
 
+    /**
+     * @var string
+     */
     private $city;
 
+    /**
+     * @var string
+     */
     private $tshirt;
 
+    /**
+     * @var string
+     */
     private $foodPreference;
 
+    /**
+     * @var ArrayCollection
+     */
     private $presentationComments;
 
+    /**
+     * @var string
+     */
     private $gravatar;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $registrations;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $presentations;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $presentationImages;
+
+    /**
+     * @var UserEventAssociation[]
+     */
+    private $eventAssociations;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->registrations = new ArrayCollection();
+        $this->presentations = new ArrayCollection();
+        $this->presentationComments = new ArrayCollection();
+        $this->eventAssociations = new ArrayCollection();
+    }
 
     /**
      * @return mixed
@@ -82,6 +116,12 @@ class User implements UserInterface
         $this->gravatar = $gravatar;
     }
 
+    /**
+     * Set id
+     *
+     * @param $id
+     * @return $this
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -328,29 +368,15 @@ class User implements UserInterface
     {
         return $this->foodPreference;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $registrations;
-    private $presentations;
+
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->registrations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->presentations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->presentationComments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add registrations
+     * Add registration
      *
-     * @param \Netgen\LiveVotinBundle\Entity\Registration $registrations
-     * @return User
+     * @param Registration $registrations
+     * @return $this
      */
-    public function addRegistration(\Netgen\LiveVotingBundle\Entity\Registration $registrations)
+    public function addRegistration(Registration $registrations)
     {
         $this->registrations[] = $registrations;
 
@@ -431,19 +457,14 @@ class User implements UserInterface
     {
         return $this->presentationComments;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $presentationImages;
-
 
     /**
      * Add presentationImages
      *
-     * @param \Netgen\LiveVotingBundle\Entity\PresentationImage $presentationImages
+     * @param PresentationImage $presentationImages
      * @return User
      */
-    public function addPresentationImage(\Netgen\LiveVotingBundle\Entity\PresentationImage $presentationImages)
+    public function addPresentationImage(PresentationImage $presentationImages)
     {
         $this->presentationImages[] = $presentationImages;
 
@@ -453,9 +474,9 @@ class User implements UserInterface
     /**
      * Remove presentationImages
      *
-     * @param \Netgen\LiveVotingBundle\Entity\PresentationImage $presentationImages
+     * @param PresentationImage $presentationImages
      */
-    public function removePresentationImage(\Netgen\LiveVotingBundle\Entity\PresentationImage $presentationImages)
+    public function removePresentationImage(PresentationImage $presentationImages)
     {
         $this->presentationImages->removeElement($presentationImages);
     }
@@ -468,5 +489,10 @@ class User implements UserInterface
     public function getPresentationImages()
     {
         return $this->presentationImages;
+    }
+
+    public function getEventAssociations()
+    {
+        return $this->eventAssociations;
     }
 }

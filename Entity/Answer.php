@@ -4,6 +4,10 @@ namespace Netgen\LiveVotingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class Answer
+ * @package Netgen\LiveVotingBundle\Entity
+ */
 class Answer
 {
 	/**

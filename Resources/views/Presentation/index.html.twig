@@ -12,6 +12,12 @@
     {% endfor %}
 
     <div class="row">
+        {% if event.events.count != 0 %}
+            <div class="col-xs-12">
+                Currently assigned users: {{ event.getUserAssociations.count }}
+            </div>
+        {% endif %}
+
         <div class="col-xs-12">
             <table id="view-presentations" class="records_list table margin-top">
                 <thead>
@@ -29,7 +35,7 @@
                 {% for entity in entities %}
                     <tr>
                         {#<td><img width="40px" class="image-o" src='{{ asset('bundles/livevoting/' ~ ((entity[0].getImageUrl) ? entity[0].getImageUrl : 'img/assets/angry-che.png')) }}'/></td>				<img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">#}
-                        <td><img width="40px" class="image-o" src="{{asset('/')}}{{ entity[0].getImage ? entity[0].getWebPath : 'img/assets/angry-che.png'}}"/></td>
+                        <td><img width="40px" class="image-o" src="{{asset('/')}}{{ entity[0].getImageUrl ? entity[0].getWebPath : 'img/assets/angry-che.png'}}"/></td>
 
                         <td>{{ entity[0].presentationName }}</td>
                         <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>
@@ -62,6 +68,10 @@
             <div class="clearfix"></div>
             <a href="{{ path('admin_event') }}"><button type="button" class="btn">Back</button></a>
             <a href="{{ path('admin_presentation_new', {'event_id':event.getId}) }}"><button type="button" class="btn"><i class="fa fa-plus"></i> Add presentation</button></a>
+            {% if event.events.count != 0 %}
+                <a href="{{ path('send_email_login', { 'typeOf': 0, 'eventId': event.getId }) }}"><button type="button" class="btn" title="Send email login to all users for this event"><i class="fa fa-lg fa-envelope"></i>Send email login to all users</button></a>
+                <a href="{{ path('send_email_login', { 'typeOf': 1, 'eventId': event.getId }) }}"><button type="button" class="btn" title="Send email questionnaire to all users for this event"><i class="fa fa-lg fa-question-circle"></i>Send email questionnaire to all users</button></a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

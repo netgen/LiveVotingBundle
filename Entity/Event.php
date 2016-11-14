@@ -2,9 +2,11 @@
 
 namespace Netgen\LiveVotingBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Event
@@ -12,15 +14,91 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Event
 {
 
+    /**
+     * @var integer
+     */
     private $id;
+
+    /**
+     * @var string
+     */
     private $name;
+
+    /**
+     * @var string
+     */
     private $stateName;
+
+    /**
+     * @var null
+     */
     private $stateValue = null;
+
+    /**
+     * @var bool
+     */
     private $allowViewingResults = false;
+
+    /**
+     * @var string
+     */
     private $image = '';
+
+    /**
+     * @var DateTime
+     */
     private $begin;
+
+    /**
+     * @var DateTime
+     */
     private $end;
+
+    /**
+     * @var null|integer
+     */
     private $joindInId = null;
+
+    /**
+     * @var Collection
+     */
+    private $registrations;
+
+    /**
+     * @var string
+     */
+    private $emailSubject;
+
+    /**
+     * @var string
+     */
+    private $emailText;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $events;
+
+    /**
+     * @var \Netgen\LiveVotingBundle\Entity\Event
+     */
+    private $event;
+
+    /**
+     * @var UserEventAssociation[]
+     */
+    private $userAssociations;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->presentations = new ArrayCollection();
+        $this->questions = new ArrayCollection();
+        $this->events = new ArrayCollection();
+        $this->userAssociations = new ArrayCollection();
+    }
 
     /**
      * @return null
@@ -148,15 +226,6 @@ class Event
      */
     private $presentations;
     private $questions;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->presentations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add presentations
@@ -353,20 +422,6 @@ class Event
         // set the path property to the filename where you've saved the file
         $this->image = $new_name;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $events;
-
-    /**
-     * @var \Netgen\LiveVotingBundle\Entity\Event
-     */
-    private $event;
-
-    public function __constructor(){
-        $this->events = new ArrayCollection();
-    }
-
 
     /**
      * Add events
@@ -423,11 +478,6 @@ class Event
     {
         return $this->event;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $registrations;
-
 
     /**
      * Add registrations
@@ -462,6 +512,10 @@ class Event
         return $this->registrations;
     }
 
+    /**
+     * @param $begin
+     * @return $this
+     */
     public function setBegin($begin)
     {
         $this->begin = $begin;
@@ -469,11 +523,18 @@ class Event
         return $this;
     }
 
+    /**
+     * @return DateTime
+     */
     public function getBegin()
     {
         return $this->begin;
     }
 
+    /**
+     * @param $end
+     * @return $this
+     */
     public function setEnd($end)
     {
         $this->end = $end;
@@ -481,9 +542,48 @@ class Event
         return $this;
     }
 
+    /**
+     * @return DateTime
+     */
     public function getEnd()
     {
         return $this->end;
     }
 
+    /**
+     * @return string
+     */
+    public function getEmailSubject()
+    {
+        return $this->emailSubject;
+    }
+
+    /**
+     * @param $emailSubject
+     */
+    public function setEmailSubject($emailSubject)
+    {
+        $this->emailSubject = $emailSubject;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailText()
+    {
+        return $this->emailText;
+    }
+
+    /**
+     * @param $emailText
+     */
+    public function setEmailText($emailText)
+    {
+        $this->emailText = $emailText;
+    }
+
+    public function getUserAssociations()
+    {
+        return $this->userAssociations;
+    }
 }

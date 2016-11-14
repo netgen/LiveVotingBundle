@@ -11,7 +11,6 @@ namespace Netgen\LiveVotingBundle\Controller;
 
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Presentation;
-use Netgen\LiveVotingBundle\Entity\PresentationComment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,7 +20,7 @@ class DashboardController extends Controller{
 
   public function indexAction(){
 
-    // Fetch first current ongoing master event
+    // Fetch first current ongoing event
     $event = $this->getDoctrine()->getManager()->createQuery(
         'SELECT e
             FROM LiveVotingBundle:Event e
@@ -30,8 +29,8 @@ class DashboardController extends Controller{
               AND e.event IS NULL
             ')->setParameter('datetime', new \DateTime())->getResult();
 
-    if (is_array($event) && !empty($event)) {
-      if (reset($event) instanceof Event) {
+    if (is_array($event) && isset($event[0])) {
+      if ($event[0] instanceof Event) {
         $name = $event[0]->getName();
       } else {
         $name = null;
@@ -39,11 +38,11 @@ class DashboardController extends Controller{
     } else {
       $name = null;
     }
-    
+
     return $this->render(
         'LiveVotingBundle:Dashboard:index.html.twig',
         array(
-            'name' => $name
+          'name' => $name
         )
     );
   }
@@ -102,7 +101,6 @@ class DashboardController extends Controller{
                     ->findByPresentation($presentation['id']);
       $numOfUsers = 0;
       $sum = 0;
-      $presentation['votes'] = count($votes);
       foreach ($votes as $vote) {
         $numOfUsers++;
         $sum += $vote->getRate();
