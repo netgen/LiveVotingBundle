@@ -29,6 +29,8 @@ class UserEventAssociationCommand extends ContainerAwareCommand
         $entityManager = $this->getContainer()->get('doctrine')->getManager();
         $userEntityRepository = $entityManager->getRepository('LiveVotingBundle:User');
         $userEventAssociationEntityRepository = $entityManager->getRepository('LiveVotingBundle:UserEventAssociation');
+        $eventEntityRepository = $entityManager->getRepository('LiveVotingBundle:Event');
+
         $users = $userEntityRepository->findAll();
 
         $eventId = $input->getOption('event-id');
@@ -41,11 +43,13 @@ class UserEventAssociationCommand extends ContainerAwareCommand
             $progress->setMessage('Starting user-event association');
             $progress->start();
 
+            $event = $eventEntityRepository->find($eventId);
+
             foreach ($users as $user)
             {
                 $userId = $user->getId();
 
-                $userEventAssociation = $userEventAssociationEntityRepository->findBy(array('userId' => $userId, 'eventId' => $eventId));
+                $userEventAssociation = $userEventAssociationEntityRepository->findBy(array('user' => $userId, 'event' => $eventId));
 
                 $progress->setMessage('Associating...');
                 $progress->advance();
@@ -54,8 +58,8 @@ class UserEventAssociationCommand extends ContainerAwareCommand
                 {
                     $userEventAssociation = new UserEventAssociation();
 
-                    $userEventAssociation->setEventId($eventId);
-                    $userEventAssociation->setUserId($userId);
+                    $userEventAssociation->setEvent($event);
+                    $userEventAssociation->setUser($user);
 
                     $entityManager->persist($userEventAssociation);
                 }
