@@ -15,49 +15,50 @@ class Result {
         $this->em = $em;
     }
 
-    public function getResults($event_id){
+    public function getResults($event_id)
+    {
         $event = $this->em->getRepository('LiveVotingBundle:Event')->find($event_id);
-        if( !$event ){
+        if (!$event) {
             throw new NotFoundHttpException('Non existing event.');
         }
 
         $votes = $this->em->getRepository('LiveVotingBundle:Vote')->findByEvent($event);
         $presentations = $this->em->getRepository('LiveVotingBundle:Presentation')->findByEvent($event);
         $groupedVotes = array(); // Grouped votes by user
-        foreach($votes as $vote){
+        foreach ($votes as $vote) {
 
-            if( isset($groupedVotes[$vote->getUser()->getId()]) ){
+            if (isset($groupedVotes[$vote->getUser()->getId()])) {
                 array_push($groupedVotes[$vote->getUser()->getId()], $vote);
-            }else{
+            } else {
                 $groupedVotes[$vote->getUser()->getId()] = array($vote);
             }
 
         }
-        $result = array('event'=>$event);
+        $result = array('event' => $event);
         $animation_data = array(); // array of animation keyframes
         $presentationResult = array();
-        foreach($presentations  as $presentation){
+        foreach ($presentations as $presentation) {
             $presentationResult[$presentation->getId()] = array(
-                'numOfUsers'=>0,
-                'score'=>0,
-                'average'=>0,
-                'presentation'=>$presentation->getPresentationName(),
-                'presenter'=>array(
-                    'name'=>$presentation->getPresenterName(),
-                    'surname'=>$presentation->getPresenterSurname()
+                'numOfUsers' => 0,
+                'score' => 0,
+                'average' => 0,
+                'presentation' => $presentation->getPresentationName(),
+                'presenter' => array(
+                    'name' => $presentation->getPresenterName(),
+                    'surname' => $presentation->getPresenterSurname()
                 )
 
             );
         }
-        foreach($groupedVotes as $userId=>$votes){
+        foreach ($groupedVotes as $userId => $votes) {
             // $result[$userId] = $presentationResult;
             $tmp1 = $presentationResult;
-            foreach($votes as $vote){
+            foreach ($votes as $vote) {
                 $tmp = $presentationResult[$vote->getPresentation()->getId()];
                 $tmp['numOfUsers']++;
                 $tmp['score'] += $vote->getRate();
-                $tmp['average'] = round($tmp['score']/$tmp['numOfUsers'], 2);
-                $tmp1[$vote->getPresentation()->getId()]  = $tmp;
+                $tmp['average'] = round($tmp['score'] / $tmp['numOfUsers'], 2);
+                $tmp1[$vote->getPresentation()->getId()] = $tmp;
                 $presentationResult[$vote->getPresentation()->getId()] = $tmp;
             }
             $animation_data[] = $tmp1;
@@ -65,9 +66,12 @@ class Result {
         }
         $result['winner'] = $presentationResult;
         $isset = false;
-        foreach($presentationResult as $pr){
-            if(!$isset){$result['winner']=$pr; $isset = true; }
-            if($pr['average']>$result['winner']['average']){
+        foreach ($presentationResult as $pr) {
+            if (!$isset) {
+                $result['winner'] = $pr;
+                $isset = true;
+            }
+            if ($pr['average'] > $result['winner']['average']) {
                 $result['winner'] = $pr;
             }
         }
@@ -91,20 +95,24 @@ class Result {
                 $numOfUsers++;
                 $sum += $vote->getRate();
             }
-            if($numOfUsers === 0)
+            if ($numOfUsers === 0)
                 $presentation['average'] = 0;
             else
-                $presentation['average'] = round($sum/$numOfUsers, 2);
+                $presentation['average'] = round($sum / $numOfUsers, 2);
         }
 
-        foreach ($animation_data[0] as &$data)
+        if (count($animation_data) > 0)
         {
-            foreach ($presentations as &$presentation) {
-                if (strcmp($data['presentation'], $presentation['presentationName']) == 0) {
-                    $data['votes'] = $presentation['votes'];
+            foreach ($animation_data[0] as &$data)
+            {
+                foreach ($presentations as &$presentation) {
+                    if (strcmp($data['presentation'], $presentation['presentationName']) == 0) {
+                        $data['votes'] = $presentation['votes'];
+                    }
                 }
             }
         }
+
 
         $result['animation_data']=$animation_data;
         return $result;
