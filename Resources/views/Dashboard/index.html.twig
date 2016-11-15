@@ -108,14 +108,11 @@
         </div>
     </div>
     #}
-    <div class="row">
-        <h1 align="center">Ongoing Workshops</h1>
-    </div>
 
     <div class="row" id="liveschedule"></div>
 
 
-    <div class="row box shadow bottomzone">
+    <div class="row box shadow bg-pattern bottomzone">
         <div id="chartContainer" class="col-xs-12 col-sm-8"></div>
         <div class="clearfix visible-xs"></div>
         {#
@@ -157,17 +154,17 @@
                         {% verbatim %}
                             {{#comments}}
                         {% endverbatim %}
-                            <li class="media">
-                                <div class="row">
-                                    <div class="col-xs-2 col-sm-1 media-user-image">
-                                        <span class="username-first-character">{{'{{first_character}}'}}</span>
-                                    </div>
-                                    <div class="col-xs-10 col-sm-11 media-comment-container">
-                                        on {{'{{presentation}}'}}</span>
-                                        <p>{{'{{content}}'}}</p>
-                                    </div>
+                        <li class="media">
+                            <div class="row">
+                                <div class="col-xs-2 col-sm-1 media-user-image">
+                                    <span class="username-first-character">{{'{{first_character}}'}}</span>
                                 </div>
-                            </li>
+                                <div class="col-xs-10 col-sm-11 media-comment-container">
+                                    <h4>{{'{{user_display_name}}'}}</h4><span>on {{'{{presentation}}'}}</span>
+                                    <p>{{'{{content}}'}}</p>
+                                </div>
+                            </div>
+                        </li>
                         {% verbatim %}
                                 {{/comments}}
                         {% endverbatim %}
@@ -181,6 +178,7 @@
 
 {% block javascripts %}
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+    {#<script src="https://cdn.polyfill.io/v1/polyfill.min.js"></script>#}
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars/dist/handlebars.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl/dist/handlebars-intl.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('bundles/livevoting/js/jquery.matchHeight.js') }}" ></script>
@@ -205,7 +203,8 @@
             var source = $("#latest-comments").html();
             var template = Handlebars.compile(source);
 
-            $.getJSON( "comments/3", function( data ) {
+            $.getJSON( "comments/5", function( data ) {
+                console.log(data);
                 $("#latest-comments-container").html(template(data));
 
             });
@@ -214,12 +213,13 @@
             {
                 var container = $("#latest-comments-container");
 
-                container.children().fadeOut(500).promise().then(function() {
+                container.children().fadeOut(1500).promise().then(function() {
                     container.html('').hide();
-                    $.getJSON( "comments/3", function( data ) {
+                    $.getJSON( "comments/5", function( data ) {
+                        console.log(data);
                         container.html(template(data));
                     }).always(function() {
-                        container.fadeIn(500);
+                        container.fadeIn(1500);
                     }).fail(function() {
                         container.html('<div>Loading comments</div>');
                     });
@@ -230,7 +230,6 @@
 
 
         });
-
         function presentationsArray() {
             var arr = {};
             var notify = [];
@@ -299,8 +298,7 @@
                 } else if (newData['votingEnabled'] == true && data['votingEnabled'] == false) {
                     status = true;
                 }
-                //delete data;
-
+                delete data;
                 data = newData;
                 return false;
             };
@@ -355,7 +353,7 @@
 
             var canIVote = true;
             var body = $('body');
-            var presentations = new presentationsArray();
+            presentations = new presentationsArray();
 
             Handlebars.registerHelper('ifCond', function (v1, v2, options) {
                 if (v1 == v2) {
@@ -363,8 +361,8 @@
                 }
                 return options.inverse(this);
             });
-            
             HandlebarsIntl.registerWith(Handlebars);
+
 
             body.on('change', '.question-multiple', function (e) {
                 e.preventDefault();
@@ -375,11 +373,14 @@
                 e.preventDefault();
                 if (!canIVote)return;
                 if($(this).closest('form').hasClass("cta-disabled")) return;
+                console.log(this);
                 var action = $(this).closest('form').attr('action');
+                console.log(action);
                 var presentation_id = action.split('/').pop();
                 var presentation = presentations.getById(presentation_id);
                 var old_vote = presentation.getVote();
                 var vote = $(this).attr('value');
+                console.log(vote);
                 var rate = 'rate=' + vote;
                 presentation.setVote(vote);
                 if(presentation.getData()['votingEnabled']==true){
@@ -413,7 +414,7 @@
                     <div class="col-xs-4">
                         <div class="row">
                             <div class="col-xs-12">
-                                <img class="image image-o" src="{{ asset('img/') }}{% verbatim %}{{#if image}}{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
+                                <img class="image image-o" src="{{ asset('bundles/livevoting/img/presentations/') }}{% verbatim %}{{#if image}}{{image}}{{else}}assets/angry-che.png{{/if}}{% endverbatim %}">
                             </div>
                         </div>
                     </div>
@@ -424,67 +425,42 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                    {% if app.user and is_granted('ROLE_ADMIN')%}
-                        {#
-                        <div class="cta shadow text-shadow">
-                            <div style="background-color:grey" class="cta-action">Admin Cannot Vote</div>
-                        </div>
-                        #}
-                    {% elseif app.user %}
-                        {#
-                        <form class="question-multiple cta cta-multiple text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
-                            <button class="cta-action vote-option q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
-                            --><button class="cta-action vote-option q4" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
-                            --><button class="cta-action vote-option q3" type="submit" value='3'><i class="fa fa-lg fa-thumbs-up rotate-90"></i></button><!--
-                            --><button class="cta-action vote-option q2" type="submit" value='2'><i class="fa fa-lg fa-thumbs-up rotate-135"></i></button><!--
-                            --><button class="cta-action vote-option q1" type="submit" value='1'><i class="fa fa-lg fa-thumbs-up rotate-180"></i></button>
-                        </form>
-                        #}
-                        <form class="question-multiple cta cta-multiple text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
-                            <button class="cta-action vote-option q5 star" type="submit" value='1' name="star"><i class="fa fa-lg fa-star-o star"></i></button><!--
+                        {% if app.user and is_granted('ROLE_ADMIN')%}
+                            {#
+                            <div class="cta shadow text-shadow">
+                                <div style="background-color:grey" class="cta-action">Admin Cannot Vote</div>
+                            </div>
+                            #}
+                        {% elseif app.user %}
+                            {#
+                            <form class="question-multiple cta cta-multiple text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
+                                <button class="cta-action vote-option q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
+                                --><button class="cta-action vote-option q4" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
+                                --><button class="cta-action vote-option q3" type="submit" value='3'><i class="fa fa-lg fa-thumbs-up rotate-90"></i></button><!--
+                                --><button class="cta-action vote-option q2" type="submit" value='2'><i class="fa fa-lg fa-thumbs-up rotate-135"></i></button><!--
+                                --><button class="cta-action vote-option q1" type="submit" value='1'><i class="fa fa-lg fa-thumbs-up rotate-180"></i></button>
+                            </form>
+                            #}
+                            <form class="question-multiple cta cta-multiple text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="{{ path('vote', {presentation_id:''}) }}/{{ '{{ id}}' }}" method="POST">
+                                <button class="cta-action vote-option q5 star" type="submit" value='1' name="star"><i class="fa fa-lg fa-star-o star"></i></button><!--
                             --><button class="cta-action vote-option q4 star" type="submit" value='2'><i class="fa fa-lg fa-star-o star"></i></button><!--
                             --><button class="cta-action vote-option q3 star" type="submit" value='3'><i class="fa fa-lg fa-star-o star"></i></button><!--
                             --><button class="cta-action vote-option q2 star" type="submit" value='4'><i class="fa fa-lg fa-star-o star"></i></button><!--
                             --><button class="cta-action vote-option q1 star" type="submit" value='5'><i class="fa fa-lg fa-star-o star"></i></button>
-                        </form>
+                            </form>
 
 
-                    {% else %}
-                        {#
-                        <div class="cta shadow bg-pattern text-shadow">
-                            <a class="cta-action" href="{{ path('user_landing') }}">Vote</a>
-                        </div>
-                        #}
-                    {% endif %}
+                        {% else %}
+                            {#
+                            <div class="cta shadow bg-pattern text-shadow">
+                                <a class="cta-action" href="{{ path('user_landing') }}">Vote</a>
+                            </div>
+                            #}
+                        {% endif %}
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
-
-        {% verbatim %}
-            {{#if kifla-xl }}
-        {% endverbatim %}
-            <div class="clearfix visible-xl"></div>
-        {% verbatim %}
-            {{/if}}
-        {% endverbatim %}
-
-        {% verbatim %}
-            {{#if kifla-lg }}
-        {% endverbatim %}
-            <div class="clearfix visible-lg"></div>
-        {% verbatim %}
-            {{/if}}
-        {% endverbatim %}
-
-        {% verbatim %}
-            {{#if kifla-sm }}
-        {% endverbatim %}
-            <div class="clearfix visible-sm"></div>
-        {% verbatim %}
-            {{/if}}
-        {% endverbatim %}
-
     </script>
     <script id="global-brake-template" type="text/x-handlebars-template" >
         <div id="presentation-{{ '{{ id }}' }}" class="col-xs-12 box light shadow text-shadow global-brake" style="background-image: url({{asset('bundles/livevoting/img/assets/lunch.png')}});">
@@ -544,27 +520,9 @@
                                     return e.globalBrake;
                                 });
                                 if(result.length == 0) {
-                                    var counter = 1;
                                     data['presentations'].forEach(function (presentation) {
-                                        if (counter % 5 === 0) {
-                                            presentation['kifla-xl'] = true;
-                                        } else {
-                                            presentation['kifla-xl'] = false;
-                                        }
-                                        if (counter % 3 === 0) {
-                                            presentation['kifla-lg'] = true;
-                                        } else {
-                                            presentation['kifla-lg'] = false;
-                                        }
-                                        if (counter % 2 === 0) {
-                                            presentation['kifla-sm'] = true;
-                                        } else {
-                                            presentation['kifla-sm'] = false;
-                                        }
-                                        console.log(presentation);
                                         $(presentation_template(presentation)).hide().appendTo(srcDiv).fadeIn(1500);
                                         displayedPresentations.push(presentation);
-                                        counter++;
                                     });
                                 } else {
                                     $(global_brake_tempalte(result[0])).hide().appendTo(srcDiv).fadeIn(1500);
@@ -580,10 +538,10 @@
                                     //no global brake presentation
                                     //removing expired presentations
                                     displayedPresentations.forEach(function(displayed_presentation, index, array) {
-                                       if(!presentationInArray(displayed_presentation, data.presentations)) {
-                                           $('#presentation-'+displayed_presentation.id).remove();
-                                           array.splice(index, 1);
-                                       }
+                                        if(!presentationInArray(displayed_presentation, data.presentations)) {
+                                            $('#presentation-'+displayed_presentation.id).remove();
+                                            array.splice(index, 1);
+                                        }
                                     });
                                     //adding presentations scheduled next
                                     data.presentations.forEach(function(presentation) {
@@ -614,10 +572,7 @@
             ajaxFunction();
         });
     </script>
-    {#<script src="http://code.highcharts.com/highcharts.js"></script>#}
-    <script src="{{ asset('bundles/livevoting/js/highcharts.js') }}"></script>
-
-
+    <script src="http://code.highcharts.com/highcharts.js"></script>
     <!-- Rendering charts -->
     <script type="text/javascript">
         var requestData, animation_data, chart;
@@ -628,20 +583,16 @@
         }
         function load(firstLoad) {
             $.getJSON('{{ path("dashboard_presentations") }}', function (data) {
-                console.log(data);
                 if ('presentations' in data) {
                     var sortMe = [], presentationNames = [], presentationValues = [];//, counter = 0;
                     for (var i in data['presentations']) {
                         var pres = {};
-                        var presenterName = data['presentations'][i]['presenterName'] ? data['presentations'][i]['presenterName'] : "";
-                        var presenterSurname = data['presentations'][i]['presenterSurname'] ? data['presentations'][i]['presenterSurname'] : "";
-                        pres.presentationName = data['presentations'][i]['presentationName'] + "<br /><b>" + presenterName + "\n" + presenterSurname + "</b><br>" + "<small>" + data['presentations'][i]['votes'] + " votes" + "</small>";
+                        pres.presentationName = data['presentations'][i]['presentationName'];
                         // Check if page is not loaded. If yes set all values to zero so that chart animates
                         if (firstLoad === true) {
                             pres.presentationValue = 0;
                         } else {
                             pres.presentationValue = data['presentations'][i]['average'];
-                            console.log(pres.presentationValue);
                         }
                         sortMe.push(pres);
                     }

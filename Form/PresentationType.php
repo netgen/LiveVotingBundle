@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PresentationType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -19,7 +19,7 @@ class PresentationType extends AbstractType
         $builder
             ->add('presentation_name', 'text' ,array('attr' => array('class' => 'form-control')))
             ->add('presenter_name', 'text' ,array('attr' => array('class' => 'form-control')))
-            ->add('presenter_surname', 'text' ,array('attr' => array('class' => 'form-control'), 'required' => false))
+            ->add('presenter_surname', 'text' ,array('attr' => array('class' => 'form-control')))
 
             ->add('description', 'textarea' ,array('attr' => array('class' => 'form-control', 'rows' => "7")))
             ->add('image', 'file', array(

@@ -126,7 +126,7 @@ class EventController extends Controller
              */
             array_push($comments, array(
                 "content" => $comment->getContent(),
-                "published_at" => $comment->getPublished()->format(DATE_ATOM),
+                "published_at" => $comment->getPublished()->format(DATE_ISO8601),
                 "user_display_name" =>
                     $comment->getUser()->getEmail() ?
                         substr($comment->getUser()->getEmail(), 0, strrpos($comment->getUser()->getEmail(), "@"))
@@ -137,18 +137,18 @@ class EventController extends Controller
         }
 
         foreach ($presentationImages as $image) {
-          $content = $image->getDescription().'<br><img src="/bundles/livevoting/'.$image->getPath().'" alt="'.$image->getDescription().'">';
+            $content = $image->getDescription().'<br><img src="/bundles/livevoting/'.$image->getPath().'" alt="'.$image->getDescription().'">';
 
-          array_push($comments, array(
-              "content" => $content,
-              "published_at" => $image->getPublished()->format(DATE_ISO8601),
-              "user_display_name" =>
-                  $image->getUser()->getEmail() ?
-                      substr($image->getUser()->getEmail(), 0, strrpos($image->getUser()->getEmail(), "@"))
-                      :
-                      $image->getUser()->getUsername(),
-              "user_gravatar" => $image->getUser()->getGravatar() ? "http://www.gravatar.com/avatar/".$image->getUser()->getGravatar() : null
-          ));
+            array_push($comments, array(
+                "content" => $content,
+                "published_at" => $image->getPublished()->format(DATE_ISO8601),
+                "user_display_name" =>
+                    $image->getUser()->getEmail() ?
+                        substr($image->getUser()->getEmail(), 0, strrpos($image->getUser()->getEmail(), "@"))
+                        :
+                        $image->getUser()->getUsername(),
+                "user_gravatar" => $image->getUser()->getGravatar() ? "http://www.gravatar.com/avatar/".$image->getUser()->getGravatar() : null
+            ));
         }
 
         usort($comments, array($this, 'cmp'));
@@ -157,10 +157,10 @@ class EventController extends Controller
     }
 
     public function cmp($a, $b){
-      if($a['published_at'] === $b['published_at'])
-        return 0;
+        if($a['published_at'] === $b['published_at'])
+            return 0;
 
-      return ($a['published_at'] < $b['published_at']) ? -1 : 1;
+        return ($a['published_at'] < $b['published_at']) ? -1 : 1;
     }
 
     /**
@@ -212,13 +212,13 @@ class EventController extends Controller
         }
 
         return $this->render('LiveVotingBundle:Index:index.html.twig',
-                array(
-                    'event' => $event,
-                    'form' => $form->createView(),
-                    'imageForm' => $imageForm->createView(),
-                    'name' => $name
-                )
-            );
+            array(
+                'event' => $event,
+                'form' => $form->createView(),
+                'imageForm' => $imageForm->createView(),
+                'name' => $name
+            )
+        );
     }
 
     /**

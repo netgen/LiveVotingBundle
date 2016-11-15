@@ -1,6 +1,6 @@
 {% extends 'LiveVotingBundle::base.html.twig' %}
 
-{% block title %}Workshops|Event|LiveVoting{% endblock %}
+{% block title %}Lectures|Event|LiveVoting{% endblock %}
 
 {% block stylesheets %}
 	<link rel="stylesheet" href= "{{ asset('bundles/livevoting/css/normalize.css') }}"  />
@@ -9,65 +9,65 @@
 {% block body %}
 	<div class="row">
 		{% if event.event %}
-		<div class="col-xs-12 box shadow">
-			<div class="row vertical-align-xs">
-				<div class="col-xs-4 col-sm-1">
-					<img class="image-full" src="{{asset('')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
-				</div>
-				<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper extra-margin">
-					<div>
-						<h2>{{ event.getName }}</h2>
+			<div class="col-xs-12 box shadow">
+				<div class="row vertical-align-xs">
+					<div class="col-xs-4 col-sm-1">
+						<img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
 					</div>
-					<div>
-						<label class="big">Workshops</label>
+					<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper extra-margin">
+						<div>
+							<h2>{{ event.getName }}</h2>
+						</div>
+						<div>
+							<label class="big">Lectures</label>
+						</div>
 					</div>
-				</div>
-				<div class="clearfix visible-xs"></div>
-				<div class="col-xs-12 col-sm-5 col-lg-4">
-					<div class="text-right actions single-action">
-						<a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span>Events</span></a><!--
+					<div class="clearfix visible-xs"></div>
+					<div class="col-xs-12 col-sm-5 col-lg-4">
+						<div class="text-right actions single-action">
+							<a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span>Events</span></a><!--
 						-->{% if event.getAllowViewingResults %}
-						{#<a href="{{ path('result', {'event_id':event.getId}) }}" class="text-center"><i class="fa fa-bar-chart"></i><span>Live results</span></a>#}
-						{% endif %}
+							<a href="{{ path('result', {'event_id':event.getId}) }}" class="text-center"><i class="fa fa-bar-chart"></i><span>Live results</span></a>
+							{% endif %}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		{% else %}
-		<div class="col-xs-12 box shadow text-shadow light" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
-			<div class="row vertical-align-xs">
-				<div class="col-xs-4 col-sm-1 garbage">
-					<img class="image-full" src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
-				</div>
-				<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper extra-margin">
-					<div>
-						<h1>{{ event.getName }}</h1>
+			<div class="col-xs-12 box shadow text-shadow light" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
+				<div class="row vertical-align-xs">
+					<div class="col-xs-4 col-sm-1 garbage">
+						<img class="image-full" src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
 					</div>
-					<div>
-						<label class="big">Workshops</label>
+					<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper extra-margin">
+						<div>
+							<h1>{{ event.getName }}</h1>
+						</div>
+						<div>
+							<label class="big">Lectures</label>
+						</div>
 					</div>
-				</div>
-				<div class="clearfix visible-xs"></div>
-				<div class="col-xs-12 col-sm-5 col-lg-4">
-					<div class="text-right actions single-action">
-						<a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span class="hidden-sm">Events</span></a><!--
+					<div class="clearfix visible-xs"></div>
+					<div class="col-xs-12 col-sm-5 col-lg-4">
+						<div class="text-right actions single-action">
+							<a href="{{ path('user_landing') }}" class="text-center"><i class="fa fa-chevron-circle-left"></i><span class="hidden-sm">Events</span></a><!--
 						-->{% if event.getAllowViewingResults %}
-						<a href="{{ path('result', {'event_id':event.getId}) }}" class="text-center"><i class="fa fa-bar-chart"></i><span>Live results</span></a>
-						{% endif %}
+							<a href="{{ path('result', {'event_id':event.getId}) }}" class="text-center"><i class="fa fa-bar-chart"></i><span>Live results</span></a>
+							{% endif %}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		{% endif %}
 	</div>
 
 	{% for flashMessage in app.Session.flashbag.get('message') %}
-    <div class="row flash-messages">
-        <div class="col-xs-12">
-          <h3><i class="fa fa-lg fa-info-circle"></i>{{flashMessage}}</h3>
-        </div>
-    </div>
-  {% endfor %}
+		<div class="row flash-messages">
+			<div class="col-xs-12">
+				<h3><i class="fa fa-lg fa-info-circle"></i>{{flashMessage}}</h3>
+			</div>
+		</div>
+	{% endfor %}
 
 	<div id="voteScreen">
 	</div>
@@ -75,7 +75,7 @@
 	<div class="row spin-loader" id="loader">
 		<div class="col-xs-12">
 			{% if is_granted('ROLE_ADMIN') %}
-			<span>
+				<span>
 				<i class="fa fa-cog fa-spin"></i> <label>Only for regular users</label>
 			</span>
 			{% else %}<!--
@@ -88,27 +88,25 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
-	{#<script src="https://cdn.polyfill.io/v1/polyfill.min.js"></script>#}
-	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars/dist/handlebars.min.js') }}" ></script>
-	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl/dist/handlebars-intl.min.js') }}" ></script>
+	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-v1.3.0.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/handlebars-intl.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('bundles/livevoting/js/script.js') }}"></script>
 	<script src="https://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function(){
 			new brain({
-					'STATES':{
-							'PRE':{'TIMEOUT':1},
-							'ACTIVE':{'TIMEOUT':5},
-							'POST':{'TIMEOUT':5}
-			},
-					'URLS':{
-							'EVENT_STATUS':'/user/event_status/',
-							'VOTE':'/user/vote/'
-					}
+				'STATES':{
+					'PRE':{'TIMEOUT':1},
+					'ACTIVE':{'TIMEOUT':5},
+					'POST':{'TIMEOUT':5}
+				},
+				'URLS':{
+					'EVENT_STATUS':'/user/event_status/',
+					'VOTE':'/user/vote/'
+				}
 			});
-            HandlebarsIntl.registerWith(Handlebars);
+			HandlebarsIntl.registerWith(Handlebars);
 
 			Handlebars.registerHelper('trimString', function(passedString) {
 				var theString = passedString.substring(0,1);
@@ -119,36 +117,36 @@
 	</script>
 	<script id="presentation" type="text/x-handlebars-template">
 		<div class="row">
-	        <div class="col-xs-12 box shadow">
-	            <div class="row">
-	                <div class="col-xs-4 col-sm-1">
-	                    <div class="row">
-	                        <div class="col-xs-12">
-	                            <img class="image image-o" src="{{ asset('img/') }}{% verbatim %}{{#if image}}{{image}}{{else}}img/assets/angry-che.png{{/if}}{% endverbatim %}">
-	                        </div>
-	                    </div>
+			<div class="col-xs-12 box shadow">
+				<div class="row">
+					<div class="col-xs-4 col-sm-1">
 						<div class="row">
-	                        <div class="col-xs-12 box-margin text-center">
-	                            <label class="text-strong">{{ '{{ presentationLocation }}' }}</label>
-	                            <p>{{ '{{ presentationBeginTime }}' }}</p>
-	                            <p>{{ '{{ presentationEndTime }}' }}</p>
-	                        </div>
-	                    </div>
-	                </div>
-	                <div class="col-xs-8 col-sm-5 box-padding">
-	                    <h4>{{'{{presentationName}}'}}</h4>
-	                    <label>
-	                    	{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}
-	                    </label>
-	                    <p class="pres-desc-text">{{ '{{ presentationDescription }}' }}</p>
-	                </div>
-	                <div class="cleafix visible-xs"></div>
-	                <div class="col-xs-12 col-sm-6">
-	                	<div class="row">
-			                <div class="col-xs-12 vote-question-container">
+							<div class="col-xs-12">
+								<img class="image image-o" src="{{ asset('bundles/livevoting/img/presentations/') }}{% verbatim %}{{#if image}}{{image}}{{else}}img/assets/angry-che.png{{/if}}{% endverbatim %}">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 box-margin text-center">
+								<label class="text-strong">{{ '{{ presentationLocation }}' }}</label>
+								<p>{{ '{{ presentationBeginTime }}' }}</p>
+								<p>{{ '{{ presentationEndTime }}' }}</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-8 col-sm-5 box-padding">
+						<h4>{{'{{presentationName}}'}}</h4>
+						<label>
+							{{'{{presenterName}}'}} {{'{{presenterSurname}}'}}
+						</label>
+						<p class="pres-desc-text">{{ '{{ presentationDescription }}' }}</p>
+					</div>
+					<div class="cleafix visible-xs"></div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="row">
+							<div class="col-xs-12 vote-question-container">
 								{#
 			                    <form class="question-multiple vote-form cta cta-multiple cta-vote text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
-			                    	<label class="no-shadow text-strong">Rate workshop</label>
+			                    	<label class="no-shadow text-strong">Rate presentation</label>
 			                        <button class="cta-action q5" type="submit" value='5'><i class="fa fa-lg fa-thumbs-up"></i></button><!--
 						--><button class="cta-action q4" type="submit" value='4'><i class="fa fa-lg fa-thumbs-up rotate-45"></i></button><!--
 						--><button class="cta-action q3" type="submit" value='3'><i class="fa fa-lg fa-thumbs-up rotate-90"></i></button><!--
@@ -158,7 +156,7 @@
 								#}
 
 								<form class="question-multiple vote-form cta cta-multiple cta-vote text-shadow {% verbatim %}{{#if votingEnabled }}{{else}}cta-disabled{{/if}}{% endverbatim %}" action="../user/vote/{{ '{{ presentationId }}' }}" method="POST">
-									<label class="no-shadow text-strong">Rate workshop</label>
+									<label class="no-shadow text-strong">Rate presentation</label>
 									<button class="cta-action vote-option q5 star" type="submit" value='1' name="star"><i class="fa fa-lg fa-star-o star"></i></button><!--
                         --><button class="cta-action vote-option q4 star" type="submit" value='2'><i class="fa fa-lg fa-star-o star"></i></button><!--
                         --><button class="cta-action vote-option q3 star" type="submit" value='3'><i class="fa fa-lg fa-star-o star"></i></button><!--
@@ -167,30 +165,30 @@
 								</form>
 
 							</div>
-			                <div class="clearfix"></div>
+							<div class="clearfix"></div>
 							<div class="col-xs-12 pres-opinion cta cta-vote text-shadow">
 								<label class="no-shadow text-strong">Share Your opinion!</label>
-			                    <a class="cta-action small pres-desc-toggle"
-			                       data-expanded-text="Hide comments"
-			                       data-collapsed-text="Add comments ({{ '{{ comments.length }}' }})"
-			                       data-toggle="collapse"
-			                       href="#comments-container-{{ '{{ presentationId}}' }}"
-			                       aria-expanded="false" aria-controls="pres-desc-container">
-			                        Add comments ({{ '{{ comments.length }}' }})
-			                    </a>
+								<a class="cta-action small pres-desc-toggle"
+								   data-expanded-text="Hide comments"
+								   data-collapsed-text="Add comments ({{ '{{ comments.length }}' }})"
+								   data-toggle="collapse"
+								   href="#comments-container-{{ '{{ presentationId}}' }}"
+								   aria-expanded="false" aria-controls="pres-desc-container">
+									Add comments ({{ '{{ comments.length }}' }})
+								</a>
 							</div>
 						</div>
 					</div>
-	            </div>
-	            
-	            <div class="row">
+				</div>
 
-	            </div>
-	        </div>
+				<div class="row">
+
+				</div>
+			</div>
 			<div class="clearfix"></div>
 			<div id="comments-container-{{ '{{ presentationId}}' }}" class="col-xs-12 collapse">
-                <div class="comments-section">
-                    {#<ul class="nav nav-tabs bg-pattern" role="tablist">
+				<div class="comments-section">
+					{#<ul class="nav nav-tabs bg-pattern" role="tablist">
                         <li role="presentation" class="active" >
                             <a class="tab-button live-comments-tab-toggle" data-toggle="tab" href="#liveVotingComments-{{ '{{ presentationId }}' }}" aria-controls="live-voting-comments" role="tab">Summer Camp</a>
                         </li><!--
@@ -198,34 +196,34 @@
                             <a class="tab-button joindin-comments-tab-toggle" data-toggle="tab" href="#joindInComments-{{ '{{ presentationId }}' }}" aria-controls="joind-in-comments" role="tab" >Joind.in</a>
                         </li>-->
                     </ul>#}
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="liveVotingComments-{{ '{{ presentationId }}' }}">
-                        	<ul class="nav nav-tabs cta-discussion cta-discussion-type bg-pattern" role="tablist">
-                                <li role="presentation" class="active" >
-                                    <a href="#commentForm-{{ '{{presentationId}}' }}" aria-controls="comment" role="tab" data-toggle="tab">Comment</a>
-                                </li>
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="liveVotingComments-{{ '{{ presentationId }}' }}">
+							<ul class="nav nav-tabs cta-discussion cta-discussion-type bg-pattern" role="tablist">
+								<li role="presentation" class="active" >
+									<a href="#commentForm-{{ '{{presentationId}}' }}" aria-controls="comment" role="tab" data-toggle="tab">Comment</a>
+								</li>
 								{#
                                 <li role="presentation" >
                                     <a href="#pictureForm-{{ '{{presentationId}}' }}" aria-controls="picture" role="tab" data-toggle="tab">Picture</a>
                                 </li>
                                 #}
-                            </ul>
-                        	<div class="tab-content cta-discussion cta-discussion-form">
-                                <div role="tabpanel" class="tab-pane fade in active" id="commentForm-{{ '{{presentationId}}' }}">
-                                    {% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
-                                    {{ form(
-                                    form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'commentPresentation'}}
-                                    ) }}
-                                </div>
-                                <div role="tabpanel" class="tab-pane fade" id="pictureForm-{{ '{{presentationId}}' }}">
-                                    {% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
-                                    {{ form(
-                                    imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'imageUpload'}}
-                                    ) }}
-                                </div>
-                            </div>
-                            <ul style="overflow-y: scroll;" class="media-list live-voting-comments">
-                                {% verbatim %}
+							</ul>
+							<div class="tab-content cta-discussion cta-discussion-form">
+								<div role="tabpanel" class="tab-pane fade in active" id="commentForm-{{ '{{presentationId}}' }}">
+									{% set path = path('user_comment_presentation', {'presentationId': '{{presentationId}}'}) %}
+									{{ form(
+									form, {'action': path|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'commentPresentation'}}
+									) }}
+								</div>
+								<div role="tabpanel" class="tab-pane fade" id="pictureForm-{{ '{{presentationId}}' }}">
+									{% set path2 = path('user_upload_image_presentation', {'presentationId': '{{presentationId}}'}) %}
+									{{ form(
+									imageForm, {'action': path2|replace({'%7B%7B': '{{', '%7D%7D': '}}'}), 'attr': {'class': 'imageUpload'}}
+									) }}
+								</div>
+							</div>
+							<ul style="overflow-y: scroll;" class="media-list live-voting-comments">
+								{% verbatim %}
                                     {{#each comments }}
                                         {{>comment }}
                                     {{else}}
@@ -234,13 +232,13 @@
                                         </li>
                                     {{/each }}
                                 {% endverbatim %}
-                            </ul>
-                            
-                            
-                        </div>
-                        <div style="overflow-y: scroll;" role="tabpanel" class="tab-pane fade joindin-comments-tab" id="joindInComments-{{ '{{ presentationId }}' }}">
-                            <ul class="media-list joindin-comments">
-                                {% verbatim %}
+							</ul>
+
+
+						</div>
+						<div style="overflow-y: scroll;" role="tabpanel" class="tab-pane fade joindin-comments-tab" id="joindInComments-{{ '{{ presentationId }}' }}">
+							<ul class="media-list joindin-comments">
+								{% verbatim %}
                                     {{#each joindInComments }}
                                         {{>comment }}
                                     {{else}}
@@ -250,102 +248,103 @@
                                     {{/each }}
 
                                 {% endverbatim %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
-	    </div>
+		</div>
 
 	</script>
 
-    <script id="comment-partial" type="text/x-handlebars-template">
-        {% verbatim %}
+	<script id="comment-partial" type="text/x-handlebars-template">
+		{% verbatim %}
             <li class="media">
             	<div class="row">
             		<div class="col-xs-2 col-sm-1 media-user-image">
-						<span class="username-first-character">{{{trimString user_display_name}}}</span>
+						<span>{{{trimString user_display_name}}}</span>
 					</div>
             		<div class="col-xs-10 col-sm-11 media-comment-container">
 						<h4>{{ user_display_name }}</h4>
+	                    <label>said {{formatRelative published_at }}</label>
 	                    <p>{{{ content }}}</p>
             		</div>
             	</div>
             </li>
         {% endverbatim %}
-    </script>
+	</script>
 
 	<script type="text/javascript">
-        var commentTemplate = Handlebars.compile($("#comment-partial").html());
+		var commentTemplate = Handlebars.compile($("#comment-partial").html());
 
-        $('body').on('click', '.pres-desc-toggle', function (e) {
-            if($(e.target).text() == $(e.target).data("expanded-text")) {
-                $(e.target).text($(e.target).data("collapsed-text"));
-            } else {
-                $(e.target).text($(e.target).data("expanded-text"));
-            }           
-        });
+		$('body').on('click', '.pres-desc-toggle', function (e) {
+			if($(e.target).text() == $(e.target).data("expanded-text")) {
+				$(e.target).text($(e.target).data("collapsed-text"));
+			} else {
+				$(e.target).text($(e.target).data("expanded-text"));
+			}
+		});
 
 
 		$('body').on('submit', '.commentPresentation', function(e){
-				e.preventDefault();
+			e.preventDefault();
 
-				var formData = new FormData(this);
+			var formData = new FormData(this);
 
-				$.ajax({
-						type:'POST',
-						url: $(this).attr('action'),
-						data:formData,
-						processData: false,
-						contentType: false,
-						success:function(data){
-								var id = this.url.split("/").pop();
+			$.ajax({
+				type:'POST',
+				url: $(this).attr('action'),
+				data:formData,
+				processData: false,
+				contentType: false,
+				success:function(data){
+					var id = this.url.split("/").pop();
 
-								if($("#noCommentsHeading-"+id).length){
-									$("#noCommentsHeading-"+id).fadeOut(1000, function(){
-										$(this).remove();
-									});
-								}
+					if($("#noCommentsHeading-"+id).length){
+						$("#noCommentsHeading-"+id).fadeOut(1000, function(){
+							$(this).remove();
+						});
+					}
 
-                var commentDiv =$(e.target).closest(".col-xs-12").find(".live-voting-comments");
-                        $(commentTemplate(data)).hide().appendTo(commentDiv).fadeIn(1000);
-												commentDiv.animate({scrollTop: commentDiv[0].scrollHeight}, 250, 'swing');
-						},
-						error: function(data){
-							alert('error');
-						}
-				});
-				this.reset();
+					var commentDiv =$(e.target).closest(".col-xs-12").find(".live-voting-comments");
+					$(commentTemplate(data)).hide().appendTo(commentDiv).fadeIn(1000);
+					commentDiv.animate({scrollTop: commentDiv[0].scrollHeight}, 250, 'swing');
+				},
+				error: function(data){
+					alert('error');
+				}
+			});
+			this.reset();
 		});
 
-			$('body').on('submit', '.imageUpload', function(e){
-				e.preventDefault();
-					var formData = new FormData(this);
+		$('body').on('submit', '.imageUpload', function(e){
+			e.preventDefault();
+			var formData = new FormData(this);
 
-					$.ajax({
-							type:'POST',
-							url: $(this).attr('action'),
-							data:formData,
-							processData: false,
-							contentType: false,
-							success:function(data){
-								var id = this.url.split("/").pop();
+			$.ajax({
+				type:'POST',
+				url: $(this).attr('action'),
+				data:formData,
+				processData: false,
+				contentType: false,
+				success:function(data){
+					var id = this.url.split("/").pop();
 
-								if($("#noCommentsHeading-"+id).length){
-									$("#noCommentsHeading-"+id).fadeOut(1000, function(){
-										$(this).remove();
-									});
-								}
+					if($("#noCommentsHeading-"+id).length){
+						$("#noCommentsHeading-"+id).fadeOut(1000, function(){
+							$(this).remove();
+						});
+					}
 
-								var commentDiv =$(e.target).closest(".col-xs-12").find(".live-voting-comments");
-												$(commentTemplate(data)).hide().appendTo(commentDiv).fadeIn(1000);
-												commentDiv.animate({scrollTop: commentDiv[0].scrollHeight}, 250, 'swing');
-							},
-							error: function(data){
-								alert('error');
-							}
-					});
-					this.reset();
+					var commentDiv =$(e.target).closest(".col-xs-12").find(".live-voting-comments");
+					$(commentTemplate(data)).hide().appendTo(commentDiv).fadeIn(1000);
+					commentDiv.animate({scrollTop: commentDiv[0].scrollHeight}, 250, 'swing');
+				},
+				error: function(data){
+					alert('error');
+				}
 			});
+			this.reset();
+		});
 	</script>
 {% endblock %}

@@ -35,7 +35,10 @@ class PresentationAdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('LiveVotingBundle:Event')->findOneById($event_id);
-        $entities = $this->get('live_voting.doctrine_presentation_repo')->find(array('event_id' => $event_id));
+        //$entities = $this->get('live_voting.doctrine_presentation_repo')->find(array('event_id' => $event_id));
+        $entities = $em->getRepository('LiveVotingBundle:Presentation')->findByEvent($event_id);
+
+        $that = $this;
         /**
          * @var $client JoindInClient
          */
@@ -45,11 +48,11 @@ class PresentationAdminController extends Controller
         return $this->render('LiveVotingBundle:Presentation:index.html.twig', array(
             'entities' => array_map(
                 function($ent) use ($that) {
-                   return array($ent, $that->createEnableDisableForm($ent)->createView());
+                    return array($ent, $that->createEnableDisableForm($ent)->createView());
                 }, $entities),
             'event' => $event,
             'joindInEvents' => $joindInEvents
-        ))->setCache(array('private' => true));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
@@ -60,23 +63,22 @@ class PresentationAdminController extends Controller
      */
     public function createAction(Request $request, $event_id)
     {
-        $entity = new PresentationRecord();
-        $entity->setEventId($event_id);
+        $entity = new Presentation();
+        $entityManager = $this->getDoctrine()->getManager();
+        $event = $entityManager->getRepository('LiveVotingBundle:Event')->find($event_id);
+        $entity->setEvent($event);
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $entity->presenterName = $form->getData()['presenterName'];
-            $entity->presenterSurname = $form->getData()['presenterSurname'];
-            $entity->setUserId($form->getData()['user_id']->getId());
-            $this->get('live_voting.doctrine_presentation_repo')->save($entity);
-
-            if($form->getData()['presentationRecord']->getImageUrl())
-              $form->getData()['presentationRecord']->getImageUrl()->move($this->get('live_voting.doctrine_presentation_repo')->getImageUploadRootDir(), $form->getData()['presentationRecord']->getImageUrl()->getClientOriginalName());
-
+            $em = $this->getDoctrine()->getManager();
+            $entity->upload();
+            $em->persist($entity);
+            $em->flush();
 
             $request->getSession()->getFlashBag()->add(
-              'message', 'You have created new presentation.'
+                'message', 'You have created new presentation.'
             );
 
             return $this->redirect($this->generateUrl('admin_presentation', array('event_id'=>$event_id)));
@@ -85,34 +87,25 @@ class PresentationAdminController extends Controller
         return $this->render('LiveVotingBundle:Presentation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ))->setCache(array('private' => true));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
      * Creates a form to create a Presentation entity.
-     * @param PresentationRecord $entity The entity
+     * @param Presentation $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(PresentationRecord $entity){
-        $form = $this->createFormBuilder()
-            ->add('presentationRecord', new PresentationType(), array())
-            ->add('presenterName')
-            ->add('presenterSurname', null,array('required' => false))
-            ->add('user_id', 'entity', array(
-                  'attr' => array('class' => 'form-control'),
-                  'label' => "Presenter",
-                  'query_builder' => function(EntityRepository $repository) {
-                      return $repository->createQueryBuilder('u')->orderBy('u.email', 'ASC');
-                  },
-                  'class' => 'LiveVotingBundle:User',
-                  'property' => 'email',
-                  'required'    => false,
-                  'empty_value' => '(Select user)',
-                  'empty_data' => null))
-            ->add('submit', 'submit', array('label' => 'Create'))
-            ->setMethod('POST')
-            ->setAction($this->generateUrl('admin_presentation_create', array('event_id'=>$entity->getEventId())));
-          return $form->getForm();
+    private function createCreateForm(Presentation $entity){
+
+        $form = $this->createForm(new PresentationType(), $entity, array(
+            'action' => $this->generateUrl('admin_presentation_create', array('event_id' => $entity->getEvent()->getId())),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create new presentation', 'attr' => array('class' => 'btn btn-large btn-primary',)));
+
+        return $form;
+        //return $form->getForm();
     }
 
     /**
@@ -120,25 +113,14 @@ class PresentationAdminController extends Controller
      * @param Presentation $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
+    private function createEditForm(Presentation $entity){
+        $form = $this->createForm(new PresentationType(), $entity, array(
+            'action' => $this->generateUrl('admin_presentation_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+        $form->add('submit', 'submit', array('label' => 'Update presentation', 'attr' => array('class' => 'btn btn-large btn-primary')));
 
-    private function createEditForm(PresentationRecord $entity){
-        $em = $this->getDoctrine()->getManager();
-
-        $presentationEntity = $em->getRepository('LiveVotingBundle:Presentation')->find($entity->getId());
-
-        $form = $this->createFormBuilder()
-            ->add('presentationRecord', new PresentationType(), array('data'=>$presentationEntity))
-            ->add('presenterName', 'text', array('data' => $entity->presenterName))
-            ->add('presenterSurname', 'text', array('data' => $entity->presenterSurname, 'required' => false))
-            ->add('user', 'entity', array(
-              'class' => 'LiveVotingBundle:User',
-              'property' => 'email',
-              'data' => $em->getReference("LiveVotingBundle:User", $entity->getUserId())
-            ))
-            ->add('submit', 'submit', array('label' => 'Edit'))
-            ->setMethod('POST')
-            ->setAction($this->generateUrl('admin_presentation_update', array('id' => $entity->getId())));
-        return $form->getForm();
+        return $form;
     }
 
     /**
@@ -147,16 +129,16 @@ class PresentationAdminController extends Controller
      */
     public function newAction($event_id)
     {
-        $entity = new PresentationRecord();
+        $entity = new Presentation();
         $event = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($event_id);
-        $entity->setEventId($event_id);
+        $entity->setEvent($event);
 
         $form = $this->createCreateForm($entity);
         $form->remove('votingEnabled');
         return $this->render('LiveVotingBundle:Presentation:new.html.twig', array(
             'form'   => $form->createView(),
             'event_id' => $event_id
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
 
@@ -167,7 +149,8 @@ class PresentationAdminController extends Controller
      */
     public function editAction($id)
     {
-        $entity = $this->get('live_voting.doctrine_presentation_repo')->findOne($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entity = $entityManager->getRepository('LiveVotingBundle:Presentation')->find($id);
 
         $editForm = $this->createEditForm($entity);
 
@@ -185,28 +168,33 @@ class PresentationAdminController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $entity = $this->get('live_voting.doctrine_presentation_repo')->findOne($id);
+        //$entity = $this->get('live_voting.doctrine_presentation_repo')->findOne($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entity = $entityManager->getRepository('LiveVotingBundle:Presentation')->find($id);
 
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Event entity.');
+        }
+
+        $old_image = $entity->getImage();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
+
         if ($editForm->isValid()) {
-            $entity->presenterName = $editForm->getData()['presenterName'];
-            $entity->presenterSurname = $editForm->getData()['presenterSurname'];
-            $entity->setUserId($editForm->getData()['user']->getId());
 
-            $this->get('live_voting.doctrine_presentation_repo')->update($entity);
 
-            $imageUrl = $editForm->getData()['presentationRecord']->getImageUrl();
-            if(!empty($imageUrl)) {
-                $editForm->getData()['presentationRecord']->getImageUrl()->move($this->get('live_voting.doctrine_presentation_repo')->getImageUploadRootDir(), $editForm->getData()['presentationRecord']->getImageUrl()->getClientOriginalName());
-            } else {
-
+            if(empty($editForm->getData()->getImage())) {
+                $entity->setImage($old_image);
             }
 
+            $entity->upload();
+
+            $entityManager->flush();
+
             $request->getSession()->getFlashBag()->add(
-              'message', 'Your changes were saved.'
+                'message', 'Your changes were saved.'
             );
-            return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $entity->getEventId())));
+            return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $entity->getEvent()->getId() )));
         }
 
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
@@ -220,11 +208,11 @@ class PresentationAdminController extends Controller
      * so users can vote on it.
      * @param Presentation $entity The entity
      */
-    public function createEnableDisableForm(PresentationRecord $entity){
+    public function createEnableDisableForm(Presentation $entity){
         $form = $this->createFormBuilder();
         $form->setMethod('PUT');
         $form->setAction($this->generateUrl('admin_presentation_vote_enable', array('id'=>$entity->getId())));
-        if($entity->isVotingEnabled()==False)
+        if($entity->getVotingEnabled() == false)
             $form->add('disable', 'submit',  array('label'=>'Disabled', 'attr'=>array('class'=>'btn btn-danger')));
         else
             $form->add('enable', 'submit',  array('label'=>'Enabled', 'attr'=>array('class'=>'btn btn-success')));
@@ -238,7 +226,9 @@ class PresentationAdminController extends Controller
      * @param Presenatation Id $id
      */
     public function enableDisableAction(Request $request, $id){
-        $entity = $this->get('live_voting.doctrine_presentation_repo')->findOne($id);
+        //$entity = $this->get('live_voting.doctrine_presentation_repo')->findOne($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entity = $entityManager->getRepository('LiveVotingBundle:Presentation')->find($id);
 
         $form = $this->createEnableDisableForm($entity);
         $form->handleRequest($request);
@@ -248,10 +238,11 @@ class PresentationAdminController extends Controller
             }else{
                 $entity->setVotingEnabled(false);
             }
-            $this->get('live_voting.doctrine_presentation_repo')->update($entity);
+            //$this->get('live_voting.doctrine_presentation_repo')->update($entity);
+            $entityManager->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $entity->getEventId())));
+        return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $entity->getEvent()->getId() )));
 
     }
 

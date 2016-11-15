@@ -6,37 +6,32 @@
 
 {% block body -%}
     {% for flashMessage in app.Session.flashbag.get('message') %}
-    <div class="alert alert-danger">
-        <div class="text">{{flashMessage}}</div>
-    </div>
+        <div class="alert alert-danger">
+            <div class="text">{{flashMessage}}</div>
+        </div>
     {% endfor %}
 
     <div class="row">
-        {% if event.events.count != 0 %}
-            <div class="col-xs-12">
-                Currently assigned users: {{ event.getUserAssociations.count }}
-            </div>
-        {% endif %}
-
         <div class="col-xs-12">
             <table id="view-presentations" class="records_list table margin-top">
                 <thead>
-                    <tr>
-                        <th></th>
-                        <th>Presentation</th>
-                        <th>Presenter</th>
-                        <th>Voting status</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
+                <tr>
+                    <th></th>
+                    <th>Presentation</th>
+                    <th>Presenter</th>
+                    <th>Voting status</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
                 </thead>
                 <tbody>
 
                 {% for entity in entities %}
                     <tr>
-                        <td><img width="40px" class="image-o" src="{{ entity[0].getImageUrl ? asset('img/' ~ entity[0].getImageUrl) : asset('bundles/livevoting/img/assets/angry-che.png')}}"/></td>
+                        {#<td><img width="40px" class="image-o" src='{{ asset('bundles/livevoting/' ~ ((entity[0].getImageUrl) ? entity[0].getImageUrl : 'img/assets/angry-che.png')) }}'/></td>				<img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">#}
+                        <td><img width="40px" class="image-o" src="{{asset('bundles/livevoting/')}}{{ entity[0].getImage ? entity[0].getWebPath : 'img/assets/angry-che.png'}}"/></td>
 
-                        <td>{{ entity[0].getName }}</td>
+                        <td>{{ entity[0].presentationName }}</td>
                         <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>
                         <td>{{ form(entity[1]) }}</td>
                         <td>
@@ -54,12 +49,47 @@
 
     <div class="row secondary-footer">
         <div class="col-xs-12">
+            {#
+            <button type="button" id="publishPresentationButton" onclick="publishPresentations()" data-success-text="Publishing successful" data-loading-text="Publishing..." class="btn" autocomplete="off">Publish presentations</button>
+            <label>
+                <select id="joind-events-select" class="form-control">
+                    {% for event in joindInEvents %}
+                        <option value="{{ event.joindInId }}">{{ event.name }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            #}
             <div class="clearfix"></div>
             <a href="{{ path('admin_event') }}"><button type="button" class="btn">Back</button></a>
             <a href="{{ path('admin_presentation_new', {'event_id':event.getId}) }}"><button type="button" class="btn"><i class="fa fa-plus"></i> Add presentation</button></a>
-            {% if event.events.count != 0 %}
-                <a href="{{ path('send_email_login', { 'typeOf': 0, 'eventId': event.getId }) }}"><button type="button" class="btn" title="Send email login to all users for this event"><i class="fa fa-lg fa-envelope"></i>Send email login to all users</button></a>
-            {% endif %}
         </div>
     </div>
 {% endblock %}
+
+{#
+{% block javascripts %}
+    <script type="text/javascript">
+        function publishPresentations() {
+            var button = $("#publishPresentationButton");
+            button.button('loading');
+            button.prop("disabled",true);
+            $.ajax({
+                headers: {
+                    'Authorization': 'Bearer {{ joind_in_access_token }}'
+                },
+                'type': 'post',
+                'url': '{{ url('admin_presentation_publish', {'event_id': event.id}) }}',
+                'data': {joindEvent: $("#joind-events-select").val()},
+                success: function (data) {
+                    button.button('success');
+                },
+                error: function (e) {
+                    alert(e.responseJSON.error);
+                    button.button('reset');
+                    button.prop("disabled",false);
+                }
+            });
+        }
+    </script>
+{% endblock %}
+#}
