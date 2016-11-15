@@ -94,25 +94,25 @@ class PresentationAdminController extends Controller
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(PresentationRecord $entity){
-      $form = $this->createFormBuilder()
-            ->add('presentationRecord', new PresentationType(), array('data'=>$entity))
+        $form = $this->createFormBuilder()
+            ->add('presentationRecord', new PresentationType(), array())
             ->add('presenterName')
             ->add('presenterSurname', null,array('required' => false))
             ->add('user_id', 'entity', array(
-              'attr' => array('class' => 'form-control'),
-              'label' => "Presenter",
-              'query_builder' => function(EntityRepository $repository) {
-                  return $repository->createQueryBuilder('u')->orderBy('u.email', 'ASC');
-              },
-              'class' => 'LiveVotingBundle:User',
-              'property' => 'email',
-              'required'    => false,
-              'empty_value' => '(Select user)',
-              'empty_data' => null))
+                  'attr' => array('class' => 'form-control'),
+                  'label' => "Presenter",
+                  'query_builder' => function(EntityRepository $repository) {
+                      return $repository->createQueryBuilder('u')->orderBy('u.email', 'ASC');
+                  },
+                  'class' => 'LiveVotingBundle:User',
+                  'property' => 'email',
+                  'required'    => false,
+                  'empty_value' => '(Select user)',
+                  'empty_data' => null))
             ->add('submit', 'submit', array('label' => 'Create'))
             ->setMethod('POST')
             ->setAction($this->generateUrl('admin_presentation_create', array('event_id'=>$entity->getEventId())));
-      return $form->getForm();
+          return $form->getForm();
     }
 
     /**
@@ -122,10 +122,12 @@ class PresentationAdminController extends Controller
      */
 
     private function createEditForm(PresentationRecord $entity){
-      $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-      $form = $this->createFormBuilder()
-            ->add('presentationRecord', new PresentationType(), array('data'=>$entity))
+        $presentationEntity = $em->getRepository('LiveVotingBundle:Presentation')->find($entity->getId());
+
+        $form = $this->createFormBuilder()
+            ->add('presentationRecord', new PresentationType(), array('data'=>$presentationEntity))
             ->add('presenterName', 'text', array('data' => $entity->presenterName))
             ->add('presenterSurname', 'text', array('data' => $entity->presenterSurname, 'required' => false))
             ->add('user', 'entity', array(
@@ -136,7 +138,7 @@ class PresentationAdminController extends Controller
             ->add('submit', 'submit', array('label' => 'Edit'))
             ->setMethod('POST')
             ->setAction($this->generateUrl('admin_presentation_update', array('id' => $entity->getId())));
-      return $form->getForm();
+        return $form->getForm();
     }
 
     /**
