@@ -33,8 +33,7 @@ Netgen\LiveVotingBundle\Entity\Event:
             length: 255
             column: email_subject
         emailText:
-            type: string
-            length: 255
+            type: text
             column: email_text
     oneToMany:
         presentations:
