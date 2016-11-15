@@ -49,7 +49,7 @@ class PresentationAdminController extends Controller
                 }, $entities),
             'event' => $event,
             'joindInEvents' => $joindInEvents
-        ));
+        ))->setCache(array('private' => true));
     }
 
     /**
@@ -85,7 +85,7 @@ class PresentationAdminController extends Controller
         return $this->render('LiveVotingBundle:Presentation:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
+        ))->setCache(array('private' => true));
     }
 
     /**
@@ -177,7 +177,7 @@ class PresentationAdminController extends Controller
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
             'form'   => $editForm->createView()
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
@@ -212,7 +212,7 @@ class PresentationAdminController extends Controller
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**

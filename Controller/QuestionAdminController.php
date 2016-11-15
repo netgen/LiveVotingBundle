@@ -46,7 +46,7 @@ class QuestionAdminController extends Controller
                 }, $entities),
             'event' => $event,
             'status' => $status
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
@@ -72,7 +72,7 @@ class QuestionAdminController extends Controller
         return $this->render('LiveVotingBundle:Question:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
@@ -106,7 +106,7 @@ class QuestionAdminController extends Controller
             'entity' => $entity,
             'form'   => $form->createView(),
             'event_id' => $event_id
-        ));
+        ))->setCache(array('private' => true));
     }
 
 
@@ -134,7 +134,7 @@ class QuestionAdminController extends Controller
         return $this->render('LiveVotingBundle:Question:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
 
@@ -193,7 +193,7 @@ class QuestionAdminController extends Controller
             'answers'     => $answers,
             'users'       => $users,
             'prosjek'     => $prosjek
-        )); 
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
@@ -260,7 +260,7 @@ class QuestionAdminController extends Controller
         return $this->render('LiveVotingBundle:Question:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
-        ));
+        ))->setCache(array('private' => true));
     }
 
     /**
@@ -361,7 +361,7 @@ class QuestionAdminController extends Controller
                 'questions' => $questions,
                 'live_results_questions_url' => $this->generateUrl('admin_result_questions_json', array('event_id' => $event_id)),
                 'live_results_questions_yesNo_url' => $this->generateUrl('admin_result_questions_yesNo_json', array('event_id' => $event_id))
-            ));
+            ))->setCache(array( 'private' => true ));
 
     }
 
@@ -424,7 +424,7 @@ class QuestionAdminController extends Controller
 
         return $this->render('LiveVotingBundle:Question:table.html.twig', array(
             'questions' => $results
-        ));
+        ))->setCache(array( 'private' => true ));
 
     }
 

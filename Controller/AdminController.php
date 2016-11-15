@@ -18,6 +18,6 @@ class AdminController extends Controller{
 
     public function indexAction()
     {
-        return $this->render('LiveVotingBundle:Index:admin.html.twig');
+        return $this->render('LiveVotingBundle:Index:admin.html.twig')->setCache(array('private' => true));
     }
 }

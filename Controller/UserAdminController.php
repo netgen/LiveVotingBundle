@@ -31,7 +31,7 @@ class UserAdminController extends Controller
         return $this->render('LiveVotingBundle:User:index.html.twig', array(
             'entities' => $entities,
             'count' => count($entities)
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
 
@@ -82,7 +82,7 @@ class UserAdminController extends Controller
         return $this->render('LiveVotingBundle:User:new.html.twig', array(
             'user' => $user,
             'form' => $form->createView(),
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
@@ -130,7 +130,7 @@ class UserAdminController extends Controller
         return $this->render('LiveVotingBundle:User:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
 
@@ -168,7 +168,7 @@ class UserAdminController extends Controller
             'edit_form' => $editForm->createView(),
             'associated_events' => count($associatedEvents) > 0 ? $associatedEvents : null,
             'user_event_association_form' => $userEventAssociationAddForm->createView()
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
@@ -216,7 +216,7 @@ class UserAdminController extends Controller
         return $this->render('LiveVotingBundle:Event:user.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView()
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     public function enableDisableAction()
@@ -255,7 +255,7 @@ class UserAdminController extends Controller
             array(
                 'form' => $form->createView()
             )
-        );
+        )->setCache(array( 'private' => true ));
     }
 
     public function processImportCsvAction(Request $request)
@@ -341,7 +341,7 @@ class UserAdminController extends Controller
             array(
                 'form' => $form->createView()
             )
-        );
+        )->setCache(array( 'private' => true ));
     }
 
     public function loginEmailAction(Request $request, $typeOf, $eventId)
@@ -521,7 +521,7 @@ class UserAdminController extends Controller
             'send_form' => $form ? $form->createView() : $form,
             'message' => $message,
             'type_of' => $typeOf
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     public function userEventAssociationAddForm($userId)

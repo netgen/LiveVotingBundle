@@ -55,7 +55,7 @@ class EventAdminController extends Controller
         return $this->render('LiveVotingBundle:Event:index.html.twig', array(
             'entities' => $entities,
             'voteStats' => $voteStatistics
-        ));
+        ))->setCache(array('private' => true));
     }
 
 
@@ -117,7 +117,7 @@ class EventAdminController extends Controller
         return $this->render('LiveVotingBundle:Event:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        ));
+        ))->setCache(array('private' => true));
     }
 
 
@@ -141,7 +141,7 @@ class EventAdminController extends Controller
         return $this->render('LiveVotingBundle:Event:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
-        ));
+        ))->setCache(array('private' => true));
     }
 
     /**
@@ -266,6 +266,6 @@ class EventAdminController extends Controller
             'message', 'You have removed an event.'
         );
 
-        return $this->redirect($this->generateUrl('admin_event'));
+        return $this->redirect($this->generateUrl('admin_event'))->setCache(array('private' => true));
     }
 }

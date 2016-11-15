@@ -30,7 +30,7 @@ class ResultAdminController extends Controller{
             'animation_data' => json_encode($results),
             'event_name' => $results['event']->getName(),
             'event_id' => $results['event']->getId()
-        ));
+        ))->setCache(array( 'private' => true ));
 
     }
 

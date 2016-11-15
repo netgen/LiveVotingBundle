@@ -29,7 +29,7 @@ class PresentationUserController extends Controller
                     return array($ent, $that->createEnableDisableForm($ent)->createView());
                 }, $entities),
             'user' => $user
-        ));
+        ))->setCache(array( 'private' => true ));
 
     }
 
@@ -60,7 +60,7 @@ class PresentationUserController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'event'       => $event
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
@@ -100,7 +100,7 @@ class PresentationUserController extends Controller
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
-        ));
+        ))->setCache(array( 'private' => true ));
     }
 
     /**
