@@ -172,8 +172,8 @@ class EventAdminController extends Controller
         $form->add('allowViewingResults', 'checkbox', array('required' => false, 'label' => 'Results available for public: '));
         $form->add('questionStatus', 'checkbox', array('mapped'=> false, 'required'=>false, 'label'=>'Questions enabled for this event: ', 'attr' => array('checked' => $questionStatus)));
         $form->add('numberOfSeconds', 'number', array('mapped'=> false, 'required'=>false, 'label'=>'Seconds until event ends: ', 'attr' => array('class'=> 'form-control')));
-        $form->add('emailSubject', 'text', array( 'label' => 'Email subject', 'attr' => array('class' => 'form-control')));
-        $form->add('emailText', 'textarea', array('label' => 'Email text', 'attr' => array('class' => 'form-control')));
+        $form->add('emailSubject', 'text', array( 'label' => 'Email subject', 'attr' => array('class' => 'form-control'), 'required' => false));
+        $form->add('emailText', 'textarea', array('label' => 'Email text', 'attr' => array('class' => 'form-control'), 'required' => false));
         $form->add('submit', 'submit', array('label' => 'Update event', 'attr' => array('class' => 'btn btn-large btn-primary')));
         return $form;
     }
