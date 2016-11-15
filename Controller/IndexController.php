@@ -35,7 +35,7 @@ class IndexController extends Controller
             ->createQueryBuilder("e")
             ->select("e, p")
             ->from("LiveVotingBundle:Event", "e")
-            ->where('e.begin < :datetime')
+            ->where('e.begin < :datetime AND :datetime < e.end')
             ->orderBy('e.event', 'ASC')
             ->leftjoin('e.presentations', "p")
             ->setParameter('datetime', new \DateTime())
