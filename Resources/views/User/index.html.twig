@@ -7,7 +7,20 @@
 {% block body %}
 
     <div class="row">
-        {{ include('@LiveVoting/Parts/admin_user_toolbar.html.twig') }}
+        <div class="col-sm-5">
+            {{ include('@LiveVoting/Parts/admin_user_toolbar.html.twig') }}
+        </div>
+        {{ form_start(form) }}
+        <div class="col-sm-2">
+            {{ form_label(form.event) }}
+        </div>
+        <div class="col-sm-3" style="padding-top: 1em;">
+            {{ form_widget(form.event) }}
+        </div>
+        <div class="col-sm-2">
+            {{ form_row(form.submit) }}
+        </div>
+        {{ form_end(form) }}
     </div>
 
     {% for flashMessage in app.Session.flashbag.get('message') %}
@@ -21,6 +34,7 @@
                 <label>Total users:&nbsp;</label><b>{{ count }}</b>
             </div>
 
+            {% if entities is not empty %}
             <table class="records_list table margin-top">
                 <thead>
                     <tr>
@@ -57,6 +71,11 @@
                 {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+                <div>
+                    <p>Please select an event above to display a list of users.</p>
+                </div>
+            {% endif %}
         </div>
     </div>
 

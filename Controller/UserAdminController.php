@@ -22,15 +22,59 @@ class UserAdminController extends Controller
     /**
      * Lists all User entities.
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('LiveVotingBundle:User')->findBy(array(), array('email' => 'ASC'));
+        $entities = array();
+        $masterEvents = $this->extractRootEvents();
+
+        $form = $this->createForm(
+            'live_voting_bundle_users_by_event_type',
+            array(
+                'accessible_events' => $masterEvents
+            ),
+            array(
+                'action' => $this->generateUrl('admin_user'),
+                'method' => 'POST',
+            ));
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted())
+        {
+            $formData = $form->getData();
+            $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(
+                array(
+                    'event' => $formData['event']
+                )
+            );
+
+            $userIds = array_map(
+                function(UserEventAssociation $userEventAssociation)
+                {
+                    return $userEventAssociation->getUser()->getId();
+                },
+                $userEventAssociations
+            );
+
+            $allEntities = $em->getRepository('LiveVotingBundle:User')->findBy(array(), array('email' => 'ASC'));
+
+            $entities = array_filter(
+                $allEntities,
+                function(User $entity) use ($userIds) {
+                    if ( in_array($entity->getId(), $userIds) )
+                    {
+                        return $entity;
+                    }
+                }
+            );
+        }
         
         return $this->render('LiveVotingBundle:User:index.html.twig', array(
             'entities' => $entities,
-            'count' => count($entities)
+            'count' => count($entities),
+            'form' => $form->createView()
         ))->setCache(array( 'private' => true ));
     }
 
