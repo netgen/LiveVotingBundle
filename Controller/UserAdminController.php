@@ -22,17 +22,47 @@ class UserAdminController extends Controller
     /**
      * Lists all User entities.
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('LiveVotingBundle:User')->findAll();
+        $entities = array();
+
+        $masterEvents = $this->extractRootEvents();
+
+        $form = $this->createForm(
+            'live_voting_bundle_users_by_event_type',
+            array(
+                'accessible_events' => $masterEvents
+            ),
+            array(
+                'action' => $this->generateUrl('admin_user'),
+                'method' => 'POST',
+            ));
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted())
+        {
+            $formData = $form->getData();
+
+            $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(
+                array(
+                    'event' => $formData['event']
+                )
+            );
+
+            foreach ($userEventAssociations as $userEventAssociation)
+            {
+                $entities[] = $userEventAssociation->getUser();
+            }
+        }
 
         return $this->render('LiveVotingBundle:User:index.html.twig', array(
             'entities' => $entities,
+            'form' => $form->createView()
         ));
     }
-
 
     /**
      * Creates a new User entity.
