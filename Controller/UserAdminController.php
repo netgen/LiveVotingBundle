@@ -46,17 +46,26 @@ class UserAdminController extends Controller
         {
             $formData = $form->getData();
 
-            $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(
-                array(
-                    'event' => $formData['event']
-                )
-            );
-
-            foreach ($userEventAssociations as $userEventAssociation)
-            {
-                $entities[] = $userEventAssociation->getUser();
-            }
+            $event = $formData['event'];
         }
+        else
+        {
+            $event = $masterEvents[0];
+        }
+
+        $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(
+            array(
+                'event' => $event
+            )
+        );
+
+        $entities = array_map(
+            function(UserEventAssociation $userEventAssociation)
+            {
+                return $userEventAssociation->getUser();
+            },
+            $userEventAssociations
+        );
 
         return $this->render('LiveVotingBundle:User:index.html.twig', array(
             'entities' => $entities,
@@ -658,7 +667,10 @@ class UserAdminController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $entityRepository = $entityManager->getRepository('LiveVotingBundle:Event');
 
-        $events = $entityRepository->findAll();
+        $events = $entityRepository->findBy(
+            array(),
+            array('id' => 'DESC')
+        );
 
         $rootEvents = array();
 
