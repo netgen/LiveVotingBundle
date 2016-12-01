@@ -10,6 +10,7 @@ parameters:
     live_voting.memcached_presentation_repo.class: Netgen\LiveVotingBundle\Service\PresentationService\Impl\MemcachedPresentationRepo
     live_voting.user_event.add_form.class: Netgen\LiveVotingBundle\Form\UserEventAssociationType
     live_voting.user_event.send_one_login.class: Netgen\LiveVotingBundle\Form\OneUserEventLoginType
+    live_voting.user_event.user_by_event.class: Netgen\LiveVotingBundle\Form\UsersByEventType
 services:
 #    live_voting.example:
 #        class: %live_voting.example.class%
@@ -47,5 +48,10 @@ services:
             - {name: form.type}
     live_voting_user_send_one_login_email:
         class: '%live_voting.user_event.send_one_login.class%'
+        tags:
+            - {name: form.type}
+
+    live_voting_bundle_users_by_event_type:
+        class: '%live_voting.user_event.user_by_event.class%'
         tags:
             - {name: form.type}
