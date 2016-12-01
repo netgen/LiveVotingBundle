@@ -44,32 +44,39 @@ class UserAdminController extends Controller
         if($form->isSubmitted())
         {
             $formData = $form->getData();
-            $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(
-                array(
-                    'event' => $formData['event']
-                )
-            );
 
-            $userIds = array_map(
-                function(UserEventAssociation $userEventAssociation)
-                {
-                    return $userEventAssociation->getUser()->getId();
-                },
-                $userEventAssociations
-            );
-
-            $allEntities = $em->getRepository('LiveVotingBundle:User')->findBy(array(), array('email' => 'ASC'));
-
-            $entities = array_filter(
-                $allEntities,
-                function(User $entity) use ($userIds) {
-                    if ( in_array($entity->getId(), $userIds) )
-                    {
-                        return $entity;
-                    }
-                }
-            );
+            $event = $formData['event'];
         }
+        else
+        {
+            $event = $masterEvents[0];
+        }
+
+        $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(
+            array(
+                'event' => $event
+            )
+        );
+
+        $userIds = array_map(
+            function(UserEventAssociation $userEventAssociation)
+            {
+                return $userEventAssociation->getUser()->getId();
+            },
+            $userEventAssociations
+        );
+
+        $allEntities = $em->getRepository('LiveVotingBundle:User')->findBy(array(), array('email' => 'ASC'));
+
+        $entities = array_filter(
+            $allEntities,
+            function(User $entity) use ($userIds) {
+                if ( in_array($entity->getId(), $userIds) )
+                {
+                    return $entity;
+                }
+            }
+        );
         
         return $this->render('LiveVotingBundle:User:index.html.twig', array(
             'entities' => $entities,
@@ -673,7 +680,7 @@ class UserAdminController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $entityRepository = $entityManager->getRepository('LiveVotingBundle:Event');
 
-        $events = $entityRepository->findAll();
+        $events = $entityRepository->findBy(array(), array('id' => 'DESC'));
 
         $rootEvents = array();
 
