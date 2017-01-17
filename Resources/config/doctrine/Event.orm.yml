@@ -1,5 +1,4 @@
 Netgen\LiveVotingBundle\Entity\Event:
-
     type: entity
     table: event
     id:
@@ -32,9 +31,11 @@ Netgen\LiveVotingBundle\Entity\Event:
             type: string
             length: 255
             column: email_subject
+            nullable: true
         emailText:
             type: text
             column: email_text
+            nullable: true
     oneToMany:
         presentations:
             targetEntity: Netgen\LiveVotingBundle\Entity\Presentation
