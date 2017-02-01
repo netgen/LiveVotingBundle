@@ -357,19 +357,14 @@ class UserAdminController extends Controller
                             }
                             else
                             {
-                                $userEventAssociations = $user->getEventAssociations();
+                                $userEventAssociation = new UserEventAssociation();
 
-                                if ( $userEventAssociations->count() == 0 )
-                                {
-                                    $userEventAssociation = new UserEventAssociation();
+                                $userEventAssociation->setUser($user);
+                                $userEventAssociation->setEvent($event);
 
-                                    $userEventAssociation->setUser($user);
-                                    $userEventAssociation->setEvent($event);
-
-                                    $em = $this->getDoctrine()->getManager();
-                                    $em->persist($userEventAssociation);
-                                    $em->flush();
-                                }
+                                $em = $this->getDoctrine()->getManager();
+                                $em->persist($userEventAssociation);
+                                $em->flush();
                             }
                         }
                     }

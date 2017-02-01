@@ -491,6 +491,9 @@ class User implements UserInterface
         return $this->presentationImages;
     }
 
+    /**
+     * @return ArrayCollection|UserEventAssociation[]
+     */
     public function getEventAssociations()
     {
         return $this->eventAssociations;
