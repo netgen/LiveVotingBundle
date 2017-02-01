@@ -354,17 +354,33 @@ class UserAdminController extends Controller
                                 $em->persist($userEventAssociation);
 
                                 $em->flush();
-                            }
-                            else
-                            {
-                                $userEventAssociation = new UserEventAssociation();
+                            } else {
+                                /** @var User $userInstance */
+                                foreach ($user as $userInstance) {
+                                    $userEventAssociations = $userInstance->getEventAssociations();
 
-                                $userEventAssociation->setUser($user);
-                                $userEventAssociation->setEvent($event);
+                                    $createAssociations = true;
 
-                                $em = $this->getDoctrine()->getManager();
-                                $em->persist($userEventAssociation);
-                                $em->flush();
+                                    if($userEventAssociations->count() > 0) {
+                                        foreach($userEventAssociations as $existingAssociation) {
+                                            if ($existingAssociation->getEvent() == $event)
+                                            {
+                                                $createAssociations = false;
+                                            }
+                                        }
+                                    }
+
+                                    if ($createAssociations) {
+                                        $userEventAssociation = new UserEventAssociation();
+
+                                        $userEventAssociation->setUser($userInstance);
+                                        $userEventAssociation->setEvent($event);
+
+                                        $em = $this->getDoctrine()->getManager();
+                                        $em->persist($userEventAssociation);
+                                        $em->flush();
+                                    }
+                                }
                             }
                         }
                     }
