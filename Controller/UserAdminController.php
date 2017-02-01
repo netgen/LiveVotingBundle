@@ -41,21 +41,16 @@ class UserAdminController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted())
-        {
+        $params = array();
+
+        if($form->isSubmitted()) {
             $formData = $form->getData();
 
-            $event = $formData['event'];
-        }
-        else
-        {
-            $event = $masterEvents[0];
+            $params['event'] = $formData['event'];
         }
 
         $userEventAssociations = $em->getRepository('LiveVotingBundle:UserEventAssociation')->findBy(
-            array(
-                'event' => $event
-            )
+            $params
         );
 
         $userIds = array_map(

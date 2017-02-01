@@ -17,7 +17,7 @@ class UsersByEventType extends AbstractType
                     'class' => 'Netgen\LiveVotingBundle\Entity\Event',
                     'choices' => $options['data']['accessible_events'],
                     'label' => 'Show users for event',
-                    'required' => true,
+                    'required' => false,
                     'attr' => array( 'class' => 'form-control' )
                 )
             )
