@@ -13,6 +13,7 @@ admin_presentation_new:
 admin_presentation_create:
     path:     /{event_id}/create
     defaults: { _controller: "LiveVotingBundle:PresentationAdmin:create" }
+    requirements: { _method: post }
 
 admin_presentation_edit:
     path:     /{id}/edit
@@ -21,12 +22,12 @@ admin_presentation_edit:
 admin_presentation_update:
     path:     /{id}/update
     defaults: { _controller: "LiveVotingBundle:PresentationAdmin:update" }
-    methods: [POST, PUT]
+    requirements: { _method: post|put }
 
 admin_presentation_vote_enable:
     path:     /{id}/voting_status
     defaults: { _controller: "LiveVotingBundle:PresentationAdmin:enableDisable" }
-    methods: [PUT]
+    requirements: { _method: put }
 
 admin_presentation_delete:
     path:     /{id}/delete
