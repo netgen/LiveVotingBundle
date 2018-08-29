@@ -29,3 +29,8 @@ app/config/parameters.yml
 composer.phar
 
 Resources/public/img/faces/*
+
+.idea/LiveVotingBundle.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
