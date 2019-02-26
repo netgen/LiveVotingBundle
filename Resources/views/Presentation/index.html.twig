@@ -51,9 +51,7 @@
             <div class="clearfix"></div>
             <a href="{{ path('admin_event') }}"><button type="button" class="btn">Back</button></a>
             <a href="{{ path('admin_presentation_new', {'event_id':event.getId}) }}"><button type="button" class="btn"><i class="fa fa-plus"></i> Add presentation</button></a>
-            {% if event.events.count != 0 %}
-                <a href="{{ path('send_email_login', { 'typeOf': 0, 'eventId': event.getId }) }}"><button type="button" class="btn" title="Send email login to all users for this event"><i class="fa fa-lg fa-envelope"></i>Send email login to all users</button></a>
-            {% endif %}
+            <a href="{{ path('send_email_login', { 'typeOf': 0, 'eventId': event.getId }) }}"><button type="button" class="btn" title="Send activation email to all users for this event"><i class="fa fa-lg fa-envelope"></i>Send activation mail to all users</button></a>
         </div>
     </div>
 {% endblock %}

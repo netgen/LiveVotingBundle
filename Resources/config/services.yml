@@ -9,6 +9,7 @@ parameters:
     live_voting.doctrine_presentation_repo.class: Netgen\LiveVotingBundle\Service\PresentationService\Impl\DoctrinePresentationRepo
     live_voting.memcached_presentation_repo.class: Netgen\LiveVotingBundle\Service\PresentationService\Impl\MemcachedPresentationRepo
     live_voting.user_event.add_form.class: Netgen\LiveVotingBundle\Form\UserEventAssociationType
+    live_voting.user_child_event.add_form.class: Netgen\LiveVotingBundle\Form\UserChildEventAssociationType
     live_voting.user_event.send_one_login.class: Netgen\LiveVotingBundle\Form\OneUserEventLoginType
     live_voting.user_event.user_by_event.class: Netgen\LiveVotingBundle\Form\UsersByEventType
 services:
@@ -44,6 +45,10 @@ services:
 
     live_voting_user_event_add_form:
         class: '%live_voting.user_event.add_form.class%'
+        tags:
+            - {name: form.type}
+    live_voting_user_child_event_add_form:
+        class: '%live_voting.user_child_event.add_form.class%'
         tags:
             - {name: form.type}
     live_voting_user_send_one_login_email:

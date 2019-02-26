@@ -31,6 +31,11 @@ admin_user_event_association_add:
     defaults: {_controller: "LiveVotingBundle:UserAdmin:userEventAssociationAdd"}
     requirements: {_method: post}
 
+admin_user_child_event_association_add:
+    path: /userevent/add_child/{userId}/{masterEventId}
+    defaults: {_controller: "LiveVotingBundle:UserAdmin:userChildEventAssociationAdd"}
+    requirements: {_method: post}
+
 admin_user_event_association_remove:
     path: /{userId}/event/{eventId}/remove
     defaults: { _controller: "LiveVotingBundle:UserAdmin:userEventAssociationRemove" }

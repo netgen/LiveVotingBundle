@@ -52,8 +52,61 @@
                         <td>{{ entity.getEmail }}</td>
                         <td>
                             <ul class="table-list">
+                                {% set associatedEventArray = [] %}
+                                {% set checkArray = [] %}
+
                                 {% for eventAssociation in entity.getEventAssociations %}
-                                    <li><a href="{{ path('admin_presentation', { 'event_id': eventAssociation.getEvent.id }) }}">{{ eventAssociation.getEvent.getName }}</a></li>
+
+                                    {% set event = eventAssociation.getEvent %}
+
+                                    {% if event.getEvents.count > 0 %}
+
+                                        {% set mergeArray = {
+                                            'name': event.name,
+                                            'id': event.id
+                                        } %}
+
+                                        {% set checkArray = checkArray|merge([event.id]) %}
+
+                                        {% set children = [] %}
+
+                                        {% for checkAssociation in entity.getEventAssociations %}
+
+                                            {% if checkAssociation.getEvent.getEvent.id is defined and checkAssociation.getEvent.getEvent.id == eventAssociation.getEvent.id %}
+                                                {% set checkArray = checkArray|merge([checkAssociation.getEvent.id]) %}
+                                                {% set children = children|merge([{
+                                                    'name': checkAssociation.getEvent.name,
+                                                    'id': checkAssociation.getEvent.id
+                                                }]) %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% set mergeArray = mergeArray|merge({'children': children}) %}
+
+                                        {% set associatedEventArray = associatedEventArray|merge([mergeArray]) %}
+                                    {% else %}
+                                        {% if event.id not in checkArray %}
+                                            {% set associatedEventArray = associatedEventArray|merge([{
+                                                'name': event.name,
+                                                'id': event.id
+                                            }]) %}
+                                            {% set checkArray = checkArray|merge([event.id]) %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+
+
+                                {% for associatedEvent in associatedEventArray %}
+                                    <li>
+                                        <a href="{{ path('admin_presentation', { 'event_id': associatedEvent.id }) }}">{{ associatedEvent.name }}</a>
+                                        {% if associatedEvent.children is defined %}
+                                            <ul>
+                                                {% for child in associatedEvent.children %}
+                                                    <li> <a href="{{ path('admin_presentation', { 'event_id': child.id }) }}">{{ child.name }}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </td>

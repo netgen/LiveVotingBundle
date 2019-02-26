@@ -72,6 +72,10 @@ class UserAdminController extends Controller
                 }
             }
         );
+
+        if (empty($params) || $params['event'] == null) {
+            $entities = $allEntities;
+        }
         
         return $this->render('LiveVotingBundle:User:index.html.twig', array(
             'entities' => $entities,
@@ -208,12 +212,59 @@ class UserAdminController extends Controller
 
         $userEventAssociationAddForm = $this->userEventAssociationAddForm($id);
 
+        $childForms = [];
+
+        $associatedEventArray = [];
+        $checkedEvents = [];
+
+        /** @var Event $associatedEvent */
+        foreach ($associatedEvents as $associatedEvent) {
+            if ($associatedEvent->getEvents()->count() > 0) {
+                $associatedEventArray[$associatedEvent->getName()] = [
+                    'id' => $associatedEvent->getId()
+                ];
+
+                foreach ($associatedEvents as $checkEvent) {
+                    if (is_object($checkEvent->getEvent()) && $checkEvent->getEvent()->getId() == $associatedEvent->getId()) {
+                        $associatedEventArray[$associatedEvent->getName()]['children'][$checkEvent->getName()] = [
+                            'id' => $checkEvent->getId()
+                        ];
+                        $checkedEvents[] = $checkEvent->getId();
+                    }
+                }
+
+                $checkedEvents[] = $associatedEvent->getId();
+
+                $childForms[] = [
+                    'event_name' => $associatedEvent->getName(),
+                    'form' => $this->userChildEventAssociationAddForm($id, $associatedEvent)
+                ];
+            } else {
+                if (!in_array($associatedEvent->getId(), $checkedEvents)) {
+                    $checkedEvents[] = $associatedEvent->getId();
+                    $associatedEventArray[$associatedEvent->getName()] = [
+                        'id' => $associatedEvent->getId()
+                    ];
+                }
+            }
+        }
+
         return $this->render('LiveVotingBundle:User:edit.html.twig', array(
             'user_id' => $id,
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'associated_events' => count($associatedEvents) > 0 ? $associatedEvents : null,
-            'user_event_association_form' => $userEventAssociationAddForm->createView()
+            'associated_event_array' => count($associatedEventArray) > 0 ? $associatedEventArray : null,
+            'user_event_association_form' => $userEventAssociationAddForm->createView(),
+            'child_forms' => array_map(
+                function($childForm) {
+                    return [
+                        'name' => $childForm['event_name'],
+                        'form' => $childForm['form']->createView()
+                        ];
+                },
+                $childForms
+            )
         ))->setCache(array( 'private' => true ));
     }
 
@@ -280,9 +331,9 @@ class UserAdminController extends Controller
             ->getForm();
     }
 
-    public function importCsvAction()
+    public function createImportCsvForm()
     {
-        $rootEvents = $this->extractRootEvents();
+        $events = $this->extractEvents();
 
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('user_csv_process_import'))
@@ -292,10 +343,18 @@ class UserAdminController extends Controller
                 'class' => 'Netgen\LiveVotingBundle\Entity\Event',
                 'label' => 'Assign To Event',
                 'required' => true,
-                'choices' => $rootEvents
+                'choices' => $events
             ))
             ->add('submit', 'submit', array('label' => 'Upload csv'))
             ->getForm();
+
+        return $form;
+    }
+
+    public function importCsvAction()
+    {
+        $form = $this->createImportCsvForm();
+
         return $this->render(
             'LiveVotingBundle:User:importcsv.html.twig',
             array(
@@ -306,24 +365,14 @@ class UserAdminController extends Controller
 
     public function processImportCsvAction(Request $request)
     {
-        $form = $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_csv_process_import'))
-            ->setMethod('POST')
-            ->add('attachment', 'file')
-            ->add('event', 'entity', array(
-                'class' => 'Netgen\LiveVotingBundle\Entity\Event',
-                'label' => 'Assign To Event',
-                'required' => true
-            ))
-            ->add('submit', 'submit', array('label' => 'Upload csv'))
-            ->getForm();
-
+        $form = $this->createImportCsvForm();
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $file = $form['attachment']->getData();
 
+            /** @var Event $event */
             $event = $form['event']->getData();
 
             if (($handle = fopen($file, "r")) !== FALSE) {
@@ -351,6 +400,15 @@ class UserAdminController extends Controller
                                 $userEventAssociation->setUser($newUser);
                                 $userEventAssociation->setEvent($event);
 
+                                if ($event->getEvents()->count() == 0) {
+                                    $userMasterEventAssociation = new UserEventAssociation();
+
+                                    $userMasterEventAssociation->setUser($newUser);
+                                    $userMasterEventAssociation->setEvent($event->getEvent());
+
+                                    $em->persist($userMasterEventAssociation);
+                                }
+
                                 $em->persist($userEventAssociation);
 
                                 $em->flush();
@@ -375,6 +433,15 @@ class UserAdminController extends Controller
 
                                         $userEventAssociation->setUser($userInstance);
                                         $userEventAssociation->setEvent($event);
+
+                                        if ($event->getEvents()->count() == 0) {
+                                            $userMasterEventAssociation = new UserEventAssociation();
+
+                                            $userMasterEventAssociation->setUser($newUser);
+                                            $userMasterEventAssociation->setEvent($event->getEvent());
+
+                                            $em->persist($userMasterEventAssociation);
+                                        }
 
                                         $em = $this->getDoctrine()->getManager();
                                         $em->persist($userEventAssociation);
@@ -600,6 +667,32 @@ class UserAdminController extends Controller
         return $form;
     }
 
+    /**
+     * @param int $userId
+     * @param Event $masterEvent
+     *
+     * @return \Symfony\Component\Form\Form
+     */
+    public function userChildEventAssociationAddForm($userId, $masterEvent)
+    {
+        $events = $masterEvent->getEvents()->toArray();
+
+        $form = $this->createForm(
+            'live_voting_user_child_event_add_form',
+            array(
+                'user_id' => $userId,
+                'choices' => $events,
+                'main_event_name' => $masterEvent->getName()
+            ),
+            array(
+                'action' => $this->generateUrl('admin_user_child_event_association_add', array('userId' => $userId, 'masterEventId' => $masterEvent->getId())),
+                'method' => 'POST'
+            )
+        );
+        $form->add('submit', 'submit', array('label' => 'Add'));
+        return $form;
+    }
+
     public function userEventAssociationAddAction(Request $request, $userId)
     {
         $userEventAssociationAddForm = $this->userEventAssociationAddForm($userId);
@@ -613,6 +706,47 @@ class UserAdminController extends Controller
         $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
 
         $event = $userEventAssociationAddForm->get('event')->getData();
+
+        $userEventAssociation = $userEventAssociationEntityRepository->findBy(array(
+            'user' => $userId,
+            'event' => $event->getId()
+        ));
+
+        if (count($userEventAssociation) == 0)
+        {
+            $userEventAssociation = new UserEventAssociation();
+
+            $userEventAssociation->setEvent($event);
+            $userEventAssociation->setUser($user);
+
+            $entityManager->persist($userEventAssociation);
+            $entityManager->flush($userEventAssociation);
+        }
+
+        $url = $this->generateUrl('admin_user_edit', array('id' => $userId));
+
+        $request->getSession()->getFlashBag()->add(
+            'message', 'You have assigned the user to a new event.'
+        );
+
+        return $this->redirect($url);
+    }
+
+    public function userChildEventAssociationAddAction(Request $request, $userId, $masterEventId)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $masterEvent = $this->getDoctrine()->getRepository('LiveVotingBundle:Event')->find($masterEventId);
+
+        $userEventAssociationAddForm = $this->userChildEventAssociationAddForm($userId, $masterEvent);
+
+        $userEventAssociationAddForm->handleRequest($request);
+
+        $event = $userEventAssociationAddForm->get('event')->getData();
+
+        $userEventAssociationEntityRepository = $this->getDoctrine()->getRepository('LiveVotingBundle:UserEventAssociation');
+
+        $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
 
         $userEventAssociation = $userEventAssociationEntityRepository->findBy(array(
             'user' => $userId,
@@ -699,5 +833,15 @@ class UserAdminController extends Controller
         }
 
         return $rootEvents;
+    }
+
+    public function extractEvents()
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityRepository = $entityManager->getRepository('LiveVotingBundle:Event');
+
+        $events = $entityRepository->findBy(array(), array('id' => 'DESC'));
+
+        return $events;
     }
 }
