@@ -41,6 +41,16 @@ class IndexController extends Controller
             ->setParameter('datetime', new \DateTime())
             ->getQuery()->getResult();
         $events = $this->sortEvents($events);
+
+        /** @var User $currentUser */
+        $currentUser = $this->get('security.context')->getToken()->getUser();
+
+        $eventAssociations = $currentUser->getEventAssociations()->toArray();
+
+        $eventIds = array_map(function($eventAssociation){return $eventAssociation->getEvent()->getId();}, $eventAssociations);
+
+        $eventsForVoting = [];
+
         foreach($events as $key => $event) {
             /**
              * @var $event Event
@@ -55,6 +65,10 @@ class IndexController extends Controller
                 }
             }
             $events[$key]->hasVoting = $this->has_voting;
+
+            if (in_array($event->getId(), $eventIds)) {
+                $eventsForVoting[] = $event;
+            }
         }
 
         // Fetch first current ongoing master event
@@ -78,7 +92,7 @@ class IndexController extends Controller
 
         return $this->render('LiveVotingBundle:Index:landing.html.twig',
             array(
-                'events'=>$events,
+                'events'=>$eventsForVoting,
                 'name' => $name
             )
         );
