@@ -71,14 +71,14 @@ class IndexController extends Controller
             }
         }
 
-        // Fetch first current ongoing master event
-        $event = $this->getDoctrine()->getManager()->createQuery(
-            'SELECT e
-            FROM LiveVotingBundle:Event e
-            WHERE :datetime > e.begin
-              AND :datetime < e.end
-              AND e.event IS NULL
-            ')->setParameter('datetime', new \DateTime())->getResult();
+        $event = [];
+
+        // Fetch first current ongoing master event for the current user
+        foreach ($eventsForVoting as $eventForVoting) {
+            if (empty($eventForVoting->getPresentations()->toArray()) && !$eventForVoting->hasVoting) {
+                $event[] = $eventForVoting;
+            }
+        }
 
         if (is_array($event) && !empty($event)) {
             if (reset($event) instanceof Event) {
