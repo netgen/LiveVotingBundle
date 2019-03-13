@@ -34,7 +34,7 @@
 				</div>
 			</div>
 		{% else %}
-			<div class="col-xs-12 box shadow text-shadow light" style="background-image: url({{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
+			<div class="col-xs-12 box shadow text-shadow light" style="background-image: url(/{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
 				<div class="row vertical-align-xs">
 					<div class="col-xs-4 col-sm-1 garbage">
 						<img class="image-full" src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">

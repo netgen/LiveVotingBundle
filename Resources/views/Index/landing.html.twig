@@ -17,7 +17,7 @@
 		<div class="row vertical-align-xs">
 			<div class="col-xs-4 col-sm-1 text-center">
 				{% if event.getImage is not empty %}
-					<img class="image-full" src="{{asset('')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
+					<img class="image-full" src="/{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
 				{% else %}
 
 				{% endif %}
@@ -55,7 +55,7 @@
 	</div>
 	{% else %}
 		{#
-	<div class="col-xs-12 box light shadow text-shadow" style="background-image: url({{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
+	<div class="col-xs-12 box light shadow text-shadow" style="background-image: url(/{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
 		<div class="row vertical-align-xs">
 			<div class="col-xs-4 col-sm-1 text-center">
 				<img class="image-full" src="{{asset('bundles/livevoting/img/assets/summer-camp-logo.svg')}}">
