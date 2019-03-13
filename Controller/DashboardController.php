@@ -12,6 +12,7 @@ namespace Netgen\LiveVotingBundle\Controller;
 use Netgen\LiveVotingBundle\Entity\Event;
 use Netgen\LiveVotingBundle\Entity\Presentation;
 use Netgen\LiveVotingBundle\Entity\PresentationComment;
+use Netgen\LiveVotingBundle\Entity\UserEventAssociation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -49,18 +50,46 @@ class DashboardController extends Controller{
   }
 
   public function getLiveScheduleAction(){
-    $user = $this->get('security.context')->getToken()->getUser();
+      /** @var \Netgen\LiveVotingBundle\Entity\User $user */
+      $user = $this->get('security.context')->getToken()->getUser();
       if($user !== "anon." && method_exists($user, "getId")) {
-          $presentations = $this->getDoctrine()->getManager()->createQueryBuilder("p")
+
+          $availablePresentations = $this->getDoctrine()->getManager()->createQueryBuilder("p")
               ->select("p, v, u")
               ->from('LiveVotingBundle:presentation', 'p')
-              ->where('p.begin < :datetime')
-              ->andWhere('p.end > :datetime')
               ->leftjoin("p.votes", "v", "WITH", "v.user = :user")
               ->leftjoin("v.user", "u")
+              ->where('p.begin < :datetime')
+              ->andWhere('p.end > :datetime')
               ->setParameters(array('datetime' => new \DateTime(), "user" => $user->getId()))
               ->getQuery()
               ->getArrayResult();
+
+          $userEventAssociations = $user->getEventAssociations()->toArray();
+
+          $events = array_map(function(UserEventAssociation $userEventAssociation){
+              return $userEventAssociation->getEvent();
+          }, $userEventAssociations);
+
+          $checkPresentations = [];
+
+          /** @var Event $event */
+          foreach ($events as $event) {
+              $eventPresentations = $event->getPresentations();
+
+              foreach ($eventPresentations as $eventPresentation) {
+                  $checkPresentations[] = $eventPresentation->getId();
+              }
+          }
+
+          $presentations = [];
+
+          foreach ($availablePresentations as $availablePresentation) {
+              if (in_array($availablePresentation['id'], $checkPresentations)) {
+                  $presentations[] = $availablePresentation;
+              }
+          }
+
       } else {
           $presentations = $this->getDoctrine()->getManager()
               ->createQuery("
@@ -87,6 +116,7 @@ class DashboardController extends Controller{
               AND :datetime < e.end
               AND e.event IS NOT null
             ')->setParameter('datetime', new \DateTime())->getResult();
+
     if(is_array($event)) $event = $event[0];
     $presentations = $this->getDoctrine()->getManager()
           ->createQuery("
