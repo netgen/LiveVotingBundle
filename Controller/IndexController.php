@@ -42,21 +42,40 @@ class IndexController extends Controller
             ->getQuery()->getResult();
         $events = $this->sortEvents($events);
 
-        /** @var User $currentUser */
+        /** @var \Symfony\Component\Security\Core\User\User $currentUser */
         $currentUser = $this->get('security.context')->getToken()->getUser();
 
-        $eventAssociations = $currentUser->getEventAssociations()->toArray();
+        $userName = $currentUser->getUsername();
 
-        $eventIds = array_map(function($eventAssociation){return $eventAssociation->getEvent()->getId();}, $eventAssociations);
+        if ($userName !== 'admin') {
+            /** @var User $currentUser */
+            $currentUser = $this->getDoctrine()->getManager()->getRepository('LiveVotingBundle:User')->loadUserByUsername($userName);
 
-        $eventsForVoting = [];
+            $eventAssociations = $currentUser->getEventAssociations()->toArray();
 
-        foreach($events as $key => $event) {
+            $eventIds = array_map(function($eventAssociation){return $eventAssociation->getEvent()->getId();}, $eventAssociations);
+
+            $eventsForVoting = [];
+
+            foreach($events as $event) {
+                if (in_array($event->getId(), $eventIds)) {
+                    $eventsForVoting[] = $event;
+                }
+            }
+        } else {
+            $eventsForVoting = $events;
+        }
+
+        $event = [];
+
+        // Fetch first current ongoing master event for the current user
+        foreach ($eventsForVoting as $key => $eventForVoting) {
             /**
              * @var $event Event
              */
             $this->has_voting = false;
-            foreach($event->getPresentations() as $presentationKey => $presentation) {
+
+            foreach($eventForVoting->getPresentations() as $presentationKey => $presentation) {
                 /**
                  * @var $presentation Presentation
                  */
@@ -64,17 +83,9 @@ class IndexController extends Controller
                     $this->has_voting = true;
                 }
             }
-            $events[$key]->hasVoting = $this->has_voting;
 
-            if (in_array($event->getId(), $eventIds)) {
-                $eventsForVoting[] = $event;
-            }
-        }
+            $eventsForVoting[$key]->hasVoting = $this->has_voting;
 
-        $event = [];
-
-        // Fetch first current ongoing master event for the current user
-        foreach ($eventsForVoting as $eventForVoting) {
             if (empty($eventForVoting->getPresentations()->toArray()) && !$eventForVoting->hasVoting) {
                 $event[] = $eventForVoting;
             }
