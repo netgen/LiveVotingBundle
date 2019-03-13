@@ -492,7 +492,7 @@ class UserAdminController extends Controller
                 if ($typeOf === '0') {
                     $message = \Swift_Message::newInstance()
                         ->setSubject($emailSubject !== '' ? $emailSubject : 'CSSF & SSD 2016 workshops voting')
-                        ->setFrom(array('info@salsa-adria.hr' => 'Salsa Adria Productions'))
+                        ->setFrom(array('info@salsa-adria.hr' => 'SEASUNSALSA'))
                         ->setTo($user_email)
                         ->setBody(
                             $this->renderView(
