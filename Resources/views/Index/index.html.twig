@@ -12,7 +12,7 @@
 			<div class="col-xs-12 box shadow">
 				<div class="row vertical-align-xs">
 					<div class="col-xs-4 col-sm-1">
-						<img class="image-full" src="{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
+						<img class="image-full" src="/{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
 					</div>
 					<div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper extra-margin">
 						<div>
@@ -34,7 +34,7 @@
 				</div>
 			</div>
 		{% else %}
-			<div class="col-xs-12 box shadow text-shadow light" style="background-image: url(/{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
+			<div class="col-xs-12 box shadow text-shadow light" style="background-image: url(/{{ event.getImage ? event.getWebPath : 'img/assets/master-event.svg'}});">
 				<div class="row vertical-align-xs">
 					<div class="col-xs-4 col-sm-1 garbage">
 						<img class="image-full" src="{{asset('bundles/livevoting/img/assets/box-img.svg')}}">
@@ -124,7 +124,7 @@
 					<div class="col-xs-4 col-sm-1">
 						<div class="row">
 							<div class="col-xs-12">
-								<img class="image image-o" src="{{ asset('bundles/livevoting/img/presentations/') }}{% verbatim %}{{#if image}}{{image}}{{else}}img/assets/angry-che.png{{/if}}{% endverbatim %}">
+								<img class="image image-o" src="{{ asset('/img/presentations/') }}{% verbatim %}{{#if image}}{{image}}{{else}}img/assets/angry-che.png{{/if}}{% endverbatim %}">
 							</div>
 						</div>
 						<div class="row">
