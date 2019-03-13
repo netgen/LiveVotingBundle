@@ -28,7 +28,7 @@
 
                 {% for entity in entities %}
                     <tr>
-                        <td><img width="40px" class="image-o" src="{{asset('bundles/livevoting/')}}{{ entity[0].getImage ? entity[0].getWebPath : 'img/assets/angry-che.png'}}"/></td>
+                        <td><img width="40px" class="image-o" src="{{ entity[0].getImage ? entity[0].getWebPath : 'img/assets/angry-che.png'}}"/></td>
 
                         <td>{{ entity[0].presentationName }}</td>
                         <td>{{ entity[0].presenterName }} {{ entity[0].presenterSurname }}</td>

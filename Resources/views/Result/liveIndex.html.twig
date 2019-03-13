@@ -12,7 +12,7 @@
     <div class="col-xs-12 box shadow">
       <div class="row vertical-align-xs">
         <div class="col-xs-4 col-sm-1">
-          <img class="image-full" src="{{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
+          <img class="image-full" src="{{ event.getImage ? event.getWebPath : 'img/assets/slave-event.svg'}}">
         </div>
         <div class="col-xs-8 col-sm-6 col-lg-7 text-wrapper extra-margin">
           <div>
@@ -31,7 +31,7 @@
       </div>
     </div>
     {% else %}
-    <div class="col-xs-12 box light shadow text-shadow" style="background-image: url({{asset('bundles/livevoting/')}}{{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
+    <div class="col-xs-12 box light shadow text-shadow" style="background-image: url({{ event.getImage ? event.getWebPath : 'img/assets/master-event.png'}});">
       <div class="row vertical-align-xs">
         <div class="col-xs-4 col-sm-1 garbage">
           <img class="image-full" src="{{asset('bundles/livevoting/img/assets/summer-camp-logo.svg')}}">
