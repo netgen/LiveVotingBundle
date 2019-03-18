@@ -138,9 +138,12 @@ class EventAdminController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
+        $eventVotes = $entity->getVotes();
+
         return $this->render('LiveVotingBundle:Event:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
+            'remove_votes_enabled' => (count($eventVotes) > 0) ? true : false
         ))->setCache(array('private' => true));
     }
 
@@ -242,6 +245,27 @@ class EventAdminController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
         ));
+    }
+
+    public function deleteVotesAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $eventEntity = $em->getRepository('LiveVotingBundle:Event')->find($id);
+
+        $entities = $eventEntity->getVotes()->toArray();
+
+        foreach ($entities as $entity) {
+            $em->remove($entity);
+        }
+
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add(
+            'message', 'You have removed all votes for this event.'
+        );
+
+        return $this->redirect($this->generateUrl('admin_event_edit', ['id' => $id]))->setCache(['private' => true]);
     }
 
     /**

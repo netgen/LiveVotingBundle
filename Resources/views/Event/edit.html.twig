@@ -5,6 +5,13 @@
 {% block mainHeading %}Edit event{% endblock %}
 
 {% block body %}
+
+    {% for flashMessage in app.Session.flashbag.get('message') %}
+        <div class="alert alert-danger">
+            <div class="text">{{flashMessage}}</div>
+        </div>
+    {% endfor %}
+
     <div class="row">
         <div class="col-xs-12 col-sm-4 margin-top">
             {{ form(edit_form, {'attr':{'class':'form-horizontal'}}) }}
@@ -14,6 +21,9 @@
     <div class="row secondary-footer">
       <div class="col-xs-12">
         <a href="{{path('admin_event')}}"><button type="button" class="btn">Back</button></a>
+        {% if remove_votes_enabled %}
+            <a href="{{ path('admin_event_deletevotes', {'id': entity.id}) }}"><button type="button" class="btn">Remove all votes for this event</button></a>
+        {% endif %}
       </div>
     </div>
 

@@ -23,3 +23,8 @@ admin_event_update:
 admin_event_delete:
     path:     /{id}/delete
     defaults: { _controller: "LiveVotingBundle:EventAdmin:delete" }
+
+admin_event_vote_delete:
+    path:     /{id}/vote/delete
+    defaults: { _controller: "LiveVotingBundle:EventAdmin:deleteVotes" }
+
