@@ -28,7 +28,7 @@
 		{% if associated_events is not null %}
 			<div class="col-xs-12 col-sm-4 margin-top box" style="display:block;">
 				<h5 style="padding-top: 20px;">Associated Events:</h5>
-				<ul>
+				<ul class="events">
 					{% for associated_event_name, associated_event in associated_event_array %}
 						<li><a href="{{ path('admin_presentation', { 'event_id': associated_event.id }) }}">{{ associated_event_name }}</a> <a href="{{ path('admin_user_event_association_remove', {userId: user_id, eventId: associated_event.id}) }}" title="Remove this event"><button type="button" class="btn icon" style="margin: 0 0 10px 0;"><i class="fa fa-lg fa-times" style="font-size: medium; color: #E6008A;"></i></button></a>
 							{% if associated_event.children is defined %}
@@ -48,6 +48,9 @@
 	<div class="row secondary-footer">
 		<div class="col-xs-12">
 			<a href="{{path('admin_user')}}"><button type="button" class="btn">Back</button></a>
+			{% if remove_votes_enabled %}
+				<a href="{{ path('admin_user_vote_delete', {'id': entity.id}) }}"><button type="button" class="btn">Remove all votes by this user</button></a>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}
