@@ -24,6 +24,10 @@ admin_user_delete:
     path:     /{id}/delete
     defaults: { _controller: "LiveVotingBundle:UserAdmin:delete"}
 
+admin_user_vote_delete:
+    path: /{id}/vote/delete
+    defaults: { _controller: "LiveVotingBundle:UserAdmin:deleteVotes"}
+
 #USER EVENT ASSOCIATION#
 
 admin_user_event_association_add:

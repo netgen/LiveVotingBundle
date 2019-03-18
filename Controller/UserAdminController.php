@@ -249,6 +249,8 @@ class UserAdminController extends Controller
             }
         }
 
+        $userVotes = $entity->getVotes();
+
         return $this->render('LiveVotingBundle:User:edit.html.twig', array(
             'user_id' => $id,
             'entity' => $entity,
@@ -264,7 +266,8 @@ class UserAdminController extends Controller
                         ];
                 },
                 $childForms
-            )
+            ),
+            'remove_votes_enabled' => (count($userVotes) > 0) ? true : false
         ))->setCache(array( 'private' => true ));
     }
 
@@ -813,6 +816,27 @@ class UserAdminController extends Controller
         );
 
         return $this->redirect($this->generateUrl('admin_user'));
+    }
+
+    public function deleteVotesAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('LiveVotingBundle:User')->find($id);
+
+        $userVotes = $user->getVotes()->toArray();
+
+        foreach ($userVotes as $vote) {
+            $em->remove($vote);
+        }
+
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add(
+            'message', 'All votes for this user have been removed.'
+        );
+
+        return $this->redirect($this->generateUrl('admin_user_edit', ['id' => $id]));
     }
 
     public function extractRootEvents()

@@ -60,7 +60,6 @@ Netgen\LiveVotingBundle\Entity\User:
         eventAssociations:
             targetEntity: Netgen\LiveVotingBundle\Entity\UserEventAssociation
             mappedBy: user
-
-#        vote:
-#            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
-#            mappedBy: user_id
+        votes:
+            targetEntity: Netgen\LiveVotingBundle\Entity\Vote
+            mappedBy: user
