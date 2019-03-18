@@ -22,7 +22,7 @@
       <div class="col-xs-12">
         <a href="{{path('admin_event')}}"><button type="button" class="btn">Back</button></a>
         {% if remove_votes_enabled %}
-            <a href="{{ path('admin_event_deletevotes', {'id': entity.id}) }}"><button type="button" class="btn">Remove all votes for this event</button></a>
+            <a href="{{ path('admin_event_vote_delete', {'id': entity.id}) }}"><button type="button" class="btn">Remove all votes for this event</button></a>
         {% endif %}
       </div>
     </div>
