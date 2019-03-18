@@ -157,9 +157,12 @@ class PresentationAdminController extends Controller
         // Not needed in edit page
         $editForm->remove('votingEnabled');
 
+        $presentationVotes = $entity->getVotes()->toArray();
+
         return $this->render('LiveVotingBundle:Presentation:edit.html.twig', array(
             'entity'      => $entity,
-            'form'   => $editForm->createView()
+            'form'   => $editForm->createView(),
+            'remove_votes_enabled' => (count($presentationVotes) > 0) ? true : false
         ))->setCache(array( 'private' => true ));
     }
 
@@ -244,6 +247,27 @@ class PresentationAdminController extends Controller
 
         return $this->redirect($this->generateUrl('admin_presentation', array('event_id' => $entity->getEvent()->getId() )));
 
+    }
+
+    public function deleteVotesAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $presentationEntity = $em->getRepository('LiveVotingBundle:Presentation')->find($id);
+
+        $entities = $presentationEntity->getVotes()->toArray();
+
+        foreach ($entities as $entity) {
+            $em->remove($entity);
+        }
+
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add(
+            'message', 'You have removed all votes for this presentation.'
+        );
+
+        return $this->redirect($this->generateUrl('admin_presentation_edit', ['id' => $id]))->setCache(['private' => true]);
     }
 
     /**

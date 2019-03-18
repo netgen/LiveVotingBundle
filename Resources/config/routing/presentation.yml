@@ -32,3 +32,7 @@ admin_presentation_vote_enable:
 admin_presentation_delete:
     path:     /{id}/delete
     defaults: { _controller: "LiveVotingBundle:PresentationAdmin:delete" }
+
+admin_presentation_vote_delete:
+    path:     /{id}/vote/delete
+    defaults: { _controller: "LiveVotingBundle:PresentationAdmin:deleteVotes" }
