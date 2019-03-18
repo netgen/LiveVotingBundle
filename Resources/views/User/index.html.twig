@@ -40,6 +40,7 @@
                     <tr>
                         <th>Email</th>
                         <th class="event-column">Events</th>
+                        <th>Voted</th>
                         <th>Enabled</th>
                         <th>Edit</th>
                         <th>Activation Email</th>
@@ -47,11 +48,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for entity in entities %}
+                {% for index, entity in entities %}
                     <tr>
                         <td>{{ entity.getEmail }}</td>
                         <td>
-                            <ul class="table-list">
+                            <ul class="table-list events">
                                 {% set associatedEventArray = [] %}
                                 {% set checkArray = [] %}
 
@@ -98,9 +99,9 @@
 
                                 {% for associatedEvent in associatedEventArray %}
                                     <li>
-                                        <a href="{{ path('admin_presentation', { 'event_id': associatedEvent.id }) }}">{{ associatedEvent.name }}</a>
-                                        {% if associatedEvent.children is defined %}
-                                            <ul>
+                                        <a href="{{ path('admin_presentation', { 'event_id': associatedEvent.id }) }}">{{ associatedEvent.name }}</a> {% if associatedEvent.children is defined and associatedEvent.children|length > 0 %}<a href="#event-{{ associatedEvent.id }}-user-{{ index }}" data-toggle="collapse" data-target="#event-{{ associatedEvent.id }}-user-{{ index }}" class="collapse-toggler"><i class="fa fa-arrow-down"></i></a>{% endif %}
+                                        {% if associatedEvent.children is defined and associatedEvent.children|length > 0 %}
+                                            <ul id="event-{{ associatedEvent.id }}-user-{{ index }}" class="collapse">
                                                 {% for child in associatedEvent.children %}
                                                     <li> <a href="{{ path('admin_presentation', { 'event_id': child.id }) }}">{{ child.name }}</a></li>
                                                 {% endfor %}
@@ -109,6 +110,9 @@
                                     </li>
                                 {% endfor %}
                             </ul>
+                        </td>
+                        <td class="text-center">
+                            {{ entity.votes|length > 0 ? '<i class="fa fa-lg fa-check"></i> ' : '<i class="fa fa-lg fa-times"></i> ' }}
                         </td>
                         <td class="text-center">{{ entity.getEnabled ? '<i class="fa fa-lg fa-check"></i> ' : '<i class="fa fa-lg fa-times"></i> ' }}</td>
                         <td>
@@ -135,4 +139,21 @@
     <div class="row secondary-footer">
         {{ include('@LiveVoting/Parts/admin_user_toolbar.html.twig') }}
     </div>
+
+    <script type="text/javascript">
+        var collapseTogglers = document.querySelectorAll(".collapse-toggler");
+
+        collapseTogglers.forEach(function(collapseToggler){
+            var arrow = collapseToggler.querySelector("i");
+            collapseToggler.onclick = function(){
+                if (arrow.classList.contains('fa-arrow-down')) {
+                    arrow.classList.remove('fa-arrow-down');
+                    arrow.classList.add('fa-arrow-up');
+                } else {
+                    arrow.classList.remove('fa-arrow-up');
+                    arrow.classList.add('fa-arrow-down');
+                }
+            };
+        });
+    </script>
 {% endblock %}

@@ -80,6 +80,11 @@ class User implements UserInterface
     private $presentations;
 
     /**
+     * @var ArrayCollection
+     */
+    private $votes;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $presentationImages;
@@ -98,6 +103,7 @@ class User implements UserInterface
         $this->presentations = new ArrayCollection();
         $this->presentationComments = new ArrayCollection();
         $this->eventAssociations = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     /**
@@ -497,5 +503,13 @@ class User implements UserInterface
     public function getEventAssociations()
     {
         return $this->eventAssociations;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getVotes()
+    {
+        return $this->votes;
     }
 }

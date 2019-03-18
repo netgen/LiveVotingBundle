@@ -334,3 +334,7 @@ table#view-presentations form {
 #winner h1, #winner h2 {
 	color: #ffffff;
 }
+
+ul.events, ul.events ul {
+	padding-left: 20px;
+}

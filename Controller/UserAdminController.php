@@ -724,13 +724,19 @@ class UserAdminController extends Controller
 
             $entityManager->persist($userEventAssociation);
             $entityManager->flush($userEventAssociation);
+
+            $request->getSession()->getFlashBag()->add(
+                'message', 'You have assigned the user to ' . $event->getName() . '.'
+            );
+        } else {
+            $request->getSession()->getFlashBag()->add(
+                'message', 'Event ' . $event->getName() . ' has already been assigned to this user.'
+            );
         }
 
         $url = $this->generateUrl('admin_user_edit', array('id' => $userId));
 
-        $request->getSession()->getFlashBag()->add(
-            'message', 'You have assigned the user to a new event.'
-        );
+
 
         return $this->redirect($url);
     }
@@ -745,33 +751,56 @@ class UserAdminController extends Controller
 
         $userEventAssociationAddForm->handleRequest($request);
 
-        $event = $userEventAssociationAddForm->get('event')->getData();
+        $events = $userEventAssociationAddForm->get('event')->getData()->toArray();
 
         $userEventAssociationEntityRepository = $this->getDoctrine()->getRepository('LiveVotingBundle:UserEventAssociation');
 
         $user = $this->getDoctrine()->getRepository('LiveVotingBundle:User')->find($userId);
 
-        $userEventAssociation = $userEventAssociationEntityRepository->findBy(array(
-            'user' => $userId,
-            'event' => $event->getId()
-        ));
+        $userEventAssociationCount = 0;
 
-        if (count($userEventAssociation) == 0)
-        {
-            $userEventAssociation = new UserEventAssociation();
+        foreach ($events as $event) {
+            $userEventAssociation = $userEventAssociationEntityRepository->findBy(array(
+                'user' => $user,
+                'event' => $event
+            ));
 
-            $userEventAssociation->setEvent($event);
-            $userEventAssociation->setUser($user);
+            if (count($userEventAssociation) == 0) {
+                $userEventAssociation = new UserEventAssociation();
 
-            $entityManager->persist($userEventAssociation);
-            $entityManager->flush($userEventAssociation);
+                $userEventAssociation->setEvent($event);
+                $userEventAssociation->setUser($user);
+
+                $entityManager->persist($userEventAssociation);
+
+                $userEventAssociationCount++;
+            } else {
+                $request->getSession()->getFlashBag()->add(
+                    'message', 'Event ' . $event->getName() . ' has already been assigned to this user.'
+                );
+            }
         }
+
+        $entityManager->flush();
 
         $url = $this->generateUrl('admin_user_edit', array('id' => $userId));
 
-        $request->getSession()->getFlashBag()->add(
-            'message', 'You have assigned the user to a new event.'
-        );
+        $eventCountMessage = '';
+
+        if ($userEventAssociationCount > 0) {
+            $eventCountMessage = 'You have assigned the user to ' . $userEventAssociationCount . ' events.';
+
+            if ($userEventAssociationCount == 1) {
+                $eventCountMessage = 'You have assigned the user to ' . $userEventAssociationCount . ' event.';
+            }
+        }
+
+        if ($eventCountMessage !== '') {
+            $request->getSession()->getFlashBag()->add(
+                'message', $eventCountMessage
+            );
+        }
+
 
         return $this->redirect($url);
     }

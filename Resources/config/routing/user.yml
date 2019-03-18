@@ -36,7 +36,7 @@ admin_user_event_association_add:
     requirements: {_method: post}
 
 admin_user_child_event_association_add:
-    path: /userevent/add_child/{userId}/{masterEventId}
+    path: /userevent/add_children/{userId}/{masterEventId}
     defaults: {_controller: "LiveVotingBundle:UserAdmin:userChildEventAssociationAdd"}
     requirements: {_method: post}
 

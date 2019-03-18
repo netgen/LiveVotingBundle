@@ -13,6 +13,7 @@ class UserChildEventAssociationType extends AbstractType
             'class' => 'Netgen\LiveVotingBundle\Entity\Event',
             'label' => 'Assign To Secondary Event - ' . $options['data']['main_event_name'],
             'required' => false,
+            'multiple' => true,
             'attr' => array('class' => 'form-control')
         );
 
