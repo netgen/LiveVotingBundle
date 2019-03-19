@@ -432,6 +432,7 @@ class UserAdminController extends Controller
                                     }
 
                                     if ($createAssociations) {
+                                        $em = $this->getDoctrine()->getManager();
                                         $userEventAssociation = new UserEventAssociation();
 
                                         $userEventAssociation->setUser($userInstance);
@@ -440,13 +441,13 @@ class UserAdminController extends Controller
                                         if ($event->getEvents()->count() == 0) {
                                             $userMasterEventAssociation = new UserEventAssociation();
 
-                                            $userMasterEventAssociation->setUser($newUser);
+                                            $userMasterEventAssociation->setUser($userInstance);
                                             $userMasterEventAssociation->setEvent($event->getEvent());
 
                                             $em->persist($userMasterEventAssociation);
                                         }
 
-                                        $em = $this->getDoctrine()->getManager();
+
                                         $em->persist($userEventAssociation);
                                         $em->flush();
                                     }
