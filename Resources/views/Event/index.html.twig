@@ -1,5 +1,7 @@
 {% extends 'LiveVotingBundle::baseAdmin.html.twig' %}
 
+{% import _self as display %}
+
 {% block title %}Events|LiveVoting{% endblock %}
 
 {% block mainHeading %}Events{% endblock %}
@@ -33,48 +35,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for entity in entities %}
-                    <tr>
-                        <td><a href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">{{ entity.name }}</a></td>
-                        <td>{{ entity.stateName }}</td>
-                        <td>
-                            <a href="{{ path('admin_event_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
-                        </td>
-                        <td class="text-center">
-                            <a href="{{ path('admin_presentation', { 'event_id': entity.id }) }}"><button type="button" class="btn">View</button></a>
-                        </td>
+                {% for eventGroup in sortArray %}
+                    {{ display.event_row(eventGroup['masterEvent'], voteStats) }}
 
-                        <td>
-                            {{ voteStats[entity.id]['count'] }}
-                        </td>
-                        <td>
-                            {% if voteStats[entity.id]['distinct_user'] is defined %}
-                                {{ voteStats[entity.id]['distinct_user'] }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-
-
-                        {#
-                        <td>
-                            <a href="{{ path('admin_question', { 'event_id': entity.id }) }}">Questions ({{ entity.getQuestions()|length }})</a>
-                        </td>
-                        #}
-
-                        <td>
-                            <!--<a class='{{ entity.allowViewingResults ? 'btn-success':'btn-warning'  }}' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">
-                            <span class='glyphicon glyphicon-eye-{{ entity.allowViewingResults ? 'open':'close'  }}'></span>
-                            Live
-                        </a>-->
-                            <a href="{{ path('result_view', { 'event_id': entity.id }) }}"><button type="button" class="btn">Final</button></a>
-                        </td>
-
-                        <td>
-                            <a href="{{ path('admin_event_delete', { 'id': entity.id }) }}"><button type="button" class="btn icon"><i class="fa fa-lg fa-times"></i></button></a>
-                        </td>
-
-                    </tr>
+                    {% for childEvent in eventGroup['childEvents'] %}
+                        {{ display.event_row(childEvent, voteStats, true) }}
+                    {% endfor %}
                 {% endfor %}
                 </tbody>
             </table>
@@ -85,3 +51,37 @@
         {{ include('@LiveVoting/Parts/admin_event_toolbar.html.twig') }}
     </div>
 {% endblock %}
+
+{% macro event_row(entity, voteStats, indent = false) %}
+    <tr>
+        <td>{% if indent==true %}<i class="fa fa-minus"></i> &nbsp;{% endif %}<a href="{{ path('admin_presentation', { 'event_id': entity.id }) }}">{{ entity.name }}</a></td>
+        <td>{{ entity.stateName }}</td>
+        <td>
+            <a href="{{ path('admin_event_edit', { 'id': entity.id }) }}"><button type="button" class="btn">Edit</button></a>
+        </td>
+        <td class="text-center">
+            <a href="{{ path('admin_presentation', { 'event_id': entity.id }) }}"><button type="button" class="btn">View</button></a>
+        </td>
+        <td>
+            {{ voteStats[entity.id]['count'] }}
+        </td>
+        <td>
+            {% if voteStats[entity.id]['distinct_user'] is defined %}
+                {{ voteStats[entity.id]['distinct_user'] }}
+            {% else %}
+                0
+            {% endif %}
+        </td>
+        <td>
+            <!--<a class='{{ entity.allowViewingResults ? 'btn-success':'btn-warning'  }}' target="_blank" href="{{ path('result', { 'event_id': entity.id }) }}">
+            <span class='glyphicon glyphicon-eye-{{ entity.allowViewingResults ? 'open':'close'  }}'></span>
+            Live
+            </a>-->
+            <a href="{{ path('result_view', { 'event_id': entity.id }) }}"><button type="button" class="btn">Final</button></a>
+        </td>
+
+        <td>
+            <a href="{{ path('admin_event_delete', { 'id': entity.id }) }}"><button type="button" class="btn icon"><i class="fa fa-lg fa-times"></i></button></a>
+        </td>
+    </tr>
+{% endmacro %}

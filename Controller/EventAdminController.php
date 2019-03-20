@@ -31,11 +31,24 @@ class EventAdminController extends Controller
         $entities = $em->getRepository('LiveVotingBundle:Event')->findAll();
 
         $voteStatistics = array();
+
+        $sortArray = [];
+
         foreach ($entities as $entity) {
             $votes = $em->getRepository('LiveVotingBundle:Vote')->findByEvent($entity);
             $voteStatistics[$entity->getId()]['count'] = count($votes);
 
+            if (!$entity->getEvent()) {
+                $sortArray[] = [
+                    'masterEvent' => $entity,
+                    'childEvents' => $entity->getEvents()
+                ];
+            }
         }
+
+        usort($sortArray, function($a, $b){
+            return strcmp($a['masterEvent']->getName(), $b['masterEvent']->getName());
+        });
 
         $stmt = $this->getDoctrine()
             ->getConnection()
@@ -54,6 +67,7 @@ class EventAdminController extends Controller
 
         return $this->render('LiveVotingBundle:Event:index.html.twig', array(
             'entities' => $entities,
+            'sortArray' => $sortArray,
             'voteStats' => $voteStatistics
         ))->setCache(array('private' => true));
     }
