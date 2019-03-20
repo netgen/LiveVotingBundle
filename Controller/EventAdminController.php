@@ -38,11 +38,16 @@ class EventAdminController extends Controller
             $votes = $em->getRepository('LiveVotingBundle:Vote')->findByEvent($entity);
             $voteStatistics[$entity->getId()]['count'] = count($votes);
 
-            if (!$entity->getEvent()) {
-                $sortArray[] = [
-                    'masterEvent' => $entity,
-                    'childEvents' => $entity->getEvents()
+            if (!$entity->getEvent() || $entity->getEvent()->getId() == $entity->getId()) {
+                $tmpArray = [
+                    'masterEvent' => $entity
                 ];
+
+                if (!$entity->getEvent()) {
+                    $tmpArray['childEvents'] = $entity->getEvents();
+                }
+
+                $sortArray[] = $tmpArray;
             }
         }
 

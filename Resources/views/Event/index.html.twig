@@ -38,9 +38,12 @@
                 {% for eventGroup in sortArray %}
                     {{ display.event_row(eventGroup['masterEvent'], voteStats) }}
 
-                    {% for childEvent in eventGroup['childEvents'] %}
-                        {{ display.event_row(childEvent, voteStats, true) }}
-                    {% endfor %}
+                    {% if eventGroup['childEvents'] is defined %}
+                        {% for childEvent in eventGroup['childEvents'] %}
+                            {{ display.event_row(childEvent, voteStats, true) }}
+                        {% endfor %}
+                    {% endif %}
+
                 {% endfor %}
                 </tbody>
             </table>
