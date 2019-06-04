@@ -586,7 +586,7 @@
                     var sortMe = [], presentationNames = [], presentationValues = [];//, counter = 0;
                     for (var i in data['presentations']) {
                         var pres = {};
-                        pres.presentationName = data['presentations'][i]['presentationName'];
+                        pres.presentationName = data['presentations'][i]['presentationName'] + "<br /><b>" + data['presentations'][i]['presenterName'] + "\n" + data['presentations'][i]['presenterSurname'] + "</b>";
                         // Check if page is not loaded. If yes set all values to zero so that chart animates
                         if (firstLoad === true) {
                             pres.presentationValue = 0;
